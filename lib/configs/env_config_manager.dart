@@ -9,9 +9,7 @@ class EnvConfigManager {
   static EnvConfigManager? _instance;
 
   static EnvConfigManager get instance {
-    if (_instance == null) {
-      throw Exception('EnvConfigManager is not initialized');
-    }
+    assert(_instance != null, 'EnvConfigManager is not initialized');
     return _instance!;
   }
 
