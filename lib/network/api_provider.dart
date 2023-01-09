@@ -15,7 +15,7 @@ class ApiProvider {
     required this.localStorageManager,
   });
 
-  void init({required String baseUrl}) {
+  Future<void> init({required String baseUrl}) async {
     final BaseOptions options = BaseOptions(
       baseUrl: baseUrl,
       connectTimeout: NetworkConstants.connectTimeout,
@@ -26,6 +26,8 @@ class ApiProvider {
     );
 
     dio.options = options;
+
+    await setAuthorizationHeader();
   }
 
   void setHeader({required String accessToken}) {

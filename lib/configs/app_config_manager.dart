@@ -19,6 +19,6 @@ abstract class AppConfigManager {
     final baseUrl = EnvConfigManager.instance.baseUrl;
 
     final apiProvider = sl<ApiProvider>();
-    apiProvider.init(baseUrl: baseUrl);
+    await apiProvider.init(baseUrl: baseUrl);
   }
 }
