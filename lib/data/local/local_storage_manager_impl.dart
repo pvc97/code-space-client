@@ -11,62 +11,51 @@ class LocalStorageManagerImpl extends LocalStorageManager {
   });
 
   @override
-  String? getString(String key) {
-    return sharedPreferences.getString(key);
+  Future<T?> read<T>(String key, {T? defaultValue}) {
+    if (T is String) {
+      return Future<T?>.value(
+          (sharedPreferences.getString(key) ?? defaultValue) as T?);
+    } else if (T is bool) {
+      return Future<T?>.value(
+          (sharedPreferences.getBool(key) ?? defaultValue) as T?);
+    } else if (T is int) {
+      return Future<T?>.value(
+          (sharedPreferences.getInt(key) ?? defaultValue) as T?);
+    } else if (T is double) {
+      return Future<T?>.value(
+          (sharedPreferences.getDouble(key) ?? defaultValue) as T?);
+    } else if (T is List<String>) {
+      return Future<T?>.value(
+          (sharedPreferences.getStringList(key) ?? defaultValue) as T?);
+    } else {
+      return Future<T?>.value(defaultValue);
+    }
   }
 
   @override
-  Future<bool> setString(String key, String value) async {
-    return sharedPreferences.setString(key, value);
+  Future<bool> write<T>(String key, T value) {
+    if (T is String) {
+      return sharedPreferences.setString(key, value as String);
+    } else if (T is bool) {
+      return sharedPreferences.setBool(key, value as bool);
+    } else if (T is int) {
+      return sharedPreferences.setInt(key, value as int);
+    } else if (T is double) {
+      return sharedPreferences.setDouble(key, value as double);
+    } else if (T is List<String>) {
+      return sharedPreferences.setStringList(key, value as List<String>);
+    } else {
+      return Future<bool>.value(false);
+    }
   }
 
   @override
-  bool? getBool(String key) {
-    return sharedPreferences.getBool(key);
-  }
-
-  @override
-  Future<bool> setBool(String key, bool value) {
-    return sharedPreferences.setBool(key, value);
-  }
-
-  @override
-  int? getInt(String key) {
-    return sharedPreferences.getInt(key);
-  }
-
-  @override
-  Future<bool> setInt(String key, int value) {
-    return sharedPreferences.setInt(key, value);
-  }
-
-  @override
-  double? getDouble(String key) {
-    return sharedPreferences.getDouble(key);
-  }
-
-  @override
-  Future<bool> setDouble(String key, double value) {
-    return sharedPreferences.setDouble(key, value);
-  }
-
-  @override
-  FutureOr<List<String>?> getStringList(String key) {
-    return sharedPreferences.getStringList(key);
-  }
-
-  @override
-  Future<bool> setStringList(String key, List<String> value) {
-    return sharedPreferences.setStringList(key, value);
-  }
-
-  @override
-  Future<bool> remove(String key) {
+  Future<bool> delete(String key) {
     return sharedPreferences.remove(key);
   }
 
   @override
-  Future<bool> clear() {
+  Future<bool> deleteAll() {
     return sharedPreferences.clear();
   }
 }

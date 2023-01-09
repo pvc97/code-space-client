@@ -1,9 +1,11 @@
 import 'package:code_space_client/configs/env_config_manager.dart';
 import 'package:code_space_client/configs/environment_type.dart';
-import 'package:code_space_client/const/network/url_constants.dart';
+import 'package:code_space_client/constants/network_constants.dart';
+import 'package:code_space_client/injection_container.dart';
+import 'package:code_space_client/network/api_provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class AppConfigManager {
+abstract class AppConfigManager {
   AppConfigManager._();
 
   static Future<void> init({required EnvironmentType environmentType}) async {
@@ -11,12 +13,12 @@ class AppConfigManager {
 
     EnvConfigManager.init(
       environmentType: environmentType,
-      baseUrl: dotenv.env[UrlConstants.baseUrl]!,
+      baseUrl: dotenv.env[NetworkConstants.baseUrl]!,
     );
 
     final baseUrl = EnvConfigManager.instance.baseUrl;
 
-    // TODO: Initialize api provider with baseUrl
-    // await apiProvider.initApiProvider(baseUrl);
+    final apiProvider = sl<ApiProvider>();
+    apiProvider.init(baseUrl: baseUrl);
   }
 }
