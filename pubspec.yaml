@@ -42,6 +42,7 @@ dependencies:
   shared_preferences: ^2.0.15
   get_it: ^7.2.0
   json_annotation: ^4.7.0
+  pretty_dio_logger: ^1.2.0-beta-1
 
 dev_dependencies:
   flutter_test:

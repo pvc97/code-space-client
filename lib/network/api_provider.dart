@@ -5,6 +5,8 @@ import 'package:dio/dio.dart';
 
 import 'package:code_space_client/constants/network_constants.dart';
 import 'package:code_space_client/data/local/local_storage_manager.dart';
+import 'package:flutter/foundation.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class ApiProvider {
   final Dio dio;
@@ -26,6 +28,18 @@ class ApiProvider {
     );
 
     dio.options = options;
+
+    if (kDebugMode) {
+      dio.interceptors.add(
+        PrettyDioLogger(
+          requestHeader: true,
+          requestBody: true,
+          responseBody: true,
+          responseHeader: false,
+          compact: false,
+        ),
+      );
+    }
 
     await setAuthorizationHeader();
   }
