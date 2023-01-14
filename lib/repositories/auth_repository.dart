@@ -1,5 +1,5 @@
 import 'package:code_space_client/models/user_model.dart';
-import 'package:code_space_client/services/auth/auth_service.dart';
+import 'package:code_space_client/services/auth_service.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 class AuthRepository {
