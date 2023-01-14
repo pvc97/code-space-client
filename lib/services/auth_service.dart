@@ -1,4 +1,5 @@
-import 'package:code_space_client/models/user_auth_model.dart';
+import 'package:code_space_client/constants/url_constants.dart';
+import 'package:code_space_client/models/token_model.dart';
 import 'package:code_space_client/network/api_provider.dart';
 
 class AuthService {
@@ -6,18 +7,18 @@ class AuthService {
 
   AuthService(this._apiProvider);
 
-  Future<UserAuthModel> login({
+  Future<TokenModel> login({
     required String userName,
     required String password,
   }) async {
     final response = await _apiProvider.post(
-      '/auth/login',
+      UrlConstants.login,
       params: {
-        'userName': userName,
+        'username': userName,
         'password': password,
       },
     );
 
-    return UserAuthModel.fromJson(response?.data);
+    return TokenModel.fromJson(response?.data['data']);
   }
 }

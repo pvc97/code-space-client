@@ -5,7 +5,9 @@ part 'user_model.g.dart';
 
 @JsonSerializable()
 class UserModel {
+  @JsonKey(name: 'id')
   final String userId;
+  @JsonKey(name: 'username')
   final String userName;
   final String name;
   final String email;

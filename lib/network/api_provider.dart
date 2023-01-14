@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:code_space_client/models/user_auth_model.dart';
+import 'package:code_space_client/constants/spref_key.dart';
+import 'package:code_space_client/models/token_model.dart';
 import 'package:dio/dio.dart';
 
 import 'package:code_space_client/constants/network_constants.dart';
@@ -41,28 +42,20 @@ class ApiProvider {
       );
     }
 
-    await setAuthorizationHeader();
+    await loadHeader();
   }
 
-  void setHeader({required String accessToken}) {
-    final headers = {
-      'Authorization': 'Bearer $accessToken',
-    };
-
-    dio.options.headers = headers;
+  set accessToken(String accessToken) {
+    dio.options.headers["Authorization"] = 'Bearer $accessToken';
   }
 
-  Future<void> setAuthorizationHeader() async {
-    var headers = <String, dynamic>{};
-    final String? userAuth =
-        await localStorageManager.read<String>(NetworkConstants.userAuth);
-    if (userAuth != null && userAuth.isNotEmpty) {
-      final userAuthModel = UserAuthModel.fromJson(jsonDecode(userAuth));
-      headers = {
-        'Authorization': 'Bearer ${userAuthModel.accessToken}',
-      };
+  Future<void> loadHeader() async {
+    final String? tokenModelStr =
+        await localStorageManager.read<String>(SPrefKey.tokenModel);
+    if (tokenModelStr != null && tokenModelStr.isNotEmpty) {
+      final tokenModel = TokenModel.fromJson(jsonDecode(tokenModelStr));
+      dio.options.headers["Authorization"] = 'Bearer ${tokenModel.accessToken}';
     }
-    dio.options.headers = headers;
   }
 
   Future<Response?> post(
