@@ -1,4 +1,4 @@
-abstract class SPrefKey {
+class SPrefKey {
   SPrefKey._();
 
   static const String userModel = 'userModel';
