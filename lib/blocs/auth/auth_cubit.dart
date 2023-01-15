@@ -17,7 +17,7 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit(
     this.authRepository,
     this.localStorage,
-  ) : super(AuthState.unknown());
+  ) : super(AuthState.authenticated());
 
   void login({required String username, required String password}) async {
     try {
@@ -37,6 +37,39 @@ class AuthCubit extends Cubit<AuthState> {
         ),
       );
     } catch (e) {
+      emit(
+        state.copyWith(
+          user: null,
+          authStatus: AuthStatus.unauthenticated,
+        ),
+      );
+    }
+  }
+
+  void logout() async {
+    localStorage.deleteAll();
+
+    emit(
+      state.copyWith(
+        user: null,
+        authStatus: AuthStatus.unauthenticated,
+      ),
+    );
+  }
+
+  void checkAuth() async {
+    final userJson = await localStorage.read<String>(SPrefKey.userModel);
+
+    if (userJson != null) {
+      final user = UserModel.fromJson(jsonDecode(userJson));
+
+      emit(
+        state.copyWith(
+          user: user,
+          authStatus: AuthStatus.authenticated,
+        ),
+      );
+    } else {
       emit(
         state.copyWith(
           user: null,
