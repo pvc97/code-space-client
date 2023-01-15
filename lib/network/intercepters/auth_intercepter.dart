@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:code_space_client/constants/spref_key.dart';
+import 'package:code_space_client/constants/status_code_constants.dart';
 import 'package:code_space_client/constants/url_constants.dart';
 import 'package:code_space_client/models/token_model.dart';
 import 'package:dio/dio.dart';
@@ -10,14 +11,25 @@ class AuthIntercepter extends InterceptorsWrapper {
   final LocalStorageManager localStorage;
   final ApiProvider apiProvider;
 
+  int? _lastErrorStatus;
+
   AuthIntercepter({
     required this.localStorage,
     required this.apiProvider,
   });
 
   @override
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
+    _lastErrorStatus = response.statusCode;
+    return handler.next(response);
+  }
+
+  @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
-    if (err.response?.statusCode == 401) {
+    if (err.response?.statusCode == StatusCodeConstants.code401 &&
+        _lastErrorStatus != StatusCodeConstants.code401) {
+      _lastErrorStatus = StatusCodeConstants.code401;
+
       final tokenModelStr =
           await localStorage.read<String>(SPrefKey.tokenModel);
 
@@ -33,6 +45,7 @@ class AuthIntercepter extends InterceptorsWrapper {
       }
     }
 
+    _lastErrorStatus = err.response?.statusCode;
     return handler.next(err);
   }
 
@@ -46,7 +59,7 @@ class AuthIntercepter extends InterceptorsWrapper {
       },
     );
 
-    if (response?.statusCode == 200) {
+    if (response?.statusCode == StatusCodeConstants.code200) {
       final tokenModel = TokenModel.fromJson(response?.data['data']);
       apiProvider.accessToken = tokenModel.accessToken;
       await localStorage.write<String>(
