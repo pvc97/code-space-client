@@ -18,7 +18,10 @@ class HomeScreen extends StatelessWidget {
           child: const Text('Get User'),
           onPressed: () async {
             try {
-              await sl<UserService>().getUserInfo();
+              await Future.wait([
+                sl<UserService>().getUserInfo(),
+                sl<UserService>().getUserInfo(),
+              ]);
             } on CustomError catch (e) {
               debugPrint(e.message);
             }

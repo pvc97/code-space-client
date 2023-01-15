@@ -24,22 +24,20 @@ class AuthIntercepter extends QueuedInterceptorsWrapper {
   });
 
   @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-    logger.d('statusCode: ${response.statusCode}}');
-    return handler.next(response);
-  }
-
-  @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == StatusCodeConstants.code401) {
-      logger.d('--------PUT INTO QUEUE');
-      logger.d('HEADER: ${err.requestOptions.headers}');
-
       final errorAccessToken = (err.requestOptions
           .headers['Authorization']); // Result: 'Bearer $accessToken'
 
       final dioAccessToken = apiProvider.accessToken;
 
+      // TODO: Handle case when calling multiple request at the same time
+      // first request send refresh token request and success
+      // second request use this access token to send request
+      // but this access token is expired, onError DOES NOT call again
+      // To represent this case, we need to add breakpoint at the line call apiProvider.dio.request below
+      // and wait to access token is expired and continue.
+      // But this case is really rare, so we don't handle it now
       if (errorAccessToken != dioAccessToken) {
         // Replace old access token with new access token from dio
         final headers = Map<String, dynamic>.from(err.requestOptions.headers);
