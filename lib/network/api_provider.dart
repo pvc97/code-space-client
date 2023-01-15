@@ -37,7 +37,7 @@ class ApiProvider {
           requestBody: true,
           responseBody: true,
           responseHeader: false,
-          compact: false,
+          compact: true,
         ),
       );
     }
@@ -55,6 +55,8 @@ class ApiProvider {
   set accessToken(String accessToken) {
     dio.options.headers["Authorization"] = 'Bearer $accessToken';
   }
+
+  String get accessToken => dio.options.headers["Authorization"] ?? '';
 
   Future<void> loadHeader() async {
     final String? tokenModelStr =

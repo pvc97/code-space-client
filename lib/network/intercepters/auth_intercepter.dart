@@ -8,17 +8,15 @@ import 'package:dio/dio.dart';
 import 'package:code_space_client/data/local/local_storage_manager.dart';
 import 'package:code_space_client/network/api_provider.dart';
 
-// Use QueuedInterceptorsWrapper get refresh token sequentially
-// when multiple requests are sent at the same time (all of this token is expired)
-// If use InterceptorsWrapper with _lastErrorStatus,
-// So when request is refreshing token, another request will not refresh token
-// => Error 401 will go to bloc
-// => User have to login again
+/// Use QueuedInterceptorsWrapper get refresh token sequentially
+/// when multiple requests are sent at the same time (all of this token is expired)
+/// If use InterceptorsWrapper with _lastErrorStatus,
+/// So when request is refreshing token, another request will not refresh token
+/// => Error 401 will go to bloc
+/// => User have to login again
 class AuthIntercepter extends QueuedInterceptorsWrapper {
   final LocalStorageManager localStorage;
   final ApiProvider apiProvider;
-
-  int? _lastErrorStatus;
 
   AuthIntercepter({
     required this.localStorage,
@@ -27,18 +25,39 @@ class AuthIntercepter extends QueuedInterceptorsWrapper {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    _lastErrorStatus = response.statusCode;
+    logger.d('statusCode: ${response.statusCode}}');
     return handler.next(response);
   }
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
-    // If last error status is 401, we don't need to resend request
-    // to prevent infinite loop
-    // Only handle 401 error once
-    if (err.response?.statusCode == StatusCodeConstants.code401 &&
-        _lastErrorStatus != StatusCodeConstants.code401) {
-      _lastErrorStatus = StatusCodeConstants.code401;
+    if (err.response?.statusCode == StatusCodeConstants.code401) {
+      logger.d('--------PUT INTO QUEUE');
+      logger.d('HEADER: ${err.requestOptions.headers}');
+
+      final errorAccessToken = (err.requestOptions
+          .headers['Authorization']); // Result: 'Bearer $accessToken'
+
+      final dioAccessToken = apiProvider.accessToken;
+
+      if (errorAccessToken != dioAccessToken) {
+        // Replace old access token with new access token from dio
+        final headers = Map<String, dynamic>.from(err.requestOptions.headers);
+        headers['Authorization'] = dioAccessToken;
+
+        final resendRespone = await apiProvider.dio.request(
+          err.requestOptions.path,
+          data: err.requestOptions.data,
+          queryParameters: err.requestOptions.queryParameters,
+          options: Options(
+            headers: headers,
+            method: err.requestOptions.method,
+            contentType: 'application/json; charset=utf-8',
+            responseType: ResponseType.json,
+          ),
+        );
+        return handler.resolve(resendRespone);
+      }
 
       final tokenModelStr =
           await localStorage.read<String>(SPrefKey.tokenModel);
@@ -55,7 +74,6 @@ class AuthIntercepter extends QueuedInterceptorsWrapper {
       }
     }
 
-    _lastErrorStatus = err.response?.statusCode;
     return handler.next(err);
   }
 
