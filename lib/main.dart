@@ -3,12 +3,16 @@ import 'package:code_space_client/configs/environment_type.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Di.init();
   await AppConfigManager.init(environmentType: EnvironmentType.dev);
+
+  // Remove the hash from the URL
+  setPathUrlStrategy();
 
   runApp(const MyApp());
 }
