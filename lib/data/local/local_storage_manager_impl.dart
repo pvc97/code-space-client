@@ -12,40 +12,47 @@ class LocalStorageManagerImpl extends LocalStorageManager {
 
   @override
   Future<T?> read<T>(String key, {T? defaultValue}) {
-    if (T is String) {
-      return Future<T?>.value(
-          (sharedPreferences.getString(key) ?? defaultValue) as T?);
-    } else if (T is bool) {
-      return Future<T?>.value(
-          (sharedPreferences.getBool(key) ?? defaultValue) as T?);
-    } else if (T is int) {
-      return Future<T?>.value(
-          (sharedPreferences.getInt(key) ?? defaultValue) as T?);
-    } else if (T is double) {
-      return Future<T?>.value(
-          (sharedPreferences.getDouble(key) ?? defaultValue) as T?);
-    } else if (T is List<String>) {
-      return Future<T?>.value(
-          (sharedPreferences.getStringList(key) ?? defaultValue) as T?);
-    } else {
-      return Future<T?>.value(defaultValue);
+    // In dart: DO NOT use T is String
+    // USE T == String instead or switch case
+    switch (T) {
+      case String:
+        return Future<T?>.value(
+            (sharedPreferences.getString(key) ?? defaultValue) as T?);
+      case bool:
+        return Future<T?>.value(
+            (sharedPreferences.getBool(key) ?? defaultValue) as T?);
+
+      case int:
+        return Future<T?>.value(
+            (sharedPreferences.getInt(key) ?? defaultValue) as T?);
+      case double:
+        return Future<T?>.value(
+            (sharedPreferences.getDouble(key) ?? defaultValue) as T?);
+
+      case List<String>:
+        return Future<T?>.value(
+            (sharedPreferences.getStringList(key) ?? defaultValue) as T?);
+
+      default:
+        return Future<T?>.value(defaultValue);
     }
   }
 
   @override
   Future<bool> write<T>(String key, T value) {
-    if (T is String) {
-      return sharedPreferences.setString(key, value as String);
-    } else if (T is bool) {
-      return sharedPreferences.setBool(key, value as bool);
-    } else if (T is int) {
-      return sharedPreferences.setInt(key, value as int);
-    } else if (T is double) {
-      return sharedPreferences.setDouble(key, value as double);
-    } else if (T is List<String>) {
-      return sharedPreferences.setStringList(key, value as List<String>);
-    } else {
-      return Future<bool>.value(false);
+    switch (T) {
+      case String:
+        return sharedPreferences.setString(key, value as String);
+      case bool:
+        return sharedPreferences.setBool(key, value as bool);
+      case int:
+        return sharedPreferences.setInt(key, value as int);
+      case double:
+        return sharedPreferences.setDouble(key, value as double);
+      case List<String>:
+        return sharedPreferences.setStringList(key, value as List<String>);
+      default:
+        return Future<bool>.value(false);
     }
   }
 

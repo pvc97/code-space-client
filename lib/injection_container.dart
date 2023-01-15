@@ -4,6 +4,7 @@ import 'package:code_space_client/data/local/local_storage_manager_impl.dart';
 import 'package:code_space_client/network/api_provider.dart';
 import 'package:code_space_client/repositories/auth_repository.dart';
 import 'package:code_space_client/services/auth_service.dart';
+import 'package:code_space_client/services/user_service.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,15 +21,20 @@ abstract class Di {
     );
 
     sl.registerLazySingleton<ApiProvider>(
-      () => ApiProvider(dio: Dio(), localStorageManager: sl()),
+      () => ApiProvider(
+        dio: Dio(),
+        localStorageManager: sl(),
+      ),
     );
 
-    sl.registerLazySingleton<AuthService>(() => AuthService(sl()));
+    sl.registerLazySingleton<AuthService>(() => AuthService(sl(), sl()));
 
     sl.registerLazySingleton<AuthRepository>(
       () => AuthRepository(authService: sl()),
     );
 
     sl.registerFactory<AuthCubit>(() => AuthCubit(sl(), sl()));
+
+    sl.registerLazySingleton<UserService>(() => UserService(sl()));
   }
 }

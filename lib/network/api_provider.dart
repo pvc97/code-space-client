@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:code_space_client/constants/spref_key.dart';
 import 'package:code_space_client/models/token_model.dart';
+import 'package:code_space_client/network/intercepters/auth_intercepter.dart';
 import 'package:dio/dio.dart';
-
 import 'package:code_space_client/constants/network_constants.dart';
 import 'package:code_space_client/data/local/local_storage_manager.dart';
 import 'package:flutter/foundation.dart';
@@ -41,6 +41,13 @@ class ApiProvider {
         ),
       );
     }
+
+    dio.interceptors.add(
+      AuthIntercepter(
+        localStorage: localStorageManager,
+        apiProvider: this,
+      ),
+    );
 
     await loadHeader();
   }

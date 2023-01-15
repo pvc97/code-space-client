@@ -25,17 +25,18 @@ class AuthIntercepter extends InterceptorsWrapper {
         final tokenModel = TokenModel.fromJson(jsonDecode(tokenModelStr));
         await _refreshToken(refreshToken: tokenModel.refreshToken);
 
-        final resendRespone = await apiProvider.post(
+        final resendRespone = await apiProvider.dio.request(
           err.requestOptions.path,
-          params: err.requestOptions.data,
         );
 
-        handler.resolve(resendRespone!);
+        return handler.resolve(resendRespone);
       }
     }
+
+    return handler.next(err);
   }
 
-  Future<TokenModel> _refreshToken({
+  Future<void> _refreshToken({
     required String refreshToken,
   }) async {
     final response = await apiProvider.post(
@@ -45,13 +46,14 @@ class AuthIntercepter extends InterceptorsWrapper {
       },
     );
 
-    final tokenModel = TokenModel.fromJson(response?.data);
-
-    apiProvider.accessToken = tokenModel.accessToken;
-
-    await localStorage.write<String>(
-        SPrefKey.tokenModel, jsonEncode(tokenModel.toJson()));
-
-    return tokenModel;
+    if (response?.statusCode == 200) {
+      final tokenModel = TokenModel.fromJson(response?.data['data']);
+      apiProvider.accessToken = tokenModel.accessToken;
+      await localStorage.write<String>(
+          SPrefKey.tokenModel, jsonEncode(tokenModel.toJson()));
+    } else {
+      // Invalid refresh token
+      await localStorage.delete(SPrefKey.tokenModel);
+    }
   }
 }
