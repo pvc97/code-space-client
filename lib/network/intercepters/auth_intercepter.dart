@@ -3,11 +3,18 @@ import 'package:code_space_client/constants/spref_key.dart';
 import 'package:code_space_client/constants/status_code_constants.dart';
 import 'package:code_space_client/constants/url_constants.dart';
 import 'package:code_space_client/models/token_model.dart';
+import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:dio/dio.dart';
 import 'package:code_space_client/data/local/local_storage_manager.dart';
 import 'package:code_space_client/network/api_provider.dart';
 
-class AuthIntercepter extends InterceptorsWrapper {
+// Use QueuedInterceptorsWrapper get refresh token sequentially
+// when multiple requests are sent at the same time (all of this token is expired)
+// If use InterceptorsWrapper with _lastErrorStatus,
+// So when request is refreshing token, another request will not refresh token
+// => Error 401 will go to bloc
+// => User have to login again
+class AuthIntercepter extends QueuedInterceptorsWrapper {
   final LocalStorageManager localStorage;
   final ApiProvider apiProvider;
 
@@ -55,6 +62,7 @@ class AuthIntercepter extends InterceptorsWrapper {
   Future<void> _refreshToken({
     required String refreshToken,
   }) async {
+    logger.d('Refresh token');
     final response = await apiProvider.post(
       UrlConstants.refreshToken,
       params: {
