@@ -33,7 +33,7 @@ abstract class Di {
       () => AuthRepository(authService: sl()),
     );
 
-    sl.registerFactory<AuthCubit>(() => AuthCubit(sl(), sl()));
+    sl.registerLazySingleton<AuthCubit>(() => AuthCubit(sl(), sl()));
 
     sl.registerLazySingleton<UserService>(() => UserService(sl()));
   }

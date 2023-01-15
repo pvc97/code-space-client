@@ -1,7 +1,6 @@
 part of 'auth_cubit.dart';
 
 enum AuthStatus {
-  unknown,
   authenticated,
   unauthenticated,
 }
@@ -15,8 +14,8 @@ class AuthState extends Equatable {
     this.user,
   });
 
-  factory AuthState.unknown() {
-    return const AuthState(authStatus: AuthStatus.unknown);
+  factory AuthState.authenticated() {
+    return const AuthState(authStatus: AuthStatus.unauthenticated);
   }
 
   @override
