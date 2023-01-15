@@ -26,6 +26,9 @@ class AuthIntercepter extends InterceptorsWrapper {
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
+    // If last error status is 401, we don't need to resend request
+    // to prevent infinite loop
+    // Only handle 401 error once
     if (err.response?.statusCode == StatusCodeConstants.code401 &&
         _lastErrorStatus != StatusCodeConstants.code401) {
       _lastErrorStatus = StatusCodeConstants.code401;
