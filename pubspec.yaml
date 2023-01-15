@@ -45,7 +45,6 @@ dependencies:
   pretty_dio_logger: 1.2.0-beta-1
   jwt_decoder: 2.0.1
   equatable: 2.0.5
-  synchronized: 3.0.1
 
 dev_dependencies:
   flutter_test:
