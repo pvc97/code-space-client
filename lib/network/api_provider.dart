@@ -2,20 +2,17 @@ import 'dart:convert';
 
 import 'package:code_space_client/constants/spref_key.dart';
 import 'package:code_space_client/models/token_model.dart';
-import 'package:code_space_client/network/intercepters/auth_intercepter.dart';
 import 'package:dio/dio.dart';
 import 'package:code_space_client/constants/network_constants.dart';
 import 'package:code_space_client/data/local/local_storage_manager.dart';
-import 'package:flutter/foundation.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class ApiProvider {
   final Dio dio;
-  final LocalStorageManager localStorageManager;
+  final LocalStorageManager localStorage;
 
   ApiProvider({
     required this.dio,
-    required this.localStorageManager,
+    required this.localStorage,
   });
 
   Future<void> init({required String baseUrl}) async {
@@ -30,25 +27,6 @@ class ApiProvider {
 
     dio.options = options;
 
-    if (kDebugMode) {
-      dio.interceptors.add(
-        PrettyDioLogger(
-          requestHeader: true,
-          requestBody: true,
-          responseBody: true,
-          responseHeader: false,
-          compact: true,
-        ),
-      );
-    }
-
-    dio.interceptors.add(
-      AuthIntercepter(
-        localStorage: localStorageManager,
-        apiProvider: this,
-      ),
-    );
-
     await loadHeader();
   }
 
@@ -60,7 +38,7 @@ class ApiProvider {
 
   Future<void> loadHeader() async {
     final String? tokenModelStr =
-        await localStorageManager.read<String>(SPrefKey.tokenModel);
+        await localStorage.read<String>(SPrefKey.tokenModel);
     if (tokenModelStr != null && tokenModelStr.isNotEmpty) {
       final tokenModel = TokenModel.fromJson(jsonDecode(tokenModelStr));
       dio.options.headers["Authorization"] = 'Bearer ${tokenModel.accessToken}';

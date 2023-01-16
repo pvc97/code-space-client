@@ -6,7 +6,7 @@ import 'package:code_space_client/network/api_provider.dart';
 class UserService {
   final ApiProvider apiProvider;
 
-  UserService(this.apiProvider);
+  UserService({required this.apiProvider});
 
   Future<UserModel> getUserInfo() async {
     final response = await apiProvider.get(UrlConstants.userInfo);

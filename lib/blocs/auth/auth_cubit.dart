@@ -14,10 +14,10 @@ class AuthCubit extends Cubit<AuthState> {
   final AuthRepository authRepository;
   final LocalStorageManager localStorage;
 
-  AuthCubit(
-    this.authRepository,
-    this.localStorage,
-  ) : super(AuthState.authenticated());
+  AuthCubit({
+    required this.authRepository,
+    required this.localStorage,
+  }) : super(AuthState.authenticated());
 
   void login({required String username, required String password}) async {
     try {
