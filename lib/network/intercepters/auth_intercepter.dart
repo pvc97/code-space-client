@@ -19,6 +19,8 @@ import 'package:code_space_client/network/api_provider.dart';
 /// This Interceptor has a bug when retry with dio.fetch(requestOptions)
 /// if has error, no error will be thrown
 /// https://github.com/flutterchina/dio/issues/1612
+/// Right now doesn't have any solution for this bug >.<
+/// TODO: Check github issue to see if there is any solution
 class AuthIntercepter extends QueuedInterceptorsWrapper {
   final LocalStorageManager localStorage;
   final ApiProvider apiProvider;
@@ -40,10 +42,10 @@ class AuthIntercepter extends QueuedInterceptorsWrapper {
       // If they are different, it means that the access token has been refreshed
       // => Do not refresh token again, just retry request with new access token
       if (errorAccessToken != apiProvider.accessToken) {
-        await _retry(err.requestOptions).then(
+        _retry(err.requestOptions).then(
           (r) => handler.resolve(r),
           onError: (e) {
-            handler.reject(e);
+            handler.reject(e); // With this bug, this line will never be reached
           },
         );
         return;
@@ -57,9 +59,10 @@ class AuthIntercepter extends QueuedInterceptorsWrapper {
         final tokenModel = TokenModel.fromJson(jsonDecode(tokenModelStr));
         await _refreshToken(refreshToken: tokenModel.refreshToken);
 
-        await _retry(err.requestOptions).then(
+        _retry(err.requestOptions).then(
           (r) => handler.resolve(r),
-          onError: (e) => handler.reject(e),
+          onError: (e) => handler
+              .reject(e), // With this bug, this line will never be reached
         );
         return;
       }
@@ -82,8 +85,6 @@ class AuthIntercepter extends QueuedInterceptorsWrapper {
       },
     );
 
-    await Future.delayed(const Duration(seconds: 5));
-
     if (response?.statusCode == StatusCodeConstants.code200) {
       final tokenModel = TokenModel.fromJson(response?.data['data']);
 
@@ -94,9 +95,9 @@ class AuthIntercepter extends QueuedInterceptorsWrapper {
       await localStorage.write<String>(
           SPrefKey.tokenModel, jsonEncode(tokenModel.toJson()));
     } else {
-      // Delete tokenModel from local storage if refresh token is invalid
+      // Delete local storage data if refresh token is invalid
       // User have to login again
-      await localStorage.delete(SPrefKey.tokenModel);
+      await localStorage.deleteAll();
     }
   }
 }
