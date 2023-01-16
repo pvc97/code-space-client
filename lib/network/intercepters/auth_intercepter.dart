@@ -8,12 +8,19 @@ import 'package:dio/dio.dart';
 import 'package:code_space_client/data/local/local_storage_manager.dart';
 import 'package:code_space_client/network/api_provider.dart';
 
-/// Use QueuedInterceptorsWrapper get refresh token sequentially
-/// when multiple requests are sent at the same time (all of this token is expired)
-/// If use InterceptorsWrapper with _lastErrorStatus,
-/// So when request is refreshing token, another request will not refresh token
-/// => Error 401 will go to bloc
-/// => User have to login again
+/// This Interceptor is inpired by official example of Dio
+/// https://github.com/flutterchina/dio/blob/develop/example/lib/queued_interceptor_crsftoken.dart
+///
+/// Use QueuedInterceptorsWrapper to get refresh token sequentially
+/// when multiple requests are sent at the same time, and all of them have expired access token
+/// => Only one request will be sent to refresh token
+/// => Other requests will be queued and use the new access token from the first request
+///
+/// This Interceptor has a bug when retry with dio.fetch(requestOptions)
+/// if has error, no error will be thrown
+/// https://github.com/flutterchina/dio/issues/1612
+/// Right now doesn't have any solution for this bug >.<
+/// TODO: Check github issue to see if there is any solution
 class AuthIntercepter extends QueuedInterceptorsWrapper {
   final LocalStorageManager localStorage;
   final ApiProvider apiProvider;
@@ -25,38 +32,26 @@ class AuthIntercepter extends QueuedInterceptorsWrapper {
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
+    logger.d('AuthIntercepter onError: ${err.message}');
     if (err.response?.statusCode == StatusCodeConstants.code401) {
-      final errorAccessToken = (err.requestOptions
-          .headers['Authorization']); // Result: 'Bearer $accessToken'
+      // errorAccessToken: 'Bearer accessToken'
+      // This access token is expired and cause error 401
+      final errorAccessToken = (err.requestOptions.headers['Authorization']);
 
-      final dioAccessToken = apiProvider.accessToken;
-
-      // TODO: Handle case when calling multiple request at the same time
-      // first request send refresh token request and success
-      // second request use this access token to send request
-      // but this access token is expired, onError DOES NOT call again
-      // To represent this case, we need to add breakpoint at the line call apiProvider.dio.request below
-      // and wait to access token is expired and continue.
-      // But this case is really rare, so we don't handle it now
-      if (errorAccessToken != dioAccessToken) {
-        // Replace old access token with new access token from dio
-        final headers = Map<String, dynamic>.from(err.requestOptions.headers);
-        headers['Authorization'] = dioAccessToken;
-
-        final resendRespone = await apiProvider.dio.request(
-          err.requestOptions.path,
-          data: err.requestOptions.data,
-          queryParameters: err.requestOptions.queryParameters,
-          options: Options(
-            headers: headers,
-            method: err.requestOptions.method,
-            contentType: 'application/json; charset=utf-8',
-            responseType: ResponseType.json,
-          ),
+      // Compare error access token with current access token from dio
+      // If they are different, it means that the access token has been refreshed
+      // => Do not refresh token again, just retry request with new access token
+      if (errorAccessToken != apiProvider.accessToken) {
+        _retry(err.requestOptions).then(
+          (r) => handler.resolve(r),
+          onError: (e) {
+            handler.reject(e); // With this bug, this line will never be reached
+          },
         );
-        return handler.resolve(resendRespone);
+        return;
       }
 
+      // Read refreshToken from local storage to refresh token
       final tokenModelStr =
           await localStorage.read<String>(SPrefKey.tokenModel);
 
@@ -64,20 +59,24 @@ class AuthIntercepter extends QueuedInterceptorsWrapper {
         final tokenModel = TokenModel.fromJson(jsonDecode(tokenModelStr));
         await _refreshToken(refreshToken: tokenModel.refreshToken);
 
-        final resendRespone = await apiProvider.dio.request(
-          err.requestOptions.path,
+        _retry(err.requestOptions).then(
+          (r) => handler.resolve(r),
+          onError: (e) => handler
+              .reject(e), // With this bug, this line will never be reached
         );
-
-        return handler.resolve(resendRespone);
+        return;
       }
     }
 
     return handler.next(err);
   }
 
-  Future<void> _refreshToken({
-    required String refreshToken,
-  }) async {
+  Future<Response<dynamic>> _retry(RequestOptions requestOptions) async {
+    requestOptions.headers['Authorization'] = apiProvider.accessToken;
+    return apiProvider.dio.fetch(requestOptions);
+  }
+
+  Future<void> _refreshToken({required String refreshToken}) async {
     logger.d('Refresh token');
     final response = await apiProvider.post(
       UrlConstants.refreshToken,
@@ -88,12 +87,17 @@ class AuthIntercepter extends QueuedInterceptorsWrapper {
 
     if (response?.statusCode == StatusCodeConstants.code200) {
       final tokenModel = TokenModel.fromJson(response?.data['data']);
+
+      // Update new access token to dio
       apiProvider.accessToken = tokenModel.accessToken;
+
+      // Save new tokenModel to local storage
       await localStorage.write<String>(
           SPrefKey.tokenModel, jsonEncode(tokenModel.toJson()));
     } else {
-      // Invalid refresh token
-      await localStorage.delete(SPrefKey.tokenModel);
+      // Delete local storage data if refresh token is invalid
+      // User have to login again
+      await localStorage.deleteAll();
     }
   }
 }

@@ -10,10 +10,10 @@ class AuthService {
   final ApiProvider apiProvider;
   final LocalStorageManager localStorage;
 
-  AuthService(
-    this.apiProvider,
-    this.localStorage,
-  );
+  AuthService({
+    required this.apiProvider,
+    required this.localStorage,
+  });
 
   Future<TokenModel> login({
     required String userName,

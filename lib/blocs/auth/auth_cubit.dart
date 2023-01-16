@@ -14,10 +14,10 @@ class AuthCubit extends Cubit<AuthState> {
   final AuthRepository authRepository;
   final LocalStorageManager localStorage;
 
-  AuthCubit(
-    this.authRepository,
-    this.localStorage,
-  ) : super(AuthState.authenticated());
+  AuthCubit({
+    required this.authRepository,
+    required this.localStorage,
+  }) : super(AuthState.authenticated());
 
   void login({required String username, required String password}) async {
     try {
@@ -58,24 +58,30 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void checkAuth() async {
-    final userJson = await localStorage.read<String>(SPrefKey.userModel);
+    final listData = await Future.wait([
+      localStorage.read<String>(SPrefKey.userModel),
+      localStorage.read<String>(SPrefKey.tokenModel),
+    ]);
+    final userJson = listData[0];
+    final tokenJson = listData[1];
 
-    if (userJson != null) {
-      final user = UserModel.fromJson(jsonDecode(userJson));
-
-      emit(
-        state.copyWith(
-          user: user,
-          authStatus: AuthStatus.authenticated,
-        ),
-      );
-    } else {
+    if (userJson == null || tokenJson == null) {
+      await localStorage.deleteAll();
       emit(
         state.copyWith(
           user: null,
           authStatus: AuthStatus.unauthenticated,
         ),
       );
+      return;
     }
+
+    final user = UserModel.fromJson(jsonDecode(userJson));
+    emit(
+      state.copyWith(
+        user: user,
+        authStatus: AuthStatus.authenticated,
+      ),
+    );
   }
 }
