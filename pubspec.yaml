@@ -38,7 +38,7 @@ dependencies:
   flutter_bloc: 8.1.1
   logger: 1.1.0
   flutter_dotenv: 5.0.2
-  dio: 4.0.6
+  dio: 4.0.4
   shared_preferences: 2.0.15
   get_it: 7.2.0
   json_annotation: 4.7.0
