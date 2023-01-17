@@ -21,7 +21,7 @@ import 'package:code_space_client/network/api_provider.dart';
 /// https://github.com/flutterchina/dio/issues/1612
 /// Right now doesn't have any solution for this bug >.<
 /// TODO: Check github issue to see if there is any solution
-class AuthIntercepter extends QueuedInterceptorsWrapper {
+class AuthIntercepter extends InterceptorsWrapper {
   final LocalStorageManager localStorage;
   final ApiProvider apiProvider;
 
@@ -42,12 +42,11 @@ class AuthIntercepter extends QueuedInterceptorsWrapper {
       // If they are different, it means that the access token has been refreshed
       // => Do not refresh token again, just retry request with new access token
       if (errorAccessToken != apiProvider.accessToken) {
-        _retry(err.requestOptions).then(
-          (r) => handler.resolve(r),
-          onError: (e) {
-            handler.reject(e); // With this bug, this line will never be reached
-          },
-        );
+        await _retry(err.requestOptions).then((r) {
+          handler.resolve(r);
+        }, onError: (e) {
+          handler.reject(e);
+        });
         return;
       }
 
@@ -59,11 +58,11 @@ class AuthIntercepter extends QueuedInterceptorsWrapper {
         final tokenModel = TokenModel.fromJson(jsonDecode(tokenModelStr));
         await _refreshToken(refreshToken: tokenModel.refreshToken);
 
-        _retry(err.requestOptions).then(
-          (r) => handler.resolve(r),
-          onError: (e) => handler
-              .reject(e), // With this bug, this line will never be reached
-        );
+        await _retry(err.requestOptions).then((r) {
+          handler.resolve(r);
+        }, onError: (e) {
+          handler.reject(e);
+        });
         return;
       }
     }
