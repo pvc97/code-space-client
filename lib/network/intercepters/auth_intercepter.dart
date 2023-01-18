@@ -25,7 +25,7 @@ class AuthIntercepter extends InterceptorsWrapper {
   final LocalStorageManager localStorage;
   final ApiProvider apiProvider;
 
-  final tokenDio = Dio();
+  final freelanceDio = Dio();
 
   AuthIntercepter({
     required this.localStorage,
@@ -34,9 +34,9 @@ class AuthIntercepter extends InterceptorsWrapper {
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
-    logger.d('AuthIntercepter onError: ${err.message}');
+    // logger.d('AuthIntercepter onError: ${err.response?.statusCode}');
+    apiProvider.dio.interceptors.errorLock.lock();
     if (err.response?.statusCode == StatusCodeConstants.code401) {
-      apiProvider.dio.interceptors.errorLock.lock();
       // errorAccessToken: 'Bearer accessToken'
       // This access token is expired and cause error 401
       final errorAccessToken = (err.requestOptions.headers['Authorization']);
@@ -45,8 +45,15 @@ class AuthIntercepter extends InterceptorsWrapper {
       // If they are different, it means that the access token has been refreshed
       // => Do not refresh token again, just retry request with new access token
       if (errorAccessToken != apiProvider.accessToken) {
-        apiProvider.dio.interceptors.errorLock.unlock();
-        return handler.resolve(await _retry(err.requestOptions));
+        try {
+          final res = await _retry(err.requestOptions);
+          apiProvider.dio.interceptors.errorLock.unlock();
+          // Note: when call handler.resolve(res), PrettyDioLogger don't log response
+          return handler.resolve(res);
+        } on DioError catch (retryError) {
+          apiProvider.dio.interceptors.errorLock.unlock();
+          return handler.reject(retryError);
+        }
       }
 
       // Read refreshToken from local storage to refresh token
@@ -58,8 +65,15 @@ class AuthIntercepter extends InterceptorsWrapper {
           final tokenModel = TokenModel.fromJson(jsonDecode(tokenModelStr));
           await _refreshToken(refreshToken: tokenModel.refreshToken);
 
-          apiProvider.dio.interceptors.errorLock.unlock();
-          return handler.resolve(await _retry(err.requestOptions));
+          try {
+            final res = await _retry(err.requestOptions);
+            apiProvider.dio.interceptors.errorLock.unlock();
+            // Note: when call handler.resolve(res), PrettyDioLogger don't log response
+            return handler.resolve(res);
+          } on DioError catch (retryError) {
+            apiProvider.dio.interceptors.errorLock.unlock();
+            return handler.reject(retryError);
+          }
         } catch (e) {
           apiProvider.dio.interceptors.errorLock.unlock();
           return handler.reject(err);
@@ -72,8 +86,15 @@ class AuthIntercepter extends InterceptorsWrapper {
   }
 
   Future<Response<dynamic>> _retry(RequestOptions requestOptions) async {
-    requestOptions.headers['Authorization'] = apiProvider.accessToken;
-    return apiProvider.dio.fetch(requestOptions);
+    // Use another dio instance to retry request with same reason in _refreshToken
+    try {
+      freelanceDio.options = apiProvider.dio.options.copyWith();
+      requestOptions.headers['Authorization'] = apiProvider.accessToken;
+      final response = await freelanceDio.fetch(requestOptions);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<void> _refreshToken({required String refreshToken}) async {
@@ -82,9 +103,9 @@ class AuthIntercepter extends InterceptorsWrapper {
       // If I still use apiProvider.dio and if refresh token is invalid
       // => DioError occurs but errorLock is still locked, no thing can handle this error
       // So I have to create a new dio instance to refresh token to avoid deadlock
-      tokenDio.options = apiProvider.dio.options.copyWith();
+      freelanceDio.options = apiProvider.dio.options.copyWith();
       logger.d('Refresh token');
-      final response = await tokenDio.post(
+      final response = await freelanceDio.post(
         UrlConstants.refreshToken,
         data: {
           'refreshToken': refreshToken,
