@@ -8,19 +8,23 @@ import 'package:dio/dio.dart';
 import 'package:code_space_client/data/local/local_storage_manager.dart';
 import 'package:code_space_client/network/api_provider.dart';
 
-/// This Interceptor is inpired by official example of Dio
-/// https://github.com/flutterchina/dio/blob/develop/example/lib/queued_interceptor_crsftoken.dart
-///
-/// Use QueuedInterceptorsWrapper to get refresh token sequentially
-/// when multiple requests are sent at the same time, and all of them have expired access token
-/// => Only one request will be sent to refresh token
-/// => Other requests will be queued and use the new access token from the first request
-///
-/// This Interceptor has a bug when retry with dio.fetch(requestOptions)
+/// This QueuedInterceptorsWrapper has a bug when retry with dio.fetch(requestOptions)
 /// if has error, no error will be thrown
 /// https://github.com/flutterchina/dio/issues/1612
 /// Right now doesn't have any solution for this bug >.<
-/// TODO: Check github issue to see if there is any solution
+/// So I have to use dio v4.0.1 with lock/unlock errorLock
+///
+/// AuthIntercepter job:
+/// - If error 401 occurs, try to refresh token with freelanceDio
+/// - freelanceDio don't use any interceptor to prevent infinite loop, and deadlock
+/// - When refreshing token if input refreshToken is invalid then throw error
+/// and send back reject error with handler.reject(err)
+/// - After refresh token, retry request with new access token with freelanceDio
+/// - If retry request success, resolve response otherwise reject error
+///
+/// Summary:
+/// - Auto refresh token will try to refresh token and retry request
+/// - Only handle first error 401, if error 401 occurs again, just reject error
 class AuthIntercepter extends InterceptorsWrapper {
   final LocalStorageManager localStorage;
   final ApiProvider apiProvider;
@@ -68,7 +72,7 @@ class AuthIntercepter extends InterceptorsWrapper {
           try {
             final res = await _retry(err.requestOptions);
             apiProvider.dio.interceptors.errorLock.unlock();
-            // Note: when call handler.resolve(res), PrettyDioLogger don't log response
+            // Note: when use handler.resolve(res), PrettyDioLogger doesn't log response
             return handler.resolve(res);
           } on DioError catch (retryError) {
             apiProvider.dio.interceptors.errorLock.unlock();
