@@ -30,6 +30,9 @@ class HomeScreen extends StatelessWidget {
             try {
               await Future.wait([
                 sl<UserService>().getUserInfo(),
+                sl<UserService>().getUserInfo(),
+                sl<UserService>().getUserInfo(),
+                // sl<UserService>().getUserInfo(),
                 // sl<UserService>().getUserInfo(),
               ]);
             } on CustomError catch (e) {
