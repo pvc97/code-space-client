@@ -32,8 +32,8 @@ class HomeScreen extends StatelessWidget {
                 sl<UserService>().getUserInfo(),
                 sl<UserService>().getUserInfo(),
                 sl<UserService>().getUserInfo(),
-                sl<UserService>().getUserInfo(),
-                sl<UserService>().getUserInfo(),
+                // sl<UserService>().getUserInfo(),
+                // sl<UserService>().getUserInfo(),
               ]);
             } on CustomError catch (e) {
               debugPrint(e.message);

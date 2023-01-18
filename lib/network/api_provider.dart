@@ -52,7 +52,7 @@ class ApiProvider {
   }) async {
     try {
       final response = await dio.post(
-        '${NetworkConstants.api}$path',
+        path,
         data: params,
         options: options,
       );
@@ -69,7 +69,7 @@ class ApiProvider {
   }) async {
     try {
       final response = await dio.get(
-        '${NetworkConstants.api}$path',
+        path,
         queryParameters: params,
         options: options,
       );
@@ -86,7 +86,7 @@ class ApiProvider {
   }) async {
     try {
       final response = await dio.put(
-        '${NetworkConstants.api}$path',
+        path,
         data: params,
         options: options,
       );
@@ -103,7 +103,7 @@ class ApiProvider {
   }) async {
     try {
       final response = await dio.patch(
-        '${NetworkConstants.api}$path',
+        path,
         data: params,
         options: options,
       );

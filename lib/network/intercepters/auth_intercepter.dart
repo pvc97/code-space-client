@@ -25,6 +25,8 @@ class AuthIntercepter extends InterceptorsWrapper {
   final LocalStorageManager localStorage;
   final ApiProvider apiProvider;
 
+  final tokenDio = Dio();
+
   AuthIntercepter({
     required this.localStorage,
     required this.apiProvider,
@@ -34,6 +36,7 @@ class AuthIntercepter extends InterceptorsWrapper {
   void onError(DioError err, ErrorInterceptorHandler handler) async {
     logger.d('AuthIntercepter onError: ${err.message}');
     if (err.response?.statusCode == StatusCodeConstants.code401) {
+      apiProvider.dio.interceptors.errorLock.lock();
       // errorAccessToken: 'Bearer accessToken'
       // This access token is expired and cause error 401
       final errorAccessToken = (err.requestOptions.headers['Authorization']);
@@ -42,12 +45,8 @@ class AuthIntercepter extends InterceptorsWrapper {
       // If they are different, it means that the access token has been refreshed
       // => Do not refresh token again, just retry request with new access token
       if (errorAccessToken != apiProvider.accessToken) {
-        await _retry(err.requestOptions).then((r) {
-          handler.resolve(r);
-        }, onError: (e) {
-          handler.reject(e);
-        });
-        return;
+        apiProvider.dio.interceptors.errorLock.unlock();
+        return handler.resolve(await _retry(err.requestOptions));
       }
 
       // Read refreshToken from local storage to refresh token
@@ -55,18 +54,20 @@ class AuthIntercepter extends InterceptorsWrapper {
           await localStorage.read<String>(SPrefKey.tokenModel);
 
       if (tokenModelStr != null && tokenModelStr.isNotEmpty) {
-        final tokenModel = TokenModel.fromJson(jsonDecode(tokenModelStr));
-        await _refreshToken(refreshToken: tokenModel.refreshToken);
+        try {
+          final tokenModel = TokenModel.fromJson(jsonDecode(tokenModelStr));
+          await _refreshToken(refreshToken: tokenModel.refreshToken);
 
-        await _retry(err.requestOptions).then((r) {
-          handler.resolve(r);
-        }, onError: (e) {
-          handler.reject(e);
-        });
-        return;
+          apiProvider.dio.interceptors.errorLock.unlock();
+          return handler.resolve(await _retry(err.requestOptions));
+        } catch (e) {
+          apiProvider.dio.interceptors.errorLock.unlock();
+          return handler.reject(err);
+        }
       }
     }
 
+    apiProvider.dio.interceptors.errorLock.unlock();
     return handler.next(err);
   }
 
@@ -76,27 +77,35 @@ class AuthIntercepter extends InterceptorsWrapper {
   }
 
   Future<void> _refreshToken({required String refreshToken}) async {
-    logger.d('Refresh token');
-    final response = await apiProvider.post(
-      UrlConstants.refreshToken,
-      params: {
-        'refreshToken': refreshToken,
-      },
-    );
+    try {
+      // Before refresh token, I've already locked errorLock
+      // If I still use apiProvider.dio and if refresh token is invalid
+      // => DioError occurs but errorLock is still locked, no thing can handle this error
+      // So I have to create a new dio instance to refresh token to avoid deadlock
+      tokenDio.options = apiProvider.dio.options.copyWith();
+      logger.d('Refresh token');
+      final response = await tokenDio.post(
+        UrlConstants.refreshToken,
+        data: {
+          'refreshToken': refreshToken,
+        },
+      );
 
-    if (response?.statusCode == StatusCodeConstants.code200) {
-      final tokenModel = TokenModel.fromJson(response?.data['data']);
+      if (response.statusCode == StatusCodeConstants.code200) {
+        final tokenModel = TokenModel.fromJson(response.data['data']);
 
-      // Update new access token to dio
-      apiProvider.accessToken = tokenModel.accessToken;
+        // Update new access token to dio
+        apiProvider.accessToken = tokenModel.accessToken;
 
-      // Save new tokenModel to local storage
-      await localStorage.write<String>(
-          SPrefKey.tokenModel, jsonEncode(tokenModel.toJson()));
-    } else {
+        // Save new tokenModel to local storage
+        await localStorage.write<String>(
+            SPrefKey.tokenModel, jsonEncode(tokenModel.toJson()));
+      }
+    } catch (e) {
       // Delete local storage data if refresh token is invalid
       // User have to login again
       await localStorage.deleteAll();
+      rethrow;
     }
   }
 }
