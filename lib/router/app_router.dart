@@ -1,8 +1,8 @@
-import 'package:code_space_client/blocs/auth/auth_cubit.dart';
+import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/router/go_router_refresh_stream.dart';
-import 'package:code_space_client/screens/auth/login_screen.dart';
-import 'package:code_space_client/screens/home/home_screen.dart';
+import 'package:code_space_client/presentation/auth/login_screen.dart';
+import 'package:code_space_client/presentation/home/home_screen.dart';
 import 'package:go_router/go_router.dart';
 
 enum AppRoute {

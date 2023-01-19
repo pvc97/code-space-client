@@ -4,9 +4,9 @@ import 'package:code_space_client/constants/spref_key.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:code_space_client/data/local/local_storage_manager.dart';
+import 'package:code_space_client/data/data_provider/local/local_storage_manager.dart';
 import 'package:code_space_client/models/user_model.dart';
-import 'package:code_space_client/repositories/auth_repository.dart';
+import 'package:code_space_client/data/repositories/auth_repository.dart';
 
 part 'auth_state.dart';
 

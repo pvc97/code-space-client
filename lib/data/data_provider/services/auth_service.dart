@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:code_space_client/constants/spref_key.dart';
 import 'package:code_space_client/constants/url_constants.dart';
-import 'package:code_space_client/data/local/local_storage_manager.dart';
+import 'package:code_space_client/data/data_provider/local/local_storage_manager.dart';
 import 'package:code_space_client/models/token_model.dart';
-import 'package:code_space_client/network/api_provider.dart';
+import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 
 class AuthService {
   final ApiProvider apiProvider;
