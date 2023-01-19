@@ -1,4 +1,4 @@
-import 'package:code_space_client/blocs/auth/auth_cubit.dart';
+import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/configs/app_config_manager.dart';
 import 'package:code_space_client/configs/environment_type.dart';
 import 'package:code_space_client/router/app_router.dart';

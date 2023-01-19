@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:code_space_client/data/local/local_storage_manager.dart';
+import 'package:code_space_client/data/data_provider/local/local_storage_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorageManagerImpl extends LocalStorageManager {

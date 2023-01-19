@@ -1,4 +1,4 @@
-import 'package:code_space_client/blocs/auth/auth_cubit.dart';
+import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

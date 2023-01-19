@@ -1,7 +1,7 @@
-import 'package:code_space_client/blocs/auth/auth_cubit.dart';
+import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/models/custom_error.dart';
-import 'package:code_space_client/services/user_service.dart';
+import 'package:code_space_client/data/data_provider/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

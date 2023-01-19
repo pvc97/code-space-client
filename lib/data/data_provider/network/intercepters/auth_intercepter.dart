@@ -5,8 +5,8 @@ import 'package:code_space_client/constants/url_constants.dart';
 import 'package:code_space_client/models/token_model.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:dio/dio.dart';
-import 'package:code_space_client/data/local/local_storage_manager.dart';
-import 'package:code_space_client/network/api_provider.dart';
+import 'package:code_space_client/data/data_provider/local/local_storage_manager.dart';
+import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 
 /// This QueuedInterceptorsWrapper has a bug when retry with dio.fetch(requestOptions)
 /// if has error, no error will be thrown
