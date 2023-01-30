@@ -1,6 +1,6 @@
+import 'package:code_space_client/models/token_model.dart';
 import 'package:code_space_client/models/user_model.dart';
 import 'package:code_space_client/data/data_provider/services/auth_service.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 
 class AuthRepository {
   final AuthService authService;
@@ -10,13 +10,17 @@ class AuthRepository {
   Future<UserModel> login({
     required String userName,
     required String password,
-  }) async {
-    final tokenModel =
-        await authService.login(userName: userName, password: password);
-
-    final UserModel user =
-        UserModel.fromJson(JwtDecoder.decode(tokenModel.accessToken));
-
-    return user;
+  }) {
+    return authService.login(userName: userName, password: password);
   }
+
+  Future<void> logout() => authService.logout();
+
+  Future<void> saveUser(UserModel user) => authService.saveUser(user);
+
+  Future<UserModel?> getSavedUser() => authService.getLocalUser();
+
+  Future<TokenModel?> getSavedToken() => authService.getLocalToken();
+
+  Future<bool> isLoggedIn() => authService.isLoggedIn();
 }
