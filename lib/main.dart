@@ -1,6 +1,7 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/configs/app_config_manager.dart';
 import 'package:code_space_client/configs/environment_type.dart';
+import 'package:code_space_client/cubits/intl/intl_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/injection_container.dart';
@@ -19,8 +20,11 @@ void main() async {
   setPathUrlStrategy();
 
   runApp(
-    BlocProvider<AuthCubit>(
-      create: (context) => sl<AuthCubit>(),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => sl<AuthCubit>()),
+        BlocProvider(create: (_) => sl<IntlCubit>()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -34,8 +38,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final Locale _locale = const Locale.fromSubtags(languageCode: 'vi');
-
   @override
   void initState() {
     super.initState();
@@ -44,23 +46,27 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Code Space',
-      theme: ThemeData(
-        primarySwatch: Colors.pink,
-      ),
-      debugShowCheckedModeBanner: false,
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
-      routeInformationProvider: router.routeInformationProvider,
-      localizationsDelegates: const [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      locale: _locale,
-      supportedLocales: S.delegate.supportedLocales,
+    return BlocBuilder<IntlCubit, IntlState>(
+      builder: (context, state) {
+        return MaterialApp.router(
+          title: 'Code Space',
+          theme: ThemeData(
+            primarySwatch: Colors.pink,
+          ),
+          debugShowCheckedModeBanner: false,
+          routeInformationParser: router.routeInformationParser,
+          routerDelegate: router.routerDelegate,
+          routeInformationProvider: router.routeInformationProvider,
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          locale: state.locale,
+          supportedLocales: S.delegate.supportedLocales,
+        );
+      },
     );
   }
 }
