@@ -50,16 +50,12 @@ class ApiProvider {
     dynamic params,
     Options? options,
   }) async {
-    try {
-      final response = await dio.post(
-        path,
-        data: params,
-        options: options,
-      );
-      return response;
-    } on DioError catch (e) {
-      return e.response;
-    }
+    final response = await dio.post(
+      path,
+      data: params,
+      options: options,
+    );
+    return response;
   }
 
   Future<Response?> get(
@@ -67,16 +63,12 @@ class ApiProvider {
     dynamic params,
     Options? options,
   }) async {
-    try {
-      final response = await dio.get(
-        path,
-        queryParameters: params,
-        options: options,
-      );
-      return response;
-    } on DioError catch (e) {
-      return e.response;
-    }
+    final response = await dio.get(
+      path,
+      queryParameters: params,
+      options: options,
+    );
+    return response;
   }
 
   Future<Response?> put(
@@ -84,16 +76,12 @@ class ApiProvider {
     dynamic params,
     Options? options,
   }) async {
-    try {
-      final response = await dio.put(
-        path,
-        data: params,
-        options: options,
-      );
-      return response;
-    } on DioError catch (e) {
-      return e.response;
-    }
+    final response = await dio.put(
+      path,
+      data: params,
+      options: options,
+    );
+    return response;
   }
 
   Future<Response?> patch(
@@ -101,15 +89,11 @@ class ApiProvider {
     dynamic params,
     Options? options,
   }) async {
-    try {
-      final response = await dio.patch(
-        path,
-        data: params,
-        options: options,
-      );
-      return response;
-    } on DioError catch (e) {
-      return e.response;
-    }
+    final response = await dio.patch(
+      path,
+      data: params,
+      options: options,
+    );
+    return response;
   }
 }

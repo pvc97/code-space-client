@@ -38,6 +38,8 @@ class AuthService {
     final UserModel user =
         UserModel.fromJson(JwtDecoder.decode(tokenModel.accessToken));
 
+    await saveUser(user);
+
     return user;
   }
 

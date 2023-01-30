@@ -7,6 +7,7 @@ import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -65,6 +66,7 @@ class _MyAppState extends State<MyApp> {
           ],
           locale: state.locale,
           supportedLocales: S.delegate.supportedLocales,
+          builder: EasyLoading.init(),
         );
       },
     );

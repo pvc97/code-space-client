@@ -1,4 +1,5 @@
-import 'package:equatable/equatable.dart';
+import 'package:code_space_client/cubits/base/base_state.dart';
+import 'package:code_space_client/models/app_exception.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:code_space_client/data/repositories/auth_repository.dart';
 
@@ -9,22 +10,26 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit({
     required this.authRepository,
-  }) : super(AuthState.authenticated());
+  }) : super(AuthState.unAuthenticated());
 
   void login({required String username, required String password}) async {
     try {
-      final user = await authRepository.login(
+      emit(state.copyWith(stateStatus: StateStatus.loading));
+      await authRepository.login(
         userName: username,
         password: password,
       );
-
-      // Save user to local storage
-      authRepository.saveUser(user);
-
-      emit(state.copyWith(authStatus: AuthStatus.authenticated));
-    } catch (e) {
+      emit(state.copyWith(
+        authStatus: AuthStatus.authenticated,
+        stateStatus: StateStatus.success,
+      ));
+    } on AppException catch (e) {
       emit(
-        state.copyWith(authStatus: AuthStatus.unauthenticated),
+        state.copyWith(
+          authStatus: AuthStatus.unauthenticated,
+          error: e,
+          stateStatus: StateStatus.error,
+        ),
       );
     }
   }

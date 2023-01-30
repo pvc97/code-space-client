@@ -10,8 +10,8 @@ class AppException extends Equatable implements Exception {
   List<Object?> get props => [code, message];
 }
 
-class UnAuthException extends AppException {
-  const UnAuthException(String message) : super(message: message);
+class UnAuthorizedException extends AppException {
+  const UnAuthorizedException(String message) : super(message: message);
 }
 
 class NoNetworkException extends AppException {
