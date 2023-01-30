@@ -1,4 +1,5 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
+import 'package:code_space_client/cubits/intl/intl_cubit.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager_impl.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
@@ -74,5 +75,7 @@ abstract class Di {
     );
 
     sl.registerLazySingleton<UserService>(() => UserService(apiProvider: sl()));
+
+    sl.registerLazySingleton<IntlCubit>(() => IntlCubit());
   }
 }
