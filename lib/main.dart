@@ -26,6 +26,8 @@ void main() async {
       providers: [
         BlocProvider(create: (_) => sl<AuthCubit>()),
         BlocProvider(create: (_) => sl<UserCubit>()),
+        // I think UserCubit should be here to be able access it from any screen
+        // because a lot of screens need to access user info
         BlocProvider(create: (_) => sl<IntlCubit>()),
       ],
       child: const MyApp(),
