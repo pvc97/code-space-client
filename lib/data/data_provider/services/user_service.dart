@@ -1,23 +1,51 @@
+import 'dart:convert';
+
+import 'package:code_space_client/constants/spref_key.dart';
 import 'package:code_space_client/constants/url_constants.dart';
-import 'package:code_space_client/models/custom_error.dart';
-import 'package:code_space_client/models/user_model.dart';
+import 'package:code_space_client/data/data_provider/local/local_storage_manager.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
-import 'package:code_space_client/utils/logger/logger.dart';
+import 'package:code_space_client/models/user_model.dart';
 
 class UserService {
   final ApiProvider apiProvider;
+  final LocalStorageManager localStorage;
 
-  UserService({required this.apiProvider});
+  UserModel? user;
 
-  Future<UserModel> getUserInfo() async {
+  UserService({
+    required this.apiProvider,
+    required this.localStorage,
+  });
+
+  /// Fetch user info from server
+  Future<UserModel> fetchUserInfo() async {
     final response = await apiProvider.get(UrlConstants.userInfo);
+    user = UserModel.fromJson(response?.data['data']);
+    await saveUser(user!);
+    return user!;
+  }
 
-    if (response?.statusCode == 200) {
-      final user = UserModel.fromJson(response?.data['data']);
-      logger.d('User: ${user.name}');
+  /// Get user cached user info
+  /// If user is null, get user info from local storage
+  /// Use cached user to improve performance :)
+  Future<UserModel?> getUserInfo() async {
+    if (user != null) {
       return user;
     }
 
-    throw CustomError(message: response?.data['error']);
+    return getLocalUser();
+  }
+
+  Future<void> saveUser(UserModel user) async {
+    await localStorage.write<String>(
+        SPrefKey.userModel, jsonEncode(user.toJson()));
+  }
+
+  Future<UserModel?> getLocalUser() async {
+    final userJson = await localStorage.read<String>(SPrefKey.userModel);
+    if (userJson != null) {
+      return UserModel.fromJson(jsonDecode(userJson));
+    }
+    return null;
   }
 }

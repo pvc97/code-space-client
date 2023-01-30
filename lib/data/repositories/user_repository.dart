@@ -8,7 +8,13 @@ class UserRepository {
     required this.userService,
   });
 
-  Future<UserModel> getUserInfo() async {
+  /// Fetch user info from server
+  Future<UserModel> fetchUserInfo() async {
+    return userService.fetchUserInfo();
+  }
+
+  /// Get user cached user info
+  Future<UserModel?> getUserInfo() async {
     return userService.getUserInfo();
   }
 }
