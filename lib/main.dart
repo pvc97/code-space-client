@@ -1,11 +1,13 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/configs/app_config_manager.dart';
 import 'package:code_space_client/configs/environment_type.dart';
+import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_strategy/url_strategy.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +34,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final Locale _locale = const Locale.fromSubtags(languageCode: 'vi');
+
   @override
   void initState() {
     super.initState();
@@ -49,6 +53,14 @@ class _MyAppState extends State<MyApp> {
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
       routeInformationProvider: router.routeInformationProvider,
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      locale: _locale,
+      supportedLocales: S.delegate.supportedLocales,
     );
   }
 }

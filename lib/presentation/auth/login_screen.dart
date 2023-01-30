@@ -1,4 +1,5 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
+import 'package:code_space_client/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text(S.current.hello),
               TextField(
                 controller: _usernameController,
                 decoration: const InputDecoration(
