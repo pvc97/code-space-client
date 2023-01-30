@@ -2,10 +2,8 @@ import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/cubits/intl/intl_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/languages.dart';
-import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -37,15 +35,13 @@ class _LoginScreenState extends State<LoginScreen> {
               final IntlCubit intlCubit = context.read<IntlCubit>();
               String code = intlCubit.state.locale.languageCode;
 
-              logger.d(code);
-
               if (code == Languages.english.code) {
                 intlCubit.changeLanguage(Languages.vietnamese);
               } else {
                 intlCubit.changeLanguage(Languages.english);
               }
 
-              setState(() {});
+              // setState(() {});
             },
             icon: const Icon(Icons.language),
           ),
@@ -57,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(S.current.hello),
+              Text(S.of(context).hello),
               TextField(
                 controller: _usernameController,
                 decoration: const InputDecoration(
