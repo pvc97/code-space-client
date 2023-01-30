@@ -1,5 +1,6 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/cubits/intl/intl_cubit.dart';
+import 'package:code_space_client/cubits/user/user_cubit.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager_impl.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
@@ -7,6 +8,7 @@ import 'package:code_space_client/data/data_provider/network/intercepters/auth_i
 import 'package:code_space_client/data/repositories/auth_repository.dart';
 import 'package:code_space_client/data/data_provider/services/auth_service.dart';
 import 'package:code_space_client/data/data_provider/services/user_service.dart';
+import 'package:code_space_client/data/repositories/user_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
@@ -67,14 +69,22 @@ abstract class Di {
       () => AuthRepository(authService: sl()),
     );
 
-    sl.registerLazySingleton<AuthCubit>(
-      () => AuthCubit(
-        authRepository: sl(),
+    sl.registerLazySingleton<AuthCubit>(() => AuthCubit(authRepository: sl()));
+
+    sl.registerLazySingleton<UserService>(
+      () => UserService(
+        apiProvider: sl(),
         localStorage: sl(),
       ),
     );
 
-    sl.registerLazySingleton<UserService>(() => UserService(apiProvider: sl()));
+    sl.registerLazySingleton<UserRepository>(
+      () => UserRepository(userService: sl()),
+    );
+
+    sl.registerLazySingleton<UserCubit>(
+      () => UserCubit(userRepository: sl()),
+    );
 
     sl.registerLazySingleton<IntlCubit>(() => IntlCubit());
   }

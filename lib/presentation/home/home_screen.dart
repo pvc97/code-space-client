@@ -1,12 +1,22 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
-import 'package:code_space_client/injection_container.dart';
-import 'package:code_space_client/models/custom_error.dart';
-import 'package:code_space_client/data/data_provider/services/user_service.dart';
+import 'package:code_space_client/cubits/user/user_cubit.dart';
+import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<UserCubit>().getUserInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,20 +34,27 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: ElevatedButton(
-          child: const Text('Get User'),
-          onPressed: () async {
-            try {
-              await Future.wait([
-                sl<UserService>().getUserInfo(),
-                sl<UserService>().getUserInfo(),
-                sl<UserService>().getUserInfo(),
-                // sl<UserService>().getUserInfo(),
-                // sl<UserService>().getUserInfo(),
-              ]);
-            } on CustomError catch (e) {
-              debugPrint(e.message);
+        child: BlocBuilder<UserCubit, UserState>(
+          builder: (context, state) {
+            if (state.user == null) {
+              return const SizedBox.shrink();
             }
+            logger.d(state.user!.name);
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  state.user!.roleType.toString(),
+                ),
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    context.read<UserCubit>().fetchUserInfo();
+                  },
+                  child: const Text('Fetch User from API'),
+                ),
+              ],
+            );
           },
         ),
       ),

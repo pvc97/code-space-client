@@ -2,11 +2,13 @@ import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/configs/app_config_manager.dart';
 import 'package:code_space_client/configs/environment_type.dart';
 import 'package:code_space_client/cubits/intl/intl_cubit.dart';
+import 'package:code_space_client/cubits/user/user_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -23,6 +25,9 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => sl<AuthCubit>()),
+        BlocProvider(create: (_) => sl<UserCubit>()),
+        // I think UserCubit should be here to be able access it from any screen
+        // because a lot of screens need to access user info
         BlocProvider(create: (_) => sl<IntlCubit>()),
       ],
       child: const MyApp(),
@@ -65,6 +70,7 @@ class _MyAppState extends State<MyApp> {
           ],
           locale: state.locale,
           supportedLocales: S.delegate.supportedLocales,
+          builder: EasyLoading.init(),
         );
       },
     );

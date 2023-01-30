@@ -73,6 +73,7 @@ class AuthIntercepter extends InterceptorsWrapper {
             final res = await _retry(err.requestOptions);
             apiProvider.dio.interceptors.errorLock.unlock();
             // Note: when use handler.resolve(res), PrettyDioLogger doesn't log response
+            logger.d(res);
             return handler.resolve(res);
           } on DioError catch (retryError) {
             apiProvider.dio.interceptors.errorLock.unlock();
@@ -108,7 +109,8 @@ class AuthIntercepter extends InterceptorsWrapper {
       // => DioError occurs but errorLock is still locked, no thing can handle this error
       // So I have to create a new dio instance to refresh token to avoid deadlock
       freelanceDio.options = apiProvider.dio.options.copyWith();
-      logger.d('Refresh token');
+      logger.d(
+          'Refresh token - Note: If refresh token PrettyDioLogger doesn\'t show response log');
       final response = await freelanceDio.post(
         UrlConstants.refreshToken,
         data: {
@@ -129,7 +131,7 @@ class AuthIntercepter extends InterceptorsWrapper {
     } catch (e) {
       // Delete local storage data if refresh token is invalid
       // User have to login again
-      await localStorage.deleteAll();
+      // await localStorage.deleteAll();
       rethrow;
     }
   }

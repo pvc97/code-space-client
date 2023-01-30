@@ -6,29 +6,34 @@ enum AuthStatus {
   unauthenticated,
 }
 
-class AuthState extends Equatable {
+class AuthState extends BaseState {
   final AuthStatus authStatus;
-  final UserModel? user;
 
   const AuthState({
     required this.authStatus,
-    this.user,
+    super.stateStatus,
+    super.error,
   });
 
-  factory AuthState.authenticated() {
-    return const AuthState(authStatus: AuthStatus.unauthenticated);
+  factory AuthState.unAuthenticated() {
+    return const AuthState(
+      authStatus: AuthStatus.unauthenticated,
+      stateStatus: StateStatus.initial,
+    );
   }
 
   @override
-  List<Object?> get props => [authStatus, user];
+  List<Object?> get props => [authStatus, ...super.props];
 
   AuthState copyWith({
     AuthStatus? authStatus,
-    UserModel? user,
+    StateStatus? stateStatus,
+    AppException? error,
   }) {
     return AuthState(
       authStatus: authStatus ?? this.authStatus,
-      user: user ?? this.user,
+      stateStatus: stateStatus ?? this.stateStatus,
+      error: error ?? this.error,
     );
   }
 }
