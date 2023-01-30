@@ -1,7 +1,4 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
-import 'package:code_space_client/cubits/intl/intl_cubit.dart';
-import 'package:code_space_client/generated/l10n.dart';
-import 'package:code_space_client/models/languages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,23 +26,22 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Login'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              final IntlCubit intlCubit = context.read<IntlCubit>();
-              String code = intlCubit.state.locale.languageCode;
+        // TODO: Remove comment
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+        //       final IntlCubit intlCubit = context.read<IntlCubit>();
+        //       String code = intlCubit.state.locale.languageCode;
 
-              if (code == Languages.english.code) {
-                intlCubit.changeLanguage(Languages.vietnamese);
-              } else {
-                intlCubit.changeLanguage(Languages.english);
-              }
-
-              // setState(() {});
-            },
-            icon: const Icon(Icons.language),
-          ),
-        ],
+        //       if (code == Languages.english.code) {
+        //         intlCubit.changeLanguage(Languages.vietnamese);
+        //       } else {
+        //         intlCubit.changeLanguage(Languages.english);
+        //       }
+        //     },
+        //     icon: const Icon(Icons.language),
+        //   ),
+        // ],
       ),
       body: Center(
         child: Padding(
@@ -53,7 +49,6 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(S.of(context).hello),
               TextField(
                 controller: _usernameController,
                 decoration: const InputDecoration(
