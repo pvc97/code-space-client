@@ -43,13 +43,17 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  context.goNamed(AppRoute.courseList.name);
+                  context.goNamed(AppRoute.courses.name);
                 },
                 child: Text(S.of(context).course_list),
               ),
               const SizedBox(height: 10),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.goNamed(AppRoute.courses.name, queryParams: {
+                    'me': 'true',
+                  });
+                },
                 child: Text(S.of(context).my_courses),
               ),
               const SizedBox(height: 10),
