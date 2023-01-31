@@ -1,8 +1,22 @@
 import 'package:code_space_client/generated/l10n.dart';
+import 'package:code_space_client/router/app_router.dart';
+import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class CourseListScreen extends StatelessWidget {
+class CourseListScreen extends StatefulWidget {
   const CourseListScreen({super.key});
+
+  @override
+  State<CourseListScreen> createState() => _CourseListScreenState();
+}
+
+class _CourseListScreenState extends State<CourseListScreen> {
+  @override
+  void initState() {
+    super.initState();
+    logger.d('CourseListScreen initState');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +36,12 @@ class CourseListScreen extends StatelessWidget {
         itemCount: 20,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () {},
+            onTap: () {
+              context.goNamed(
+                AppRoute.courseDetail.name,
+                params: {'courseId': '$index'},
+              );
+            },
             child: Card(
               child: ListTile(
                 title: Text('Course $index'),
