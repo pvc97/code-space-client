@@ -17,7 +17,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
+  var _autovalidateMode = AutovalidateMode.disabled;
   String? _username, _password;
 
   void _submit() async {
@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
           return;
         } else if (state.stateStatus == StateStatus.error) {
           if (state.error is NoNetworkException) {
-            EasyLoading.showError(S.of(context).noNetwork);
+            EasyLoading.showError(S.of(context).no_network);
             return;
           }
           EasyLoading.showError(state.error?.message ?? '');

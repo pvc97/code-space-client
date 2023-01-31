@@ -151,10 +151,40 @@ class S {
   }
 
   /// `Không có kết nối mạng`
-  String get noNetwork {
+  String get no_network {
     return Intl.message(
       'Không có kết nối mạng',
-      name: 'noNetwork',
+      name: 'no_network',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Họ và tên không được để trống`
+  String get full_name_cannot_be_empty {
+    return Intl.message(
+      'Họ và tên không được để trống',
+      name: 'full_name_cannot_be_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email không được để trống`
+  String get email_cannot_be_empty {
+    return Intl.message(
+      'Email không được để trống',
+      name: 'email_cannot_be_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mật khẩu không khớp`
+  String get passwords_do_not_match {
+    return Intl.message(
+      'Mật khẩu không khớp',
+      name: 'passwords_do_not_match',
       desc: '',
       args: [],
     );
