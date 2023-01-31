@@ -1,9 +1,11 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/cubits/base/base_state.dart';
 import 'package:code_space_client/generated/l10n.dart';
+import 'package:code_space_client/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -73,8 +75,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ElevatedButton(
                   onPressed: () {
                     context.read<AuthCubit>().login(
-                        username: _usernameController.text.trim(),
-                        password: _passwordController.text.trim());
+                          username: _usernameController.text.trim(),
+                          password: _passwordController.text.trim(),
+                        );
                   },
                   child: Text(S.of(context).login),
                 ),
@@ -84,7 +87,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Text(S.of(context).dont_have_an_account),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.pushNamed(AppRoute.signUp.name);
+                      },
                       child: Text(S.of(context).sign_up),
                     ),
                   ],
