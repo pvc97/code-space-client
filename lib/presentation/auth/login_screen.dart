@@ -91,6 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         border: const OutlineInputBorder(),
                         labelText: S.of(context).password,
                       ),
+                      obscureText: true,
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
                           return S.of(context).password_cannot_be_empty;
