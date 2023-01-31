@@ -1,9 +1,12 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/cubits/base/base_state.dart';
 import 'package:code_space_client/generated/l10n.dart';
+import 'package:code_space_client/models/app_exception.dart';
+import 'package:code_space_client/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,14 +16,24 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  var _autovalidateMode = AutovalidateMode.disabled;
+  String? _username, _password;
 
-  @override
-  void dispose() {
-    _usernameController.dispose();
-    _passwordController.dispose();
-    super.dispose();
+  void _submit() async {
+    setState(() {
+      _autovalidateMode = AutovalidateMode.always;
+    });
+
+    final form = _formKey.currentState;
+
+    if (form == null || !form.validate()) return;
+
+    form.save();
+
+    context
+        .read<AuthCubit>()
+        .login(username: _username!.trim(), password: _password!.trim());
   }
 
   @override
@@ -31,7 +44,11 @@ class _LoginScreenState extends State<LoginScreen> {
           EasyLoading.show();
           return;
         } else if (state.stateStatus == StateStatus.error) {
-          EasyLoading.showError(state.error!.message!);
+          if (state.error is NoNetworkException) {
+            EasyLoading.showError(S.of(context).no_network);
+            return;
+          }
+          EasyLoading.showError(state.error?.message ?? '');
           return;
         }
 
@@ -45,51 +62,73 @@ class _LoginScreenState extends State<LoginScreen> {
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  constraints: const BoxConstraints(maxWidth: 300),
-                  child: TextField(
-                    controller: _usernameController,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: S.of(context).username,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  constraints: const BoxConstraints(maxWidth: 300),
-                  child: TextField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: S.of(context).password,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<AuthCubit>().login(
-                        username: _usernameController.text.trim(),
-                        password: _passwordController.text.trim());
-                  },
-                  child: Text(S.of(context).login),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
+            child: Form(
+              key: _formKey,
+              autovalidateMode: _autovalidateMode,
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: 300.0),
+                child: ListView(
+                  shrinkWrap: true,
                   children: [
-                    Text(S.of(context).dont_have_an_account),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(S.of(context).sign_up),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: S.of(context).username,
+                      ),
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return S.of(context).username_cannot_be_empty;
+                        }
+                        return null;
+                      },
+                      onSaved: (String? value) {
+                        _username = value;
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: S.of(context).password,
+                      ),
+                      obscureText: true,
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return S.of(context).password_cannot_be_empty;
+                        }
+                        return null;
+                      },
+                      onSaved: (String? value) {
+                        _password = value;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    BlocBuilder<AuthCubit, AuthState>(
+                      builder: (context, state) {
+                        return ElevatedButton(
+                          onPressed: state.stateStatus == StateStatus.loading
+                              ? null
+                              : _submit,
+                          child: Text(S.of(context).login),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(S.of(context).dont_have_an_account),
+                        TextButton(
+                          onPressed: () {
+                            context.pushNamed(AppRoute.signUp.name);
+                          },
+                          child: Text(S.of(context).sign_up),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
         ),

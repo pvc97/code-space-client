@@ -1,13 +1,15 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/injection_container.dart';
+import 'package:code_space_client/presentation/auth/sign_up_screen.dart';
 import 'package:code_space_client/router/go_router_refresh_stream.dart';
 import 'package:code_space_client/presentation/auth/login_screen.dart';
 import 'package:code_space_client/presentation/home/home_screen.dart';
 import 'package:go_router/go_router.dart';
 
 enum AppRoute {
-  login,
   home,
+  login,
+  signUp,
 }
 
 final GoRouter router = GoRouter(
@@ -24,6 +26,13 @@ final GoRouter router = GoRouter(
       name: AppRoute.home.name,
       builder: (context, state) {
         return const HomeScreen();
+      },
+    ),
+    GoRoute(
+      path: '/sign-up',
+      name: AppRoute.signUp.name,
+      builder: (context, state) {
+        return const SignUpScreen();
       },
     ),
   ],

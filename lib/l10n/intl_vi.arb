@@ -3,5 +3,14 @@
   "password": "Mật khẩu",
   "login": "Đăng nhập",
   "dont_have_an_account": "Bạn chưa có tài khoản?",
-  "sign_up": "Đăng ký"
+  "sign_up": "Đăng ký",
+  "full_name": "Họ và tên",
+  "email": "Email",
+  "confirm_password": "Xác nhận mật khẩu",
+  "password_cannot_be_empty": "Mật khẩu không được để trống",
+  "username_cannot_be_empty": "Tài khoản không được để trống",
+  "no_network": "Không có kết nối mạng",
+  "full_name_cannot_be_empty": "Họ và tên không được để trống",
+  "email_cannot_be_empty": "Email không được để trống",
+  "passwords_do_not_match": "Mật khẩu không khớp"
 }

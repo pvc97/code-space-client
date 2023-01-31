@@ -99,6 +99,96 @@ class S {
       args: [],
     );
   }
+
+  /// `Họ và tên`
+  String get full_name {
+    return Intl.message(
+      'Họ và tên',
+      name: 'full_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get email {
+    return Intl.message(
+      'Email',
+      name: 'email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Xác nhận mật khẩu`
+  String get confirm_password {
+    return Intl.message(
+      'Xác nhận mật khẩu',
+      name: 'confirm_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mật khẩu không được để trống`
+  String get password_cannot_be_empty {
+    return Intl.message(
+      'Mật khẩu không được để trống',
+      name: 'password_cannot_be_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tài khoản không được để trống`
+  String get username_cannot_be_empty {
+    return Intl.message(
+      'Tài khoản không được để trống',
+      name: 'username_cannot_be_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Không có kết nối mạng`
+  String get no_network {
+    return Intl.message(
+      'Không có kết nối mạng',
+      name: 'no_network',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Họ và tên không được để trống`
+  String get full_name_cannot_be_empty {
+    return Intl.message(
+      'Họ và tên không được để trống',
+      name: 'full_name_cannot_be_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email không được để trống`
+  String get email_cannot_be_empty {
+    return Intl.message(
+      'Email không được để trống',
+      name: 'email_cannot_be_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mật khẩu không khớp`
+  String get passwords_do_not_match {
+    return Intl.message(
+      'Mật khẩu không khớp',
+      name: 'passwords_do_not_match',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

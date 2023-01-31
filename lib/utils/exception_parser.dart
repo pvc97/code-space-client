@@ -14,6 +14,11 @@ class ExceptionParser {
         sl<AuthCubit>().logout();
         return UnAuthorizedException(error.response?.data['error']);
       }
+
+      if (error.response == null) {
+        return const NoNetworkException();
+      }
+
       return CommonException(message: error.response?.data['error']);
     }
 
