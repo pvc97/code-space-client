@@ -12,7 +12,7 @@ enum AppRoute {
   home,
   login,
   signUp,
-  courseList,
+  courses,
   courseDetail,
 }
 
@@ -26,30 +26,33 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
-        path: '/',
-        name: AppRoute.home.name,
-        builder: (context, state) {
-          return const HomeScreen();
-        },
-        routes: [
-          GoRoute(
-              path: 'courses',
-              name: AppRoute.courseList.name,
+      path: '/',
+      name: AppRoute.home.name,
+      builder: (context, state) {
+        return const HomeScreen();
+      },
+      routes: [
+        GoRoute(
+          path: 'courses',
+          name: AppRoute.courses.name,
+          builder: (context, state) {
+            final me = state.queryParams['me'] == 'true';
+            return CourseListScreen(me: me);
+          },
+          routes: [
+            GoRoute(
+              path: ':courseId',
+              name: AppRoute.courseDetail.name,
               builder: (context, state) {
-                return const CourseListScreen();
+                return CourseDetailScreen(
+                  courseId: state.params['courseId']!,
+                );
               },
-              routes: [
-                GoRoute(
-                  path: ':courseId',
-                  name: AppRoute.courseDetail.name,
-                  builder: (context, state) {
-                    return CourseDetailScreen(
-                      courseId: state.params['courseId']!,
-                    );
-                  },
-                ),
-              ]),
-        ]),
+            ),
+          ],
+        ),
+      ],
+    ),
     GoRoute(
       path: '/sign-up',
       name: AppRoute.signUp.name,

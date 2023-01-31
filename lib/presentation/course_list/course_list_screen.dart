@@ -1,11 +1,17 @@
-import 'package:code_space_client/generated/l10n.dart';
-import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:code_space_client/generated/l10n.dart';
+import 'package:code_space_client/router/app_router.dart';
+
 class CourseListScreen extends StatefulWidget {
-  const CourseListScreen({super.key});
+  final bool me;
+
+  const CourseListScreen({
+    Key? key,
+    this.me = false,
+  }) : super(key: key);
 
   @override
   State<CourseListScreen> createState() => _CourseListScreenState();
@@ -15,7 +21,7 @@ class _CourseListScreenState extends State<CourseListScreen> {
   @override
   void initState() {
     super.initState();
-    logger.d('CourseListScreen initState');
+    logger.d('onlyMyCourses: ${widget.me}');
   }
 
   @override
@@ -40,6 +46,7 @@ class _CourseListScreenState extends State<CourseListScreen> {
               context.goNamed(
                 AppRoute.courseDetail.name,
                 params: {'courseId': '$index'},
+                queryParams: widget.me ? {'me': 'true'} : {},
               );
             },
             child: Card(
