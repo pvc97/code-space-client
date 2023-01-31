@@ -50,11 +50,51 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Hello everybody`
-  String get hello {
+  /// `Tài khoản`
+  String get username {
     return Intl.message(
-      'Hello everybody',
-      name: 'hello',
+      'Tài khoản',
+      name: 'username',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mật khẩu`
+  String get password {
+    return Intl.message(
+      'Mật khẩu',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng nhập`
+  String get login {
+    return Intl.message(
+      'Đăng nhập',
+      name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bạn chưa có tài khoản?`
+  String get dont_have_an_account {
+    return Intl.message(
+      'Bạn chưa có tài khoản?',
+      name: 'dont_have_an_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng ký`
+  String get sign_up {
+    return Intl.message(
+      'Đăng ký',
+      name: 'sign_up',
       desc: '',
       args: [],
     );
