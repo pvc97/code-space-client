@@ -149,6 +149,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Không có kết nối mạng`
+  String get noNetwork {
+    return Intl.message(
+      'Không có kết nối mạng',
+      name: 'noNetwork',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -8,5 +8,6 @@
   "email": "Email",
   "confirm_password": "Xác nhận mật khẩu",
   "password_cannot_be_empty": "Mật khẩu không được để trống",
-  "username_cannot_be_empty": "Tài khoản không được để trống"
+  "username_cannot_be_empty": "Tài khoản không được để trống",
+  "noNetwork": "Không có kết nối mạng"
 }

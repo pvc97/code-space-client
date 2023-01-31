@@ -29,6 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "full_name": MessageLookupByLibrary.simpleMessage("Họ và tên"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
+        "noNetwork":
+            MessageLookupByLibrary.simpleMessage("Không có kết nối mạng"),
         "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
         "password_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Mật khẩu không được để trống"),

@@ -38,6 +38,9 @@ class AuthIntercepter extends InterceptorsWrapper {
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
+    if (err.response == null) {
+      return handler.next(err);
+    }
     // logger.d('AuthIntercepter onError: ${err.response?.statusCode}');
     apiProvider.dio.interceptors.errorLock.lock();
     if (err.response?.statusCode == StatusCodeConstants.code401) {
