@@ -44,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "passwords_do_not_match":
             MessageLookupByLibrary.simpleMessage("Mật khẩu không khớp"),
         "profile": MessageLookupByLibrary.simpleMessage("Hồ sơ"),
+        "search_course":
+            MessageLookupByLibrary.simpleMessage("Tìm kiếm khóa học"),
         "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Đăng ký"),
         "username": MessageLookupByLibrary.simpleMessage("Tài khoản"),

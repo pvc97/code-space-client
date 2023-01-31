@@ -1,8 +1,10 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/cubits/user/user_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
+import 'package:code_space_client/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -40,7 +42,9 @@ class _HomeScreenState extends State<HomeScreen> {
             shrinkWrap: true,
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.goNamed(AppRoute.courseList.name);
+                },
                 child: Text(S.of(context).course_list),
               ),
               const SizedBox(height: 10),

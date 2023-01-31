@@ -1,6 +1,7 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/presentation/auth/sign_up_screen.dart';
+import 'package:code_space_client/presentation/course_list/course_list_screen.dart';
 import 'package:code_space_client/router/go_router_refresh_stream.dart';
 import 'package:code_space_client/presentation/auth/login_screen.dart';
 import 'package:code_space_client/presentation/home/home_screen.dart';
@@ -10,6 +11,7 @@ enum AppRoute {
   home,
   login,
   signUp,
+  courseList,
 }
 
 final GoRouter router = GoRouter(
@@ -22,12 +24,20 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/',
-      name: AppRoute.home.name,
-      builder: (context, state) {
-        return const HomeScreen();
-      },
-    ),
+        path: '/',
+        name: AppRoute.home.name,
+        builder: (context, state) {
+          return const HomeScreen();
+        },
+        routes: [
+          GoRoute(
+            path: 'courses',
+            name: AppRoute.courseList.name,
+            builder: (context, state) {
+              return const CourseListScreen();
+            },
+          ),
+        ]),
     GoRoute(
       path: '/sign-up',
       name: AppRoute.signUp.name,
