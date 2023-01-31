@@ -99,6 +99,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Họ và tên`
+  String get full_name {
+    return Intl.message(
+      'Họ và tên',
+      name: 'full_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get email {
+    return Intl.message(
+      'Email',
+      name: 'email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Xác nhận mật khẩu`
+  String get confirm_password {
+    return Intl.message(
+      'Xác nhận mật khẩu',
+      name: 'confirm_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mật khẩu không được để trống`
+  String get password_cannot_be_empty {
+    return Intl.message(
+      'Mật khẩu không được để trống',
+      name: 'password_cannot_be_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tài khoản không được để trống`
+  String get username_cannot_be_empty {
+    return Intl.message(
+      'Tài khoản không được để trống',
+      name: 'username_cannot_be_empty',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
