@@ -1,5 +1,6 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/cubits/base/base_state.dart';
+import 'package:code_space_client/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -47,29 +48,46 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextField(
-                  controller: _usernameController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Username',
+                Container(
+                  constraints: const BoxConstraints(maxWidth: 300),
+                  child: TextField(
+                    controller: _usernameController,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: S.of(context).username,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 10),
-                TextField(
-                  controller: _passwordController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Password',
+                Container(
+                  constraints: const BoxConstraints(maxWidth: 300),
+                  child: TextField(
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: S.of(context).password,
+                    ),
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
                     context.read<AuthCubit>().login(
                         username: _usernameController.text.trim(),
                         password: _passwordController.text.trim());
                   },
-                  child: const Text('Login'),
+                  child: Text(S.of(context).login),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(S.of(context).dont_have_an_account),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(S.of(context).sign_up),
+                    ),
+                  ],
                 ),
               ],
             ),
