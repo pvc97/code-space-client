@@ -1,6 +1,6 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/cubits/user/user_cubit.dart';
-import 'package:code_space_client/utils/logger/logger.dart';
+import 'package:code_space_client/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,28 +34,32 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Center(
-        child: BlocBuilder<UserCubit, UserState>(
-          builder: (context, state) {
-            if (state.user == null) {
-              return const SizedBox.shrink();
-            }
-            logger.d(state.user!.name);
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  state.user!.roleType.toString(),
-                ),
-                const SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<UserCubit>().fetchUserInfo();
-                  },
-                  child: const Text('Fetch User from API'),
-                ),
-              ],
-            );
-          },
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 300.0),
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              ElevatedButton(
+                onPressed: () {},
+                child: Text(S.of(context).course_list),
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {},
+                child: Text(S.of(context).my_courses),
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {},
+                child: Text(S.of(context).profile),
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {},
+                child: Text(S.of(context).settings),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Xác nhận mật khẩu"),
+        "course_list":
+            MessageLookupByLibrary.simpleMessage("Danh sách khóa học"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Bạn chưa có tài khoản?"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -33,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "full_name_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Họ và tên không được để trống"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
+        "my_courses": MessageLookupByLibrary.simpleMessage("Khóa học của tôi"),
         "no_network":
             MessageLookupByLibrary.simpleMessage("Không có kết nối mạng"),
         "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
@@ -40,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Mật khẩu không được để trống"),
         "passwords_do_not_match":
             MessageLookupByLibrary.simpleMessage("Mật khẩu không khớp"),
+        "profile": MessageLookupByLibrary.simpleMessage("Hồ sơ"),
+        "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Đăng ký"),
         "username": MessageLookupByLibrary.simpleMessage("Tài khoản"),
         "username_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
