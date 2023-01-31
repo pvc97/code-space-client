@@ -12,5 +12,9 @@
   "no_network": "Không có kết nối mạng",
   "full_name_cannot_be_empty": "Họ và tên không được để trống",
   "email_cannot_be_empty": "Email không được để trống",
-  "passwords_do_not_match": "Mật khẩu không khớp"
+  "passwords_do_not_match": "Mật khẩu không khớp",
+  "course_list": "Danh sách khóa học",
+  "my_courses": "Khóa học của tôi",
+  "profile": "Hồ sơ",
+  "settings": "Cài đặt"
 }

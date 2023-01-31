@@ -189,6 +189,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Danh sách khóa học`
+  String get course_list {
+    return Intl.message(
+      'Danh sách khóa học',
+      name: 'course_list',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Khóa học của tôi`
+  String get my_courses {
+    return Intl.message(
+      'Khóa học của tôi',
+      name: 'my_courses',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hồ sơ`
+  String get profile {
+    return Intl.message(
+      'Hồ sơ',
+      name: 'profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cài đặt`
+  String get settings {
+    return Intl.message(
+      'Cài đặt',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
