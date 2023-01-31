@@ -229,6 +229,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Tìm kiếm khóa học`
+  String get search_course {
+    return Intl.message(
+      'Tìm kiếm khóa học',
+      name: 'search_course',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
