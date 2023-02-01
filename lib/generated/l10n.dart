@@ -279,6 +279,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Lịch sử chấm bài`
+  String get problem_history {
+    return Intl.message(
+      'Lịch sử chấm bài',
+      name: 'problem_history',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

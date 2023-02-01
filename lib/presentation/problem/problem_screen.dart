@@ -49,7 +49,16 @@ class _ProblemScreenState extends State<ProblemScreen>
         actions: [
           IconButton(
             icon: const Icon(Icons.history),
-            onPressed: () {},
+            onPressed: () {
+              context.goNamed(
+                AppRoute.problemHistory.name,
+                params: {
+                  'courseId': widget.courseId,
+                  'problemId': widget.problemId,
+                },
+                queryParams: widget.me ? {'me': 'true'} : {},
+              );
+            },
           ),
         ],
         bottom: TabBar(

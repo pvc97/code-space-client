@@ -4,6 +4,7 @@ import 'package:code_space_client/presentation/auth/sign_up_screen.dart';
 import 'package:code_space_client/presentation/course_detail/course_detail.dart';
 import 'package:code_space_client/presentation/course_list/course_list_screen.dart';
 import 'package:code_space_client/presentation/problem/problem_screen.dart';
+import 'package:code_space_client/presentation/problem_history/problem_history_screen.dart';
 import 'package:code_space_client/presentation/problem_result/problem_result_screen.dart';
 import 'package:code_space_client/router/go_router_refresh_stream.dart';
 import 'package:code_space_client/presentation/auth/login_screen.dart';
@@ -15,9 +16,10 @@ enum AppRoute {
   login,
   signUp,
   courses,
-  courseDetail,
   problem,
+  courseDetail,
   problemResult,
+  problemHistory,
 }
 
 final GoRouter router = GoRouter(
@@ -75,6 +77,20 @@ final GoRouter router = GoRouter(
                       builder: (context, state) {
                         final submitId = state.params['submitId'] ?? '';
                         return ProblemResultScreen(submitId: submitId);
+                      },
+                    ),
+                    GoRoute(
+                      path: 'history',
+                      name: AppRoute.problemHistory.name,
+                      builder: (context, state) {
+                        final problemId = state.params['problemId'] ?? '';
+                        final courseId = state.params['courseId'] ?? '';
+                        final me = state.queryParams['me'] == 'true';
+                        return ProblemHistoryScreen(
+                          problemId: problemId,
+                          courseId: courseId,
+                          me: me,
+                        );
                       },
                     ),
                   ],
