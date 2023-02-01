@@ -289,6 +289,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Bảng xếp hạng`
+  String get ranking {
+    return Intl.message(
+      'Bảng xếp hạng',
+      name: 'ranking',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

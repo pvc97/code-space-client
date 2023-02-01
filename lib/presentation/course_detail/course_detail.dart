@@ -22,7 +22,15 @@ class CourseDetailScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.foggy),
-            onPressed: () {},
+            onPressed: () {
+              context.goNamed(
+                AppRoute.ranking.name,
+                params: {
+                  'courseId': courseId,
+                },
+                queryParams: me ? {'me': 'true'} : {},
+              );
+            },
           ),
         ],
       ),

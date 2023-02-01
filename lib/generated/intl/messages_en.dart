@@ -50,6 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kết quả chấm bài"),
         "problem_tab": MessageLookupByLibrary.simpleMessage("Đề bài"),
         "profile": MessageLookupByLibrary.simpleMessage("Hồ sơ"),
+        "ranking": MessageLookupByLibrary.simpleMessage("Bảng xếp hạng"),
         "search_course":
             MessageLookupByLibrary.simpleMessage("Tìm kiếm khóa học"),
         "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
