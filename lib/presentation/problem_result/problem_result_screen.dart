@@ -1,4 +1,5 @@
 import 'package:code_space_client/constants/app_sizes.dart';
+import 'package:code_space_client/presentation/widgets/adaptive_app_bar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:code_space_client/generated/l10n.dart';
@@ -14,9 +15,8 @@ class ProblemResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AdaptiveAppBar(
         title: Text(S.of(context).problem_result),
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(Sizes.p20),

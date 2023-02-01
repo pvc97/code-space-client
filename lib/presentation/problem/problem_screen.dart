@@ -1,3 +1,4 @@
+import 'package:code_space_client/presentation/widgets/adaptive_app_bar.dart';
 import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -43,9 +44,8 @@ class _ProblemScreenState extends State<ProblemScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AdaptiveAppBar(
         title: const Text('Problem'),
-        centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.history),

@@ -1,3 +1,4 @@
+import 'package:code_space_client/presentation/widgets/adaptive_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -20,9 +21,8 @@ class ProblemHistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AdaptiveAppBar(
         title: Text(S.of(context).problem_history),
-        centerTitle: true,
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(Sizes.p20),
