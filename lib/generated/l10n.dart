@@ -259,6 +259,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Kết quả chấm bài`
+  String get problem_result {
+    return Intl.message(
+      'Kết quả chấm bài',
+      name: 'problem_result',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tổng điểm`
+  String get total_point {
+    return Intl.message(
+      'Tổng điểm',
+      name: 'total_point',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

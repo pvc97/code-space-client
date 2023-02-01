@@ -19,5 +19,7 @@
   "settings": "Cài đặt",
   "search_course": "Tìm kiếm khóa học",
   "problem_tab": "Đề bài",
-  "code_tab": "Bài làm"
+  "code_tab": "Bài làm",
+  "problem_result": "Kết quả chấm bài",
+  "total_point": "Tổng điểm"
 }
