@@ -6,6 +6,7 @@ import 'package:code_space_client/presentation/course_list/course_list_screen.da
 import 'package:code_space_client/presentation/problem/problem_screen.dart';
 import 'package:code_space_client/presentation/problem_history/problem_history_screen.dart';
 import 'package:code_space_client/presentation/problem_result/problem_result_screen.dart';
+import 'package:code_space_client/presentation/ranking/ranking_screen.dart';
 import 'package:code_space_client/router/go_router_refresh_stream.dart';
 import 'package:code_space_client/presentation/auth/login_screen.dart';
 import 'package:code_space_client/presentation/home/home_screen.dart';
@@ -17,6 +18,7 @@ enum AppRoute {
   signUp,
   courses,
   problem,
+  ranking,
   courseDetail,
   problemResult,
   problemHistory,
@@ -94,6 +96,18 @@ final GoRouter router = GoRouter(
                       },
                     ),
                   ],
+                ),
+                GoRoute(
+                  path: 'ranking',
+                  name: AppRoute.ranking.name,
+                  builder: (context, state) {
+                    final courseId = state.params['courseId'] ?? '';
+                    final me = state.queryParams['me'] == 'true';
+                    return RankingScreen(
+                      courseId: courseId,
+                      me: me,
+                    );
+                  },
                 ),
               ],
             ),
