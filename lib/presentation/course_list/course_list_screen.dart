@@ -28,6 +28,7 @@ class _CourseListScreenState extends State<CourseListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: widget.me ? Colors.green : Colors.pink,
         title: TextField(
           decoration: InputDecoration(
             border: InputBorder.none,
