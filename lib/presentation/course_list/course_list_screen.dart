@@ -1,3 +1,4 @@
+import 'package:code_space_client/presentation/widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -27,7 +28,7 @@ class _CourseListScreenState extends State<CourseListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AdaptiveAppBar(
         backgroundColor: widget.me ? Colors.green : Colors.pink,
         title: TextField(
           decoration: InputDecoration(

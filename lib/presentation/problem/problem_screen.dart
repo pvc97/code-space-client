@@ -1,3 +1,5 @@
+import 'package:code_space_client/constants/app_sizes.dart';
+import 'package:code_space_client/presentation/widgets/adaptive_app_bar.dart';
 import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -23,6 +25,8 @@ class ProblemScreen extends StatefulWidget {
 
 class _ProblemScreenState extends State<ProblemScreen>
     with TickerProviderStateMixin {
+  static const tabLength = 2;
+
   late final CodeController _codeController;
   late final TabController _tabController;
 
@@ -30,7 +34,7 @@ class _ProblemScreenState extends State<ProblemScreen>
   void initState() {
     super.initState();
     _codeController = CodeController();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: tabLength, vsync: this);
   }
 
   @override
@@ -43,26 +47,51 @@ class _ProblemScreenState extends State<ProblemScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Problem'),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.history),
-            onPressed: () {},
-          ),
-        ],
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: [
-            Tab(
-              icon: Text(S.of(context).problem_tab),
+      appBar: AdaptiveAppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            TextButton(
+              onPressed: () {
+                _tabController.animateTo(0);
+              },
+              child: Text(
+                '< ${S.of(context).problem_tab}',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: Sizes.p20,
+                ),
+              ),
             ),
-            Tab(
-              icon: Text(S.of(context).code_tab),
+            TextButton(
+              onPressed: () {
+                _tabController.animateTo(1);
+              },
+              child: Text(
+                '${S.of(context).code_tab} >',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: Sizes.p20,
+                ),
+              ),
             ),
           ],
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.history),
+            onPressed: () {
+              context.goNamed(
+                AppRoute.problemHistory.name,
+                params: {
+                  'courseId': widget.courseId,
+                  'problemId': widget.problemId,
+                },
+                queryParams: widget.me ? {'me': 'true'} : {},
+              );
+            },
+          ),
+        ],
       ),
       body: TabBarView(
         controller: _tabController,
