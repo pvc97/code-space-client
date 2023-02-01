@@ -44,12 +44,15 @@ class MessageLookup extends MessageLookupByLibrary {
             "Mật khẩu không được để trống"),
         "passwords_do_not_match":
             MessageLookupByLibrary.simpleMessage("Mật khẩu không khớp"),
+        "problem_result":
+            MessageLookupByLibrary.simpleMessage("Kết quả chấm bài"),
         "problem_tab": MessageLookupByLibrary.simpleMessage("Đề bài"),
         "profile": MessageLookupByLibrary.simpleMessage("Hồ sơ"),
         "search_course":
             MessageLookupByLibrary.simpleMessage("Tìm kiếm khóa học"),
         "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Đăng ký"),
+        "total_point": MessageLookupByLibrary.simpleMessage("Tổng điểm"),
         "username": MessageLookupByLibrary.simpleMessage("Tài khoản"),
         "username_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Tài khoản không được để trống")
