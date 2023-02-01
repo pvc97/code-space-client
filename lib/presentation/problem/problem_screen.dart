@@ -1,3 +1,4 @@
+import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/presentation/widgets/adaptive_app_bar.dart';
 import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,8 @@ class ProblemScreen extends StatefulWidget {
 
 class _ProblemScreenState extends State<ProblemScreen>
     with TickerProviderStateMixin {
+  static const tabLength = 2;
+
   late final CodeController _codeController;
   late final TabController _tabController;
 
@@ -31,7 +34,7 @@ class _ProblemScreenState extends State<ProblemScreen>
   void initState() {
     super.initState();
     _codeController = CodeController();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: tabLength, vsync: this);
   }
 
   @override
@@ -45,7 +48,35 @@ class _ProblemScreenState extends State<ProblemScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AdaptiveAppBar(
-        title: const Text('Problem'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            TextButton(
+              onPressed: () {
+                _tabController.animateTo(0);
+              },
+              child: Text(
+                '< ${S.of(context).problem_tab}',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: Sizes.p20,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                _tabController.animateTo(1);
+              },
+              child: Text(
+                '${S.of(context).code_tab} >',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: Sizes.p20,
+                ),
+              ),
+            ),
+          ],
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.history),
@@ -61,17 +92,6 @@ class _ProblemScreenState extends State<ProblemScreen>
             },
           ),
         ],
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: [
-            Tab(
-              icon: Text(S.of(context).problem_tab),
-            ),
-            Tab(
-              icon: Text(S.of(context).code_tab),
-            ),
-          ],
-        ),
       ),
       body: TabBarView(
         controller: _tabController,
