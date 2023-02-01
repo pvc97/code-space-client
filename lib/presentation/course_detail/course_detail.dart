@@ -1,4 +1,6 @@
+import 'package:code_space_client/router/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CourseDetailScreen extends StatelessWidget {
   final String courseId;
@@ -26,7 +28,12 @@ class CourseDetailScreen extends StatelessWidget {
         itemCount: 20,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () {},
+            onTap: () {
+              context.goNamed(AppRoute.problem.name, params: {
+                'courseId': courseId,
+                'problemId': '$index',
+              });
+            },
             child: Card(
               child: ListTile(
                 title: Text('Problem $index'),

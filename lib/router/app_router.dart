@@ -3,6 +3,7 @@ import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/presentation/auth/sign_up_screen.dart';
 import 'package:code_space_client/presentation/course_detail/course_detail.dart';
 import 'package:code_space_client/presentation/course_list/course_list_screen.dart';
+import 'package:code_space_client/presentation/problem/problem_screen.dart';
 import 'package:code_space_client/router/go_router_refresh_stream.dart';
 import 'package:code_space_client/presentation/auth/login_screen.dart';
 import 'package:code_space_client/presentation/home/home_screen.dart';
@@ -14,6 +15,7 @@ enum AppRoute {
   signUp,
   courses,
   courseDetail,
+  problem,
 }
 
 final GoRouter router = GoRouter(
@@ -41,14 +43,27 @@ final GoRouter router = GoRouter(
           },
           routes: [
             GoRoute(
-              path: ':courseId',
-              name: AppRoute.courseDetail.name,
-              builder: (context, state) {
-                return CourseDetailScreen(
-                  courseId: state.params['courseId']!,
-                );
-              },
-            ),
+                path: ':courseId',
+                name: AppRoute.courseDetail.name,
+                builder: (context, state) {
+                  return CourseDetailScreen(
+                    courseId: state.params['courseId']!,
+                  );
+                },
+                routes: [
+                  GoRoute(
+                    path: 'problem/:problemId',
+                    name: AppRoute.problem.name,
+                    builder: (context, state) {
+                      final problemId = state.params['problemId']!;
+                      final courseId = state.params['courseId']!;
+                      return ProblemScreen(
+                        problemId: problemId,
+                        courseId: courseId,
+                      );
+                    },
+                  ),
+                ]),
           ],
         ),
       ],
