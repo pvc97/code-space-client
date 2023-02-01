@@ -7,6 +7,7 @@ import 'package:code_space_client/presentation/problem/problem_screen.dart';
 import 'package:code_space_client/presentation/problem_history/problem_history_screen.dart';
 import 'package:code_space_client/presentation/problem_result/problem_result_screen.dart';
 import 'package:code_space_client/presentation/ranking/ranking_screen.dart';
+import 'package:code_space_client/router/adaptive_transition_page.dart';
 import 'package:code_space_client/router/go_router_refresh_stream.dart';
 import 'package:code_space_client/presentation/auth/login_screen.dart';
 import 'package:code_space_client/presentation/home/home_screen.dart';
@@ -29,69 +30,83 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/login',
       name: AppRoute.login.name,
-      builder: (context, state) {
-        return const LoginScreen();
+      pageBuilder: (context, state) {
+        return AdaptiveTransitionPage.create(
+          state.pageKey,
+          child: const LoginScreen(),
+        );
       },
     ),
     GoRoute(
       path: '/',
       name: AppRoute.home.name,
-      builder: (context, state) {
-        return const HomeScreen();
+      pageBuilder: (context, state) {
+        return AdaptiveTransitionPage.create(
+          state.pageKey,
+          child: const HomeScreen(),
+        );
       },
       routes: [
         GoRoute(
           path: 'courses',
           name: AppRoute.courses.name,
-          builder: (context, state) {
+          pageBuilder: (context, state) {
             final me = state.queryParams['me'] == 'true';
-            return CourseListScreen(me: me);
+            return AdaptiveTransitionPage.create(
+              state.pageKey,
+              child: CourseListScreen(me: me),
+            );
           },
           routes: [
             GoRoute(
               path: ':courseId',
               name: AppRoute.courseDetail.name,
-              builder: (context, state) {
-                final me = state.queryParams['me'] == 'true';
-                return CourseDetailScreen(
-                  courseId: state.params['courseId'] ?? '',
-                  me: me,
+              pageBuilder: (context, state) {
+                return AdaptiveTransitionPage.create(
+                  state.pageKey,
+                  child: CourseDetailScreen(
+                    courseId: state.params['courseId'] ?? '',
+                    me: state.queryParams['me'] == 'true',
+                  ),
                 );
               },
               routes: [
                 GoRoute(
                   path: 'problem/:problemId',
                   name: AppRoute.problem.name,
-                  builder: (context, state) {
-                    final problemId = state.params['problemId'] ?? '';
-                    final courseId = state.params['courseId'] ?? '';
-                    final me = state.queryParams['me'] == 'true';
-                    return ProblemScreen(
-                      problemId: problemId,
-                      courseId: courseId,
-                      me: me,
+                  pageBuilder: (context, state) {
+                    return AdaptiveTransitionPage.create(
+                      state.pageKey,
+                      child: ProblemScreen(
+                        problemId: state.params['problemId'] ?? '',
+                        courseId: state.params['courseId'] ?? '',
+                        me: state.queryParams['me'] == 'true',
+                      ),
                     );
                   },
                   routes: [
                     GoRoute(
                       path: 'submit/:submitId',
                       name: AppRoute.problemResult.name,
-                      builder: (context, state) {
-                        final submitId = state.params['submitId'] ?? '';
-                        return ProblemResultScreen(submitId: submitId);
+                      pageBuilder: (context, state) {
+                        return AdaptiveTransitionPage.create(
+                          state.pageKey,
+                          child: ProblemResultScreen(
+                              submitId: state.params['submitId'] ?? ''),
+                        );
                       },
                     ),
                     GoRoute(
                       path: 'history',
                       name: AppRoute.problemHistory.name,
-                      builder: (context, state) {
-                        final problemId = state.params['problemId'] ?? '';
-                        final courseId = state.params['courseId'] ?? '';
-                        final me = state.queryParams['me'] == 'true';
-                        return ProblemHistoryScreen(
-                          problemId: problemId,
-                          courseId: courseId,
-                          me: me,
+                      pageBuilder: (context, state) {
+                        return AdaptiveTransitionPage.create(
+                          state.pageKey,
+                          child: ProblemHistoryScreen(
+                            problemId: state.params['problemId'] ?? '',
+                            courseId: state.params['courseId'] ?? '',
+                            me: state.queryParams['me'] == 'true',
+                          ),
                         );
                       },
                     ),
@@ -100,12 +115,13 @@ final GoRouter router = GoRouter(
                 GoRoute(
                   path: 'ranking',
                   name: AppRoute.ranking.name,
-                  builder: (context, state) {
-                    final courseId = state.params['courseId'] ?? '';
-                    final me = state.queryParams['me'] == 'true';
-                    return RankingScreen(
-                      courseId: courseId,
-                      me: me,
+                  pageBuilder: (context, state) {
+                    return AdaptiveTransitionPage.create(
+                      state.pageKey,
+                      child: RankingScreen(
+                        courseId: state.params['courseId'] ?? '',
+                        me: state.queryParams['me'] == 'true',
+                      ),
                     );
                   },
                 ),
@@ -118,8 +134,11 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/sign-up',
       name: AppRoute.signUp.name,
-      builder: (context, state) {
-        return const SignUpScreen();
+      pageBuilder: (context, state) {
+        return AdaptiveTransitionPage.create(
+          state.pageKey,
+          child: const SignUpScreen(),
+        );
       },
     ),
   ],
