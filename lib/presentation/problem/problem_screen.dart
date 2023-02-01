@@ -1,6 +1,7 @@
+import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
 
-class ProblemScreen extends StatelessWidget {
+class ProblemScreen extends StatefulWidget {
   final String problemId;
   final String courseId;
 
@@ -9,6 +10,19 @@ class ProblemScreen extends StatelessWidget {
     required this.problemId,
     required this.courseId,
   }) : super(key: key);
+
+  @override
+  State<ProblemScreen> createState() => _ProblemScreenState();
+}
+
+class _ProblemScreenState extends State<ProblemScreen> {
+  final _codeController = CodeController();
+
+  @override
+  void dispose() {
+    _codeController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +36,10 @@ class ProblemScreen extends StatelessWidget {
             onPressed: () {},
           ),
         ],
+      ),
+      body: CodeField(
+        controller: _codeController,
+        expands: true,
       ),
     );
   }
