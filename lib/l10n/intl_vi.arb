@@ -17,5 +17,7 @@
   "my_courses": "Khóa học của tôi",
   "profile": "Hồ sơ",
   "settings": "Cài đặt",
-  "search_course": "Tìm kiếm khóa học"
+  "search_course": "Tìm kiếm khóa học",
+  "problem_tab": "Đề bài",
+  "code_tab": "Bài làm"
 }

@@ -46,8 +46,10 @@ final GoRouter router = GoRouter(
                 path: ':courseId',
                 name: AppRoute.courseDetail.name,
                 builder: (context, state) {
+                  final me = state.queryParams['me'] == 'true';
                   return CourseDetailScreen(
                     courseId: state.params['courseId']!,
+                    me: me,
                   );
                 },
                 routes: [

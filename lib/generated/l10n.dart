@@ -239,6 +239,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Đề bài`
+  String get problem_tab {
+    return Intl.message(
+      'Đề bài',
+      name: 'problem_tab',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bài làm`
+  String get code_tab {
+    return Intl.message(
+      'Bài làm',
+      name: 'code_tab',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
