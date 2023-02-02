@@ -54,6 +54,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "ranking": MessageLookupByLibrary.simpleMessage("Bảng xếp hạng"),
         "search_course":
             MessageLookupByLibrary.simpleMessage("Tìm kiếm khóa học"),
+        "session_expired":
+            MessageLookupByLibrary.simpleMessage("Phiên đăng nhập đã hết hạn"),
         "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Đăng ký"),
         "total_point": MessageLookupByLibrary.simpleMessage("Tổng điểm"),

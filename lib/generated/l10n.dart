@@ -319,6 +319,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Phiên đăng nhập đã hết hạn`
+  String get session_expired {
+    return Intl.message(
+      'Phiên đăng nhập đã hết hạn',
+      name: 'session_expired',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
