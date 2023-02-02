@@ -3,7 +3,9 @@ import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/cubits/user/user_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/user_model.dart';
-import 'package:code_space_client/presentation/widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
+import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,17 +81,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Form(
             key: _formKey,
             autovalidateMode: _autovalidateMode,
-            child: SizedBox(
+            child: Box(
               width: 300.0,
               child: ListView(
                 shrinkWrap: true,
                 children: [
                   CircleAvatar(
-                    radius: Sizes.p64,
+                    radius: Sizes.s64,
                     backgroundColor: Colors.pink[200],
-                    child: const FlutterLogo(size: Sizes.p64),
+                    child: const FlutterLogo(size: Sizes.s64),
                   ),
-                  gapH24,
+                  Box.h24,
                   TextFormField(
                     controller: _fullNameController,
                     decoration: InputDecoration(
@@ -106,7 +108,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       _fullName = value;
                     },
                   ),
-                  gapH12,
+                  Box.h12,
                   TextFormField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
@@ -124,16 +126,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       _email = value;
                     },
                   ),
-                  gapH12,
-                  ElevatedButton(
+                  Box.h12,
+                  AppElevatedButton(
                     onPressed: _submit,
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(vertical: Sizes.p16),
-                      child: Text(S.of(context).update),
-                    ),
+                    text: S.of(context).update,
                   ),
-                  gapH24,
+                  Box.h24,
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(

@@ -1,5 +1,6 @@
 import 'package:code_space_client/constants/app_sizes.dart';
-import 'package:code_space_client/presentation/widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:flutter/material.dart';
 
 import 'package:code_space_client/generated/l10n.dart';
@@ -19,17 +20,17 @@ class ProblemResultScreen extends StatelessWidget {
         title: Text(S.of(context).problem_result),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(Sizes.p20),
+        padding: const EdgeInsets.all(Sizes.s20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               '${S.of(context).total_point}: 100',
               style: const TextStyle(
-                fontSize: Sizes.p32,
+                fontSize: Sizes.s32,
               ),
             ),
-            gapH8,
+            Box.h8,
             Expanded(
               child: ListView.builder(
                 shrinkWrap: true,

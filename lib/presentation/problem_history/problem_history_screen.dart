@@ -1,4 +1,4 @@
-import 'package:code_space_client/presentation/widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,7 +25,7 @@ class ProblemHistoryScreen extends StatelessWidget {
         title: Text(S.of(context).problem_history),
       ),
       body: ListView.builder(
-        padding: const EdgeInsets.all(Sizes.p20),
+        padding: const EdgeInsets.all(Sizes.s20),
         itemCount: 20,
         itemBuilder: (context, index) {
           return GestureDetector(
