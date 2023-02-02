@@ -1,7 +1,6 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/cubits/base/base_state.dart';
 import 'package:code_space_client/generated/l10n.dart';
-import 'package:code_space_client/models/app_exception.dart';
 import 'package:code_space_client/presentation/widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:flutter/material.dart';
@@ -45,15 +44,12 @@ class _LoginScreenState extends State<LoginScreen> {
           EasyLoading.show();
           return;
         } else if (state.stateStatus == StateStatus.error) {
-          if (state.error is NoNetworkException) {
-            EasyLoading.showError(S.of(context).no_network);
-            return;
-          }
           EasyLoading.showError(state.error?.message ?? '');
           return;
+        } else if (state.stateStatus == StateStatus.success) {
+          EasyLoading.dismiss();
+          return;
         }
-
-        EasyLoading.dismiss();
       },
       child: Scaffold(
         appBar: AdaptiveAppBar(

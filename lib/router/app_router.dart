@@ -168,7 +168,7 @@ final GoRouter router = GoRouter(
       } else {
         return null;
       }
-    } else if (subloc == '/') {
+    } else {
       if (!loggedIn) {
         return '/login';
       }

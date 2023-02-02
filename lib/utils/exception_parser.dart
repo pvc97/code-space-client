@@ -1,4 +1,5 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
+import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/models/app_exception.dart';
 import 'package:dio/dio.dart';
@@ -16,7 +17,9 @@ class ExceptionParser {
       }
 
       if (error.response == null) {
-        return const NoNetworkException();
+        // TODO: Handle case change language
+        // S.current.no_network doesn't update when language changed
+        return NoNetworkException(message: S.current.no_network);
       }
 
       return CommonException(message: error.response?.data['error']);

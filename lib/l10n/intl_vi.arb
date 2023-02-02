@@ -25,5 +25,6 @@
   "problem_history": "Lịch sử chấm bài",
   "ranking": "Bảng xếp hạng",
   "update": "Cập nhật",
-  "change_password": "Đổi mật khẩu"
+  "change_password": "Đổi mật khẩu",
+  "session_expired": "Phiên đăng nhập đã hết hạn"
 }

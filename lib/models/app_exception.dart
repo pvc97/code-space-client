@@ -15,7 +15,8 @@ class UnAuthorizedException extends AppException {
 }
 
 class NoNetworkException extends AppException {
-  const NoNetworkException();
+  const NoNetworkException({String? message = 'No network connection'})
+      : super(message: message);
 }
 
 class CommonException extends AppException {
