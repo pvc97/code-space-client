@@ -66,6 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           _fullNameController.text = user.name;
           _emailController.text = user.email;
         } else {
+          // Handle case user clear user data
           EasyLoading.showInfo(S.of(context).session_expired);
           context.read<AuthCubit>().logout();
         }

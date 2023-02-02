@@ -3,9 +3,9 @@ import 'package:code_space_client/cubits/base/base_state.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/presentation/widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/router/app_router.dart';
+import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -39,18 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
-      listener: (context, state) {
-        if (state.stateStatus == StateStatus.loading) {
-          EasyLoading.show();
-          return;
-        } else if (state.stateStatus == StateStatus.error) {
-          EasyLoading.showError(state.error?.message ?? '');
-          return;
-        } else if (state.stateStatus == StateStatus.success) {
-          EasyLoading.dismiss();
-          return;
-        }
-      },
+      listener: stateStatusListener,
       child: Scaffold(
         appBar: AdaptiveAppBar(
           title: const Text('Login'),
