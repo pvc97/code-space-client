@@ -1,5 +1,6 @@
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:flutter/material.dart';
 
 import 'package:code_space_client/generated/l10n.dart';
