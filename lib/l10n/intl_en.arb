@@ -23,5 +23,7 @@
   "problem_result": "Kết quả chấm bài",
   "total_point": "Tổng điểm",
   "problem_history": "Lịch sử chấm bài",
-  "ranking": "Bảng xếp hạng"
+  "ranking": "Bảng xếp hạng",
+  "update": "Cập nhật",
+  "change_password": "Đổi mật khẩu"
 }

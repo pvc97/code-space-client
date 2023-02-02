@@ -58,7 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 10),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.goNamed(AppRoute.profile.name);
+                },
                 child: Text(S.of(context).profile),
               ),
               const SizedBox(height: 10),
