@@ -1,7 +1,9 @@
+import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/cubits/user/user_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
-import 'package:code_space_client/presentation/widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,37 +38,35 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Center(
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 300.0),
+        child: Box(
+          width: Sizes.s300,
           child: ListView(
             shrinkWrap: true,
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  context.goNamed(AppRoute.courses.name);
-                },
-                child: Text(S.of(context).course_list),
+              AppElevatedButton(
+                onPressed: () => context.goNamed(AppRoute.courses.name),
+                text: S.of(context).course_list,
               ),
-              const SizedBox(height: 10),
-              ElevatedButton(
+              Box.h12,
+              AppElevatedButton(
                 onPressed: () {
                   context.goNamed(AppRoute.courses.name, queryParams: {
                     'me': 'true',
                   });
                 },
-                child: Text(S.of(context).my_courses),
+                text: S.of(context).my_courses,
               ),
-              const SizedBox(height: 10),
-              ElevatedButton(
+              Box.h12,
+              AppElevatedButton(
                 onPressed: () {
                   context.goNamed(AppRoute.profile.name);
                 },
-                child: Text(S.of(context).profile),
+                text: S.of(context).profile,
               ),
-              const SizedBox(height: 10),
-              ElevatedButton(
+              Box.h12,
+              AppElevatedButton(
                 onPressed: () {},
-                child: Text(S.of(context).settings),
+                text: S.of(context).settings,
               ),
             ],
           ),

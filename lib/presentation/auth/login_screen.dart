@@ -1,7 +1,9 @@
+import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/cubits/base/base_state.dart';
 import 'package:code_space_client/generated/l10n.dart';
-import 'package:code_space_client/presentation/widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         _username = value;
                       },
                     ),
-                    const SizedBox(height: 10),
+                    const Box(height: 10),
                     TextFormField(
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
@@ -87,18 +89,18 @@ class _LoginScreenState extends State<LoginScreen> {
                         _password = value;
                       },
                     ),
-                    const SizedBox(height: 16),
+                    const Box(height: 16),
                     BlocBuilder<AuthCubit, AuthState>(
                       builder: (context, state) {
-                        return ElevatedButton(
+                        return AppElevatedButton(
                           onPressed: state.stateStatus == StateStatus.loading
                               ? null
                               : _submit,
-                          child: Text(S.of(context).login),
+                          text: S.of(context).login,
                         );
                       },
                     ),
-                    const SizedBox(height: 16),
+                    const Box(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [

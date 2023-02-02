@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
-import 'package:code_space_client/presentation/widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 
 class RankingScreen extends StatelessWidget {
   final bool me;
@@ -21,7 +21,7 @@ class RankingScreen extends StatelessWidget {
         title: Text(S.of(context).ranking),
       ),
       body: ListView.builder(
-        padding: const EdgeInsets.all(Sizes.p20),
+        padding: const EdgeInsets.all(Sizes.s20),
         itemCount: 20,
         itemBuilder: (BuildContext context, int index) {
           return Card(
