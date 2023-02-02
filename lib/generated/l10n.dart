@@ -299,6 +299,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Cập nhật`
+  String get update {
+    return Intl.message(
+      'Cập nhật',
+      name: 'update',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đổi mật khẩu`
+  String get change_password {
+    return Intl.message(
+      'Đổi mật khẩu',
+      name: 'change_password',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
