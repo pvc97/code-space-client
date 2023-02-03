@@ -329,6 +329,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Có lỗi xảy ra`
+  String get have_error {
+    return Intl.message(
+      'Có lỗi xảy ra',
+      name: 'have_error',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
