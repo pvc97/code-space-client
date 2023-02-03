@@ -26,5 +26,6 @@
   "ranking": "Bảng xếp hạng",
   "update": "Cập nhật",
   "change_password": "Đổi mật khẩu",
-  "session_expired": "Phiên đăng nhập đã hết hạn"
+  "session_expired": "Phiên đăng nhập đã hết hạn",
+  "have_error": "Có lỗi xảy ra"
 }

@@ -1,4 +1,5 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
+import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/models/app_exception.dart';
 import 'package:dio/dio.dart';
@@ -15,11 +16,10 @@ class ExceptionParser {
         return UnAuthorizedException(error.response?.data['error']);
       }
 
-      if (error.response == null) {
-        return const NoNetworkException();
-      }
+      final errorMessage =
+          error.response?.data['error'] ?? S.current.have_error;
 
-      return CommonException(message: error.response?.data['error']);
+      return CommonException(message: errorMessage);
     }
 
     return CommonException(message: error.toString());

@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "full_name": MessageLookupByLibrary.simpleMessage("Họ và tên"),
         "full_name_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Họ và tên không được để trống"),
+        "have_error": MessageLookupByLibrary.simpleMessage("Có lỗi xảy ra"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "my_courses": MessageLookupByLibrary.simpleMessage("Khóa học của tôi"),
         "no_network":
