@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AdaptiveAppBar(
-        title: const Text('Home'),
+        title: Text(S.of(context).home_screen_title),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),

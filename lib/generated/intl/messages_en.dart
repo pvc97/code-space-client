@@ -24,6 +24,9 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "change_password": MessageLookupByLibrary.simpleMessage("Đổi mật khẩu"),
         "code_tab": MessageLookupByLibrary.simpleMessage("Bài làm"),
+        "comment_home____": MessageLookupByLibrary.simpleMessage(""),
+        "comment_login____": MessageLookupByLibrary.simpleMessage(""),
+        "comment_role____": MessageLookupByLibrary.simpleMessage(""),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Xác nhận mật khẩu"),
         "course_list":
@@ -37,7 +40,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "full_name_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Họ và tên không được để trống"),
         "have_error": MessageLookupByLibrary.simpleMessage("Có lỗi xảy ra"),
+        "home_screen_title": MessageLookupByLibrary.simpleMessage("Trang chủ"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
+        "login_screen_title": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "my_courses": MessageLookupByLibrary.simpleMessage("Khóa học của tôi"),
         "no_network":
             MessageLookupByLibrary.simpleMessage("Không có kết nối mạng"),
@@ -53,6 +58,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "problem_tab": MessageLookupByLibrary.simpleMessage("Đề bài"),
         "profile": MessageLookupByLibrary.simpleMessage("Hồ sơ"),
         "ranking": MessageLookupByLibrary.simpleMessage("Bảng xếp hạng"),
+        "role": MessageLookupByLibrary.simpleMessage("Chức vụ"),
+        "role_manager": MessageLookupByLibrary.simpleMessage("Quản lý"),
+        "role_student": MessageLookupByLibrary.simpleMessage("Học viên"),
+        "role_teacher": MessageLookupByLibrary.simpleMessage("Giảng viên"),
         "search_course":
             MessageLookupByLibrary.simpleMessage("Tìm kiếm khóa học"),
         "session_expired":

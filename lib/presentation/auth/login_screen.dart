@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: stateStatusListener,
       child: Scaffold(
         appBar: AdaptiveAppBar(
-          title: const Text('Login'),
+          title: Text(S.of(context).login_screen_title),
         ),
         body: Center(
           child: Padding(
