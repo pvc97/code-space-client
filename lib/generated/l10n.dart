@@ -339,6 +339,96 @@ class S {
       args: [],
     );
   }
+
+  /// ``
+  String get comment_login____ {
+    return Intl.message(
+      '',
+      name: 'comment_login____',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Đăng nhập`
+  String get login_screen_title {
+    return Intl.message(
+      'Đăng nhập',
+      name: 'login_screen_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get comment_home____ {
+    return Intl.message(
+      '',
+      name: 'comment_home____',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trang chủ`
+  String get home_screen_title {
+    return Intl.message(
+      'Trang chủ',
+      name: 'home_screen_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ``
+  String get comment_role____ {
+    return Intl.message(
+      '',
+      name: 'comment_role____',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chức vụ`
+  String get role {
+    return Intl.message(
+      'Chức vụ',
+      name: 'role',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Học viên`
+  String get role_student {
+    return Intl.message(
+      'Học viên',
+      name: 'role_student',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Giảng viên`
+  String get role_teacher {
+    return Intl.message(
+      'Giảng viên',
+      name: 'role_teacher',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quản lý`
+  String get role_manager {
+    return Intl.message(
+      'Quản lý',
+      name: 'role_manager',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

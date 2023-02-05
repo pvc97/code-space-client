@@ -27,5 +27,14 @@
   "update": "Cập nhật",
   "change_password": "Đổi mật khẩu",
   "session_expired": "Phiên đăng nhập đã hết hạn",
-  "have_error": "Có lỗi xảy ra"
+  "have_error": "Có lỗi xảy ra",
+  "comment_login____": "",
+  "login_screen_title": "Đăng nhập",
+  "comment_home____": "",
+  "home_screen_title": "Trang chủ",
+  "comment_role____": "",
+  "role": "Chức vụ",
+  "role_student": "Học viên",
+  "role_teacher": "Giảng viên",
+  "role_manager": "Quản lý"
 }

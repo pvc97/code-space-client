@@ -2,6 +2,7 @@ import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/cubits/user/user_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
+import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/models/user_model.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
@@ -90,6 +91,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     radius: Sizes.s64,
                     backgroundColor: Colors.pink[200],
                     child: const FlutterLogo(size: Sizes.s64),
+                  ),
+                  Box.h24,
+                  Align(
+                    alignment: Alignment.center,
+                    child: BlocBuilder<UserCubit, UserState>(
+                      builder: (context, state) {
+                        return Text(
+                          "${S.of(context).role}: ${_user?.roleType.getName(context) ?? ''}",
+                          style: const TextStyle(
+                            fontSize: Sizes.s20,
+                          ),
+                        );
+                      },
+                    ),
                   ),
                   Box.h24,
                   TextFormField(
