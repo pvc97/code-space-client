@@ -131,6 +131,16 @@ final GoRouter router = GoRouter(
             ),
           ],
         ),
+        GoRoute(
+          path: 'profile',
+          name: AppRoute.profile.name,
+          pageBuilder: (context, state) {
+            return AdaptiveTransitionPage.create(
+              state.pageKey,
+              child: const ProfileScreen(),
+            );
+          },
+        ),
       ],
     ),
     GoRoute(
@@ -140,16 +150,6 @@ final GoRouter router = GoRouter(
         return AdaptiveTransitionPage.create(
           state.pageKey,
           child: const SignUpScreen(),
-        );
-      },
-    ),
-    GoRoute(
-      path: '/profile',
-      name: AppRoute.profile.name,
-      pageBuilder: (context, state) {
-        return AdaptiveTransitionPage.create(
-          state.pageKey,
-          child: const ProfileScreen(),
         );
       },
     ),
@@ -169,7 +169,7 @@ final GoRouter router = GoRouter(
         return null;
       }
     } else {
-      if (!loggedIn) {
+      if (!loggedIn && subloc != '/sign-up') {
         return '/login';
       }
     }
