@@ -25,6 +25,10 @@ import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 /// Summary:
 /// - Auto refresh token will try to refresh token and retry request
 /// - Only handle first error 401, if error 401 occurs again, just reject error
+/// - If user login with wrong password, server will return error 401
+/// => Will retry request with empty access token
+/// This will cause 2 times call login api, it's not good
+/// TODO: Find a way to handle this case
 class AuthIntercepter extends InterceptorsWrapper {
   final LocalStorageManager localStorage;
   final ApiProvider apiProvider;
