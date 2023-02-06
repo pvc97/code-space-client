@@ -190,20 +190,20 @@ class S {
     );
   }
 
-  /// `Danh sách khóa học`
+  /// `Danh sách lớp học`
   String get course_list {
     return Intl.message(
-      'Danh sách khóa học',
+      'Danh sách lớp học',
       name: 'course_list',
       desc: '',
       args: [],
     );
   }
 
-  /// `Khóa học của tôi`
+  /// `Lớp học của tôi`
   String get my_courses {
     return Intl.message(
-      'Khóa học của tôi',
+      'Lớp học của tôi',
       name: 'my_courses',
       desc: '',
       args: [],
@@ -230,10 +230,10 @@ class S {
     );
   }
 
-  /// `Tìm kiếm khóa học`
+  /// `Tìm kiếm lớp học`
   String get search_course {
     return Intl.message(
-      'Tìm kiếm khóa học',
+      'Tìm kiếm lớp học',
       name: 'search_course',
       desc: '',
       args: [],
