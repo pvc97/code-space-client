@@ -30,7 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Xác nhận mật khẩu"),
         "course_list":
-            MessageLookupByLibrary.simpleMessage("Danh sách khóa học"),
+            MessageLookupByLibrary.simpleMessage("Danh sách lớp học"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Bạn chưa có tài khoản?"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -43,7 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "home_screen_title": MessageLookupByLibrary.simpleMessage("Trang chủ"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "login_screen_title": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
-        "my_courses": MessageLookupByLibrary.simpleMessage("Khóa học của tôi"),
+        "my_courses": MessageLookupByLibrary.simpleMessage("Lớp học của tôi"),
         "no_network":
             MessageLookupByLibrary.simpleMessage("Không có kết nối mạng"),
         "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
@@ -63,7 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "role_student": MessageLookupByLibrary.simpleMessage("Học viên"),
         "role_teacher": MessageLookupByLibrary.simpleMessage("Giảng viên"),
         "search_course":
-            MessageLookupByLibrary.simpleMessage("Tìm kiếm khóa học"),
+            MessageLookupByLibrary.simpleMessage("Tìm kiếm lớp học"),
         "session_expired":
             MessageLookupByLibrary.simpleMessage("Phiên đăng nhập đã hết hạn"),
         "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
