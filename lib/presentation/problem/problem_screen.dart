@@ -1,5 +1,6 @@
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -108,6 +109,7 @@ class _ProblemScreenState extends State<ProblemScreen>
       // TODO: Only show this button when current the tab is code
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          logger.d(_codeController.text);
           context.goNamed(
             AppRoute.problemResult.name,
             params: {
