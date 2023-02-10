@@ -12,7 +12,7 @@ class SubmissionModel {
   final String createdBy;
   final DateTime createdAt;
   final List<SubmissionResultModel> results;
-  final int totalTestCases;
+  final int totalTestCase;
 
   SubmissionModel(
     this.id,
@@ -21,7 +21,7 @@ class SubmissionModel {
     this.createdBy,
     this.createdAt,
     this.results,
-    this.totalTestCases,
+    this.totalTestCase,
   );
 
   factory SubmissionModel.fromJson(Map<String, dynamic> json) =>

@@ -1,6 +1,7 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/cubits/intl/intl_cubit.dart';
 import 'package:code_space_client/cubits/problem/problem_cubit.dart';
+import 'package:code_space_client/cubits/problem_result/problem_result_cubit.dart';
 import 'package:code_space_client/cubits/user/user_cubit.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager_impl.dart';
@@ -103,6 +104,10 @@ abstract class Di {
 
     sl.registerFactory<ProblemCubit>(
       () => ProblemCubit(submissionRepository: sl()),
+    );
+
+    sl.registerFactory<ProblemResultCubit>(
+      () => ProblemResultCubit(submissionRepository: sl()),
     );
   }
 }
