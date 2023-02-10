@@ -62,8 +62,11 @@ class _ProblemResultScreenState extends State<ProblemResultScreen> {
                               final result = submission.results[index];
                               return Card(
                                 child: ListTile(
-                                  title: Text('Input: ${result.stdin} '),
-                                  subtitle: Text('Output: ${result.output}'),
+                                  leading: Text('Input: ${result.stdin} '),
+                                  title: Text(
+                                      'Expected Output: ${result.expectedOutput}'),
+                                  subtitle:
+                                      Text('Actual Output: ${result.output}'),
                                   trailing: Icon(
                                     result.correct
                                         ? Icons.check_circle
