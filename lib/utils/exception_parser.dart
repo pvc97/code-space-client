@@ -2,11 +2,14 @@ import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/models/app_exception.dart';
+import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:dio/dio.dart';
 
 class ExceptionParser {
   ExceptionParser._();
   static AppException parse(dynamic error) {
+    logger.d('ExceptionParser: $error');
+
     if (error is DioError) {
       if (error.response?.statusCode == 401) {
         // If unauthorized, logout user
