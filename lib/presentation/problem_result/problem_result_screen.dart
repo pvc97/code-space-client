@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:code_space_client/generated/l10n.dart';
 
-class ProblemResultScreen extends StatelessWidget {
+class ProblemResultScreen extends StatefulWidget {
   final String submitId;
 
   const ProblemResultScreen({
@@ -13,6 +13,11 @@ class ProblemResultScreen extends StatelessWidget {
     required this.submitId,
   }) : super(key: key);
 
+  @override
+  State<ProblemResultScreen> createState() => _ProblemResultScreenState();
+}
+
+class _ProblemResultScreenState extends State<ProblemResultScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

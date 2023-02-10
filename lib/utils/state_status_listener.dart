@@ -4,8 +4,13 @@ import 'package:code_space_client/models/app_exception.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-void stateStatusListener(BuildContext context, BaseState state,
-    {VoidCallback? onSuccess}) {
+void stateStatusListener(
+  BuildContext context,
+  BaseState state, {
+  VoidCallback? onSuccess,
+  VoidCallback? onLoading,
+  VoidCallback? onError,
+}) {
   switch (state.stateStatus) {
     case StateStatus.loading:
       EasyLoading.show();
