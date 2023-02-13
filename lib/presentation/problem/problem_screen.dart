@@ -1,4 +1,5 @@
 import 'package:code_space_client/constants/app_sizes.dart';
+import 'package:code_space_client/cubits/base/base_state.dart';
 import 'package:code_space_client/cubits/problem/problem_cubit.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
@@ -77,78 +78,87 @@ class _ProblemScreenState extends State<ProblemScreen>
               },
             );
           },
-          child: Scaffold(
-            appBar: AdaptiveAppBar(
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      _tabController.animateTo(0);
-                    },
-                    child: Text(
-                      '< ${S.of(context).problem_tab}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: Sizes.s20,
-                      ),
+          child: BlocBuilder<ProblemCubit, ProblemState>(
+            builder: (context, state) {
+              if (state.stateStatus == StateStatus.success &&
+                  state.problemDetail != null) {
+                return Scaffold(
+                  appBar: AdaptiveAppBar(
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            _tabController.animateTo(0);
+                          },
+                          child: Text(
+                            '< ${S.of(context).problem_tab}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: Sizes.s20,
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            _tabController.animateTo(1);
+                          },
+                          child: Text(
+                            '${S.of(context).code_tab} >',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: Sizes.s20,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      _tabController.animateTo(1);
-                    },
-                    child: Text(
-                      '${S.of(context).code_tab} >',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: Sizes.s20,
+                    actions: [
+                      IconButton(
+                        icon: const Icon(Icons.history),
+                        onPressed: () {
+                          context.goNamed(
+                            AppRoute.problemHistory.name,
+                            params: {
+                              'courseId': widget.courseId,
+                              'problemId': widget.problemId,
+                            },
+                            queryParams: widget.me ? {'me': 'true'} : {},
+                          );
+                        },
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.history),
-                  onPressed: () {
-                    context.goNamed(
-                      AppRoute.problemHistory.name,
-                      params: {
-                        'courseId': widget.courseId,
-                        'problemId': widget.problemId,
-                      },
-                      queryParams: widget.me ? {'me': 'true'} : {},
-                    );
-                  },
-                ),
-              ],
-            ),
-            body: TabBarView(
-              controller: _tabController,
-              children: [
-                SfPdfViewer.network(
-                  'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
-                  key: _pdfViewerKey,
-                ),
-                CodeField(
-                  controller: _codeController,
-                  expands: true,
-                ),
-              ],
-            ),
-            // TODO: Only show this button when current the tab is code
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                final sourceCode = _codeController.text;
-                final problemId = widget.problemId;
+                  body: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      SfPdfViewer.network(
+                        // '${sl<ApiProvider>().dio.options.baseUrl}${state.problemDetail!.pdfPath}}',
+                        'http://localhost:3000/${state.problemDetail!.pdfPath}',
+                        key: _pdfViewerKey,
+                      ),
+                      CodeField(
+                        controller: _codeController,
+                        expands: true,
+                      ),
+                    ],
+                  ),
+                  // TODO: Only show this button when current the tab is code
+                  floatingActionButton: FloatingActionButton(
+                    onPressed: () {
+                      final sourceCode = _codeController.text;
+                      final problemId = widget.problemId;
 
-                context
-                    .read<ProblemCubit>()
-                    .submitCode(sourceCode: sourceCode, problemId: problemId);
-              },
-              child: const Icon(Icons.play_arrow),
-            ),
+                      context.read<ProblemCubit>().submitCode(
+                          sourceCode: sourceCode, problemId: problemId);
+                    },
+                    child: const Icon(Icons.play_arrow),
+                  ),
+                );
+              }
+
+              return const SizedBox.shrink();
+            },
           ),
         );
       }),

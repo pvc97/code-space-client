@@ -44,7 +44,7 @@ class CourseDetailScreen extends StatelessWidget {
                 AppRoute.problem.name,
                 params: {
                   'courseId': courseId,
-                  'problemId': '9aac8dae-bc26-45d9-a84b-d6cf84cf70d2',
+                  'problemId': '520136b8-bc7c-49c6-90bb-adda5eac5d0e',
                 },
                 queryParams: me ? {'me': 'true'} : {},
               );
