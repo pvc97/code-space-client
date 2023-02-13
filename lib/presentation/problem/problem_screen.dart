@@ -1,6 +1,7 @@
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/cubits/base/base_state.dart';
 import 'package:code_space_client/cubits/problem/problem_cubit.dart';
+import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
@@ -134,7 +135,7 @@ class _ProblemScreenState extends State<ProblemScreen>
                     children: [
                       SfPdfViewer.network(
                         // '${sl<ApiProvider>().dio.options.baseUrl}${state.problemDetail!.pdfPath}}',
-                        'http://localhost:3000/${state.problemDetail!.pdfPath}',
+                        '${sl<ApiProvider>().dio.options.baseUrl}/${state.problemDetail!.pdfPath}',
                         key: _pdfViewerKey,
                       ),
                       CodeField(
