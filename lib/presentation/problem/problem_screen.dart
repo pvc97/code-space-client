@@ -7,6 +7,7 @@ import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/router/app_router.dart';
@@ -29,6 +30,8 @@ class ProblemScreen extends StatefulWidget {
 
 class _ProblemScreenState extends State<ProblemScreen>
     with TickerProviderStateMixin {
+  final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
+
   static const tabLength = 2;
 
   late final CodeController _codeController;
@@ -124,8 +127,9 @@ class _ProblemScreenState extends State<ProblemScreen>
             body: TabBarView(
               controller: _tabController,
               children: [
-                const Center(
-                  child: Text("It's sunny here"),
+                SfPdfViewer.network(
+                  'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
+                  key: _pdfViewerKey,
                 ),
                 CodeField(
                   controller: _codeController,
