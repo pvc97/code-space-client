@@ -51,7 +51,8 @@ class _ProblemScreenState extends State<ProblemScreen>
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ProblemCubit>(
-      create: (context) => sl(),
+      create: (context) =>
+          sl<ProblemCubit>()..getProblemDetail(widget.problemId),
       child: Builder(builder: (context) {
         return BlocListener<ProblemCubit, ProblemState>(
           listener: (context, state) {
@@ -59,15 +60,17 @@ class _ProblemScreenState extends State<ProblemScreen>
               context,
               state,
               onSuccess: () {
-                context.goNamed(
-                  AppRoute.problemResult.name,
-                  params: {
-                    'courseId': widget.courseId,
-                    'problemId': widget.problemId,
-                    'submitId': state.submissionId!,
-                  },
-                  queryParams: widget.me ? {'me': 'true'} : {},
-                );
+                if (state.submissionId != null) {
+                  context.goNamed(
+                    AppRoute.problemResult.name,
+                    params: {
+                      'courseId': widget.courseId,
+                      'problemId': widget.problemId,
+                      'submitId': state.submissionId!,
+                    },
+                    queryParams: widget.me ? {'me': 'true'} : {},
+                  );
+                }
               },
             );
           },
@@ -134,8 +137,7 @@ class _ProblemScreenState extends State<ProblemScreen>
             floatingActionButton: FloatingActionButton(
               onPressed: () {
                 final sourceCode = _codeController.text;
-                // final problemId = widget.problemId;
-                const problemId = '2f7d93c3-5943-4516-a05d-22bd1c0ec0fc';
+                final problemId = widget.problemId;
 
                 context
                     .read<ProblemCubit>()
