@@ -7,10 +7,12 @@ import 'package:code_space_client/data/data_provider/local/local_storage_manager
 import 'package:code_space_client/data/data_provider/local/local_storage_manager_impl.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/data/data_provider/network/intercepters/auth_intercepter.dart';
+import 'package:code_space_client/data/data_provider/services/problem_service.dart';
 import 'package:code_space_client/data/data_provider/services/submission_service.dart';
 import 'package:code_space_client/data/repositories/auth_repository.dart';
 import 'package:code_space_client/data/data_provider/services/auth_service.dart';
 import 'package:code_space_client/data/data_provider/services/user_service.dart';
+import 'package:code_space_client/data/repositories/problem_repository.dart';
 import 'package:code_space_client/data/repositories/submission_repository.dart';
 import 'package:code_space_client/data/repositories/user_repository.dart';
 import 'package:dio/dio.dart';
@@ -102,8 +104,21 @@ abstract class Di {
       () => SubmissionRepository(submissionService: sl()),
     );
 
+    sl.registerLazySingleton<ProblemService>(
+      () => ProblemService(
+        apiProvider: sl(),
+      ),
+    );
+
+    sl.registerLazySingleton<ProblemRepository>(
+      () => ProblemRepository(problemService: sl()),
+    );
+
     sl.registerFactory<ProblemCubit>(
-      () => ProblemCubit(submissionRepository: sl()),
+      () => ProblemCubit(
+        submissionRepository: sl(),
+        problemRepository: sl(),
+      ),
     );
 
     sl.registerFactory<ProblemResultCubit>(
