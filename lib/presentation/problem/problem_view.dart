@@ -65,9 +65,9 @@ class _ProblemViewState extends State<ProblemView>
     });
   }
 
-  void _changeTab(int index) {
-    _tabController.animateTo(index);
-  }
+  // void _changeTab(int index) {
+  //   _tabController.animateTo(index);
+  // }
 
   @override
   void dispose() {
