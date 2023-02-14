@@ -7,9 +7,15 @@ class LocaleState extends Equatable {
     required this.locale,
   });
 
-  factory LocaleState.initial() {
+  factory LocaleState.initial({Languages? initLanguage}) {
+    if (initLanguage != null) {
+      return LocaleState(
+        locale: Locale.fromSubtags(languageCode: initLanguage.code),
+      );
+    }
+
     return LocaleState(
-        locale: Locale.fromSubtags(languageCode: Languages.english.code));
+        locale: Locale.fromSubtags(languageCode: Languages.vietnamese.code));
   }
 
   @override
