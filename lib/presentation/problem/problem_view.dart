@@ -101,12 +101,14 @@ class _ProblemViewState extends State<ProblemView>
               if (state == null) {
                 return const SizedBox.shrink();
               }
-              return SizedBox(
+              return Container(
                 width: MediaQuery.of(context).size.width * 0.5,
+                alignment: Alignment.center,
                 child: Text(state.name),
               );
             },
           ),
+          centerTitle: true,
           actions: [
             IconButton(
               icon: const Icon(Icons.history),
