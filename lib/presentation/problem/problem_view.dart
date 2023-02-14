@@ -1,4 +1,3 @@
-import 'package:code_space_client/cubits/base/base_state.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_text_field/code_text_field.dart';
@@ -12,7 +11,6 @@ import 'package:code_space_client/cubits/problem/problem_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/router/app_router.dart';
-import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 
 class ProblemView extends StatefulWidget {
@@ -46,7 +44,13 @@ class _ProblemViewState extends State<ProblemView>
     _codeController = CodeController();
     _tabController = TabController(length: tabLength, vsync: this);
 
-    context.read<ProblemCubit>().getProblemDetail(widget.problemId);
+    // Have to call get problem detail after build
+    // because initState is called before build
+    // so in the first line of getProblemDetail emit loading state, this event
+    // will not be listened, because in this time the BlocListener isn't attached to widget tree
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ProblemCubit>().getProblemDetail(widget.problemId);
+    });
   }
 
   @override
@@ -60,7 +64,6 @@ class _ProblemViewState extends State<ProblemView>
   Widget build(BuildContext context) {
     return BlocListener<ProblemCubit, ProblemState>(
       listener: (context, state) {
-        logger.d(state.stateStatus);
         stateStatusListener(
           context,
           state,
@@ -131,8 +134,7 @@ class _ProblemViewState extends State<ProblemView>
           children: [
             BlocBuilder<ProblemCubit, ProblemState>(
               builder: (context, state) {
-                if (state.stateStatus == StateStatus.success &&
-                    state.problemDetail != null) {
+                if (state.problemDetail != null) {
                   return SfPdfViewer.network(
                     '${sl<ApiProvider>().dio.options.baseUrl}/${state.problemDetail!.pdfPath}',
                     key: _pdfViewerKey,
