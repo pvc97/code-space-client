@@ -49,6 +49,11 @@ class _ProblemViewState extends State<ProblemView>
     });
   }
 
+  void _changeTab(int index) {
+    _tabController.animateTo(index);
+    context.read<ProblemCubit>().changeTab(ProblemTab.values.elementAt(index));
+  }
+
   @override
   void dispose() {
     _codeController.dispose();
@@ -88,9 +93,7 @@ class _ProblemViewState extends State<ProblemView>
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               TextButton(
-                onPressed: () {
-                  _tabController.animateTo(0);
-                },
+                onPressed: () => _changeTab(ProblemTab.pdf.index),
                 child: Text(
                   '< ${S.of(context).problem_tab}',
                   style: const TextStyle(
@@ -100,9 +103,7 @@ class _ProblemViewState extends State<ProblemView>
                 ),
               ),
               TextButton(
-                onPressed: () {
-                  _tabController.animateTo(1);
-                },
+                onPressed: () => _changeTab(ProblemTab.code.index),
                 child: Text(
                   '${S.of(context).code_tab} >',
                   style: const TextStyle(
@@ -142,16 +143,26 @@ class _ProblemViewState extends State<ProblemView>
           ],
         ),
         // TODO: Only show this button when current the tab is code
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            final sourceCode = _codeController.text;
-            final problemId = widget.problemId;
+        floatingActionButton:
+            BlocSelector<ProblemCubit, ProblemState, ProblemTab>(
+          selector: (ProblemState state) => state.problemTab,
+          builder: (context, state) {
+            if (state == ProblemTab.code) {
+              return FloatingActionButton(
+                onPressed: () {
+                  final sourceCode = _codeController.text;
+                  final problemId = widget.problemId;
 
-            context
-                .read<ProblemCubit>()
-                .submitCode(sourceCode: sourceCode, problemId: problemId);
+                  context
+                      .read<ProblemCubit>()
+                      .submitCode(sourceCode: sourceCode, problemId: problemId);
+                },
+                child: const Icon(Icons.play_arrow),
+              );
+            }
+
+            return const SizedBox.shrink();
           },
-          child: const Icon(Icons.play_arrow),
         ),
       ),
     );

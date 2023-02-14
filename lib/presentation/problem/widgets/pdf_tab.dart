@@ -1,6 +1,5 @@
 import 'package:code_space_client/cubits/problem/problem_cubit.dart';
-import 'package:code_space_client/data/data_provider/network/api_provider.dart';
-import 'package:code_space_client/injection_container.dart';
+import 'package:code_space_client/models/problem_detail_model.dart';
 import 'package:code_space_client/utils/extensions/problem_detail_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,11 +21,12 @@ class _PdfTabState extends State<PdfTab> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocBuilder<ProblemCubit, ProblemState>(
+    return BlocSelector<ProblemCubit, ProblemState, ProblemDetailModel?>(
+      selector: (ProblemState state) => state.problemDetail,
       builder: (context, state) {
-        if (state.problemDetail != null) {
+        if (state != null) {
           return SfPdfViewer.network(
-            state.problemDetail!.fullPdfPath,
+            state.fullPdfPath,
             key: _pdfViewerKey,
           );
         }

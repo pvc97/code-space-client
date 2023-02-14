@@ -60,6 +60,10 @@ class ProblemCubit extends Cubit<ProblemState> {
     }
   }
 
+  void changeTab(ProblemTab problemTab) {
+    emit(state.copyWith(problemTab: problemTab));
+  }
+
   @override
   Future<void> close() {
     logger.d('ProblemCubit closed');
