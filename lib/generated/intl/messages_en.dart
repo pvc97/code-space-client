@@ -22,56 +22,56 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "change_password": MessageLookupByLibrary.simpleMessage("Đổi mật khẩu"),
-        "code_tab": MessageLookupByLibrary.simpleMessage("Bài làm"),
+        "change_password":
+            MessageLookupByLibrary.simpleMessage("Change password"),
+        "code_tab": MessageLookupByLibrary.simpleMessage("Code"),
         "comment_home____": MessageLookupByLibrary.simpleMessage(""),
         "comment_login____": MessageLookupByLibrary.simpleMessage(""),
         "comment_role____": MessageLookupByLibrary.simpleMessage(""),
         "confirm_password":
-            MessageLookupByLibrary.simpleMessage("Xác nhận mật khẩu"),
-        "course_list":
-            MessageLookupByLibrary.simpleMessage("Danh sách lớp học"),
+            MessageLookupByLibrary.simpleMessage("Confirm password"),
+        "course_list": MessageLookupByLibrary.simpleMessage("Course List"),
         "dont_have_an_account":
-            MessageLookupByLibrary.simpleMessage("Bạn chưa có tài khoản?"),
+            MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "email_cannot_be_empty":
-            MessageLookupByLibrary.simpleMessage("Email không được để trống"),
-        "full_name": MessageLookupByLibrary.simpleMessage("Họ và tên"),
-        "full_name_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
-            "Họ và tên không được để trống"),
-        "have_error": MessageLookupByLibrary.simpleMessage("Có lỗi xảy ra"),
-        "home_screen_title": MessageLookupByLibrary.simpleMessage("Trang chủ"),
-        "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
-        "login_screen_title": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
-        "my_courses": MessageLookupByLibrary.simpleMessage("Lớp học của tôi"),
-        "no_network":
-            MessageLookupByLibrary.simpleMessage("Không có kết nối mạng"),
-        "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
-        "password_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
-            "Mật khẩu không được để trống"),
+            MessageLookupByLibrary.simpleMessage("Email cannot be empty"),
+        "english": MessageLookupByLibrary.simpleMessage("English"),
+        "full_name": MessageLookupByLibrary.simpleMessage("Full name"),
+        "full_name_cannot_be_empty":
+            MessageLookupByLibrary.simpleMessage("Full name cannot be empty"),
+        "have_error": MessageLookupByLibrary.simpleMessage("Have error"),
+        "home_screen_title": MessageLookupByLibrary.simpleMessage("Home"),
+        "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "login_screen_title": MessageLookupByLibrary.simpleMessage("Login"),
+        "my_courses": MessageLookupByLibrary.simpleMessage("My Courses"),
+        "no_network": MessageLookupByLibrary.simpleMessage("No network"),
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "password_cannot_be_empty":
+            MessageLookupByLibrary.simpleMessage("Password cannot be empty"),
         "passwords_do_not_match":
-            MessageLookupByLibrary.simpleMessage("Mật khẩu không khớp"),
+            MessageLookupByLibrary.simpleMessage("Passwords do not match"),
         "problem_history":
-            MessageLookupByLibrary.simpleMessage("Lịch sử chấm bài"),
+            MessageLookupByLibrary.simpleMessage("Submission history"),
         "problem_result":
-            MessageLookupByLibrary.simpleMessage("Kết quả chấm bài"),
-        "problem_tab": MessageLookupByLibrary.simpleMessage("Đề bài"),
-        "profile": MessageLookupByLibrary.simpleMessage("Hồ sơ"),
-        "ranking": MessageLookupByLibrary.simpleMessage("Bảng xếp hạng"),
-        "role": MessageLookupByLibrary.simpleMessage("Chức vụ"),
-        "role_manager": MessageLookupByLibrary.simpleMessage("Quản lý"),
-        "role_student": MessageLookupByLibrary.simpleMessage("Học viên"),
-        "role_teacher": MessageLookupByLibrary.simpleMessage("Giảng viên"),
-        "search_course":
-            MessageLookupByLibrary.simpleMessage("Tìm kiếm lớp học"),
+            MessageLookupByLibrary.simpleMessage("Problem result"),
+        "problem_tab": MessageLookupByLibrary.simpleMessage("Problem"),
+        "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "ranking": MessageLookupByLibrary.simpleMessage("Ranking"),
+        "role": MessageLookupByLibrary.simpleMessage("Role"),
+        "role_manager": MessageLookupByLibrary.simpleMessage("Manager"),
+        "role_student": MessageLookupByLibrary.simpleMessage("Student"),
+        "role_teacher": MessageLookupByLibrary.simpleMessage("Teacher"),
+        "search_course": MessageLookupByLibrary.simpleMessage("Search course"),
         "session_expired":
-            MessageLookupByLibrary.simpleMessage("Phiên đăng nhập đã hết hạn"),
-        "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
-        "sign_up": MessageLookupByLibrary.simpleMessage("Đăng ký"),
-        "total_point": MessageLookupByLibrary.simpleMessage("Tổng điểm"),
-        "update": MessageLookupByLibrary.simpleMessage("Cập nhật"),
-        "username": MessageLookupByLibrary.simpleMessage("Tài khoản"),
-        "username_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
-            "Tài khoản không được để trống")
+            MessageLookupByLibrary.simpleMessage("Session expired"),
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
+        "total_point": MessageLookupByLibrary.simpleMessage("Total point"),
+        "update": MessageLookupByLibrary.simpleMessage("Update"),
+        "username": MessageLookupByLibrary.simpleMessage("Username"),
+        "username_cannot_be_empty":
+            MessageLookupByLibrary.simpleMessage("Username cannot be empty"),
+        "vietnamese": MessageLookupByLibrary.simpleMessage("Vietnamese")
       };
 }

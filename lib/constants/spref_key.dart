@@ -3,5 +3,5 @@ class SPrefKey {
 
   static const String userModel = 'userModel';
   static const String tokenModel = 'tokenModel';
-  static const String localeLanguage = 'localeLanguage';
+  static const String localeCode = 'localeCode';
 }

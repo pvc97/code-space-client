@@ -7,16 +7,15 @@ class LocaleService {
 
   LocaleService({required this.localStorage});
 
-  Future<bool> saveLocaleLanguage(Languages language) {
-    return localStorage.write<Languages>(SPrefKey.localeLanguage, language);
+  Future<bool> saveLocaleCode(String code) {
+    return localStorage.write<String>(SPrefKey.localeCode, code);
   }
 
-  Future<Languages> getLocaleLanguage() async {
-    final Languages language = (await localStorage.read<Languages>(
-      SPrefKey.localeLanguage,
-      defaultValue: Languages.vietnamese,
-    ))!;
+  Future<String> getLocaleCode() async {
+    final String code =
+        (await localStorage.read<String>(SPrefKey.localeCode)) ??
+            Languages.vietnamese.code;
 
-    return language;
+    return code;
   }
 }

@@ -16,7 +16,7 @@ class LocaleCubit extends Cubit<LocaleState> {
   }) : super(LocaleState.initial(initLanguage: initLanguage));
 
   void changeLanguage(Languages language) async {
-    await localeService.saveLocaleLanguage(language);
+    await localeService.saveLocaleCode(language.code);
     emit(
       state.copyWith(
         locale: Locale.fromSubtags(languageCode: language.code),
