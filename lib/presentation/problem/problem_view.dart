@@ -62,6 +62,10 @@ class _ProblemViewState extends State<ProblemView>
 
   @override
   Widget build(BuildContext context) {
+    // Access user info without using BlocBuilder
+    // final userCubit = context.read<UserCubit>();
+    // logger.d(userCubit.state.user?.roleType);
+
     return BlocListener<ProblemCubit, ProblemState>(
       listener: (context, state) {
         stateStatusListener(
