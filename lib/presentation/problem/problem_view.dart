@@ -1,11 +1,9 @@
-import 'package:code_space_client/data/data_provider/network/api_provider.dart';
-import 'package:code_space_client/injection_container.dart';
+import 'package:code_space_client/presentation/problem/widgets/code_tab.dart';
+import 'package:code_space_client/presentation/problem/widgets/pdf_tab.dart';
 import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/cubits/problem/problem_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
@@ -31,8 +29,6 @@ class ProblemView extends StatefulWidget {
 
 class _ProblemViewState extends State<ProblemView>
     with TickerProviderStateMixin {
-  final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
-
   static const tabLength = 2;
 
   late final CodeController _codeController;
@@ -136,22 +132,13 @@ class _ProblemViewState extends State<ProblemView>
         body: TabBarView(
           controller: _tabController,
           children: [
-            BlocBuilder<ProblemCubit, ProblemState>(
-              builder: (context, state) {
-                if (state.problemDetail != null) {
-                  return SfPdfViewer.network(
-                    '${sl<ApiProvider>().dio.options.baseUrl}/${state.problemDetail!.pdfPath}',
-                    key: _pdfViewerKey,
-                  );
-                }
-
-                return const SizedBox.shrink();
-              },
-            ),
-            CodeField(
-              controller: _codeController,
-              expands: true,
-            ),
+            // Need to use PdfTab that has state implement AutomaticKeepAliveClientMixin
+            // to make SfPdfViewer doesn't reload when tab change
+            const PdfTab(key: PageStorageKey('pdf')),
+            CodeTab(
+              key: const PageStorageKey('code'),
+              codeController: _codeController,
+            )
           ],
         ),
         // TODO: Only show this button when current the tab is code
