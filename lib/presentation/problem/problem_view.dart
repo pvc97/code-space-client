@@ -27,14 +27,10 @@ class ProblemView extends StatefulWidget {
   State<ProblemView> createState() => _ProblemViewState();
 }
 
-class _ProblemViewState extends State<ProblemView>
-    with TickerProviderStateMixin {
-  static const tabLength = 2;
+class _ProblemViewState extends State<ProblemView> {
+  late final CodeController _codeController = CodeController();
 
-  late final CodeController _codeController;
-  late final TabController _tabController;
-
-  late final List<Widget> _tabs = [
+  late final List<Widget> _pages = [
     const PdfTab(key: PageStorageKey('pdf')),
     CodeTab(
       key: const PageStorageKey('code'),
@@ -45,16 +41,6 @@ class _ProblemViewState extends State<ProblemView>
   @override
   void initState() {
     super.initState();
-    _codeController = CodeController();
-    _tabController = TabController(length: tabLength, vsync: this);
-
-    _tabController.addListener(() {
-      if (_tabController.index != _tabController.previousIndex) {
-        context
-            .read<ProblemCubit>()
-            .changeTab(ProblemTab.values.elementAt(_tabController.index));
-      }
-    });
 
     // Have to call get problem detail after build
     // because initState is called before build
@@ -65,14 +51,9 @@ class _ProblemViewState extends State<ProblemView>
     });
   }
 
-  // void _changeTab(int index) {
-  //   _tabController.animateTo(index);
-  // }
-
   @override
   void dispose() {
     _codeController.dispose();
-    _tabController.dispose();
     super.dispose();
   }
 
@@ -139,11 +120,13 @@ class _ProblemViewState extends State<ProblemView>
         body: LayoutBuilder(
           builder: (context, constraints) {
             if (constraints.maxWidth < 600) {
-              return TabBarView(
-                controller: _tabController,
-                // Need to use PdfTab that has state implement AutomaticKeepAliveClientMixin
-                // to make SfPdfViewer doesn't reload when tab change
-                children: _tabs,
+              return PageView(
+                onPageChanged: (index) {
+                  context.read<ProblemCubit>().changeTab(
+                        ProblemTab.values.elementAt(index),
+                      );
+                },
+                children: _pages,
               );
             }
 
@@ -151,7 +134,7 @@ class _ProblemViewState extends State<ProblemView>
               initialAreas: [
                 Area(weight: 0.4),
               ],
-              children: _tabs,
+              children: _pages,
             );
 
             return MultiSplitViewTheme(
