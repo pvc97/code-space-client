@@ -21,7 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<UserCubit>().getUserInfo();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<UserCubit>().getUserInfo();
+    });
   }
 
   @override
@@ -44,6 +46,11 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView(
             shrinkWrap: true,
             children: [
+              BlocBuilder<UserCubit, UserState>(
+                builder: (context, state) {
+                  return Center(child: Text(state.user?.name ?? ''));
+                },
+              ),
               AppElevatedButton(
                 onPressed: () => context.goNamed(AppRoute.courses.name),
                 text: S.of(context).course_list,

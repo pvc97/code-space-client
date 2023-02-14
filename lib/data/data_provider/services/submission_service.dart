@@ -12,7 +12,7 @@ class SubmissionService {
     required String problemId,
   }) async {
     final response = await apiProvider.post(
-      UrlConstants.submission,
+      UrlConstants.submissions,
       params: {
         'sourceCode': sourceCode,
         'problemId': problemId,
@@ -23,7 +23,7 @@ class SubmissionService {
 
   Future<SubmissionModel> getSubmission(String submissionId) async {
     final response = await apiProvider.get(
-      '${UrlConstants.submission}/$submissionId',
+      '${UrlConstants.submissions}/$submissionId',
     );
     return SubmissionModel.fromJson(response?.data['data']);
   }

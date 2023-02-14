@@ -52,6 +52,7 @@ dependencies:
   intl: 0.17.0
   flutter_easyloading: 3.0.5
   code_text_field: 1.1.0
+  syncfusion_flutter_pdfviewer: 20.4.49
 
 dev_dependencies:
   flutter_test:

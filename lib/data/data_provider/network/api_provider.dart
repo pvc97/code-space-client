@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:code_space_client/constants/spref_key.dart';
+import 'package:code_space_client/constants/url_constants.dart';
 import 'package:code_space_client/models/token_model.dart';
 import 'package:dio/dio.dart';
 import 'package:code_space_client/constants/network_constants.dart';
@@ -51,7 +52,7 @@ class ApiProvider {
     Options? options,
   }) async {
     final response = await dio.post(
-      path,
+      '${UrlConstants.api}$path',
       data: params,
       options: options,
     );
@@ -64,7 +65,7 @@ class ApiProvider {
     Options? options,
   }) async {
     final response = await dio.get(
-      path,
+      '${UrlConstants.api}$path',
       queryParameters: params,
       options: options,
     );
@@ -77,7 +78,7 @@ class ApiProvider {
     Options? options,
   }) async {
     final response = await dio.put(
-      path,
+      '${UrlConstants.api}$path',
       data: params,
       options: options,
     );
@@ -90,7 +91,7 @@ class ApiProvider {
     Options? options,
   }) async {
     final response = await dio.patch(
-      path,
+      '${UrlConstants.api}$path',
       data: params,
       options: options,
     );

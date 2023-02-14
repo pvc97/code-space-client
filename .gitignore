@@ -46,4 +46,7 @@ app.*.map.json
 *.g.dart
 **/environments/
 *.lock
-/lib/generated/
+
+# generated intl files
+/lib/generated
+
