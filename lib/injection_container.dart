@@ -30,6 +30,7 @@ abstract class Di {
 
   static Future<void> init() async {
     final sharedPreferences = await SharedPreferences.getInstance();
+
     sl.registerLazySingleton<LocalStorageManager>(
       () => LocalStorageManagerImpl(sharedPreferences: sharedPreferences),
     );
@@ -130,9 +131,11 @@ abstract class Di {
     );
 
     final languageCode = await sl<LocaleService>().getLocaleCode();
+    sl<ApiProvider>().setLocale(languageCode);
     sl.registerLazySingleton<LocaleCubit>(
       () => LocaleCubit(
         localeService: sl(),
+        apiProvider: sl(),
         initLanguage: languageCode.toLanguage,
       ),
     );
