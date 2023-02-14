@@ -24,6 +24,13 @@ class ApiProvider {
       headers: {},
       contentType: 'application/json; charset=utf-8',
       responseType: ResponseType.json,
+
+      // Because setLocale in injection_container.dart is called before ApiProvider init
+      // So we need to set queryParameters in injection_container then after line below
+      // dio.options = options;
+      // queryParameters will be override by queryParameters in base options
+      // So I set queryParameters in base options to queryParameters in dio.options (the options has locale)
+      queryParameters: dio.options.queryParameters,
     );
 
     dio.options = options;
@@ -33,6 +40,10 @@ class ApiProvider {
 
   set accessToken(String accessToken) {
     dio.options.headers["Authorization"] = 'Bearer $accessToken';
+  }
+
+  void setLocale(String code) {
+    dio.options.queryParameters['hl'] = code;
   }
 
   String get accessToken => dio.options.headers["Authorization"] ?? '';

@@ -1,5 +1,5 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
-import 'package:code_space_client/cubits/intl/intl_cubit.dart';
+import 'package:code_space_client/cubits/locale/locale_cubit.dart';
 import 'package:code_space_client/cubits/problem/problem_cubit.dart';
 import 'package:code_space_client/cubits/problem_result/problem_result_cubit.dart';
 import 'package:code_space_client/cubits/user/user_cubit.dart';
@@ -7,6 +7,7 @@ import 'package:code_space_client/data/data_provider/local/local_storage_manager
 import 'package:code_space_client/data/data_provider/local/local_storage_manager_impl.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/data/data_provider/network/intercepters/auth_intercepter.dart';
+import 'package:code_space_client/data/data_provider/services/locale_service.dart';
 import 'package:code_space_client/data/data_provider/services/problem_service.dart';
 import 'package:code_space_client/data/data_provider/services/submission_service.dart';
 import 'package:code_space_client/data/repositories/auth_repository.dart';
@@ -15,6 +16,7 @@ import 'package:code_space_client/data/data_provider/services/user_service.dart'
 import 'package:code_space_client/data/repositories/problem_repository.dart';
 import 'package:code_space_client/data/repositories/submission_repository.dart';
 import 'package:code_space_client/data/repositories/user_repository.dart';
+import 'package:code_space_client/models/languages.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
@@ -28,6 +30,7 @@ abstract class Di {
 
   static Future<void> init() async {
     final sharedPreferences = await SharedPreferences.getInstance();
+
     sl.registerLazySingleton<LocalStorageManager>(
       () => LocalStorageManagerImpl(sharedPreferences: sharedPreferences),
     );
@@ -92,8 +95,6 @@ abstract class Di {
       () => UserCubit(userRepository: sl()),
     );
 
-    sl.registerLazySingleton<IntlCubit>(() => IntlCubit());
-
     sl.registerLazySingleton<SubmissionService>(
       () => SubmissionService(
         apiProvider: sl(),
@@ -123,6 +124,18 @@ abstract class Di {
 
     sl.registerFactory<ProblemResultCubit>(
       () => ProblemResultCubit(submissionRepository: sl()),
+    );
+
+    sl.registerLazySingleton<LocaleService>(
+      () => LocaleService(localStorage: sl(), apiProvider: sl()),
+    );
+
+    final languageCode = await sl<LocaleService>().getLocaleCode();
+    sl.registerLazySingleton<LocaleCubit>(
+      () => LocaleCubit(
+        localeService: sl(),
+        initLanguage: languageCode.toLanguage,
+      ),
     );
   }
 }

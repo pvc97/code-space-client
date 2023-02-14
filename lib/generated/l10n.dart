@@ -50,60 +50,60 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Tài khoản`
+  /// `Username`
   String get username {
     return Intl.message(
-      'Tài khoản',
+      'Username',
       name: 'username',
       desc: '',
       args: [],
     );
   }
 
-  /// `Mật khẩu`
+  /// `Password`
   String get password {
     return Intl.message(
-      'Mật khẩu',
+      'Password',
       name: 'password',
       desc: '',
       args: [],
     );
   }
 
-  /// `Đăng nhập`
+  /// `Login`
   String get login {
     return Intl.message(
-      'Đăng nhập',
+      'Login',
       name: 'login',
       desc: '',
       args: [],
     );
   }
 
-  /// `Bạn chưa có tài khoản?`
+  /// `Don't have an account?`
   String get dont_have_an_account {
     return Intl.message(
-      'Bạn chưa có tài khoản?',
+      'Don\'t have an account?',
       name: 'dont_have_an_account',
       desc: '',
       args: [],
     );
   }
 
-  /// `Đăng ký`
+  /// `Sign up`
   String get sign_up {
     return Intl.message(
-      'Đăng ký',
+      'Sign up',
       name: 'sign_up',
       desc: '',
       args: [],
     );
   }
 
-  /// `Họ và tên`
+  /// `Full name`
   String get full_name {
     return Intl.message(
-      'Họ và tên',
+      'Full name',
       name: 'full_name',
       desc: '',
       args: [],
@@ -120,220 +120,220 @@ class S {
     );
   }
 
-  /// `Xác nhận mật khẩu`
+  /// `Confirm password`
   String get confirm_password {
     return Intl.message(
-      'Xác nhận mật khẩu',
+      'Confirm password',
       name: 'confirm_password',
       desc: '',
       args: [],
     );
   }
 
-  /// `Mật khẩu không được để trống`
+  /// `Password cannot be empty`
   String get password_cannot_be_empty {
     return Intl.message(
-      'Mật khẩu không được để trống',
+      'Password cannot be empty',
       name: 'password_cannot_be_empty',
       desc: '',
       args: [],
     );
   }
 
-  /// `Tài khoản không được để trống`
+  /// `Username cannot be empty`
   String get username_cannot_be_empty {
     return Intl.message(
-      'Tài khoản không được để trống',
+      'Username cannot be empty',
       name: 'username_cannot_be_empty',
       desc: '',
       args: [],
     );
   }
 
-  /// `Không có kết nối mạng`
+  /// `No network`
   String get no_network {
     return Intl.message(
-      'Không có kết nối mạng',
+      'No network',
       name: 'no_network',
       desc: '',
       args: [],
     );
   }
 
-  /// `Họ và tên không được để trống`
+  /// `Full name cannot be empty`
   String get full_name_cannot_be_empty {
     return Intl.message(
-      'Họ và tên không được để trống',
+      'Full name cannot be empty',
       name: 'full_name_cannot_be_empty',
       desc: '',
       args: [],
     );
   }
 
-  /// `Email không được để trống`
+  /// `Email cannot be empty`
   String get email_cannot_be_empty {
     return Intl.message(
-      'Email không được để trống',
+      'Email cannot be empty',
       name: 'email_cannot_be_empty',
       desc: '',
       args: [],
     );
   }
 
-  /// `Mật khẩu không khớp`
+  /// `Passwords do not match`
   String get passwords_do_not_match {
     return Intl.message(
-      'Mật khẩu không khớp',
+      'Passwords do not match',
       name: 'passwords_do_not_match',
       desc: '',
       args: [],
     );
   }
 
-  /// `Danh sách lớp học`
+  /// `Course List`
   String get course_list {
     return Intl.message(
-      'Danh sách lớp học',
+      'Course List',
       name: 'course_list',
       desc: '',
       args: [],
     );
   }
 
-  /// `Lớp học của tôi`
+  /// `My Courses`
   String get my_courses {
     return Intl.message(
-      'Lớp học của tôi',
+      'My Courses',
       name: 'my_courses',
       desc: '',
       args: [],
     );
   }
 
-  /// `Hồ sơ`
+  /// `Profile`
   String get profile {
     return Intl.message(
-      'Hồ sơ',
+      'Profile',
       name: 'profile',
       desc: '',
       args: [],
     );
   }
 
-  /// `Cài đặt`
+  /// `Settings`
   String get settings {
     return Intl.message(
-      'Cài đặt',
+      'Settings',
       name: 'settings',
       desc: '',
       args: [],
     );
   }
 
-  /// `Tìm kiếm lớp học`
+  /// `Search course`
   String get search_course {
     return Intl.message(
-      'Tìm kiếm lớp học',
+      'Search course',
       name: 'search_course',
       desc: '',
       args: [],
     );
   }
 
-  /// `Đề bài`
+  /// `Problem`
   String get problem_tab {
     return Intl.message(
-      'Đề bài',
+      'Problem',
       name: 'problem_tab',
       desc: '',
       args: [],
     );
   }
 
-  /// `Bài làm`
+  /// `Code`
   String get code_tab {
     return Intl.message(
-      'Bài làm',
+      'Code',
       name: 'code_tab',
       desc: '',
       args: [],
     );
   }
 
-  /// `Kết quả chấm bài`
+  /// `Problem result`
   String get problem_result {
     return Intl.message(
-      'Kết quả chấm bài',
+      'Problem result',
       name: 'problem_result',
       desc: '',
       args: [],
     );
   }
 
-  /// `Tổng điểm`
+  /// `Total point`
   String get total_point {
     return Intl.message(
-      'Tổng điểm',
+      'Total point',
       name: 'total_point',
       desc: '',
       args: [],
     );
   }
 
-  /// `Lịch sử chấm bài`
+  /// `Submission history`
   String get problem_history {
     return Intl.message(
-      'Lịch sử chấm bài',
+      'Submission history',
       name: 'problem_history',
       desc: '',
       args: [],
     );
   }
 
-  /// `Bảng xếp hạng`
+  /// `Ranking`
   String get ranking {
     return Intl.message(
-      'Bảng xếp hạng',
+      'Ranking',
       name: 'ranking',
       desc: '',
       args: [],
     );
   }
 
-  /// `Cập nhật`
+  /// `Update`
   String get update {
     return Intl.message(
-      'Cập nhật',
+      'Update',
       name: 'update',
       desc: '',
       args: [],
     );
   }
 
-  /// `Đổi mật khẩu`
+  /// `Change password`
   String get change_password {
     return Intl.message(
-      'Đổi mật khẩu',
+      'Change password',
       name: 'change_password',
       desc: '',
       args: [],
     );
   }
 
-  /// `Phiên đăng nhập đã hết hạn`
+  /// `Session expired`
   String get session_expired {
     return Intl.message(
-      'Phiên đăng nhập đã hết hạn',
+      'Session expired',
       name: 'session_expired',
       desc: '',
       args: [],
     );
   }
 
-  /// `Có lỗi xảy ra`
+  /// `Have error`
   String get have_error {
     return Intl.message(
-      'Có lỗi xảy ra',
+      'Have error',
       name: 'have_error',
       desc: '',
       args: [],
@@ -350,10 +350,10 @@ class S {
     );
   }
 
-  /// `Đăng nhập`
+  /// `Login`
   String get login_screen_title {
     return Intl.message(
-      'Đăng nhập',
+      'Login',
       name: 'login_screen_title',
       desc: '',
       args: [],
@@ -370,10 +370,10 @@ class S {
     );
   }
 
-  /// `Trang chủ`
+  /// `Home`
   String get home_screen_title {
     return Intl.message(
-      'Trang chủ',
+      'Home',
       name: 'home_screen_title',
       desc: '',
       args: [],
@@ -390,41 +390,61 @@ class S {
     );
   }
 
-  /// `Chức vụ`
+  /// `Role`
   String get role {
     return Intl.message(
-      'Chức vụ',
+      'Role',
       name: 'role',
       desc: '',
       args: [],
     );
   }
 
-  /// `Học viên`
+  /// `Student`
   String get role_student {
     return Intl.message(
-      'Học viên',
+      'Student',
       name: 'role_student',
       desc: '',
       args: [],
     );
   }
 
-  /// `Giảng viên`
+  /// `Teacher`
   String get role_teacher {
     return Intl.message(
-      'Giảng viên',
+      'Teacher',
       name: 'role_teacher',
       desc: '',
       args: [],
     );
   }
 
-  /// `Quản lý`
+  /// `Manager`
   String get role_manager {
     return Intl.message(
-      'Quản lý',
+      'Manager',
       name: 'role_manager',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vietnamese`
+  String get vietnamese {
+    return Intl.message(
+      'Vietnamese',
+      name: 'vietnamese',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message(
+      'English',
+      name: 'english',
       desc: '',
       args: [],
     );

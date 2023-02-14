@@ -8,6 +8,7 @@ import 'package:code_space_client/presentation/problem_history/problem_history_s
 import 'package:code_space_client/presentation/problem_result/problem_result_screen.dart';
 import 'package:code_space_client/presentation/profile/profile_screen.dart';
 import 'package:code_space_client/presentation/ranking/ranking_screen.dart';
+import 'package:code_space_client/presentation/setting/setting_screen.dart';
 import 'package:code_space_client/router/adaptive_transition_page.dart';
 import 'package:code_space_client/router/go_router_refresh_stream.dart';
 import 'package:code_space_client/presentation/auth/login_screen.dart';
@@ -22,6 +23,7 @@ enum AppRoute {
   problem,
   ranking,
   profile,
+  settings,
   courseDetail,
   problemResult,
   problemHistory,
@@ -138,6 +140,16 @@ final GoRouter router = GoRouter(
             return AdaptiveTransitionPage.create(
               state.pageKey,
               child: const ProfileScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: 'setting',
+          name: AppRoute.settings.name,
+          pageBuilder: (context, state) {
+            return AdaptiveTransitionPage.create(
+              state.pageKey,
+              child: const SettingScreen(),
             );
           },
         ),

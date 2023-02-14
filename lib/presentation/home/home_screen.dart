@@ -73,7 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Box.h12,
               AppElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.goNamed(AppRoute.settings.name);
+                },
                 text: S.of(context).settings,
               ),
             ],

@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "email_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Email không được để trống"),
+        "english": MessageLookupByLibrary.simpleMessage("Tiếng Anh"),
         "full_name": MessageLookupByLibrary.simpleMessage("Họ và tên"),
         "full_name_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Họ và tên không được để trống"),
@@ -72,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "update": MessageLookupByLibrary.simpleMessage("Cập nhật"),
         "username": MessageLookupByLibrary.simpleMessage("Tài khoản"),
         "username_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
-            "Tài khoản không được để trống")
+            "Tài khoản không được để trống"),
+        "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng Việt")
       };
 }

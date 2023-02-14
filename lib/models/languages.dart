@@ -13,3 +13,16 @@ extension LanguagesExtension on Languages {
     }
   }
 }
+
+extension LanguagesCodeExtension on String {
+  Languages get toLanguage {
+    switch (this) {
+      case 'vi':
+        return Languages.vietnamese;
+      case 'en':
+        return Languages.english;
+      default:
+        return Languages.vietnamese;
+    }
+  }
+}
