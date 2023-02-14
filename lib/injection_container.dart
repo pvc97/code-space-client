@@ -1,5 +1,5 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
-import 'package:code_space_client/cubits/intl/intl_cubit.dart';
+import 'package:code_space_client/cubits/locale/locale_cubit.dart';
 import 'package:code_space_client/cubits/problem/problem_cubit.dart';
 import 'package:code_space_client/cubits/problem_result/problem_result_cubit.dart';
 import 'package:code_space_client/cubits/user/user_cubit.dart';
@@ -92,7 +92,7 @@ abstract class Di {
       () => UserCubit(userRepository: sl()),
     );
 
-    sl.registerLazySingleton<IntlCubit>(() => IntlCubit());
+    sl.registerLazySingleton<LocaleCubit>(() => LocaleCubit());
 
     sl.registerLazySingleton<SubmissionService>(
       () => SubmissionService(

@@ -1,7 +1,7 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
 import 'package:code_space_client/configs/app_config_manager.dart';
 import 'package:code_space_client/configs/environment_type.dart';
-import 'package:code_space_client/cubits/intl/intl_cubit.dart';
+import 'package:code_space_client/cubits/locale/locale_cubit.dart';
 import 'package:code_space_client/cubits/user/user_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/router/app_router.dart';
@@ -28,7 +28,7 @@ void main() async {
         BlocProvider(create: (_) => sl<UserCubit>()),
         // I think UserCubit should be here to be able access it from any screen
         // because a lot of screens need to access user info
-        BlocProvider(create: (_) => sl<IntlCubit>()),
+        BlocProvider(create: (_) => sl<LocaleCubit>()),
       ],
       child: const MyApp(),
     ),
@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<IntlCubit, IntlState>(
+    return BlocBuilder<LocaleCubit, LocaleState>(
       builder: (context, state) {
         return MaterialApp.router(
           title: 'Code Space',

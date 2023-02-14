@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'intl_state.dart';
 
-class IntlCubit extends Cubit<IntlState> {
-  IntlCubit() : super(IntlState.initial());
+class LocaleCubit extends Cubit<LocaleState> {
+  LocaleCubit() : super(LocaleState.initial());
 
   void changeLanguage(Languages languages) {
     emit(

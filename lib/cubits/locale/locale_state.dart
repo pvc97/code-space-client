@@ -1,24 +1,24 @@
-part of 'intl_cubit.dart';
+part of 'locale_cubit.dart';
 
-class IntlState extends Equatable {
+class LocaleState extends Equatable {
   final Locale locale;
 
-  const IntlState({
+  const LocaleState({
     required this.locale,
   });
 
-  factory IntlState.initial() {
-    return IntlState(
+  factory LocaleState.initial() {
+    return LocaleState(
         locale: Locale.fromSubtags(languageCode: Languages.english.code));
   }
 
   @override
   List<Object> get props => [locale];
 
-  IntlState copyWith({
+  LocaleState copyWith({
     Locale? locale,
   }) {
-    return IntlState(
+    return LocaleState(
       locale: locale ?? this.locale,
     );
   }
