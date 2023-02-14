@@ -40,6 +40,14 @@ class _ProblemViewState extends State<ProblemView>
     _codeController = CodeController();
     _tabController = TabController(length: tabLength, vsync: this);
 
+    _tabController.addListener(() {
+      if (_tabController.index != _tabController.previousIndex) {
+        context
+            .read<ProblemCubit>()
+            .changeTab(ProblemTab.values.elementAt(_tabController.index));
+      }
+    });
+
     // Have to call get problem detail after build
     // because initState is called before build
     // so in the first line of getProblemDetail emit loading state, this event
@@ -51,7 +59,6 @@ class _ProblemViewState extends State<ProblemView>
 
   void _changeTab(int index) {
     _tabController.animateTo(index);
-    context.read<ProblemCubit>().changeTab(ProblemTab.values.elementAt(index));
   }
 
   @override
