@@ -1,12 +1,11 @@
+import 'package:code_space_client/models/problem_detail_model.dart';
 import 'package:code_space_client/presentation/problem/widgets/code_tab.dart';
 import 'package:code_space_client/presentation/problem/widgets/pdf_tab.dart';
 import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/cubits/problem/problem_cubit.dart';
-import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
@@ -96,30 +95,17 @@ class _ProblemViewState extends State<ProblemView>
       },
       child: Scaffold(
         appBar: AdaptiveAppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextButton(
-                onPressed: () => _changeTab(ProblemTab.pdf.index),
-                child: Text(
-                  '< ${S.of(context).problem_tab}',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: Sizes.s20,
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () => _changeTab(ProblemTab.code.index),
-                child: Text(
-                  '${S.of(context).code_tab} >',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: Sizes.s20,
-                  ),
-                ),
-              ),
-            ],
+          title: BlocSelector<ProblemCubit, ProblemState, ProblemDetailModel?>(
+            selector: (ProblemState state) => state.problemDetail,
+            builder: (context, state) {
+              if (state == null) {
+                return const SizedBox.shrink();
+              }
+              return SizedBox(
+                width: MediaQuery.of(context).size.width * 0.5,
+                child: Text(state.name),
+              );
+            },
           ),
           actions: [
             IconButton(
