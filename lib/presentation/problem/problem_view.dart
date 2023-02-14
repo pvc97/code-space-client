@@ -1,15 +1,15 @@
+import 'package:code_space_client/models/problem_detail_model.dart';
 import 'package:code_space_client/presentation/problem/widgets/code_tab.dart';
 import 'package:code_space_client/presentation/problem/widgets/pdf_tab.dart';
 import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/cubits/problem/problem_cubit.dart';
-import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
+import 'package:multi_split_view/multi_split_view.dart';
 
 class ProblemView extends StatefulWidget {
   final String problemId;
@@ -34,11 +34,27 @@ class _ProblemViewState extends State<ProblemView>
   late final CodeController _codeController;
   late final TabController _tabController;
 
+  late final List<Widget> _tabs = [
+    const PdfTab(key: PageStorageKey('pdf')),
+    CodeTab(
+      key: const PageStorageKey('code'),
+      codeController: _codeController,
+    )
+  ];
+
   @override
   void initState() {
     super.initState();
     _codeController = CodeController();
     _tabController = TabController(length: tabLength, vsync: this);
+
+    _tabController.addListener(() {
+      if (_tabController.index != _tabController.previousIndex) {
+        context
+            .read<ProblemCubit>()
+            .changeTab(ProblemTab.values.elementAt(_tabController.index));
+      }
+    });
 
     // Have to call get problem detail after build
     // because initState is called before build
@@ -49,10 +65,9 @@ class _ProblemViewState extends State<ProblemView>
     });
   }
 
-  void _changeTab(int index) {
-    _tabController.animateTo(index);
-    context.read<ProblemCubit>().changeTab(ProblemTab.values.elementAt(index));
-  }
+  // void _changeTab(int index) {
+  //   _tabController.animateTo(index);
+  // }
 
   @override
   void dispose() {
@@ -66,6 +81,8 @@ class _ProblemViewState extends State<ProblemView>
     // Access user info without using BlocBuilder
     // final userCubit = context.read<UserCubit>();
     // logger.d(userCubit.state.user?.roleType);
+
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return BlocListener<ProblemCubit, ProblemState>(
       listener: (context, state) {
@@ -89,31 +106,20 @@ class _ProblemViewState extends State<ProblemView>
       },
       child: Scaffold(
         appBar: AdaptiveAppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextButton(
-                onPressed: () => _changeTab(ProblemTab.pdf.index),
-                child: Text(
-                  '< ${S.of(context).problem_tab}',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: Sizes.s20,
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () => _changeTab(ProblemTab.code.index),
-                child: Text(
-                  '${S.of(context).code_tab} >',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: Sizes.s20,
-                  ),
-                ),
-              ),
-            ],
+          title: BlocSelector<ProblemCubit, ProblemState, ProblemDetailModel?>(
+            selector: (ProblemState state) => state.problemDetail,
+            builder: (context, state) {
+              if (state == null) {
+                return const SizedBox.shrink();
+              }
+              return Container(
+                width: screenWidth * 0.5,
+                alignment: Alignment.center,
+                child: Text(state.name),
+              );
+            },
           ),
+          centerTitle: true,
           actions: [
             IconButton(
               icon: const Icon(Icons.history),
@@ -130,24 +136,44 @@ class _ProblemViewState extends State<ProblemView>
             ),
           ],
         ),
-        body: TabBarView(
-          controller: _tabController,
-          children: [
-            // Need to use PdfTab that has state implement AutomaticKeepAliveClientMixin
-            // to make SfPdfViewer doesn't reload when tab change
-            const PdfTab(key: PageStorageKey('pdf')),
-            CodeTab(
-              key: const PageStorageKey('code'),
-              codeController: _codeController,
-            )
-          ],
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            if (constraints.maxWidth < 600) {
+              return TabBarView(
+                controller: _tabController,
+                // Need to use PdfTab that has state implement AutomaticKeepAliveClientMixin
+                // to make SfPdfViewer doesn't reload when tab change
+                children: _tabs,
+              );
+            }
+
+            final multiSplitView = MultiSplitView(
+              initialAreas: [
+                Area(weight: 0.4),
+              ],
+              children: _tabs,
+            );
+
+            return MultiSplitViewTheme(
+              data: MultiSplitViewThemeData(
+                dividerThickness: 12.0,
+                dividerPainter: DividerPainters.grooved1(
+                  // thickness: 8.0,
+                  size: 30,
+                  highlightedSize: 45,
+                  backgroundColor: Colors.grey[200],
+                ),
+              ),
+              child: multiSplitView,
+            );
+          },
         ),
-        // TODO: Only show this button when current the tab is code
+        // TODO: Only show this button when current the tab is code or width >= 600
         floatingActionButton:
             BlocSelector<ProblemCubit, ProblemState, ProblemTab>(
           selector: (ProblemState state) => state.problemTab,
           builder: (context, state) {
-            if (state == ProblemTab.code) {
+            if (state == ProblemTab.code || screenWidth >= 600) {
               return FloatingActionButton(
                 onPressed: () {
                   final sourceCode = _codeController.text;
