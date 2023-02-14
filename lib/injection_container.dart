@@ -127,15 +127,13 @@ abstract class Di {
     );
 
     sl.registerLazySingleton<LocaleService>(
-      () => LocaleService(localStorage: sl()),
+      () => LocaleService(localStorage: sl(), apiProvider: sl()),
     );
 
     final languageCode = await sl<LocaleService>().getLocaleCode();
-    sl<ApiProvider>().setLocale(languageCode);
     sl.registerLazySingleton<LocaleCubit>(
       () => LocaleCubit(
         localeService: sl(),
-        apiProvider: sl(),
         initLanguage: languageCode.toLanguage,
       ),
     );
