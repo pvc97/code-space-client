@@ -1,6 +1,8 @@
 import 'package:code_space_client/models/problem_detail_model.dart';
 import 'package:code_space_client/presentation/problem/widgets/code_tab.dart';
 import 'package:code_space_client/presentation/problem/widgets/pdf_tab.dart';
+import 'package:code_space_client/utils/extensions/language_ext.dart';
+import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -71,6 +73,12 @@ class _ProblemViewState extends State<ProblemView> {
           context,
           state,
           onSuccess: () {
+            final problemDetail = state.problemDetail;
+            if (problemDetail != null) {
+              logger.d('Assign language: ${problemDetail.language.highlight}');
+              _codeController.language ??= problemDetail.language.highlight;
+            }
+
             if (state.submissionId != null) {
               context.goNamed(
                 AppRoute.problemResult.name,
@@ -93,6 +101,7 @@ class _ProblemViewState extends State<ProblemView> {
               if (state == null) {
                 return const SizedBox.shrink();
               }
+
               return Container(
                 width: screenWidth * 0.5,
                 alignment: Alignment.center,
@@ -151,7 +160,7 @@ class _ProblemViewState extends State<ProblemView> {
             );
           },
         ),
-        // TODO: Only show this button when current the tab is code or width >= 600
+        // Only show this button when current the tab is code or width >= 600
         floatingActionButton:
             BlocSelector<ProblemCubit, ProblemState, ProblemTab>(
           selector: (ProblemState state) => state.problemTab,
