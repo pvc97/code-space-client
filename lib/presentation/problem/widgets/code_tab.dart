@@ -1,5 +1,7 @@
-import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:code_text_field/code_text_field.dart';
+// ignore: depend_on_referenced_packages
+import 'package:flutter_highlight/themes/monokai-sublime.dart';
 
 class CodeTab extends StatefulWidget {
   final CodeController codeController;
@@ -20,9 +22,14 @@ class _CodeTabState extends State<CodeTab> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return CodeField(
-      controller: widget.codeController,
-      expands: true,
+
+    // Have to wrap the CodeField in a CodeTheme to enable syntax highlighting
+    return CodeTheme(
+      data: const CodeThemeData(styles: monokaiSublimeTheme),
+      child: CodeField(
+        controller: widget.codeController,
+        expands: true,
+      ),
     );
   }
 }
