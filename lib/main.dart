@@ -9,7 +9,7 @@ import 'package:code_space_client/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:url_strategy/url_strategy.dart';
+// import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
@@ -18,8 +18,11 @@ void main() async {
   await Di.init();
   await AppConfigManager.init(environmentType: EnvironmentType.dev);
 
-  // Remove the hash from the URL
-  setPathUrlStrategy();
+  // TODO: If remove hash from URL, copy paste link to browser will not work
+  // if url contains query params or params.
+  // Have to comment this line to make it work
+  // This issue is not fixed yet: https://github.com/flutter/flutter/issues/107996
+  // usePathUrlStrategy();
 
   runApp(
     MultiBlocProvider(
