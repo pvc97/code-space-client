@@ -1,6 +1,6 @@
 enum EnvironmentType {
   dev,
-  devWeb,
+  devLocal,
   prod,
 }
 
@@ -13,8 +13,8 @@ extension EnvironmentTypeExtension on EnvironmentType {
     switch (this) {
       case EnvironmentType.dev:
         return 'dev.env';
-      case EnvironmentType.devWeb:
-        return 'dev_web.env';
+      case EnvironmentType.devLocal:
+        return 'dev_local.env';
       case EnvironmentType.prod:
         return 'prod.env';
     }

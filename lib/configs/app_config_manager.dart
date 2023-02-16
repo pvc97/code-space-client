@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:code_space_client/configs/env_config_manager.dart';
@@ -12,8 +14,9 @@ abstract class AppConfigManager {
 
   static Future<void> init({required EnvironmentType environmentType}) async {
     // TODO: Remove this if statement when deploying to web
-    if (kIsWeb) {
-      environmentType = EnvironmentType.devWeb;
+    // User local host for web and desktop development
+    if (kIsWeb || Platform.isWindows) {
+      environmentType = EnvironmentType.devLocal;
     }
 
     await dotenv.load(fileName: environmentType.dotenvFilePath);
