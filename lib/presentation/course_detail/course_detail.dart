@@ -18,6 +18,7 @@ class CourseDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AdaptiveAppBar(
+        context: context,
         title: Text('Flutter $courseId'),
         actions: [
           IconButton(

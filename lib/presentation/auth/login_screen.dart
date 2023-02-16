@@ -44,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: stateStatusListener,
       child: Scaffold(
         appBar: AdaptiveAppBar(
+          context: context,
           title: Text(S.of(context).login_screen_title),
         ),
         body: Center(

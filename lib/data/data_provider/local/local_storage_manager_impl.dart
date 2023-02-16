@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:code_space_client/constants/spref_key.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,30 +12,24 @@ class LocalStorageManagerImpl extends LocalStorageManager {
   });
 
   @override
-  Future<T?> read<T>(String key, {T? defaultValue}) {
+  Future<T?> read<T>(String key) {
     // In dart: DO NOT use T is String
     // USE T == String instead or switch case
     switch (T) {
       case String:
-        return Future<T?>.value(
-            (sharedPreferences.getString(key) ?? defaultValue) as T?);
+        return Future<T?>.value((sharedPreferences.getString(key)) as T?);
       case bool:
-        return Future<T?>.value(
-            (sharedPreferences.getBool(key) ?? defaultValue) as T?);
-
+        return Future<T?>.value((sharedPreferences.getBool(key)) as T?);
       case int:
-        return Future<T?>.value(
-            (sharedPreferences.getInt(key) ?? defaultValue) as T?);
+        return Future<T?>.value((sharedPreferences.getInt(key)) as T?);
       case double:
-        return Future<T?>.value(
-            (sharedPreferences.getDouble(key) ?? defaultValue) as T?);
+        return Future<T?>.value((sharedPreferences.getDouble(key)) as T?);
 
       case List<String>:
-        return Future<T?>.value(
-            (sharedPreferences.getStringList(key) ?? defaultValue) as T?);
+        return Future<T?>.value((sharedPreferences.getStringList(key)) as T?);
 
       default:
-        return Future<T?>.value(defaultValue);
+        return Future<T?>.value(null);
     }
   }
 
@@ -62,7 +57,19 @@ class LocalStorageManagerImpl extends LocalStorageManager {
   }
 
   @override
-  Future<bool> deleteAll() {
-    return sharedPreferences.clear();
+  Future<bool> deleteAll({List<String>? exceptKeys}) async {
+    if (exceptKeys == null || exceptKeys.isEmpty) {
+      return sharedPreferences.clear();
+    }
+
+    for (String key in SPrefKey.keys) {
+      if (!exceptKeys.contains(key)) {
+        final success = await delete(key);
+
+        if (!success) return false;
+      }
+    }
+
+    return true;
   }
 }

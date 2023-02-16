@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AdaptiveAppBar(
+        context: context,
         title: Text(S.of(context).home_screen_title),
         actions: [
           IconButton(

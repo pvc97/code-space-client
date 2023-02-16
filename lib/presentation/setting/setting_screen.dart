@@ -18,6 +18,7 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AdaptiveAppBar(
+        context: context,
         title: Text(S.of(context).settings),
         centerTitle: true,
       ),

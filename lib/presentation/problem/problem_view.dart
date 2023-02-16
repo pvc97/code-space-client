@@ -95,6 +95,7 @@ class _ProblemViewState extends State<ProblemView> {
       },
       child: Scaffold(
         appBar: AdaptiveAppBar(
+          context: context,
           title: BlocSelector<ProblemCubit, ProblemState, ProblemDetailModel?>(
             selector: (ProblemState state) => state.problemDetail,
             builder: (context, state) {

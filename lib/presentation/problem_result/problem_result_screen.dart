@@ -32,6 +32,7 @@ class _ProblemResultScreenState extends State<ProblemResultScreen> {
           listener: stateStatusListener,
           child: Scaffold(
             appBar: AdaptiveAppBar(
+              context: context,
               title: Text(S.of(context).problem_result),
             ),
             body: Padding(
