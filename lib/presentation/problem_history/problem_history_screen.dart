@@ -22,6 +22,7 @@ class ProblemHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AdaptiveAppBar(
+        context: context,
         title: Text(S.of(context).problem_history),
       ),
       body: ListView.builder(

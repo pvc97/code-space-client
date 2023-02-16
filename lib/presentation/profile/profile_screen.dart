@@ -76,6 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       },
       child: Scaffold(
         appBar: AdaptiveAppBar(
+          context: context,
           title: Text(S.of(context).profile),
         ),
         body: Center(

@@ -46,6 +46,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AdaptiveAppBar(
+        context: context,
         title: Text(S.of(context).sign_up),
       ),
       body: Center(

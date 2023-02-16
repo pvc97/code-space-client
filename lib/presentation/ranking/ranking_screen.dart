@@ -18,6 +18,7 @@ class RankingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AdaptiveAppBar(
+        context: context,
         title: Text(S.of(context).ranking),
       ),
       body: ListView.builder(
