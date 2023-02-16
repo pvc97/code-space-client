@@ -1,3 +1,5 @@
+import 'package:code_space_client/models/app_exception.dart';
+import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:code_space_client/constants/network_constants.dart';
@@ -23,7 +25,10 @@ class CourseCubit extends Cubit<CourseState> {
       return;
     }
 
-    emit(state.copyWith(isLoadingMore: true));
+    emit(state.copyWith(
+      isLoadingMore: true,
+      stateStatus: StateStatus.loading,
+    ));
 
     try {
       final problems = await courseRepository.getProblems(
@@ -37,11 +42,13 @@ class CourseCubit extends Cubit<CourseState> {
         page: page,
         isLoadingMore: false,
         isLoadMoreDone: problems.length < NetworkConstants.defaultLimit,
+        stateStatus: StateStatus.success,
       ));
-    } catch (e) {
+    } on AppException catch (e) {
       emit(state.copyWith(
         isLoadingMore: false,
-        isLoadMoreError: true,
+        stateStatus: StateStatus.error,
+        error: e,
       ));
     }
   }
@@ -65,11 +72,13 @@ class CourseCubit extends Cubit<CourseState> {
         page: state.page + 1,
         isLoadingMore: false,
         isLoadMoreDone: problems.length < NetworkConstants.defaultLimit,
+        stateStatus: StateStatus.success,
       ));
-    } catch (e) {
+    } on AppException catch (e) {
       emit(state.copyWith(
         isLoadingMore: false,
-        isLoadMoreError: true,
+        stateStatus: StateStatus.error,
+        error: e,
       ));
     }
   }
@@ -82,5 +91,11 @@ class CourseCubit extends Cubit<CourseState> {
       courseId: courseId,
       initialPage: NetworkConstants.defaultPage,
     );
+  }
+
+  @override
+  Future<void> close() {
+    logger.d('CourseCubit closed');
+    return super.close();
   }
 }

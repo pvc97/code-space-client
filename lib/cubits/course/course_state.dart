@@ -5,14 +5,14 @@ class CourseState extends BaseState {
   final int page;
   final bool isLoadingMore;
   final bool isLoadMoreDone;
-  final bool isLoadMoreError;
 
   const CourseState({
     required this.problems,
     required this.page,
     required this.isLoadingMore,
     required this.isLoadMoreDone,
-    required this.isLoadMoreError,
+    super.stateStatus,
+    super.error,
   });
 
   factory CourseState.initial() {
@@ -21,7 +21,6 @@ class CourseState extends BaseState {
       page: NetworkConstants.defaultPage,
       isLoadingMore: false,
       isLoadMoreDone: false,
-      isLoadMoreError: false,
     );
   }
 
@@ -32,7 +31,6 @@ class CourseState extends BaseState {
       page,
       isLoadingMore,
       isLoadMoreDone,
-      isLoadMoreError,
       ...super.props,
     ];
   }
@@ -42,14 +40,16 @@ class CourseState extends BaseState {
     int? page,
     bool? isLoadingMore,
     bool? isLoadMoreDone,
-    bool? isLoadMoreError,
+    StateStatus? stateStatus,
+    AppException? error,
   }) {
     return CourseState(
       problems: problems ?? this.problems,
       page: page ?? this.page,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
       isLoadMoreDone: isLoadMoreDone ?? this.isLoadMoreDone,
-      isLoadMoreError: isLoadMoreError ?? this.isLoadMoreError,
+      stateStatus: stateStatus ?? this.stateStatus,
+      error: error ?? this.error,
     );
   }
 }

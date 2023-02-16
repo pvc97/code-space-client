@@ -13,7 +13,7 @@ class CourseService {
     required int limit,
   }) async {
     final response = await apiProvider.get(
-      '${UrlConstants.courses}/$courseId',
+      '${UrlConstants.courses}/$courseId/problems',
       queryParameters: {
         'page': page,
         'limit': limit,
