@@ -43,7 +43,8 @@ class AuthService {
     return user;
   }
 
-  Future<void> logout() => localStorage.deleteAll();
+  Future<void> logout() =>
+      localStorage.deleteAll(exceptKeys: SPrefKey.exceptKeys);
 
   Future<void> saveUser(UserModel user) async {
     await localStorage.write<String>(

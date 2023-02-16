@@ -7,5 +7,5 @@ abstract class LocalStorageManager {
 
   Future<bool> delete(String key);
 
-  Future<bool> deleteAll();
+  Future<bool> deleteAll({List<String>? exceptKeys});
 }

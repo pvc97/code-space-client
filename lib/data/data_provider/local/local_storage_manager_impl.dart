@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:code_space_client/constants/spref_key.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -56,7 +57,19 @@ class LocalStorageManagerImpl extends LocalStorageManager {
   }
 
   @override
-  Future<bool> deleteAll() {
-    return sharedPreferences.clear();
+  Future<bool> deleteAll({List<String>? exceptKeys}) async {
+    if (exceptKeys == null || exceptKeys.isEmpty) {
+      return sharedPreferences.clear();
+    }
+
+    for (String key in SPrefKey.keys) {
+      if (!exceptKeys.contains(key)) {
+        final success = await delete(key);
+
+        if (!success) return false;
+      }
+    }
+
+    return true;
   }
 }
