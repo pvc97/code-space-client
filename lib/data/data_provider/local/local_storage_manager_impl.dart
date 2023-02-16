@@ -11,30 +11,24 @@ class LocalStorageManagerImpl extends LocalStorageManager {
   });
 
   @override
-  Future<T?> read<T>(String key, {T? defaultValue}) {
+  Future<T?> read<T>(String key) {
     // In dart: DO NOT use T is String
     // USE T == String instead or switch case
     switch (T) {
       case String:
-        return Future<T?>.value(
-            (sharedPreferences.getString(key) ?? defaultValue) as T?);
+        return Future<T?>.value((sharedPreferences.getString(key)) as T?);
       case bool:
-        return Future<T?>.value(
-            (sharedPreferences.getBool(key) ?? defaultValue) as T?);
-
+        return Future<T?>.value((sharedPreferences.getBool(key)) as T?);
       case int:
-        return Future<T?>.value(
-            (sharedPreferences.getInt(key) ?? defaultValue) as T?);
+        return Future<T?>.value((sharedPreferences.getInt(key)) as T?);
       case double:
-        return Future<T?>.value(
-            (sharedPreferences.getDouble(key) ?? defaultValue) as T?);
+        return Future<T?>.value((sharedPreferences.getDouble(key)) as T?);
 
       case List<String>:
-        return Future<T?>.value(
-            (sharedPreferences.getStringList(key) ?? defaultValue) as T?);
+        return Future<T?>.value((sharedPreferences.getStringList(key)) as T?);
 
       default:
-        return Future<T?>.value(defaultValue);
+        return Future<T?>.value(null);
     }
   }
 
