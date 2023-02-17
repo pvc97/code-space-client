@@ -1,8 +1,8 @@
-import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/cubits/course/course_cubit.dart';
+import 'package:code_space_client/injection_container.dart';
+import 'package:code_space_client/presentation/course_detail/course_detail_view.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-import 'package:code_space_client/router/app_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CourseDetailScreen extends StatelessWidget {
   final bool me;
@@ -16,48 +16,9 @@ class CourseDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AdaptiveAppBar(
-        context: context,
-        title: Text('Flutter $courseId'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.foggy),
-            onPressed: () {
-              context.goNamed(
-                AppRoute.ranking.name,
-                params: {
-                  'courseId': courseId,
-                },
-                queryParams: me ? {'me': 'true'} : {},
-              );
-            },
-          ),
-        ],
-      ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(20.0),
-        itemCount: 20,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              context.goNamed(
-                AppRoute.problem.name,
-                params: {
-                  'courseId': courseId,
-                  'problemId': '0e39f2eb-2399-4f89-bbc3-745de79935ca',
-                },
-                queryParams: me ? {'me': 'true'} : {},
-              );
-            },
-            child: Card(
-              child: ListTile(
-                title: Text('Problem $index'),
-              ),
-            ),
-          );
-        },
-      ),
+    return BlocProvider<CourseCubit>(
+      create: (context) => sl(),
+      child: CourseDetailView(me: me, courseId: courseId),
     );
   }
 }

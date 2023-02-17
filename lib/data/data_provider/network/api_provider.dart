@@ -72,12 +72,12 @@ class ApiProvider {
 
   Future<Response?> get(
     String path, {
-    dynamic params,
+    dynamic queryParameters,
     Options? options,
   }) async {
     final response = await dio.get(
       '${UrlConstants.api}$path',
-      queryParameters: params,
+      queryParameters: queryParameters,
       options: options,
     );
     return response;

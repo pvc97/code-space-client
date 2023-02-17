@@ -48,7 +48,7 @@ class _CourseListScreenState extends State<CourseListScreen> {
             onTap: () {
               context.goNamed(
                 AppRoute.courseDetail.name,
-                params: {'courseId': '$index'},
+                params: {'courseId': 'f234a4aa-79e8-4267-a686-8cd63701a14d'},
                 queryParams: widget.me ? {'me': 'true'} : {},
               );
             },

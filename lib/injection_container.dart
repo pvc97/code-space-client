@@ -1,4 +1,5 @@
 import 'package:code_space_client/cubits/auth/auth_cubit.dart';
+import 'package:code_space_client/cubits/course/course_cubit.dart';
 import 'package:code_space_client/cubits/locale/locale_cubit.dart';
 import 'package:code_space_client/cubits/problem/problem_cubit.dart';
 import 'package:code_space_client/cubits/problem_result/problem_result_cubit.dart';
@@ -7,12 +8,14 @@ import 'package:code_space_client/data/data_provider/local/local_storage_manager
 import 'package:code_space_client/data/data_provider/local/local_storage_manager_impl.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/data/data_provider/network/intercepters/auth_intercepter.dart';
+import 'package:code_space_client/data/data_provider/services/course_service.dart';
 import 'package:code_space_client/data/data_provider/services/locale_service.dart';
 import 'package:code_space_client/data/data_provider/services/problem_service.dart';
 import 'package:code_space_client/data/data_provider/services/submission_service.dart';
 import 'package:code_space_client/data/repositories/auth_repository.dart';
 import 'package:code_space_client/data/data_provider/services/auth_service.dart';
 import 'package:code_space_client/data/data_provider/services/user_service.dart';
+import 'package:code_space_client/data/repositories/course_repository.dart';
 import 'package:code_space_client/data/repositories/problem_repository.dart';
 import 'package:code_space_client/data/repositories/submission_repository.dart';
 import 'package:code_space_client/data/repositories/user_repository.dart';
@@ -137,5 +140,15 @@ abstract class Di {
         initLanguage: languageCode.toLanguage,
       ),
     );
+
+    sl.registerLazySingleton<CourseService>(
+      () => CourseService(apiProvider: sl()),
+    );
+
+    sl.registerLazySingleton<CourseRepository>(
+      () => CourseRepository(courseService: sl()),
+    );
+
+    sl.registerFactory<CourseCubit>(() => CourseCubit(courseRepository: sl()));
   }
 }
