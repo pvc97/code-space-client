@@ -1,3 +1,4 @@
+import 'package:code_space_client/cubits/base/base_state.dart';
 import 'package:code_space_client/cubits/course/course_cubit.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/router/app_router.dart';
@@ -21,19 +22,50 @@ class CourseDetailView extends StatefulWidget {
 }
 
 class _CourseDetailViewState extends State<CourseDetailView> {
+  // There are two possible time to call loadMore:
+  // 1 - User scrollController to detect when user scroll to the end of list
+  // 2 - When listView.builder render last item
+  // I think way 1 is not good because on the first time if data length is less than limit
+  // and height of listview is less than screen height
+  // then user will never be able to load more data
+  // So I use way 2
+  int oldLength = 0;
+
   @override
   void initState() {
     super.initState();
 
+    _initLoadMore();
+  }
+
+  void _initLoadMore() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<CourseCubit>().getInitProblems(courseId: widget.courseId);
+      if (oldLength == context.read<CourseCubit>().state.problems.length) {
+        context.read<CourseCubit>().getInitProblems(courseId: widget.courseId);
+      }
+    });
+  }
+
+  void _loadMore() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (oldLength == context.read<CourseCubit>().state.problems.length) {
+        context.read<CourseCubit>().loadMoreProblems(courseId: widget.courseId);
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<CourseCubit, CourseState>(
-      listener: stateStatusListener,
+      listener: (context, state) {
+        stateStatusListener(context, state);
+
+        // Reference: https://github.com/tbm98/flutter_loadmore_search
+        // Need dig more to understand why need oldLength :)
+        // sync oldLength with problems.length to make sure ListView has newest
+        // data, so loadMore will work correctly
+        oldLength = state.problems.length;
+      },
       child: Scaffold(
         appBar: AdaptiveAppBar(
           context: context,
@@ -59,8 +91,23 @@ class _CourseDetailViewState extends State<CourseDetailView> {
 
             return ListView.builder(
               padding: const EdgeInsets.all(20.0),
-              itemCount: problems.length,
+              physics: const BouncingScrollPhysics(),
+              itemCount: problems.length + 1,
               itemBuilder: (context, index) {
+                if (index == problems.length) {
+                  if (state.isLoadMoreDone ||
+                      state.stateStatus == StateStatus.loading) {
+                    return const SizedBox.shrink();
+                  }
+
+                  // Loadmore when last item is rendered
+                  _loadMore();
+
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
                 final problem = problems[index];
                 return GestureDetector(
                   onTap: () {

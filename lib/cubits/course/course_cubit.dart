@@ -56,7 +56,7 @@ class CourseCubit extends Cubit<CourseState> {
   void loadMoreProblems({
     required String courseId,
   }) async {
-    if (state.isLoadingMore) return;
+    if (state.isLoadingMore || state.isLoadMoreDone) return;
 
     emit(state.copyWith(isLoadingMore: true));
 
