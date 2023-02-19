@@ -1,9 +1,9 @@
+import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/cubits/base/base_state.dart';
 import 'package:code_space_client/cubits/course/course_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/router/app_router.dart';
-import 'package:code_space_client/utils/debounce.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,8 +34,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
   int oldLength = 0;
 
   final TextEditingController _searchController = TextEditingController();
-
-  final _debounce = Debounce();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -47,6 +46,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
   @override
   void dispose() {
     _searchController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -59,19 +59,19 @@ class _CourseDetailViewState extends State<CourseDetailView> {
   }
 
   void _loadMore() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (oldLength == context.read<CourseCubit>().state.problems.length) {
-        context.read<CourseCubit>().loadMoreProblems(courseId: widget.courseId);
-      }
-    });
+    if (oldLength == context.read<CourseCubit>().state.problems.length) {
+      context.read<CourseCubit>().loadMoreProblems(courseId: widget.courseId);
+    }
   }
 
   void _searchProblem(String query) {
-    // call initialQuery because we want to reset page to 1
-    // and the loadmore function will use this query to load more data
-    _debounce.run(debouncedAction: () {
-      context.read<CourseCubit>().searchProblem(query: query.trim());
-    });
+    context
+        .read<CourseCubit>()
+        .searchProblem(query: query, courseId: widget.courseId);
+  }
+
+  void _resetScrollPosition() {
+    _scrollController.jumpTo(0);
   }
 
   @override
@@ -92,101 +92,107 @@ class _CourseDetailViewState extends State<CourseDetailView> {
         BlocListener<CourseCubit, CourseState>(
           listenWhen: (previous, current) => previous.query != current.query,
           listener: (context, state) {
-            context
-                .read<CourseCubit>()
-                .getInitProblems(courseId: widget.courseId);
+            _resetScrollPosition();
           },
         ),
       ],
-      child: Scaffold(
-        appBar: AdaptiveAppBar(
-          context: context,
-          title: Text('Flutter ${widget.courseId}'),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.foggy),
-              onPressed: () {
-                context.goNamed(
-                  AppRoute.ranking.name,
-                  params: {
-                    'courseId': widget.courseId,
-                  },
-                  queryParams: widget.me ? {'me': 'true'} : {},
-                );
-              },
-            ),
-          ],
-        ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 20.0,
-                right: 20.0,
-                top: 20.0,
-              ),
-              child: TextField(
-                controller: _searchController,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: S.of(context).search_problem,
-                ),
-                onChanged: (value) {
-                  _searchProblem(value);
+      child: GestureDetector(
+        onTap: FocusScope.of(context).unfocus,
+        child: Scaffold(
+          appBar: AdaptiveAppBar(
+            context: context,
+            title: Text('Flutter ${widget.courseId}'),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.foggy),
+                onPressed: () {
+                  context.goNamed(
+                    AppRoute.ranking.name,
+                    params: {
+                      'courseId': widget.courseId,
+                    },
+                    queryParams: widget.me ? {'me': 'true'} : {},
+                  );
                 },
               ),
-            ),
-            BlocBuilder<CourseCubit, CourseState>(
-              builder: (context, state) {
-                final problems = state.problems;
+            ],
+          ),
+          body: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: Sizes.s20,
+                  right: Sizes.s20,
+                  top: Sizes.s20,
+                  bottom: Sizes.s8,
+                ),
+                child: TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: S.of(context).search_problem,
+                  ),
+                  onChanged: (value) {
+                    _searchProblem(value);
+                  },
+                ),
+              ),
+              BlocBuilder<CourseCubit, CourseState>(
+                builder: (context, state) {
+                  final problems = state.problems;
 
-                return Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0,
-                      vertical: 10.0,
-                    ),
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: problems.length + 1,
-                    itemBuilder: (context, index) {
-                      if (index == problems.length) {
-                        if (state.isLoadMoreDone ||
-                            state.stateStatus == StateStatus.loading) {
-                          return const SizedBox.shrink();
+                  return Expanded(
+                    child: ListView.builder(
+                      controller: _scrollController,
+                      padding: const EdgeInsets.only(
+                        left: Sizes.s20,
+                        right: Sizes.s20,
+                        bottom: Sizes.s20,
+                      ),
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: problems.length + 1,
+                      itemBuilder: (context, index) {
+                        if (index == problems.length) {
+                          // Check stateStatus to avoid infinite loop call loadMore
+                          if (state.isLoadMoreDone ||
+                              state.stateStatus != StateStatus.success) {
+                            return const SizedBox.shrink();
+                          }
+
+                          // Loadmore when last item is rendered
+                          _loadMore();
+
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
                         }
 
-                        // Loadmore when last item is rendered
-                        _loadMore();
-
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-
-                      final problem = problems[index];
-                      return GestureDetector(
-                        onTap: () {
-                          context.goNamed(
-                            AppRoute.problem.name,
-                            params: {
-                              'courseId': widget.courseId,
-                              'problemId': problem.id,
-                            },
-                            queryParams: widget.me ? {'me': 'true'} : {},
-                          );
-                        },
-                        child: Card(
-                          child: ListTile(
-                            title: Text(problem.name),
+                        final problem = problems[index];
+                        return GestureDetector(
+                          onTap: () {
+                            context.goNamed(
+                              AppRoute.problem.name,
+                              params: {
+                                'courseId': widget.courseId,
+                                'problemId': problem.id,
+                              },
+                              queryParams: widget.me ? {'me': 'true'} : {},
+                            );
+                          },
+                          child: Card(
+                            child: ListTile(
+                              contentPadding: const EdgeInsets.all(30.0),
+                              title: Text(problem.name),
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-          ],
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

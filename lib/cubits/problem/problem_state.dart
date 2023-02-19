@@ -14,7 +14,7 @@ class ProblemState extends BaseState {
     required this.problemTab,
     this.submissionId,
     this.problemDetail,
-    super.stateStatus,
+    required super.stateStatus,
     super.error,
   });
 

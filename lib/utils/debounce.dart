@@ -6,7 +6,7 @@ class Debounce {
   final int milliseconds;
 
   Debounce({
-    this.milliseconds = 200,
+    this.milliseconds = 300,
   });
 
   Timer? _timer;

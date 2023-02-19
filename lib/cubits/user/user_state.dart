@@ -5,7 +5,7 @@ class UserState extends BaseState {
 
   const UserState({
     this.user,
-    super.stateStatus,
+    required super.stateStatus,
     super.error,
   });
 
