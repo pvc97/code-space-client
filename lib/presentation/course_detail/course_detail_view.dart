@@ -146,7 +146,6 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                           right: Sizes.s20,
                           bottom: Sizes.s20,
                         ),
-                        physics: const BouncingScrollPhysics(),
                         itemCount: problems.length + 1,
                         itemBuilder: (context, index) {
                           if (index == problems.length) {

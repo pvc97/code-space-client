@@ -61,6 +61,7 @@ class _MyAppState extends State<MyApp> {
               PointerDeviceKind.mouse,
               PointerDeviceKind.trackpad,
             },
+            physics: const BouncingScrollPhysics(),
           ),
           title: 'Code Space',
           theme: ThemeData(
