@@ -13,7 +13,7 @@ class CourseState extends BaseState {
     required this.isLoadingMore,
     required this.isLoadMoreDone,
     required this.query,
-    super.stateStatus,
+    required super.stateStatus,
     super.error,
   });
 
@@ -21,6 +21,7 @@ class CourseState extends BaseState {
     return const CourseState(
       problems: [],
       page: NetworkConstants.defaultPage,
+      stateStatus: StateStatus.initial,
       isLoadingMore: false,
       isLoadMoreDone: false,
       query: '',

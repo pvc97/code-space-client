@@ -11,7 +11,7 @@ class AuthState extends BaseState {
 
   const AuthState({
     required this.authStatus,
-    super.stateStatus,
+    required super.stateStatus,
     super.error,
   });
 

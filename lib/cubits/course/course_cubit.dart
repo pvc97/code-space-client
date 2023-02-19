@@ -1,4 +1,5 @@
 import 'package:code_space_client/models/app_exception.dart';
+import 'package:code_space_client/utils/debounce.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,20 +13,41 @@ part 'course_state.dart';
 class CourseCubit extends Cubit<CourseState> {
   final CourseRepository courseRepository;
 
+  final _debounce = Debounce();
+
   CourseCubit({required this.courseRepository}) : super(CourseState.initial());
 
-  void searchProblem({required String query}) {
-    emit(state.copyWith(
-      query: query,
-      page: 1,
-    ));
+  void searchProblem({
+    required String query,
+    required String courseId,
+  }) {
+    _debounce.run(debouncedAction: () {
+      if (query == state.query) return;
+      getInitProblems(
+        courseId: courseId,
+        initialQuery: query.trim(),
+        initialPage: NetworkConstants.defaultPage,
+      );
+    });
+  }
+
+  void refreshProblems({
+    required String courseId,
+  }) {
+    getInitProblems(
+      courseId: courseId,
+      initialQuery: state.query,
+      initialPage: NetworkConstants.defaultPage,
+    );
   }
 
   void getInitProblems({
     required String courseId,
     int? initialPage,
+    String? initialQuery,
   }) async {
     int page = initialPage ?? state.page;
+    String query = initialQuery ?? state.query;
 
     if (state.isLoadingMore) {
       // Don't load more if already loading
@@ -41,13 +63,14 @@ class CourseCubit extends Cubit<CourseState> {
       final problems = await courseRepository.getProblems(
         courseId: courseId,
         page: page,
-        query: state.query,
+        query: query,
         limit: NetworkConstants.defaultLimit,
       );
 
       emit(state.copyWith(
         problems: problems,
         page: page,
+        query: query,
         isLoadingMore: false,
         isLoadMoreDone: problems.length < NetworkConstants.defaultLimit,
         stateStatus: StateStatus.success,

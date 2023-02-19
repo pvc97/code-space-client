@@ -5,7 +5,7 @@ class ProblemResultState extends BaseState {
 
   const ProblemResultState({
     this.submission,
-    super.stateStatus,
+    required super.stateStatus,
     super.error,
   });
 
