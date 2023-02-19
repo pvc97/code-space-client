@@ -17,8 +17,10 @@ class CourseCubit extends Cubit<CourseState> {
   void getInitProblems({
     required String courseId,
     int? initialPage,
+    String? initialQuery,
   }) async {
     int page = initialPage ?? state.page;
+    String query = initialQuery ?? state.query;
 
     if (state.isLoadingMore) {
       // Don't load more if already loading
@@ -34,12 +36,14 @@ class CourseCubit extends Cubit<CourseState> {
       final problems = await courseRepository.getProblems(
         courseId: courseId,
         page: page,
+        query: query,
         limit: NetworkConstants.defaultLimit,
       );
 
       emit(state.copyWith(
         problems: problems,
         page: page,
+        query: query,
         isLoadingMore: false,
         isLoadMoreDone: problems.length < NetworkConstants.defaultLimit,
         stateStatus: StateStatus.success,
@@ -64,6 +68,7 @@ class CourseCubit extends Cubit<CourseState> {
       final problems = await courseRepository.getProblems(
         courseId: courseId,
         page: state.page + 1,
+        query: state.query,
         limit: NetworkConstants.defaultLimit,
       );
 

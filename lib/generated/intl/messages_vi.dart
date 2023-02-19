@@ -65,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "role_teacher": MessageLookupByLibrary.simpleMessage("Giảng viên"),
         "search_course":
             MessageLookupByLibrary.simpleMessage("Tìm kiếm lớp học"),
+        "search_problem":
+            MessageLookupByLibrary.simpleMessage("Tìm kiếm bài tập"),
         "session_expired":
             MessageLookupByLibrary.simpleMessage("Phiên đăng nhập đã hết hạn"),
         "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),

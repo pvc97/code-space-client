@@ -9,12 +9,14 @@ class CourseRepository {
 
   Future<List<ProblemModel>> getProblems({
     required String courseId,
+    required String query,
     required int page,
     required int limit,
   }) async {
     try {
       final problems = await courseService.getProblems(
         courseId: courseId,
+        query: query,
         page: page,
         limit: limit,
       );

@@ -63,6 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "role_student": MessageLookupByLibrary.simpleMessage("Student"),
         "role_teacher": MessageLookupByLibrary.simpleMessage("Teacher"),
         "search_course": MessageLookupByLibrary.simpleMessage("Search course"),
+        "search_problem":
+            MessageLookupByLibrary.simpleMessage("Search problem"),
         "session_expired":
             MessageLookupByLibrary.simpleMessage("Session expired"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
