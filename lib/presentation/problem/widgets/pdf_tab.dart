@@ -28,6 +28,9 @@ class _PdfTabState extends State<PdfTab> with AutomaticKeepAliveClientMixin {
           return SfPdfViewer.network(
             state.fullPdfPath,
             key: _pdfViewerKey,
+            // Use PdfInteractionMode.pan and set scrollBehavior in main
+            // to enable changing page with mouse
+            interactionMode: PdfInteractionMode.pan,
           );
         }
 

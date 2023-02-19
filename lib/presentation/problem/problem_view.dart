@@ -140,6 +140,7 @@ class _ProblemViewState extends State<ProblemView> {
           builder: (context, constraints) {
             if (constraints.maxWidth < 600) {
               return PageView(
+                physics: const ClampingScrollPhysics(),
                 onPageChanged: (index) {
                   context.read<ProblemCubit>().changeTab(
                         ProblemTab.values.elementAt(index),

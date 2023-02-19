@@ -1,16 +1,17 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class AdaptiveTransitionPage {
   AdaptiveTransitionPage._();
   static Page<dynamic> create(LocalKey? key, {required Widget child}) {
-    return (Platform.isAndroid || Platform.isIOS)
-        ? MaterialPage<void>(
+    return (kIsWeb || Platform.isWindows)
+        ? NoTransitionPage<void>(
             key: key,
             child: child,
           )
-        : NoTransitionPage<void>(
+        : MaterialPage<void>(
             key: key,
             child: child,
           );

@@ -6,6 +6,7 @@ import 'package:code_space_client/cubits/user/user_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/injection_container.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -54,6 +55,14 @@ class _MyAppState extends State<MyApp> {
     return BlocBuilder<LocaleCubit, LocaleState>(
       builder: (context, state) {
         return MaterialApp.router(
+          scrollBehavior: ScrollConfiguration.of(context).copyWith(
+            dragDevices: {
+              PointerDeviceKind.touch,
+              PointerDeviceKind.mouse,
+              PointerDeviceKind.trackpad,
+            },
+            physics: const BouncingScrollPhysics(),
+          ),
           title: 'Code Space',
           theme: ThemeData(
             primarySwatch: Colors.pink,
