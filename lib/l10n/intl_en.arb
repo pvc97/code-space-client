@@ -38,5 +38,6 @@
   "role_teacher": "Teacher",
   "role_manager": "Manager",
   "vietnamese": "Vietnamese",
-  "english": "English"
+  "english": "English",
+  "search_problem": "Search problem"
 }

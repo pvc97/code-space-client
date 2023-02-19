@@ -14,6 +14,13 @@ class CourseCubit extends Cubit<CourseState> {
 
   CourseCubit({required this.courseRepository}) : super(CourseState.initial());
 
+  void searchProblem({required String query}) {
+    emit(state.copyWith(
+      query: query,
+      page: 1,
+    ));
+  }
+
   void getInitProblems({
     required String courseId,
     int? initialPage,
@@ -34,6 +41,7 @@ class CourseCubit extends Cubit<CourseState> {
       final problems = await courseRepository.getProblems(
         courseId: courseId,
         page: page,
+        query: state.query,
         limit: NetworkConstants.defaultLimit,
       );
 
@@ -64,6 +72,7 @@ class CourseCubit extends Cubit<CourseState> {
       final problems = await courseRepository.getProblems(
         courseId: courseId,
         page: state.page + 1,
+        query: state.query,
         limit: NetworkConstants.defaultLimit,
       );
 

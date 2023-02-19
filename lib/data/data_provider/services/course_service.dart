@@ -9,6 +9,7 @@ class CourseService {
 
   Future<List<ProblemModel>> getProblems({
     required String courseId,
+    required String query,
     required int page,
     required int limit,
   }) async {
@@ -16,6 +17,7 @@ class CourseService {
       '${UrlConstants.courses}/$courseId/problems',
       queryParameters: {
         'page': page,
+        'q': query,
         'limit': limit,
       },
     );

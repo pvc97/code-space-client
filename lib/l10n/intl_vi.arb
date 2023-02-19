@@ -38,5 +38,6 @@
   "role_teacher": "Giảng viên",
   "role_manager": "Quản lý",
   "vietnamese": "Tiếng Việt",
-  "english": "Tiếng Anh"
+  "english": "Tiếng Anh",
+  "search_problem": "Tìm kiếm bài tập"
 }
