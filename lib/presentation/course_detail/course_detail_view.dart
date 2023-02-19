@@ -65,6 +65,8 @@ class _CourseDetailViewState extends State<CourseDetailView> {
   }
 
   void _searchProblem(String query) {
+    // call initialQuery because we want to reset page to 1
+    // and the loadmore function will use this query to load more data
     context.read<CourseCubit>().getInitProblems(
           courseId: widget.courseId,
           initialPage: 1,
