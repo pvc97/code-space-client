@@ -3,7 +3,7 @@ import 'package:code_space_client/cubits/course/course_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/router/app_router.dart';
-import 'package:code_space_client/utils/logger/logger.dart';
+import 'package:code_space_client/utils/debounce.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,6 +34,8 @@ class _CourseDetailViewState extends State<CourseDetailView> {
   int oldLength = 0;
 
   final TextEditingController _searchController = TextEditingController();
+
+  final _debounce = Debounce();
 
   @override
   void initState() {
@@ -67,11 +69,13 @@ class _CourseDetailViewState extends State<CourseDetailView> {
   void _searchProblem(String query) {
     // call initialQuery because we want to reset page to 1
     // and the loadmore function will use this query to load more data
-    context.read<CourseCubit>().getInitProblems(
-          courseId: widget.courseId,
-          initialPage: 1,
-          initialQuery: query,
-        );
+    _debounce.run(debouncedAction: () {
+      context.read<CourseCubit>().getInitProblems(
+            courseId: widget.courseId,
+            initialPage: 1,
+            initialQuery: query,
+          );
+    });
   }
 
   @override
@@ -120,7 +124,6 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                   labelText: S.of(context).search_problem,
                 ),
                 onChanged: (value) {
-                  logger.d(value);
                   _searchProblem(value);
                 },
               ),
