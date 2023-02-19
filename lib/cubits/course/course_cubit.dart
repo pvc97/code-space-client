@@ -22,6 +22,7 @@ class CourseCubit extends Cubit<CourseState> {
     required String courseId,
   }) {
     _debounce.run(debouncedAction: () {
+      if (query == state.query) return;
       getInitProblems(
         courseId: courseId,
         initialQuery: query.trim(),
@@ -30,13 +31,21 @@ class CourseCubit extends Cubit<CourseState> {
     });
   }
 
+  void refreshProblems({
+    required String courseId,
+  }) {
+    getInitProblems(
+      courseId: courseId,
+      initialQuery: state.query,
+      initialPage: NetworkConstants.defaultPage,
+    );
+  }
+
   void getInitProblems({
     required String courseId,
     int? initialPage,
     String? initialQuery,
   }) async {
-    if (initialQuery != null && initialQuery == state.query) return;
-
     int page = initialPage ?? state.page;
     String query = initialQuery ?? state.query;
 

@@ -31,7 +31,6 @@ class _CourseDetailViewState extends State<CourseDetailView> {
   // and height of listview is less than screen height
   // then user will never be able to load more data
   // So I use way 2
-  int oldLength = 0;
 
   final TextEditingController _searchController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
@@ -52,16 +51,12 @@ class _CourseDetailViewState extends State<CourseDetailView> {
 
   void _initLoadMore() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (oldLength == context.read<CourseCubit>().state.problems.length) {
-        context.read<CourseCubit>().getInitProblems(courseId: widget.courseId);
-      }
+      context.read<CourseCubit>().getInitProblems(courseId: widget.courseId);
     });
   }
 
   void _loadMore() {
-    if (oldLength == context.read<CourseCubit>().state.problems.length) {
-      context.read<CourseCubit>().loadMoreProblems(courseId: widget.courseId);
-    }
+    context.read<CourseCubit>().loadMoreProblems(courseId: widget.courseId);
   }
 
   void _searchProblem(String query) {
@@ -74,20 +69,16 @@ class _CourseDetailViewState extends State<CourseDetailView> {
     _scrollController.jumpTo(0);
   }
 
+  void _refreshProblems() {
+    context.read<CourseCubit>().refreshProblems(courseId: widget.courseId);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        BlocListener<CourseCubit, CourseState>(
-          listener: (context, state) {
-            stateStatusListener(context, state);
-
-            // Reference: https://github.com/tbm98/flutter_loadmore_search
-            // Need dig more to understand why need oldLength :)
-            // sync oldLength with problems.length to make sure ListView has newest
-            // data, so loadMore will work correctly
-            oldLength = state.problems.length;
-          },
+        const BlocListener<CourseCubit, CourseState>(
+          listener: stateStatusListener,
         ),
         BlocListener<CourseCubit, CourseState>(
           listenWhen: (previous, current) => previous.query != current.query,
@@ -117,81 +108,88 @@ class _CourseDetailViewState extends State<CourseDetailView> {
               ),
             ],
           ),
-          body: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: Sizes.s20,
-                  right: Sizes.s20,
-                  top: Sizes.s20,
-                  bottom: Sizes.s8,
-                ),
-                child: TextField(
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText: S.of(context).search_problem,
+          body: RefreshIndicator(
+            onRefresh: () async {
+              _refreshProblems();
+            },
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: Sizes.s20,
+                    right: Sizes.s20,
+                    top: Sizes.s20,
+                    bottom: Sizes.s8,
                   ),
-                  onChanged: (value) {
-                    _searchProblem(value);
-                  },
+                  child: TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: S.of(context).search_problem,
+                    ),
+                    onChanged: (value) {
+                      _searchProblem(value);
+                    },
+                  ),
                 ),
-              ),
-              BlocBuilder<CourseCubit, CourseState>(
-                builder: (context, state) {
-                  final problems = state.problems;
+                BlocBuilder<CourseCubit, CourseState>(
+                  buildWhen: (previous, current) =>
+                      previous.problems != current.problems,
+                  builder: (context, state) {
+                    final problems = state.problems;
 
-                  return Expanded(
-                    child: ListView.builder(
-                      controller: _scrollController,
-                      padding: const EdgeInsets.only(
-                        left: Sizes.s20,
-                        right: Sizes.s20,
-                        bottom: Sizes.s20,
-                      ),
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: problems.length + 1,
-                      itemBuilder: (context, index) {
-                        if (index == problems.length) {
-                          // Check stateStatus to avoid infinite loop call loadMore
-                          if (state.isLoadMoreDone ||
-                              state.stateStatus != StateStatus.success) {
-                            return const SizedBox.shrink();
+                    return Expanded(
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        padding: const EdgeInsets.only(
+                          left: Sizes.s20,
+                          right: Sizes.s20,
+                          bottom: Sizes.s20,
+                        ),
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: problems.length + 1,
+                        itemBuilder: (context, index) {
+                          if (index == problems.length) {
+                            // Check stateStatus to avoid infinite loop call loadMore
+                            if (state.isLoadMoreDone ||
+                                state.stateStatus != StateStatus.success) {
+                              return const SizedBox.shrink();
+                            }
+
+                            // Loadmore when last item is rendered
+                            _loadMore();
+
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
                           }
 
-                          // Loadmore when last item is rendered
-                          _loadMore();
-
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-
-                        final problem = problems[index];
-                        return GestureDetector(
-                          onTap: () {
-                            context.goNamed(
-                              AppRoute.problem.name,
-                              params: {
-                                'courseId': widget.courseId,
-                                'problemId': problem.id,
-                              },
-                              queryParams: widget.me ? {'me': 'true'} : {},
-                            );
-                          },
-                          child: Card(
-                            child: ListTile(
-                              contentPadding: const EdgeInsets.all(30.0),
-                              title: Text(problem.name),
+                          final problem = problems[index];
+                          return GestureDetector(
+                            onTap: () {
+                              context.goNamed(
+                                AppRoute.problem.name,
+                                params: {
+                                  'courseId': widget.courseId,
+                                  'problemId': problem.id,
+                                },
+                                queryParams: widget.me ? {'me': 'true'} : {},
+                              );
+                            },
+                            child: Card(
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.all(Sizes.s24),
+                                title: Text(problem.name),
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                },
-              ),
-            ],
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
