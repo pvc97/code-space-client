@@ -7,7 +7,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 void stateStatusListener(
   BuildContext context,
   BaseState state, {
-  VoidCallback? onSuccess,
   VoidCallback? onLoading,
   VoidCallback? onError,
 }) {
@@ -25,7 +24,6 @@ void stateStatusListener(
       break;
     case StateStatus.success:
       EasyLoading.dismiss();
-      onSuccess?.call();
       break;
     default:
       EasyLoading.dismiss();

@@ -2,7 +2,6 @@ import 'package:code_space_client/models/problem_detail_model.dart';
 import 'package:code_space_client/presentation/problem/widgets/code_tab.dart';
 import 'package:code_space_client/presentation/problem/widgets/pdf_tab.dart';
 import 'package:code_space_client/utils/extensions/language_ext.dart';
-import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,32 +66,42 @@ class _ProblemViewState extends State<ProblemView> {
 
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return BlocListener<ProblemCubit, ProblemState>(
-      listener: (context, state) {
-        stateStatusListener(
-          context,
-          state,
-          onSuccess: () {
+    return MultiBlocListener(
+      listeners: [
+        // Listen to state status of ProblemCubit to show loading, error, success
+        BlocListener<ProblemCubit, ProblemState>(
+          listenWhen: (previous, current) =>
+              previous.stateStatus != current.stateStatus,
+          listener: stateStatusListener,
+        ),
+        // Listen to problem detail to set language for code controller
+        BlocListener<ProblemCubit, ProblemState>(
+          listenWhen: (previous, current) =>
+              previous.problemDetail != current.problemDetail &&
+              current.problemDetail != null,
+          listener: (context, state) {
             final problemDetail = state.problemDetail;
-            if (problemDetail != null) {
-              logger.d('Assign language: ${problemDetail.language.highlight}');
-              _codeController.language ??= problemDetail.language.highlight;
-            }
-
-            if (state.submissionId != null) {
-              context.goNamed(
-                AppRoute.problemResult.name,
-                params: {
-                  'courseId': widget.courseId,
-                  'problemId': widget.problemId,
-                  'submitId': state.submissionId!,
-                },
-                queryParams: widget.me ? {'me': 'true'} : {},
-              );
-            }
+            _codeController.language ??= problemDetail!.language.highlight;
           },
-        );
-      },
+        ),
+        // Listen to submission id to navigate to result page
+        BlocListener<ProblemCubit, ProblemState>(
+          listenWhen: (previous, current) =>
+              previous.submissionId != current.submissionId &&
+              current.submissionId != null,
+          listener: (context, state) {
+            context.goNamed(
+              AppRoute.problemResult.name,
+              params: {
+                'courseId': widget.courseId,
+                'problemId': widget.problemId,
+                'submitId': state.submissionId!,
+              },
+              queryParams: widget.me ? {'me': 'true'} : {},
+            );
+          },
+        ),
+      ],
       child: Scaffold(
         appBar: AdaptiveAppBar(
           context: context,
