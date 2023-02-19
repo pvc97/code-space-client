@@ -15,6 +15,7 @@ abstract class AppConfigManager {
   static Future<void> init({required EnvironmentType environmentType}) async {
     // TODO: Remove this if statement when deploying to web
     // User local host for web and desktop development
+    // Check Platform.something cause runtime error on web, so check kIsWeb first
     if (kIsWeb || Platform.isWindows) {
       environmentType = EnvironmentType.devLocal;
     }

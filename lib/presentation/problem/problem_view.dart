@@ -30,6 +30,7 @@ class ProblemView extends StatefulWidget {
 
 class _ProblemViewState extends State<ProblemView> {
   late final CodeController _codeController = CodeController();
+  final PageController _pageController = PageController();
 
   late final List<Widget> _pages = [
     const PdfTab(key: PageStorageKey('pdf')),
@@ -140,6 +141,8 @@ class _ProblemViewState extends State<ProblemView> {
           builder: (context, constraints) {
             if (constraints.maxWidth < 600) {
               return PageView(
+                controller: _pageController,
+                physics: const AlwaysScrollableScrollPhysics(),
                 onPageChanged: (index) {
                   context.read<ProblemCubit>().changeTab(
                         ProblemTab.values.elementAt(index),

@@ -108,37 +108,37 @@ class _CourseDetailViewState extends State<CourseDetailView> {
               ),
             ],
           ),
-          body: RefreshIndicator(
-            onRefresh: () async {
-              _refreshProblems();
-            },
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: Sizes.s20,
-                    right: Sizes.s20,
-                    top: Sizes.s20,
-                    bottom: Sizes.s8,
-                  ),
-                  child: TextField(
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: S.of(context).search_problem,
-                    ),
-                    onChanged: (value) {
-                      _searchProblem(value);
-                    },
-                  ),
+          body: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: Sizes.s20,
+                  right: Sizes.s20,
+                  top: Sizes.s20,
+                  bottom: Sizes.s8,
                 ),
-                BlocBuilder<CourseCubit, CourseState>(
-                  buildWhen: (previous, current) =>
-                      previous.problems != current.problems,
-                  builder: (context, state) {
-                    final problems = state.problems;
+                child: TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: S.of(context).search_problem,
+                  ),
+                  onChanged: (value) {
+                    _searchProblem(value);
+                  },
+                ),
+              ),
+              BlocBuilder<CourseCubit, CourseState>(
+                buildWhen: (previous, current) =>
+                    previous.problems != current.problems,
+                builder: (context, state) {
+                  final problems = state.problems;
 
-                    return Expanded(
+                  return Expanded(
+                    child: RefreshIndicator(
+                      onRefresh: () async {
+                        _refreshProblems();
+                      },
                       child: ListView.builder(
                         controller: _scrollController,
                         padding: const EdgeInsets.only(
@@ -185,11 +185,11 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                           );
                         },
                       ),
-                    );
-                  },
-                ),
-              ],
-            ),
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ),
