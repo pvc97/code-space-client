@@ -70,26 +70,34 @@ class _CourseDetailViewState extends State<CourseDetailView> {
     // call initialQuery because we want to reset page to 1
     // and the loadmore function will use this query to load more data
     _debounce.run(debouncedAction: () {
-      context.read<CourseCubit>().getInitProblems(
-            courseId: widget.courseId,
-            initialPage: 1,
-            initialQuery: query,
-          );
+      context.read<CourseCubit>().searchProblem(query: query.trim());
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CourseCubit, CourseState>(
-      listener: (context, state) {
-        stateStatusListener(context, state);
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<CourseCubit, CourseState>(
+          listener: (context, state) {
+            stateStatusListener(context, state);
 
-        // Reference: https://github.com/tbm98/flutter_loadmore_search
-        // Need dig more to understand why need oldLength :)
-        // sync oldLength with problems.length to make sure ListView has newest
-        // data, so loadMore will work correctly
-        oldLength = state.problems.length;
-      },
+            // Reference: https://github.com/tbm98/flutter_loadmore_search
+            // Need dig more to understand why need oldLength :)
+            // sync oldLength with problems.length to make sure ListView has newest
+            // data, so loadMore will work correctly
+            oldLength = state.problems.length;
+          },
+        ),
+        BlocListener<CourseCubit, CourseState>(
+          listenWhen: (previous, current) => previous.query != current.query,
+          listener: (context, state) {
+            context
+                .read<CourseCubit>()
+                .getInitProblems(courseId: widget.courseId);
+          },
+        ),
+      ],
       child: Scaffold(
         appBar: AdaptiveAppBar(
           context: context,
