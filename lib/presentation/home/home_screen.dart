@@ -1,6 +1,6 @@
 import 'package:code_space_client/constants/app_sizes.dart';
-import 'package:code_space_client/cubits/auth/auth_cubit.dart';
-import 'package:code_space_client/cubits/user/user_cubit.dart';
+import 'package:code_space_client/blocs/auth/auth_cubit.dart';
+import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';

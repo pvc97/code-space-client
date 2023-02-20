@@ -1,4 +1,4 @@
-import 'package:code_space_client/cubits/base/base_state.dart';
+import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/app_exception.dart';
 import 'package:flutter/material.dart';

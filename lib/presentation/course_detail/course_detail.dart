@@ -1,4 +1,4 @@
-import 'package:code_space_client/cubits/course/course_cubit.dart';
+import 'package:code_space_client/blocs/course_detail/course_detail_bloc.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/presentation/course_detail/course_detail_view.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +16,9 @@ class CourseDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CourseCubit>(
-      create: (context) => sl(),
+    return BlocProvider<CourseDetailBloc>(
+      create: (context) =>
+          sl()..add(CourseDetailGetInitProblemsEvent(courseId: courseId)),
       child: CourseDetailView(me: me, courseId: courseId),
     );
   }

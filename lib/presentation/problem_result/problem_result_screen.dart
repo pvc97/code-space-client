@@ -1,6 +1,6 @@
 import 'package:code_space_client/constants/app_sizes.dart';
-import 'package:code_space_client/cubits/base/base_state.dart';
-import 'package:code_space_client/cubits/problem_result/problem_result_cubit.dart';
+import 'package:code_space_client/blocs/base/base_state.dart';
+import 'package:code_space_client/blocs/problem_result/problem_result_cubit.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';

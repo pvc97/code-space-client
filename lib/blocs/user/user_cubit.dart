@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:code_space_client/cubits/base/base_state.dart';
+import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/data/repositories/user_repository.dart';
 import 'package:code_space_client/models/app_exception.dart';
 import 'package:code_space_client/models/user_model.dart';

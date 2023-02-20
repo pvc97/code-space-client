@@ -1,9 +1,9 @@
-import 'package:code_space_client/cubits/auth/auth_cubit.dart';
-import 'package:code_space_client/cubits/course/course_cubit.dart';
-import 'package:code_space_client/cubits/locale/locale_cubit.dart';
-import 'package:code_space_client/cubits/problem/problem_cubit.dart';
-import 'package:code_space_client/cubits/problem_result/problem_result_cubit.dart';
-import 'package:code_space_client/cubits/user/user_cubit.dart';
+import 'package:code_space_client/blocs/auth/auth_cubit.dart';
+import 'package:code_space_client/blocs/course_detail/course_detail_bloc.dart';
+import 'package:code_space_client/blocs/locale/locale_cubit.dart';
+import 'package:code_space_client/blocs/problem/problem_cubit.dart';
+import 'package:code_space_client/blocs/problem_result/problem_result_cubit.dart';
+import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager_impl.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
@@ -149,6 +149,7 @@ abstract class Di {
       () => CourseRepository(courseService: sl()),
     );
 
-    sl.registerFactory<CourseCubit>(() => CourseCubit(courseRepository: sl()));
+    sl.registerFactory<CourseDetailBloc>(
+        () => CourseDetailBloc(courseRepository: sl()));
   }
 }
