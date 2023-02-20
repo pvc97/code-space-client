@@ -3,6 +3,7 @@ import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
+import 'package:code_space_client/presentation/common_widgets/app_scaffold.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
@@ -42,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
       listener: stateStatusListener,
-      child: Scaffold(
+      child: AppScaffold(
         appBar: AdaptiveAppBar(
           context: context,
           title: Text(S.of(context).login_screen_title),

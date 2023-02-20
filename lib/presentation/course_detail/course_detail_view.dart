@@ -3,6 +3,7 @@ import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/blocs/course_detail/course_detail_bloc.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/presentation/common_widgets/app_scaffold.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +85,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
       ],
       child: GestureDetector(
         onTap: FocusScope.of(context).unfocus,
-        child: Scaffold(
+        child: AppScaffold(
           appBar: AdaptiveAppBar(
             context: context,
             title: Text('Flutter ${widget.courseId}'),

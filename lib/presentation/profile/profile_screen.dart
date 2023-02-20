@@ -6,6 +6,7 @@ import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/models/user_model.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
+import 'package:code_space_client/presentation/common_widgets/app_scaffold.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +75,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           context.read<AuthCubit>().logout();
         }
       },
-      child: Scaffold(
+      child: AppScaffold(
         appBar: AdaptiveAppBar(
           context: context,
           title: Text(S.of(context).profile),
