@@ -17,8 +17,7 @@ class AdaptiveAppBar extends AppBar {
           title: title,
           centerTitle: centerTitle,
           actions: actions,
-          backgroundColor: backgroundColor ?? Colors.transparent,
-          shadowColor: Colors.transparent,
+          backgroundColor: backgroundColor,
           bottom: bottom,
           leading: kIsWeb
               ? IconButton(
