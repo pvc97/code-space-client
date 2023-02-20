@@ -1,6 +1,6 @@
 import 'package:code_space_client/constants/app_sizes.dart';
-import 'package:code_space_client/cubits/base/base_state.dart';
-import 'package:code_space_client/cubits/course/course_cubit.dart';
+import 'package:code_space_client/blocs/base/base_state.dart';
+import 'package:code_space_client/blocs/course_detail/course_detail_bloc.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/router/app_router.dart';
@@ -50,19 +50,23 @@ class _CourseDetailViewState extends State<CourseDetailView> {
   }
 
   void _initLoadMore() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<CourseCubit>().getInitProblems(courseId: widget.courseId);
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   context.read<CourseCubit>().getInitProblems(courseId: widget.courseId);
+    // });
+    context
+        .read<CourseDetailBloc>()
+        .add(CourseDetailGetInitProblemsEvent(courseId: widget.courseId));
   }
 
   void _loadMore() {
-    context.read<CourseCubit>().loadMoreProblems(courseId: widget.courseId);
+    context
+        .read<CourseDetailBloc>()
+        .add(CourseDetailLoadMoreProblemsEvent(courseId: widget.courseId));
   }
 
   void _searchProblem(String query) {
-    context
-        .read<CourseCubit>()
-        .searchProblem(query: query, courseId: widget.courseId);
+    context.read<CourseDetailBloc>().add(CourseDetailSearchProblemsEvent(
+        query: query, courseId: widget.courseId));
   }
 
   void _resetScrollPosition() {
@@ -70,17 +74,20 @@ class _CourseDetailViewState extends State<CourseDetailView> {
   }
 
   void _refreshProblems() {
-    context.read<CourseCubit>().refreshProblems(courseId: widget.courseId);
+    // context.read<CourseCubit>().refreshProblems(courseId: widget.courseId);
+    context
+        .read<CourseDetailBloc>()
+        .add(CourseDetailRefreshProblemsEvent(courseId: widget.courseId));
   }
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        const BlocListener<CourseCubit, CourseState>(
+        const BlocListener<CourseDetailBloc, CourseDetailState>(
           listener: stateStatusListener,
         ),
-        BlocListener<CourseCubit, CourseState>(
+        BlocListener<CourseDetailBloc, CourseDetailState>(
           listenWhen: (previous, current) => previous.query != current.query,
           listener: (context, state) {
             _resetScrollPosition();
@@ -128,7 +135,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                   },
                 ),
               ),
-              BlocBuilder<CourseCubit, CourseState>(
+              BlocBuilder<CourseDetailBloc, CourseDetailState>(
                 buildWhen: (previous, current) =>
                     previous.problems != current.problems,
                 builder: (context, state) {

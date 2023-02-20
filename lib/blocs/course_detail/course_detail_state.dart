@@ -1,13 +1,13 @@
-part of 'course_cubit.dart';
+part of 'course_detail_bloc.dart';
 
-class CourseState extends BaseState {
+class CourseDetailState extends BaseState {
   final List<ProblemModel> problems;
   final int page;
   final bool isLoadingMore;
   final bool isLoadMoreDone;
   final String query;
 
-  const CourseState({
+  const CourseDetailState({
     required this.problems,
     required this.page,
     required this.isLoadingMore,
@@ -17,8 +17,8 @@ class CourseState extends BaseState {
     super.error,
   });
 
-  factory CourseState.initial() {
-    return const CourseState(
+  factory CourseDetailState.initial() {
+    return const CourseDetailState(
       problems: [],
       page: NetworkConstants.defaultPage,
       stateStatus: StateStatus.initial,
@@ -40,7 +40,7 @@ class CourseState extends BaseState {
     ];
   }
 
-  CourseState copyWith({
+  CourseDetailState copyWith({
     List<ProblemModel>? problems,
     int? page,
     bool? isLoadingMore,
@@ -49,7 +49,7 @@ class CourseState extends BaseState {
     StateStatus? stateStatus,
     AppException? error,
   }) {
-    return CourseState(
+    return CourseDetailState(
       problems: problems ?? this.problems,
       page: page ?? this.page,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,

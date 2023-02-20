@@ -1,4 +1,4 @@
-import 'package:code_space_client/cubits/problem/problem_cubit.dart';
+import 'package:code_space_client/blocs/problem/problem_cubit.dart';
 import 'package:code_space_client/models/problem_detail_model.dart';
 import 'package:code_space_client/utils/extensions/problem_detail_ext.dart';
 import 'package:flutter/material.dart';

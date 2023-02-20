@@ -1,4 +1,4 @@
-import 'package:code_space_client/cubits/auth/auth_cubit.dart';
+import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/models/app_exception.dart';

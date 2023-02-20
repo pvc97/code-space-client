@@ -1,4 +1,4 @@
-import 'package:code_space_client/cubits/auth/auth_cubit.dart';
+import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/presentation/auth/sign_up_screen.dart';
 import 'package:code_space_client/presentation/course_detail/course_detail.dart';

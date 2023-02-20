@@ -1,8 +1,8 @@
-import 'package:code_space_client/cubits/auth/auth_cubit.dart';
+import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/configs/app_config_manager.dart';
 import 'package:code_space_client/configs/environment_type.dart';
-import 'package:code_space_client/cubits/locale/locale_cubit.dart';
-import 'package:code_space_client/cubits/user/user_cubit.dart';
+import 'package:code_space_client/blocs/locale/locale_cubit.dart';
+import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/injection_container.dart';
