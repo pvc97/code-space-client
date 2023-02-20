@@ -1,4 +1,3 @@
-import 'package:code_space_client/presentation/common_widgets/app_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import 'package:code_space_client/constants/app_sizes.dart';
@@ -17,7 +16,7 @@ class RankingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(
+    return Scaffold(
       appBar: AdaptiveAppBar(
         context: context,
         title: Text(S.of(context).ranking),
