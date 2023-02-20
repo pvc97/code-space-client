@@ -78,13 +78,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
         BlocListener<CourseDetailBloc, CourseDetailState>(
           listenWhen: (previous, current) => previous.query != current.query,
           listener: (context, state) {
-            // logger.d(
-            //     'Current event: ${context.read<CourseDetailBloc>().previousEvent}');
-            // _resetScrollPosition();
-            if (context.read<CourseDetailBloc>().lastEvent
-                is CourseDetailGetInitProblemsEvent) {
-              _resetScrollPosition();
-            }
+            _resetScrollPosition();
           },
         ),
       ],
