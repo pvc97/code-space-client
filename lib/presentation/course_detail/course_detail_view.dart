@@ -38,8 +38,6 @@ class _CourseDetailViewState extends State<CourseDetailView> {
   @override
   void initState() {
     super.initState();
-
-    _initLoadMore();
   }
 
   @override
@@ -47,15 +45,6 @@ class _CourseDetailViewState extends State<CourseDetailView> {
     _searchController.dispose();
     _scrollController.dispose();
     super.dispose();
-  }
-
-  void _initLoadMore() {
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   context.read<CourseCubit>().getInitProblems(courseId: widget.courseId);
-    // });
-    context
-        .read<CourseDetailBloc>()
-        .add(CourseDetailGetInitProblemsEvent(courseId: widget.courseId));
   }
 
   void _loadMore() {
@@ -74,7 +63,6 @@ class _CourseDetailViewState extends State<CourseDetailView> {
   }
 
   void _refreshProblems() {
-    // context.read<CourseCubit>().refreshProblems(courseId: widget.courseId);
     context
         .read<CourseDetailBloc>()
         .add(CourseDetailRefreshProblemsEvent(courseId: widget.courseId));
@@ -90,7 +78,13 @@ class _CourseDetailViewState extends State<CourseDetailView> {
         BlocListener<CourseDetailBloc, CourseDetailState>(
           listenWhen: (previous, current) => previous.query != current.query,
           listener: (context, state) {
-            _resetScrollPosition();
+            // logger.d(
+            //     'Current event: ${context.read<CourseDetailBloc>().previousEvent}');
+            // _resetScrollPosition();
+            if (context.read<CourseDetailBloc>().lastEvent
+                is CourseDetailGetInitProblemsEvent) {
+              _resetScrollPosition();
+            }
           },
         ),
       ],

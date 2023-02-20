@@ -22,7 +22,7 @@ EventTransformer<Event> debounce<Event>(Duration duration) {
 class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
   final CourseRepository courseRepository;
 
-  CourseDetailEvent? _previousEvent;
+  CourseDetailEvent? _lastEvent;
 
   CourseDetailBloc({required this.courseRepository})
       : super(CourseDetailState.initial()) {
@@ -30,19 +30,19 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
     on<CourseDetailSearchProblemsEvent>(
       _onSearchProblems,
       transformer: debounce(
-        const Duration(milliseconds: 300),
+        const Duration(milliseconds: 3000),
       ),
     );
     on<CourseDetailRefreshProblemsEvent>(refreshProblems);
     on<CourseDetailLoadMoreProblemsEvent>(loadMoreProblems);
   }
 
-  CourseDetailEvent? get previousEvent => _previousEvent;
+  CourseDetailEvent? get lastEvent => _lastEvent;
 
   @override
   void onEvent(CourseDetailEvent event) {
-    _previousEvent = event;
     super.onEvent(event);
+    _lastEvent = event;
   }
 
   void _onGetInitProblems(

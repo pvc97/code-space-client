@@ -17,7 +17,8 @@ class CourseDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CourseDetailBloc>(
-      create: (context) => sl(),
+      create: (context) =>
+          sl()..add(CourseDetailGetInitProblemsEvent(courseId: courseId)),
       child: CourseDetailView(me: me, courseId: courseId),
     );
   }
