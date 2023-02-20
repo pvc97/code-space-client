@@ -1,7 +1,7 @@
+import 'package:code_space_client/constants/app_constants.dart';
+import 'package:code_space_client/utils/bloc_transformer.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stream_transform/stream_transform.dart';
-
 import 'package:code_space_client/constants/network_constants.dart';
 import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/data/repositories/course_repository.dart';
@@ -11,14 +11,8 @@ import 'package:code_space_client/models/problem_model.dart';
 part 'course_detail_event.dart';
 part 'course_detail_state.dart';
 
-// Debounce the search event
-// https://github.com/felangel/bloc/blob/master/examples/github_search/common_github_search/lib/src/github_search_bloc/github_search_bloc.dart
-EventTransformer<Event> debounce<Event>(Duration duration) {
-  return (events, mapper) => events.debounce(duration).switchMap(mapper);
-}
 // Get the previous event
 // https://github.com/felangel/bloc/issues/1462
-
 class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
   final CourseRepository courseRepository;
 
@@ -29,12 +23,12 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
     on<CourseDetailGetInitProblemsEvent>(_onGetInitProblems);
     on<CourseDetailSearchProblemsEvent>(
       _onSearchProblems,
-      transformer: debounce(
-        const Duration(milliseconds: 300),
+      transformer: BlocTransformer.debounce(
+        const Duration(milliseconds: AppConstants.searchDebounceDuration),
       ),
     );
-    on<CourseDetailRefreshProblemsEvent>(refreshProblems);
-    on<CourseDetailLoadMoreProblemsEvent>(loadMoreProblems);
+    on<CourseDetailRefreshProblemsEvent>(_refreshProblems);
+    on<CourseDetailLoadMoreProblemsEvent>(_loadMoreProblems);
   }
 
   CourseDetailEvent? get lastEvent => _lastEvent;
@@ -99,7 +93,7 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
     ));
   }
 
-  void refreshProblems(
+  void _refreshProblems(
     CourseDetailRefreshProblemsEvent event,
     Emitter<CourseDetailState> emit,
   ) {
@@ -110,7 +104,7 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
     ));
   }
 
-  void loadMoreProblems(
+  void _loadMoreProblems(
     CourseDetailLoadMoreProblemsEvent event,
     Emitter<CourseDetailState> emit,
   ) async {
