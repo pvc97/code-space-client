@@ -16,8 +16,6 @@ part 'course_detail_state.dart';
 class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
   final CourseRepository courseRepository;
 
-  CourseDetailEvent? _lastEvent;
-
   CourseDetailBloc({required this.courseRepository})
       : super(CourseDetailState.initial()) {
     on<CourseDetailGetInitProblemsEvent>(_onGetInitProblems);
@@ -31,13 +29,25 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
     on<CourseDetailLoadMoreProblemsEvent>(_loadMoreProblems);
   }
 
-  CourseDetailEvent? get lastEvent => _lastEvent;
+  // NOTE: In bloc listener, I think check lastEvent is not good
+  // Because lastEvent is not the event that trigger the state change
+  // Example: If I have 2 events: A and B
+  // on A, take 10s to complete
+  // on B, take 1s to complete
+  // => When add A => lastEvent = A
+  // => When add B => lastEvent = B
+  // But A still not complete, so when A complete lastEvent is still B
+  // After googling, I think I don't need to check lastEvent,
+  // I will decide what to do base on state (not event)
+  // State reflect to UI and action (not event)
 
-  @override
-  void onEvent(CourseDetailEvent event) {
-    super.onEvent(event);
-    _lastEvent = event;
-  }
+  // CourseDetailEvent? _lastEvent;
+  // CourseDetailEvent? get lastEvent => _lastEvent;
+  // @override
+  // void onEvent(CourseDetailEvent event) {
+  //   super.onEvent(event);
+  //   _lastEvent = event;
+  // }
 
   void _onGetInitProblems(
     CourseDetailGetInitProblemsEvent event,
