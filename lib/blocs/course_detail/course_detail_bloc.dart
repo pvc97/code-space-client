@@ -30,7 +30,7 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
     on<CourseDetailSearchProblemsEvent>(
       _onSearchProblems,
       transformer: debounce(
-        const Duration(milliseconds: 3000),
+        const Duration(milliseconds: 300),
       ),
     );
     on<CourseDetailRefreshProblemsEvent>(refreshProblems);
