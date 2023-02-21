@@ -1,10 +1,9 @@
-import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/blocs/course/course_bloc.dart';
+import 'package:code_space_client/injection_container.dart';
+import 'package:code_space_client/presentation/course_list/course_list_view.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-import 'package:code_space_client/generated/l10n.dart';
-import 'package:code_space_client/router/app_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CourseListScreen extends StatefulWidget {
   final bool me;
@@ -27,38 +26,10 @@ class _CourseListScreenState extends State<CourseListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AdaptiveAppBar(
-        context: context,
-        backgroundColor: widget.me ? Colors.green : Colors.pink,
-        title: TextField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: S.of(context).search_course,
-            fillColor: Colors.white,
-            filled: true,
-          ),
-        ),
-      ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(20.0),
-        itemCount: 20,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              context.goNamed(
-                AppRoute.courseDetail.name,
-                params: {'courseId': 'f234a4aa-79e8-4267-a686-8cd63701a14d'},
-                queryParams: widget.me ? {'me': 'true'} : {},
-              );
-            },
-            child: Card(
-              child: ListTile(
-                title: Text('Course $index'),
-              ),
-            ),
-          );
-        },
+    return BlocProvider<CourseBloc>(
+      create: (context) => sl()..add(const GetCourseListEvent()),
+      child: CourseListView(
+        me: widget.me,
       ),
     );
   }

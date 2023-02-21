@@ -5,4 +5,5 @@ class NetworkConstants {
   static const int receiveTimeout = 60000; // 60 * 1000 = 60 seconds
   static const int defaultPage = 1;
   static const int defaultLimit = 10;
+  static const String defaultQuery = '';
 }

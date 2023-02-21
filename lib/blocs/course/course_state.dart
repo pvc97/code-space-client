@@ -1,14 +1,14 @@
-part of 'course_detail_bloc.dart';
+part of 'course_bloc.dart';
 
-class CourseDetailState extends BaseState {
-  final List<ProblemModel> problems;
+class CourseState extends BaseState {
+  final List<CourseModel> courses;
   final int page;
   final bool isLoadingMore;
   final bool isLoadMoreDone;
   final String query;
 
-  const CourseDetailState({
-    required this.problems,
+  const CourseState({
+    required this.courses,
     required this.page,
     required this.isLoadingMore,
     required this.isLoadMoreDone,
@@ -17,9 +17,9 @@ class CourseDetailState extends BaseState {
     super.error,
   });
 
-  factory CourseDetailState.initial() {
-    return const CourseDetailState(
-      problems: [],
+  factory CourseState.initial() {
+    return const CourseState(
+      courses: [],
       page: NetworkConstants.defaultPage,
       stateStatus: StateStatus.initial,
       isLoadingMore: false,
@@ -28,20 +28,8 @@ class CourseDetailState extends BaseState {
     );
   }
 
-  @override
-  List<Object?> get props {
-    return [
-      problems,
-      page,
-      query,
-      isLoadingMore,
-      isLoadMoreDone,
-      ...super.props,
-    ];
-  }
-
-  CourseDetailState copyWith({
-    List<ProblemModel>? problems,
+  CourseState copyWith({
+    List<CourseModel>? courses,
     int? page,
     bool? isLoadingMore,
     bool? isLoadMoreDone,
@@ -49,14 +37,26 @@ class CourseDetailState extends BaseState {
     StateStatus? stateStatus,
     AppException? error,
   }) {
-    return CourseDetailState(
-      problems: problems ?? this.problems,
+    return CourseState(
+      courses: courses ?? this.courses,
       page: page ?? this.page,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
       isLoadMoreDone: isLoadMoreDone ?? this.isLoadMoreDone,
+      query: query ?? this.query,
       stateStatus: stateStatus ?? this.stateStatus,
       error: error ?? this.error,
-      query: query ?? this.query,
     );
+  }
+
+  @override
+  List<Object?> get props {
+    return [
+      courses,
+      page,
+      isLoadingMore,
+      isLoadMoreDone,
+      query,
+      ...super.props,
+    ];
   }
 }
