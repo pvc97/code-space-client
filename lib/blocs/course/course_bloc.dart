@@ -22,6 +22,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
         const Duration(milliseconds: AppConstants.searchDebounceDuration),
       ),
     );
+    on<LoadMoreCourseEvent>(_onLoadMoreCourse);
   }
 
   void _onGetCourseList(
@@ -74,5 +75,36 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
       initialQuery: event.query.trim(),
       initialPage: NetworkConstants.defaultPage,
     ));
+  }
+
+  void _onLoadMoreCourse(
+    LoadMoreCourseEvent event,
+    Emitter<CourseState> emit,
+  ) async {
+    if (state.isLoadingMore || state.isLoadMoreDone) return;
+
+    emit(state.copyWith(isLoadingMore: true));
+
+    try {
+      final courses = await courseRepository.getCourses(
+        page: state.page + 1,
+        query: state.query,
+        limit: NetworkConstants.defaultLimit,
+      );
+
+      emit(state.copyWith(
+        courses: [...state.courses, ...courses],
+        page: state.page + 1,
+        isLoadingMore: false,
+        isLoadMoreDone: courses.length < NetworkConstants.defaultLimit,
+        stateStatus: StateStatus.success,
+      ));
+    } on AppException catch (e) {
+      emit(state.copyWith(
+        isLoadingMore: false,
+        stateStatus: StateStatus.error,
+        error: e,
+      ));
+    }
   }
 }

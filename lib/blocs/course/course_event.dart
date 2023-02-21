@@ -42,13 +42,9 @@ class SearchCourseEvent extends CourseEvent {
 //   List<Object> get props => [courseId];
 // }
 
-// class CourseDetailLoadMoreProblemsEvent extends CourseDetailEvent {
-//   final String courseId;
+class LoadMoreCourseEvent extends CourseEvent {
+  const LoadMoreCourseEvent();
 
-//   const CourseDetailLoadMoreProblemsEvent({
-//     required this.courseId,
-//   });
-
-//   @override
-//   List<Object> get props => [courseId];
-// }
+  @override
+  List<Object> get props => [];
+}
