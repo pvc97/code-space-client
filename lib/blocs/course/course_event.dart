@@ -11,27 +11,25 @@ class GetCourseListEvent extends CourseEvent {
   final int? initialPage;
   final String? initialQuery;
 
-  const GetCourseListEvent(
+  const GetCourseListEvent({
     this.initialPage,
     this.initialQuery,
-  );
+  });
 
   @override
   List<Object?> get props => [initialPage, initialQuery];
 }
 
-// class CourseDetailSearchProblemsEvent extends CourseDetailEvent {
-//   final String courseId;
-//   final String query;
+class SearchCourseEvent extends CourseEvent {
+  final String query;
 
-//   const CourseDetailSearchProblemsEvent({
-//     required this.courseId,
-//     required this.query,
-//   });
+  const SearchCourseEvent({
+    required this.query,
+  });
 
-//   @override
-//   List<Object> get props => [courseId, query];
-// }
+  @override
+  List<Object> get props => [query];
+}
 
 // class CourseDetailRefreshProblemsEvent extends CourseDetailEvent {
 //   final String courseId;

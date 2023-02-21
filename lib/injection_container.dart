@@ -1,4 +1,5 @@
 import 'package:code_space_client/blocs/auth/auth_cubit.dart';
+import 'package:code_space_client/blocs/course/course_bloc.dart';
 import 'package:code_space_client/blocs/course_detail/course_detail_bloc.dart';
 import 'package:code_space_client/blocs/locale/locale_cubit.dart';
 import 'package:code_space_client/blocs/problem/problem_cubit.dart';
@@ -151,5 +152,7 @@ abstract class Di {
 
     sl.registerFactory<CourseDetailBloc>(
         () => CourseDetailBloc(courseRepository: sl()));
+
+    sl.registerFactory<CourseBloc>(() => CourseBloc(courseRepository: sl()));
   }
 }

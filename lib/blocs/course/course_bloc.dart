@@ -1,8 +1,10 @@
 import 'package:code_space_client/blocs/base/base_state.dart';
+import 'package:code_space_client/constants/app_constants.dart';
 import 'package:code_space_client/constants/network_constants.dart';
 import 'package:code_space_client/data/repositories/course_repository.dart';
 import 'package:code_space_client/models/app_exception.dart';
 import 'package:code_space_client/models/course_model.dart';
+import 'package:code_space_client/utils/bloc_transformer.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,6 +16,12 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
 
   CourseBloc({required this.courseRepository}) : super(CourseState.initial()) {
     on<GetCourseListEvent>(_onGetCourseList);
+    on<SearchCourseEvent>(
+      _onSearchCourse,
+      transformer: BlocTransformer.debounce(
+        const Duration(milliseconds: AppConstants.searchDebounceDuration),
+      ),
+    );
   }
 
   void _onGetCourseList(
@@ -55,5 +63,16 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
         error: e,
       ));
     }
+  }
+
+  void _onSearchCourse(
+    SearchCourseEvent event,
+    Emitter<CourseState> emit,
+  ) async {
+    if (event.query == state.query) return;
+    add(GetCourseListEvent(
+      initialQuery: event.query.trim(),
+      initialPage: NetworkConstants.defaultPage,
+    ));
   }
 }
