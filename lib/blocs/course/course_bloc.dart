@@ -23,6 +23,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
       ),
     );
     on<LoadMoreCourseEvent>(_onLoadMoreCourse);
+    on<RefreshCoursesEvent>(_onRefreshCourses);
   }
 
   void _onGetCourseList(
@@ -106,5 +107,15 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
         error: e,
       ));
     }
+  }
+
+  void _onRefreshCourses(
+    RefreshCoursesEvent event,
+    Emitter<CourseState> emit,
+  ) {
+    add(GetCourseListEvent(
+      initialQuery: state.query,
+      initialPage: NetworkConstants.defaultPage,
+    ));
   }
 }

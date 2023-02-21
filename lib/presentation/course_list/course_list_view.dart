@@ -43,6 +43,10 @@ class _CourseListViewState extends State<CourseListView> {
     _scrollController.jumpTo(0);
   }
 
+  void _refreshCourses() {
+    context.read<CourseBloc>().add(const RefreshCoursesEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -78,45 +82,50 @@ class _CourseListViewState extends State<CourseListView> {
           builder: (context, state) {
             final courses = state.courses;
 
-            return ListView.builder(
-              controller: _scrollController,
-              padding: const EdgeInsets.all(20.0),
-              itemCount: courses.length + 1,
-              itemBuilder: (context, index) {
-                if (index == courses.length) {
-                  // Check stateStatus to avoid infinite loop call loadMore
-                  if (state.isLoadMoreDone ||
-                      state.stateStatus != StateStatus.success) {
-                    return const SizedBox.shrink();
+            return RefreshIndicator(
+              onRefresh: () async {
+                _refreshCourses();
+              },
+              child: ListView.builder(
+                controller: _scrollController,
+                padding: const EdgeInsets.all(20.0),
+                itemCount: courses.length + 1,
+                itemBuilder: (context, index) {
+                  if (index == courses.length) {
+                    // Check stateStatus to avoid infinite loop call loadMore
+                    if (state.isLoadMoreDone ||
+                        state.stateStatus != StateStatus.success) {
+                      return const SizedBox.shrink();
+                    }
+
+                    // Loadmore when last item is rendered
+                    _loadMore();
+
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
 
-                  // Loadmore when last item is rendered
-                  _loadMore();
-
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-
-                final course = courses[index];
-                return GestureDetector(
-                  onTap: () {
-                    context.goNamed(
-                      AppRoute.courseDetail.name,
-                      params: {'courseId': course.id},
-                      queryParams: widget.me ? {'me': 'true'} : {},
-                    );
-                  },
-                  child: Card(
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.all(Sizes.s24),
-                      leading: Text(course.name),
-                      title: Text('Teacher: ${course.teacher.name}'),
-                      trailing: Text(course.code),
+                  final course = courses[index];
+                  return GestureDetector(
+                    onTap: () {
+                      context.goNamed(
+                        AppRoute.courseDetail.name,
+                        params: {'courseId': course.id},
+                        queryParams: widget.me ? {'me': 'true'} : {},
+                      );
+                    },
+                    child: Card(
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.all(Sizes.s24),
+                        leading: Text(course.name),
+                        title: Text('Teacher: ${course.teacher.name}'),
+                        trailing: Text(course.code),
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             );
           },
         ),

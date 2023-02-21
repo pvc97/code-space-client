@@ -31,16 +31,12 @@ class SearchCourseEvent extends CourseEvent {
   List<Object> get props => [query];
 }
 
-// class CourseDetailRefreshProblemsEvent extends CourseDetailEvent {
-//   final String courseId;
+class RefreshCoursesEvent extends CourseEvent {
+  const RefreshCoursesEvent();
 
-//   const CourseDetailRefreshProblemsEvent({
-//     required this.courseId,
-//   });
-
-//   @override
-//   List<Object> get props => [courseId];
-// }
+  @override
+  List<Object> get props => [];
+}
 
 class LoadMoreCourseEvent extends CourseEvent {
   const LoadMoreCourseEvent();
