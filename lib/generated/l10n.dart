@@ -330,11 +330,11 @@ class S {
     );
   }
 
-  /// `Have error`
-  String get have_error {
+  /// `An error occurred`
+  String get an_error_occurred {
     return Intl.message(
-      'Have error',
-      name: 'have_error',
+      'An error occurred',
+      name: 'an_error_occurred',
       desc: '',
       args: [],
     );

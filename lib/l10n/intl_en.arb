@@ -27,7 +27,7 @@
   "update": "Update",
   "change_password": "Change password",
   "session_expired": "Session expired",
-  "have_error": "Have error",
+  "an_error_occurred": "An error occurred",
   "comment_login____": "",
   "login_screen_title": "Login",
   "comment_home____": "",

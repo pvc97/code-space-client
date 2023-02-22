@@ -20,7 +20,7 @@ class ExceptionParser {
       }
 
       final errorMessage =
-          error.response?.data['error'] ?? S.current.have_error;
+          error.response?.data['error'] ?? S.current.an_error_occurred;
 
       return CommonException(message: errorMessage);
     }
