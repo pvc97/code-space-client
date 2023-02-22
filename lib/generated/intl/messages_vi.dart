@@ -58,6 +58,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "english": MessageLookupByLibrary.simpleMessage("Tiếng Anh"),
         "enter_access_code":
             MessageLookupByLibrary.simpleMessage("Nhập mã truy cập"),
+        "enter_name_of_language":
+            MessageLookupByLibrary.simpleMessage("Nhập tên ngôn ngữ"),
         "enter_name_or_email_of_teacher": MessageLookupByLibrary.simpleMessage(
             "Nhập tên hoặc email của giảng viên"),
         "full_name": MessageLookupByLibrary.simpleMessage("Họ và tên"),
@@ -93,6 +95,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Tìm kiếm lớp học"),
         "search_problem":
             MessageLookupByLibrary.simpleMessage("Tìm kiếm bài tập"),
+        "select_languages":
+            MessageLookupByLibrary.simpleMessage("Chọn ngôn ngữ"),
         "select_teacher":
             MessageLookupByLibrary.simpleMessage("Chọn giảng viên"),
         "session_expired":

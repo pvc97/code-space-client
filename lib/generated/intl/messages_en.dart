@@ -58,6 +58,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "enter_access_code":
             MessageLookupByLibrary.simpleMessage("Enter access code"),
+        "enter_name_of_language":
+            MessageLookupByLibrary.simpleMessage("Enter name of language"),
         "enter_name_or_email_of_teacher": MessageLookupByLibrary.simpleMessage(
             "Enter name or email of teacher"),
         "full_name": MessageLookupByLibrary.simpleMessage("Full name"),
@@ -91,6 +93,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "search_course": MessageLookupByLibrary.simpleMessage("Search course"),
         "search_problem":
             MessageLookupByLibrary.simpleMessage("Search problem"),
+        "select_languages":
+            MessageLookupByLibrary.simpleMessage("Select languages"),
         "select_teacher":
             MessageLookupByLibrary.simpleMessage("Select teacher"),
         "session_expired":

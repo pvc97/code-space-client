@@ -649,6 +649,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Select languages`
+  String get select_languages {
+    return Intl.message(
+      'Select languages',
+      name: 'select_languages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter name of language`
+  String get enter_name_of_language {
+    return Intl.message(
+      'Enter name of language',
+      name: 'enter_name_of_language',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

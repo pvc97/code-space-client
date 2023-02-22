@@ -58,5 +58,7 @@
   "please_select_teacher": "Vui lòng chọn giảng viên",
   "course_created_successfully": "Tạo lớp học thành công",
   "the_course_has_no_problems": "Lớp học này chưa có bài tập",
-  "create_new_problem": "Tạo bài tập mới"
+  "create_new_problem": "Tạo bài tập mới",
+  "select_languages": "Chọn ngôn ngữ",
+  "enter_name_of_language": "Nhập tên ngôn ngữ"
 }

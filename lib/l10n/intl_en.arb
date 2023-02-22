@@ -58,5 +58,7 @@
   "please_select_teacher": "Please select teacher",
   "course_created_successfully": "Course created successfully",
   "the_course_has_no_problems": "The course has no problems",
-  "create_new_problem": "Create new problem"
+  "create_new_problem": "Create new problem",
+  "select_languages": "Select languages",
+  "enter_name_of_language": "Enter name of language"
 }

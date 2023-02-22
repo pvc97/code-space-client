@@ -1,6 +1,9 @@
+import 'package:code_space_client/blocs/create_problem/create_problem_cubit.dart';
+import 'package:code_space_client/injection_container.dart';
 import 'package:flutter/material.dart';
 
 import 'package:code_space_client/presentation/create_problem/create_problem_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateProblemScreen extends StatelessWidget {
   final bool me;
@@ -14,6 +17,12 @@ class CreateProblemScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CreateProblemView();
+    return BlocProvider<CreateProblemCubit>(
+      create: (context) => sl(),
+      child: CreateProblemView(
+        courseId: courseId,
+        me: me,
+      ),
+    );
   }
 }

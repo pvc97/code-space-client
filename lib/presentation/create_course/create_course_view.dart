@@ -21,6 +21,7 @@ class CreateCourseView extends StatefulWidget {
 }
 
 class CreateCourseViewState extends State<CreateCourseView> {
+  final TextEditingController searchTeacherController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var _autovalidateMode = AutovalidateMode.disabled;
   String? _courseName, _courseCode, _accessCode;
@@ -59,19 +60,9 @@ class CreateCourseViewState extends State<CreateCourseView> {
         );
   }
 
-  final List<BaseDropdownItem> items = [
-    TeacherModel(id: '1', name: 'Teacher 1', email: 'abc@gmail.com'),
-    TeacherModel(id: '2', name: 'Teacher 2', email: 'abc@gmail.com'),
-    TeacherModel(id: '3', name: 'Teacher 2', email: 'abc@gmail.com'),
-    TeacherModel(id: '4', name: 'Teacher 2', email: 'abc@gmail.com'),
-    TeacherModel(id: '5', name: 'Thầy giáo 3', email: 'abc@gmail.com'),
-  ];
-
-  final TextEditingController textEditingController = TextEditingController();
-
   @override
   void dispose() {
-    textEditingController.dispose();
+    searchTeacherController.dispose();
     super.dispose();
   }
 
@@ -170,7 +161,7 @@ class CreateCourseViewState extends State<CreateCourseView> {
                           hint: S.of(context).select_teacher,
                           searchHint:
                               S.of(context).enter_name_or_email_of_teacher,
-                          textEditingController: textEditingController,
+                          textEditingController: searchTeacherController,
                           onChanged: (BaseDropdownItem? value) {
                             _selectedTeacher = value;
                           },
