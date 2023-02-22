@@ -222,6 +222,19 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                     builder: (context, state) {
                       final problems = state.problems;
 
+                      if (problems.isEmpty) {
+                        return Expanded(
+                          child: Center(
+                            child: Text(
+                              S.of(context).the_course_has_no_problems,
+                              style: const TextStyle(
+                                fontSize: Sizes.s16,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+
                       return Expanded(
                         child: RefreshIndicator(
                           onRefresh: () async {

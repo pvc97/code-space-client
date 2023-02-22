@@ -56,5 +56,6 @@
   "select_teacher": "Select teacher",
   "enter_name_or_email_of_teacher": "Enter name or email of teacher",
   "please_select_teacher": "Please select teacher",
-  "course_created_successfully": "Course created successfully"
+  "course_created_successfully": "Course created successfully",
+  "the_course_has_no_problems": "The course has no problems"
 }

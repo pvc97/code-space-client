@@ -629,6 +629,16 @@ class S {
       args: [],
     );
   }
+
+  /// `The course has no problems`
+  String get the_course_has_no_problems {
+    return Intl.message(
+      'The course has no problems',
+      name: 'the_course_has_no_problems',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

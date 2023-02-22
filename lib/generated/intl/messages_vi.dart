@@ -98,6 +98,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Đăng ký"),
         "teacher": MessageLookupByLibrary.simpleMessage("Giảng viên"),
+        "the_course_has_no_problems":
+            MessageLookupByLibrary.simpleMessage("Lớp học này chưa có bài tập"),
         "total_point": MessageLookupByLibrary.simpleMessage("Tổng điểm"),
         "update": MessageLookupByLibrary.simpleMessage("Cập nhật"),
         "username": MessageLookupByLibrary.simpleMessage("Tài khoản"),

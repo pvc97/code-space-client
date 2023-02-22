@@ -96,6 +96,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
         "teacher": MessageLookupByLibrary.simpleMessage("Teacher"),
+        "the_course_has_no_problems":
+            MessageLookupByLibrary.simpleMessage("The course has no problems"),
         "total_point": MessageLookupByLibrary.simpleMessage("Total point"),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),
