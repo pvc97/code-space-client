@@ -32,11 +32,15 @@ class _CourseListViewState extends State<CourseListView> {
   }
 
   void _searchCourse(String query) {
-    context.read<CourseBloc>().add(SearchCourseEvent(query: query));
+    context
+        .read<CourseBloc>()
+        .add(SearchCourseEvent(query: query, onlyMyCourses: widget.me));
   }
 
   void _loadMore() {
-    context.read<CourseBloc>().add(const LoadMoreCourseEvent());
+    context
+        .read<CourseBloc>()
+        .add(LoadMoreCourseEvent(onlyMyCourses: widget.me));
   }
 
   void _resetScrollPosition() {
@@ -44,7 +48,9 @@ class _CourseListViewState extends State<CourseListView> {
   }
 
   void _refreshCourses() {
-    context.read<CourseBloc>().add(const RefreshCoursesEvent());
+    context
+        .read<CourseBloc>()
+        .add(RefreshCoursesEvent(onlyMyCourses: widget.me));
   }
 
   @override

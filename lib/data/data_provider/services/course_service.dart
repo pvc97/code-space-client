@@ -31,6 +31,7 @@ class CourseService {
     required String query,
     required int page,
     required int limit,
+    required bool me,
   }) async {
     final response = await apiProvider.get(
       UrlConstants.courses,
@@ -38,6 +39,7 @@ class CourseService {
         'page': page,
         'q': query,
         'limit': limit,
+        'me': me,
       },
     );
     return (response?.data['data'] as List)

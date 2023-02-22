@@ -33,12 +33,14 @@ class CourseRepository {
     required String query,
     required int page,
     required int limit,
+    required bool me,
   }) async {
     try {
       final courses = await courseService.getCourses(
         query: query,
         page: page,
         limit: limit,
+        me: me,
       );
 
       return courses;
