@@ -639,6 +639,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Create new problem`
+  String get create_new_problem {
+    return Intl.message(
+      'Create new problem',
+      name: 'create_new_problem',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "create": MessageLookupByLibrary.simpleMessage("Create"),
         "create_new_course":
             MessageLookupByLibrary.simpleMessage("Create new course"),
+        "create_new_problem":
+            MessageLookupByLibrary.simpleMessage("Create new problem"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),

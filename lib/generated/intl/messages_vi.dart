@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "create": MessageLookupByLibrary.simpleMessage("Tạo"),
         "create_new_course":
             MessageLookupByLibrary.simpleMessage("Tạo lớp học mới"),
+        "create_new_problem":
+            MessageLookupByLibrary.simpleMessage("Tạo bài tập mới"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Bạn chưa có tài khoản?"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),

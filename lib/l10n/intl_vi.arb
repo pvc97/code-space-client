@@ -57,5 +57,6 @@
   "enter_name_or_email_of_teacher": "Nhập tên hoặc email của giảng viên",
   "please_select_teacher": "Vui lòng chọn giảng viên",
   "course_created_successfully": "Tạo lớp học thành công",
-  "the_course_has_no_problems": "Lớp học này chưa có bài tập"
+  "the_course_has_no_problems": "Lớp học này chưa có bài tập",
+  "create_new_problem": "Tạo bài tập mới"
 }
