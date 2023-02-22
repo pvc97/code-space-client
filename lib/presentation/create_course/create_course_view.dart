@@ -1,8 +1,11 @@
 import 'package:code_space_client/generated/l10n.dart';
+import 'package:code_space_client/models/dropdown_item.dart';
+import 'package:code_space_client/models/teacher_model.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/presentation/common_widgets/search_dropdown_button.dart';
+import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:flutter/material.dart';
 
 class CreateCourseView extends StatefulWidget {
@@ -29,15 +32,12 @@ class CreateCourseViewState extends State<CreateCourseView> {
     form.save();
   }
 
-  final List<String> items = [
-    'A_Item1',
-    'A_Item2',
-    'A_Item3',
-    'A_Item4',
-    'B_Item1',
-    'B_Item2',
-    'B_Item3',
-    'B_Item4',
+  final List<BaseDropdownItem> items = [
+    TeacherModel(id: '1', name: 'Teacher 1', email: 'abc@gmail.com'),
+    TeacherModel(id: '2', name: 'Teacher 2', email: 'abc@gmail.com'),
+    TeacherModel(id: '3', name: 'Teacher 2', email: 'abc@gmail.com'),
+    TeacherModel(id: '4', name: 'Teacher 2', email: 'abc@gmail.com'),
+    TeacherModel(id: '5', name: 'Thầy giáo 3', email: 'abc@gmail.com'),
   ];
 
   final TextEditingController textEditingController = TextEditingController();
@@ -119,6 +119,9 @@ class CreateCourseViewState extends State<CreateCourseView> {
                     hint: S.of(context).select_teacher,
                     searchHint: S.of(context).enter_name_or_email_of_teacher,
                     textEditingController: textEditingController,
+                    onChanged: (BaseDropdownItem? value) {
+                      logger.d(value?.title);
+                    },
                   ),
                   Box.h16,
                   AppElevatedButton(

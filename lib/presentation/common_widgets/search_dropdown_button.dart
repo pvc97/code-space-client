@@ -1,11 +1,16 @@
+import 'package:diacritic/diacritic.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
-class SearchDropdownButton extends StatefulWidget {
-  final List<String> items;
+import 'package:code_space_client/constants/app_sizes.dart';
+import 'package:code_space_client/models/dropdown_item.dart';
+
+class SearchDropdownButton<T extends BaseDropdownItem> extends StatefulWidget {
+  final List<T> items;
   final String hint;
   final String searchHint;
   final TextEditingController textEditingController;
+  final ValueChanged<T?>? onChanged;
 
   const SearchDropdownButton({
     Key? key,
@@ -13,48 +18,69 @@ class SearchDropdownButton extends StatefulWidget {
     required this.hint,
     required this.searchHint,
     required this.textEditingController,
+    this.onChanged,
   }) : super(key: key);
 
   @override
-  State<SearchDropdownButton> createState() => _SearchDropdownButtonState();
+  State<SearchDropdownButton> createState() => _SearchDropdownButtonState<T>();
 }
 
-class _SearchDropdownButtonState extends State<SearchDropdownButton> {
-  String? selectedValue;
+class _SearchDropdownButtonState<T extends BaseDropdownItem>
+    extends State<SearchDropdownButton> {
+  T? _selectedValue;
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
+        buttonDecoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(Sizes.s8),
+          border: Border.all(
+            color: Theme.of(context).dividerColor,
+          ),
+        ),
         isExpanded: true,
         hint: Text(
           widget.hint,
           style: TextStyle(
-            fontSize: 14,
+            fontSize: Sizes.s16,
             color: Theme.of(context).hintColor,
           ),
         ),
         items: widget.items
-            .map((item) => DropdownMenuItem<String>(
-                  value: item,
-                  child: Text(
-                    item,
-                    style: const TextStyle(
-                      fontSize: 14,
-                    ),
+            .map((item) => DropdownMenuItem<T>(
+                  value: item as T?,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item.title,
+                        style: const TextStyle(
+                          fontSize: Sizes.s16,
+                        ),
+                      ),
+                      if (item.subtitle != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: Sizes.s4),
+                          child: Text(
+                            item.subtitle!,
+                            style: const TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                 ))
             .toList(),
-        value: selectedValue,
+        value: _selectedValue,
         onChanged: (value) {
           setState(() {
-            selectedValue = value as String;
+            _selectedValue = value;
           });
+          widget.onChanged?.call(value);
         },
-        buttonHeight: 40,
-        buttonWidth: 200,
-        itemHeight: 40,
-        dropdownMaxHeight: 200,
         searchController: widget.textEditingController,
         searchInnerWidgetHeight: 50,
         searchInnerWidget: Container(
@@ -83,8 +109,16 @@ class _SearchDropdownButtonState extends State<SearchDropdownButton> {
             ),
           ),
         ),
-        searchMatchFn: (item, searchValue) {
-          return (item.value.toString().contains(searchValue));
+        searchMatchFn: (DropdownMenuItem<T> item, String searchValue) {
+          final value = removeDiacritics(searchValue.toLowerCase());
+          final title = item.value?.title.toLowerCase();
+          final subtitle = item.value?.subtitle?.toLowerCase();
+          final formattedTitle = title != null ? removeDiacritics(title) : null;
+          final formattedSubtitle =
+              subtitle != null ? removeDiacritics(subtitle) : null;
+
+          return (formattedTitle?.contains(value) == true ||
+              formattedSubtitle?.contains(value) == true);
         },
         //This to clear the search value when you close the menu
         onMenuStateChange: (isOpen) {
