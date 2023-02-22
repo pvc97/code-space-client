@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "comment_role____": MessageLookupByLibrary.simpleMessage(""),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
+        "course_code": MessageLookupByLibrary.simpleMessage("Course code"),
         "course_list": MessageLookupByLibrary.simpleMessage("Course List"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
@@ -43,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "full_name_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Full name cannot be empty"),
         "home_screen_title": MessageLookupByLibrary.simpleMessage("Home"),
+        "join_now": MessageLookupByLibrary.simpleMessage("Join now"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "login_screen_title": MessageLookupByLibrary.simpleMessage("Login"),
         "my_courses": MessageLookupByLibrary.simpleMessage("My Courses"),
@@ -70,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Session expired"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
+        "teacher": MessageLookupByLibrary.simpleMessage("Teacher"),
         "total_point": MessageLookupByLibrary.simpleMessage("Total point"),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),

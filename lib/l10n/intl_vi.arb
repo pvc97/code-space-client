@@ -39,5 +39,8 @@
   "role_manager": "Quản lý",
   "vietnamese": "Tiếng Việt",
   "english": "Tiếng Anh",
-  "search_problem": "Tìm kiếm bài tập"
+  "search_problem": "Tìm kiếm bài tập",
+  "teacher": "Giảng viên",
+  "course_code": "Mã lớp học",
+  "join_now": "Tham gia ngay"
 }

@@ -459,6 +459,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Teacher`
+  String get teacher {
+    return Intl.message(
+      'Teacher',
+      name: 'teacher',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Course code`
+  String get course_code {
+    return Intl.message(
+      'Course code',
+      name: 'course_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Join now`
+  String get join_now {
+    return Intl.message(
+      'Join now',
+      name: 'join_now',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

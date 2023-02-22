@@ -1,4 +1,5 @@
 import 'package:code_space_client/constants/app_constants.dart';
+import 'package:code_space_client/constants/status_code_constants.dart';
 import 'package:code_space_client/models/course_model.dart';
 import 'package:code_space_client/utils/bloc_transformer.dart';
 import 'package:equatable/equatable.dart';
@@ -85,6 +86,15 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
         stateStatus: StateStatus.success,
       ));
     } on AppException catch (e) {
+      if (e.code == StatusCodeConstants.code403) {
+        emit(state.copyWith(
+          isLoadingMore: false,
+          stateStatus: StateStatus.success,
+          joinedCourse: false,
+        ));
+        return;
+      }
+
       emit(state.copyWith(
         isLoadingMore: false,
         stateStatus: StateStatus.error,
@@ -140,6 +150,15 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
         stateStatus: StateStatus.success,
       ));
     } on AppException catch (e) {
+      if (e.code == StatusCodeConstants.code403) {
+        emit(state.copyWith(
+          isLoadingMore: false,
+          stateStatus: StateStatus.success,
+          joinedCourse: false,
+        ));
+        return;
+      }
+
       emit(state.copyWith(
         isLoadingMore: false,
         stateStatus: StateStatus.error,

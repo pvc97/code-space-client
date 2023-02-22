@@ -3,4 +3,5 @@ class StatusCodeConstants {
   static const code204 = 204;
   static const code401 = 401;
   static const code400 = 400;
+  static const code403 = 403;
 }

@@ -14,12 +14,9 @@ class AppElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(Sizes.s24)),
       onPressed: onPressed,
-      child: Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.symmetric(vertical: Sizes.s16),
-        child: Text(text),
-      ),
+      child: Text(text),
     );
   }
 }

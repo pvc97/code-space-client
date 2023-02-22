@@ -1,9 +1,12 @@
+import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/blocs/course_detail/course_detail_bloc.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/course_model.dart';
+import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +74,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<UserCubit>().state.user;
     return MultiBlocListener(
       listeners: [
         const BlocListener<CourseDetailBloc, CourseDetailState>(
@@ -93,7 +97,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
               selector: (state) => state.course,
               builder: (context, course) {
                 if (course != null) {
-                  return Text(course.name);
+                  return Text('${course.name} - ${course.code}');
                 }
 
                 return const SizedBox.shrink();
@@ -114,87 +118,133 @@ class _CourseDetailViewState extends State<CourseDetailView> {
               ),
             ],
           ),
-          body: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: Sizes.s20,
-                  right: Sizes.s20,
-                  top: Sizes.s20,
-                  bottom: Sizes.s8,
-                ),
-                child: TextField(
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText: S.of(context).search_problem,
-                  ),
-                  onChanged: (value) {
-                    _searchProblem(value);
-                  },
-                ),
-              ),
-              BlocBuilder<CourseDetailBloc, CourseDetailState>(
-                buildWhen: (previous, current) =>
-                    previous.problems != current.problems,
-                builder: (context, state) {
-                  final problems = state.problems;
-
-                  return Expanded(
-                    child: RefreshIndicator(
-                      onRefresh: () async {
-                        _refreshProblems();
-                      },
-                      child: ListView.builder(
-                        controller: _scrollController,
-                        padding: const EdgeInsets.only(
-                          left: Sizes.s20,
-                          right: Sizes.s20,
-                          bottom: Sizes.s20,
-                        ),
-                        itemCount: problems.length + 1,
-                        itemBuilder: (context, index) {
-                          if (index == problems.length) {
-                            // Check stateStatus to avoid infinite loop call loadMore
-                            if (state.isLoadMoreDone ||
-                                state.stateStatus != StateStatus.success) {
-                              return const SizedBox.shrink();
+          body: BlocSelector<CourseDetailBloc, CourseDetailState, bool>(
+            selector: (state) => state.joinedCourse,
+            builder: (context, joinedCourse) {
+              if (!joinedCourse && user?.roleType == RoleType.student) {
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(Sizes.s20),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        BlocSelector<CourseDetailBloc, CourseDetailState,
+                            CourseModel?>(
+                          selector: (state) => state.course,
+                          builder: (context, course) {
+                            if (course != null) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                      '${S.of(context).teacher}: ${course.teacher.name}'),
+                                  Text(
+                                      '${S.of(context).email}: ${course.teacher.email}'),
+                                  Text(
+                                      '${S.of(context).course_code}: ${course.code}'),
+                                ],
+                              );
                             }
 
-                            // Loadmore when last item is rendered
-                            _loadMore();
+                            return const SizedBox.shrink();
+                          },
+                        ),
+                        AppElevatedButton(
+                          text: S.of(context).join_now,
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
 
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: Sizes.s20,
+                      right: Sizes.s20,
+                      top: Sizes.s20,
+                      bottom: Sizes.s8,
+                    ),
+                    child: TextField(
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: S.of(context).search_problem,
+                      ),
+                      onChanged: (value) {
+                        _searchProblem(value);
+                      },
+                    ),
+                  ),
+                  BlocBuilder<CourseDetailBloc, CourseDetailState>(
+                    buildWhen: (previous, current) =>
+                        previous.problems != current.problems,
+                    builder: (context, state) {
+                      final problems = state.problems;
 
-                          final problem = problems[index];
-                          return GestureDetector(
-                            onTap: () {
-                              context.goNamed(
-                                AppRoute.problem.name,
-                                params: {
-                                  'courseId': widget.courseId,
-                                  'problemId': problem.id,
+                      return Expanded(
+                        child: RefreshIndicator(
+                          onRefresh: () async {
+                            _refreshProblems();
+                          },
+                          child: ListView.builder(
+                            controller: _scrollController,
+                            padding: const EdgeInsets.only(
+                              left: Sizes.s20,
+                              right: Sizes.s20,
+                              bottom: Sizes.s20,
+                            ),
+                            itemCount: problems.length + 1,
+                            itemBuilder: (context, index) {
+                              if (index == problems.length) {
+                                // Check stateStatus to avoid infinite loop call loadMore
+                                if (state.isLoadMoreDone ||
+                                    state.stateStatus != StateStatus.success) {
+                                  return const SizedBox.shrink();
+                                }
+
+                                // Loadmore when last item is rendered
+                                _loadMore();
+
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+
+                              final problem = problems[index];
+                              return GestureDetector(
+                                onTap: () {
+                                  context.goNamed(
+                                    AppRoute.problem.name,
+                                    params: {
+                                      'courseId': widget.courseId,
+                                      'problemId': problem.id,
+                                    },
+                                    queryParams:
+                                        widget.me ? {'me': 'true'} : {},
+                                  );
                                 },
-                                queryParams: widget.me ? {'me': 'true'} : {},
+                                child: Card(
+                                  child: ListTile(
+                                    contentPadding:
+                                        const EdgeInsets.all(Sizes.s24),
+                                    title: Text(problem.name),
+                                  ),
+                                ),
                               );
                             },
-                            child: Card(
-                              child: ListTile(
-                                contentPadding: const EdgeInsets.all(Sizes.s24),
-                                title: Text(problem.name),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

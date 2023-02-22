@@ -39,5 +39,8 @@
   "role_manager": "Manager",
   "vietnamese": "Vietnamese",
   "english": "English",
-  "search_problem": "Search problem"
+  "search_problem": "Search problem",
+  "teacher": "Teacher",
+  "course_code": "Course code",
+  "join_now": "Join now"
 }
