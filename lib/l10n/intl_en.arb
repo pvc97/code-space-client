@@ -46,5 +46,13 @@
   "join_now": "Join now",
   "enter_access_code": "Enter access code",
   "ok": "OK",
-  "cancel": "CANCEL"
+  "cancel": "CANCEL",
+  "create_new_course": "Create new course",
+  "course_name": "Course name",
+  "course_name_cannot_be_empty": "Course name cannot be empty",
+  "course_code_cannot_be_empty": "Course code cannot be empty",
+  "access_code_cannot_be_empty": "Access code cannot be empty",
+  "create": "Create",
+  "select_teacher": "Select teacher",
+  "enter_name_or_email_of_teacher": "Enter name or email of teacher"
 }

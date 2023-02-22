@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         _username = value;
                       },
                     ),
-                    const Box(height: 10),
+                    Box.h16,
                     TextFormField(
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         _password = value;
                       },
                     ),
-                    const Box(height: 16),
+                    Box.h16,
                     BlocBuilder<AuthCubit, AuthState>(
                       builder: (context, state) {
                         return AppElevatedButton(
@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       },
                     ),
-                    const Box(height: 16),
+                    Box.h16,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
