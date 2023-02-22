@@ -44,4 +44,11 @@ class CourseService {
         .map((e) => CourseModel.fromJson(e))
         .toList();
   }
+
+  Future<CourseModel> getCourse({required String courseId}) async {
+    final response = await apiProvider.get(
+      '${UrlConstants.courses}/$courseId',
+    );
+    return CourseModel.fromJson(response?.data['data']);
+  }
 }

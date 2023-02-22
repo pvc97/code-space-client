@@ -46,4 +46,14 @@ class CourseRepository {
       throw ExceptionParser.parse(e);
     }
   }
+
+  Future<CourseModel> getCourse({required String courseId}) async {
+    try {
+      final course = await courseService.getCourse(courseId: courseId);
+
+      return course;
+    } catch (e) {
+      throw ExceptionParser.parse(e);
+    }
+  }
 }

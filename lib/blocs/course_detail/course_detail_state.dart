@@ -1,6 +1,7 @@
 part of 'course_detail_bloc.dart';
 
 class CourseDetailState extends BaseState {
+  final CourseModel? course;
   final List<ProblemModel> problems;
   final int page;
   final bool isLoadingMore;
@@ -8,6 +9,7 @@ class CourseDetailState extends BaseState {
   final String query;
 
   const CourseDetailState({
+    this.course,
     required this.problems,
     required this.page,
     required this.isLoadingMore,
@@ -19,6 +21,7 @@ class CourseDetailState extends BaseState {
 
   factory CourseDetailState.initial() {
     return const CourseDetailState(
+      course: null,
       problems: [],
       page: NetworkConstants.defaultPage,
       stateStatus: StateStatus.initial,
@@ -31,6 +34,7 @@ class CourseDetailState extends BaseState {
   @override
   List<Object?> get props {
     return [
+      course,
       problems,
       page,
       query,
@@ -41,6 +45,7 @@ class CourseDetailState extends BaseState {
   }
 
   CourseDetailState copyWith({
+    CourseModel? course,
     List<ProblemModel>? problems,
     int? page,
     bool? isLoadingMore,
@@ -50,6 +55,7 @@ class CourseDetailState extends BaseState {
     AppException? error,
   }) {
     return CourseDetailState(
+      course: course ?? this.course,
       problems: problems ?? this.problems,
       page: page ?? this.page,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,

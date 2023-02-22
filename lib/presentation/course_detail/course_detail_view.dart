@@ -2,6 +2,7 @@ import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/blocs/course_detail/course_detail_bloc.dart';
 import 'package:code_space_client/generated/l10n.dart';
+import 'package:code_space_client/models/course_model.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
@@ -87,7 +88,17 @@ class _CourseDetailViewState extends State<CourseDetailView> {
         child: Scaffold(
           appBar: AdaptiveAppBar(
             context: context,
-            title: Text('Flutter ${widget.courseId}'),
+            title:
+                BlocSelector<CourseDetailBloc, CourseDetailState, CourseModel?>(
+              selector: (state) => state.course,
+              builder: (context, course) {
+                if (course != null) {
+                  return Text(course.name);
+                }
+
+                return const SizedBox.shrink();
+              },
+            ),
             actions: [
               IconButton(
                 icon: const Icon(Icons.foggy),
