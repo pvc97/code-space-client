@@ -125,12 +125,11 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                 IconButton(
                   icon: const Icon(Icons.add),
                   onPressed: () {
-                    // context.goNamed(
-                    //   AppRoute.addProblem.name,
-                    //   params: {
-                    //     'courseId': widget.courseId,
-                    //   },
-                    // );
+                    context.goNamed(
+                      AppRoute.createProblem.name,
+                      params: {'courseId': widget.courseId},
+                      queryParams: widget.me ? {'me': 'true'} : {},
+                    );
                   },
                 ),
             ],

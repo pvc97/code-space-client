@@ -4,6 +4,7 @@ import 'package:code_space_client/presentation/auth/sign_up_screen.dart';
 import 'package:code_space_client/presentation/course_detail/course_detail_screen.dart';
 import 'package:code_space_client/presentation/course_list/course_list_screen.dart';
 import 'package:code_space_client/presentation/create_course/create_course_screen.dart';
+import 'package:code_space_client/presentation/create_problem/create_problem_screen.dart';
 import 'package:code_space_client/presentation/problem/problem_screen.dart';
 import 'package:code_space_client/presentation/problem_history/problem_history_screen.dart';
 import 'package:code_space_client/presentation/problem_result/problem_result_screen.dart';
@@ -28,6 +29,7 @@ enum AppRoute {
   courseDetail,
   createCourse,
   problemResult,
+  createProblem,
   problemHistory,
 }
 
@@ -87,6 +89,19 @@ final GoRouter router = GoRouter(
                 );
               },
               routes: [
+                GoRoute(
+                  path: 'create',
+                  name: AppRoute.createProblem.name,
+                  pageBuilder: (context, state) {
+                    return AdaptiveTransitionPage.create(
+                      state.pageKey,
+                      child: CreateProblemScreen(
+                        courseId: state.params['courseId'] ?? '',
+                        me: state.queryParams['me'] == 'true',
+                      ),
+                    );
+                  },
+                ),
                 GoRoute(
                   path: 'problem/:problemId',
                   name: AppRoute.problem.name,
