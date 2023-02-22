@@ -27,7 +27,7 @@
   "update": "Cập nhật",
   "change_password": "Đổi mật khẩu",
   "session_expired": "Phiên đăng nhập đã hết hạn",
-  "have_error": "Có lỗi xảy ra",
+  "an_error_occurred": "Có lỗi xảy ra",
   "comment_login____": "",
   "login_screen_title": "Đăng nhập",
   "comment_home____": "",
@@ -39,5 +39,12 @@
   "role_manager": "Quản lý",
   "vietnamese": "Tiếng Việt",
   "english": "Tiếng Anh",
-  "search_problem": "Tìm kiếm bài tập"
+  "search_problem": "Tìm kiếm bài tập",
+  "teacher": "Giảng viên",
+  "course_code": "Mã lớp học",
+  "access_code": "Mã truy cập",
+  "join_now": "Tham gia ngay",
+  "enter_access_code": "Nhập mã truy cập",
+  "ok": "Đồng ý",
+  "cancel": "Hủy"
 }

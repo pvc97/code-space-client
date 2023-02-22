@@ -22,6 +22,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "access_code": MessageLookupByLibrary.simpleMessage("Mã truy cập"),
+        "an_error_occurred":
+            MessageLookupByLibrary.simpleMessage("Có lỗi xảy ra"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Hủy"),
         "change_password": MessageLookupByLibrary.simpleMessage("Đổi mật khẩu"),
         "code_tab": MessageLookupByLibrary.simpleMessage("Bài làm"),
         "comment_home____": MessageLookupByLibrary.simpleMessage(""),
@@ -29,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "comment_role____": MessageLookupByLibrary.simpleMessage(""),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Xác nhận mật khẩu"),
+        "course_code": MessageLookupByLibrary.simpleMessage("Mã lớp học"),
         "course_list":
             MessageLookupByLibrary.simpleMessage("Danh sách lớp học"),
         "dont_have_an_account":
@@ -37,16 +42,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "email_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Email không được để trống"),
         "english": MessageLookupByLibrary.simpleMessage("Tiếng Anh"),
+        "enter_access_code":
+            MessageLookupByLibrary.simpleMessage("Nhập mã truy cập"),
         "full_name": MessageLookupByLibrary.simpleMessage("Họ và tên"),
         "full_name_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Họ và tên không được để trống"),
-        "have_error": MessageLookupByLibrary.simpleMessage("Có lỗi xảy ra"),
         "home_screen_title": MessageLookupByLibrary.simpleMessage("Trang chủ"),
+        "join_now": MessageLookupByLibrary.simpleMessage("Tham gia ngay"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "login_screen_title": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "my_courses": MessageLookupByLibrary.simpleMessage("Lớp học của tôi"),
         "no_network":
             MessageLookupByLibrary.simpleMessage("Không có kết nối mạng"),
+        "ok": MessageLookupByLibrary.simpleMessage("Đồng ý"),
         "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
         "password_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Mật khẩu không được để trống"),
@@ -71,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Phiên đăng nhập đã hết hạn"),
         "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Đăng ký"),
+        "teacher": MessageLookupByLibrary.simpleMessage("Giảng viên"),
         "total_point": MessageLookupByLibrary.simpleMessage("Tổng điểm"),
         "update": MessageLookupByLibrary.simpleMessage("Cập nhật"),
         "username": MessageLookupByLibrary.simpleMessage("Tài khoản"),

@@ -330,11 +330,11 @@ class S {
     );
   }
 
-  /// `Have error`
-  String get have_error {
+  /// `An error occurred`
+  String get an_error_occurred {
     return Intl.message(
-      'Have error',
-      name: 'have_error',
+      'An error occurred',
+      name: 'an_error_occurred',
       desc: '',
       args: [],
     );
@@ -455,6 +455,76 @@ class S {
     return Intl.message(
       'Search problem',
       name: 'search_problem',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Teacher`
+  String get teacher {
+    return Intl.message(
+      'Teacher',
+      name: 'teacher',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Course code`
+  String get course_code {
+    return Intl.message(
+      'Course code',
+      name: 'course_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Access code`
+  String get access_code {
+    return Intl.message(
+      'Access code',
+      name: 'access_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Join now`
+  String get join_now {
+    return Intl.message(
+      'Join now',
+      name: 'join_now',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter access code`
+  String get enter_access_code {
+    return Intl.message(
+      'Enter access code',
+      name: 'enter_access_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OK`
+  String get ok {
+    return Intl.message(
+      'OK',
+      name: 'ok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CANCEL`
+  String get cancel {
+    return Intl.message(
+      'CANCEL',
+      name: 'cancel',
       desc: '',
       args: [],
     );

@@ -44,4 +44,24 @@ class CourseService {
         .map((e) => CourseModel.fromJson(e))
         .toList();
   }
+
+  Future<CourseModel> getCourse({required String courseId}) async {
+    final response = await apiProvider.get(
+      '${UrlConstants.courses}/$courseId',
+    );
+    return CourseModel.fromJson(response?.data['data']);
+  }
+
+  Future<bool> joinCourse({
+    required String courseId,
+    required String accessCode,
+  }) async {
+    final response = await apiProvider.post(
+      '${UrlConstants.courses}/$courseId/join',
+      params: {
+        'accessCode': accessCode,
+      },
+    );
+    return response?.statusCode == 201;
+  }
 }

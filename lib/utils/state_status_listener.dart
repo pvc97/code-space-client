@@ -12,14 +12,14 @@ void stateStatusListener(
 }) {
   switch (state.stateStatus) {
     case StateStatus.loading:
-      EasyLoading.show();
+      EasyLoading.show(dismissOnTap: true);
       break;
     case StateStatus.error:
       EasyLoading.dismiss();
       if (state.error is NoNetworkException) {
-        EasyLoading.showInfo(S.of(context).no_network);
+        EasyLoading.showInfo(S.of(context).no_network, dismissOnTap: true);
       } else {
-        EasyLoading.showInfo(state.error?.message ?? '');
+        EasyLoading.showInfo(state.error?.message ?? '', dismissOnTap: true);
       }
       break;
     case StateStatus.success:

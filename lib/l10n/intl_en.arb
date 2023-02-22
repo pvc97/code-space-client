@@ -27,7 +27,7 @@
   "update": "Update",
   "change_password": "Change password",
   "session_expired": "Session expired",
-  "have_error": "Have error",
+  "an_error_occurred": "An error occurred",
   "comment_login____": "",
   "login_screen_title": "Login",
   "comment_home____": "",
@@ -39,5 +39,12 @@
   "role_manager": "Manager",
   "vietnamese": "Vietnamese",
   "english": "English",
-  "search_problem": "Search problem"
+  "search_problem": "Search problem",
+  "teacher": "Teacher",
+  "course_code": "Course code",
+  "access_code": "Access code",
+  "join_now": "Join now",
+  "enter_access_code": "Enter access code",
+  "ok": "OK",
+  "cancel": "CANCEL"
 }

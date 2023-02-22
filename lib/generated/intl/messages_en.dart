@@ -22,6 +22,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "access_code": MessageLookupByLibrary.simpleMessage("Access code"),
+        "an_error_occurred":
+            MessageLookupByLibrary.simpleMessage("An error occurred"),
+        "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
         "change_password":
             MessageLookupByLibrary.simpleMessage("Change password"),
         "code_tab": MessageLookupByLibrary.simpleMessage("Code"),
@@ -30,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "comment_role____": MessageLookupByLibrary.simpleMessage(""),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
+        "course_code": MessageLookupByLibrary.simpleMessage("Course code"),
         "course_list": MessageLookupByLibrary.simpleMessage("Course List"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
@@ -37,15 +42,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "email_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Email cannot be empty"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
+        "enter_access_code":
+            MessageLookupByLibrary.simpleMessage("Enter access code"),
         "full_name": MessageLookupByLibrary.simpleMessage("Full name"),
         "full_name_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Full name cannot be empty"),
-        "have_error": MessageLookupByLibrary.simpleMessage("Have error"),
         "home_screen_title": MessageLookupByLibrary.simpleMessage("Home"),
+        "join_now": MessageLookupByLibrary.simpleMessage("Join now"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "login_screen_title": MessageLookupByLibrary.simpleMessage("Login"),
         "my_courses": MessageLookupByLibrary.simpleMessage("My Courses"),
         "no_network": MessageLookupByLibrary.simpleMessage("No network"),
+        "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Password cannot be empty"),
@@ -69,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Session expired"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
+        "teacher": MessageLookupByLibrary.simpleMessage("Teacher"),
         "total_point": MessageLookupByLibrary.simpleMessage("Total point"),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),
