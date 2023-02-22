@@ -7,6 +7,7 @@ import 'package:code_space_client/models/course_model.dart';
 import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
+import 'package:code_space_client/presentation/course_detail/widgets/join_course_dialog.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
@@ -152,7 +153,9 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                         ),
                         AppElevatedButton(
                           text: S.of(context).join_now,
-                          onPressed: () {},
+                          onPressed: () {
+                            joinCourseDialog(context);
+                          },
                         ),
                       ],
                     ),

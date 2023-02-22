@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "an_error_occurred":
             MessageLookupByLibrary.simpleMessage("An error occurred"),
+        "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
         "change_password":
             MessageLookupByLibrary.simpleMessage("Change password"),
         "code_tab": MessageLookupByLibrary.simpleMessage("Code"),
@@ -40,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Email cannot be empty"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
+        "enter_course_code":
+            MessageLookupByLibrary.simpleMessage("Enter course code"),
         "full_name": MessageLookupByLibrary.simpleMessage("Full name"),
         "full_name_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Full name cannot be empty"),
@@ -49,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "login_screen_title": MessageLookupByLibrary.simpleMessage("Login"),
         "my_courses": MessageLookupByLibrary.simpleMessage("My Courses"),
         "no_network": MessageLookupByLibrary.simpleMessage("No network"),
+        "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Password cannot be empty"),

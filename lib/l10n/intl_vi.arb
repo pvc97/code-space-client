@@ -42,5 +42,8 @@
   "search_problem": "Tìm kiếm bài tập",
   "teacher": "Giảng viên",
   "course_code": "Mã lớp học",
-  "join_now": "Tham gia ngay"
+  "join_now": "Tham gia ngay",
+  "enter_course_code": "Nhập mã lớp học",
+  "ok": "Đồng ý",
+  "cancel": "Hủy"
 }

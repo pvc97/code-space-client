@@ -489,6 +489,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Enter course code`
+  String get enter_course_code {
+    return Intl.message(
+      'Enter course code',
+      name: 'enter_course_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OK`
+  String get ok {
+    return Intl.message(
+      'OK',
+      name: 'ok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CANCEL`
+  String get cancel {
+    return Intl.message(
+      'CANCEL',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
