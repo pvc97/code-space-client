@@ -2,6 +2,8 @@ import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
+import 'package:code_space_client/models/role_type.dart';
+import 'package:code_space_client/models/user_model.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
@@ -52,32 +54,49 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Center(child: Text(state.user?.name ?? ''));
                 },
               ),
-              AppElevatedButton(
-                onPressed: () => context.goNamed(AppRoute.courses.name),
-                text: S.of(context).course_list,
+              Padding(
+                padding: const EdgeInsets.only(bottom: Sizes.s12),
+                child: AppElevatedButton(
+                  onPressed: () => context.goNamed(AppRoute.courses.name),
+                  text: S.of(context).course_list,
+                ),
               ),
-              Box.h12,
-              AppElevatedButton(
-                onPressed: () {
-                  context.goNamed(AppRoute.courses.name, queryParams: {
-                    'me': 'true',
-                  });
+              BlocSelector<UserCubit, UserState, UserModel?>(
+                selector: (state) => state.user,
+                builder: (context, user) {
+                  if (user?.roleType == RoleType.manager) {
+                    return const SizedBox.shrink();
+                  }
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: Sizes.s12),
+                    child: AppElevatedButton(
+                      onPressed: () {
+                        context.goNamed(AppRoute.courses.name, queryParams: {
+                          'me': 'true',
+                        });
+                      },
+                      text: S.of(context).my_courses,
+                    ),
+                  );
                 },
-                text: S.of(context).my_courses,
               ),
-              Box.h12,
-              AppElevatedButton(
-                onPressed: () {
-                  context.goNamed(AppRoute.profile.name);
-                },
-                text: S.of(context).profile,
+              Padding(
+                padding: const EdgeInsets.only(bottom: Sizes.s12),
+                child: AppElevatedButton(
+                  onPressed: () {
+                    context.goNamed(AppRoute.profile.name);
+                  },
+                  text: S.of(context).profile,
+                ),
               ),
-              Box.h12,
-              AppElevatedButton(
-                onPressed: () {
-                  context.goNamed(AppRoute.settings.name);
-                },
-                text: S.of(context).settings,
+              Padding(
+                padding: const EdgeInsets.only(bottom: Sizes.s12),
+                child: AppElevatedButton(
+                  onPressed: () {
+                    context.goNamed(AppRoute.settings.name);
+                  },
+                  text: S.of(context).settings,
+                ),
               ),
             ],
           ),
