@@ -30,7 +30,7 @@ class CreateCourseViewState extends State<CreateCourseView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<CreateCourseCubit>().fetchTeachers();
+      context.read<CreateCourseCubit>().getTeachers();
     });
   }
 
