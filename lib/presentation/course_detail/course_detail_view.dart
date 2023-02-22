@@ -75,7 +75,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
 
   @override
   Widget build(BuildContext context) {
-    final user = context.watch<UserCubit>().state.user;
+    final user = context.select((UserCubit cubit) => cubit.state.user);
     return MultiBlocListener(
       listeners: [
         const BlocListener<CourseDetailBloc, CourseDetailState>(
