@@ -119,7 +119,7 @@ class AuthIntercepter extends InterceptorsWrapper {
       logger.d(
           'Refresh token - Note: If refresh token PrettyDioLogger doesn\'t show response log');
       final response = await freelanceDio.post(
-        UrlConstants.refreshToken,
+        '${UrlConstants.api}${UrlConstants.refreshToken}',
         data: {
           'refreshToken': refreshToken,
         },
