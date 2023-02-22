@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "access_code": MessageLookupByLibrary.simpleMessage("Access code"),
         "an_error_occurred":
             MessageLookupByLibrary.simpleMessage("An error occurred"),
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
@@ -41,8 +42,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Email cannot be empty"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
-        "enter_course_code":
-            MessageLookupByLibrary.simpleMessage("Enter course code"),
+        "enter_access_code":
+            MessageLookupByLibrary.simpleMessage("Enter access code"),
         "full_name": MessageLookupByLibrary.simpleMessage("Full name"),
         "full_name_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Full name cannot be empty"),

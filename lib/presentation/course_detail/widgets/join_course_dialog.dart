@@ -1,22 +1,31 @@
 import 'dart:io';
 
+import 'package:code_space_client/blocs/course_detail/course_detail_bloc.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void joinCourseDialog(BuildContext context) {
+void joinCourseDialog(BuildContext ctx, String courseId) {
+  // This context is different from the context in the below showDialog function
+  // => Have to find CourseDetailBloc here
+  final CourseDetailBloc bloc = ctx.read<CourseDetailBloc>();
+  String accessCode = '';
+
   if (Platform.isIOS) {
     showCupertinoDialog(
-        context: context,
+        context: ctx,
         builder: (context) {
           return CupertinoAlertDialog(
-            title: Text(S.of(context).enter_course_code),
+            title: Text(S.of(context).enter_access_code),
             content: TextField(
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
-                labelText: S.of(context).course_code,
+                labelText: S.of(context).access_code,
               ),
-              onChanged: (value) {},
+              onChanged: (value) {
+                accessCode = value.trim();
+              },
             ),
             actions: [
               CupertinoDialogAction(
@@ -28,27 +37,44 @@ void joinCourseDialog(BuildContext context) {
         });
   } else {
     showDialog(
-      context: context,
+      context: ctx,
       builder: (context) {
-        return AlertDialog(
-          title: Text(S.of(context).enter_course_code),
-          content: TextField(
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              labelText: S.of(context).course_code,
+        return BlocListener<CourseDetailBloc, CourseDetailState>(
+          bloc: bloc,
+          listenWhen: (previous, current) =>
+              previous.joinedCourse != current.joinedCourse,
+          listener: (context, state) {
+            if (state.joinedCourse == true) {
+              Navigator.pop(context);
+            }
+          },
+          child: AlertDialog(
+            title: Text(S.of(context).enter_access_code),
+            content: TextField(
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                labelText: S.of(context).access_code,
+              ),
+              onChanged: (value) {
+                accessCode = value.trim();
+              },
             ),
-            onChanged: (value) {},
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(S.of(context).cancel),
+              ),
+              TextButton(
+                onPressed: () {
+                  bloc.add(CourseDetailJoinCourseEvent(
+                    courseId: courseId,
+                    accessCode: accessCode,
+                  ));
+                },
+                child: Text(S.of(context).ok),
+              ),
+            ],
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(S.of(context).cancel),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(S.of(context).ok),
-            ),
-          ],
         );
       },
     );

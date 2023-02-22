@@ -2,6 +2,7 @@ import 'package:code_space_client/constants/app_constants.dart';
 import 'package:code_space_client/constants/status_code_constants.dart';
 import 'package:code_space_client/models/course_model.dart';
 import 'package:code_space_client/utils/bloc_transformer.dart';
+import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:code_space_client/constants/network_constants.dart';
@@ -30,6 +31,7 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
     on<CourseDetailRefreshProblemsEvent>(_refreshProblems);
     on<CourseDetailLoadMoreProblemsEvent>(_loadMoreProblems);
     on<CourseDetailGetCourseEvent>(_onGetCourse);
+    on<CourseDetailJoinCourseEvent>(_onJoinCourse);
   }
 
   // NOTE: In bloc listener, I think check lastEvent is not good
@@ -51,6 +53,12 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
   //   super.onEvent(event);
   //   _lastEvent = event;
   // }
+
+  @override
+  Future<void> close() {
+    logger.d('CourseDetailBloc closed');
+    return super.close();
+  }
 
   void _onGetInitProblems(
     CourseDetailGetInitProblemsEvent event,
@@ -179,6 +187,33 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
       final course = await courseRepository.getCourse(courseId: event.courseId);
       emit(state.copyWith(
         course: course,
+        stateStatus: StateStatus.success,
+      ));
+    } on AppException catch (e) {
+      emit(
+        state.copyWith(
+          stateStatus: StateStatus.error,
+          error: e,
+        ),
+      );
+    }
+  }
+
+  void _onJoinCourse(
+    CourseDetailJoinCourseEvent event,
+    Emitter<CourseDetailState> emit,
+  ) async {
+    emit(state.copyWith(
+      stateStatus: StateStatus.loading,
+    ));
+
+    try {
+      final success = await courseRepository.joinCourse(
+        courseId: event.courseId,
+        accessCode: event.accessCode,
+      );
+      emit(state.copyWith(
+        joinedCourse: success,
         stateStatus: StateStatus.success,
       ));
     } on AppException catch (e) {

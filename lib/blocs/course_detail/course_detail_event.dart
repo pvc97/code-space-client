@@ -67,3 +67,16 @@ class CourseDetailGetCourseEvent extends CourseDetailEvent {
   @override
   List<Object> get props => [courseId];
 }
+
+class CourseDetailJoinCourseEvent extends CourseDetailEvent {
+  final String courseId;
+  final String accessCode;
+
+  const CourseDetailJoinCourseEvent({
+    required this.courseId,
+    required this.accessCode,
+  });
+
+  @override
+  List<Object> get props => [courseId, accessCode];
+}

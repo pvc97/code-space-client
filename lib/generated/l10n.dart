@@ -480,6 +480,16 @@ class S {
     );
   }
 
+  /// `Access code`
+  String get access_code {
+    return Intl.message(
+      'Access code',
+      name: 'access_code',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Join now`
   String get join_now {
     return Intl.message(
@@ -490,11 +500,11 @@ class S {
     );
   }
 
-  /// `Enter course code`
-  String get enter_course_code {
+  /// `Enter access code`
+  String get enter_access_code {
     return Intl.message(
-      'Enter course code',
-      name: 'enter_course_code',
+      'Enter access code',
+      name: 'enter_access_code',
       desc: '',
       args: [],
     );

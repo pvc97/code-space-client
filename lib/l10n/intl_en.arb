@@ -42,8 +42,9 @@
   "search_problem": "Search problem",
   "teacher": "Teacher",
   "course_code": "Course code",
+  "access_code": "Access code",
   "join_now": "Join now",
-  "enter_course_code": "Enter course code",
+  "enter_access_code": "Enter access code",
   "ok": "OK",
   "cancel": "CANCEL"
 }

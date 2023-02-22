@@ -42,8 +42,9 @@
   "search_problem": "Tìm kiếm bài tập",
   "teacher": "Giảng viên",
   "course_code": "Mã lớp học",
+  "access_code": "Mã truy cập",
   "join_now": "Tham gia ngay",
-  "enter_course_code": "Nhập mã lớp học",
+  "enter_access_code": "Nhập mã truy cập",
   "ok": "Đồng ý",
   "cancel": "Hủy"
 }

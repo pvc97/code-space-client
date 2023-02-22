@@ -154,7 +154,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                         AppElevatedButton(
                           text: S.of(context).join_now,
                           onPressed: () {
-                            joinCourseDialog(context);
+                            joinCourseDialog(context, widget.courseId);
                           },
                         ),
                       ],
