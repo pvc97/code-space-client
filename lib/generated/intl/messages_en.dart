@@ -23,6 +23,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "access_code": MessageLookupByLibrary.simpleMessage("Access code"),
+        "access_code_cannot_be_empty":
+            MessageLookupByLibrary.simpleMessage("Access code cannot be empty"),
         "an_error_occurred":
             MessageLookupByLibrary.simpleMessage("An error occurred"),
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
@@ -35,7 +37,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
         "course_code": MessageLookupByLibrary.simpleMessage("Course code"),
+        "course_code_cannot_be_empty":
+            MessageLookupByLibrary.simpleMessage("Course code cannot be empty"),
+        "course_created_successfully":
+            MessageLookupByLibrary.simpleMessage("Course created successfully"),
         "course_list": MessageLookupByLibrary.simpleMessage("Course List"),
+        "course_name": MessageLookupByLibrary.simpleMessage("Course name"),
+        "course_name_cannot_be_empty":
+            MessageLookupByLibrary.simpleMessage("Course name cannot be empty"),
+        "create": MessageLookupByLibrary.simpleMessage("Create"),
+        "create_new_course":
+            MessageLookupByLibrary.simpleMessage("Create new course"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -44,6 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "enter_access_code":
             MessageLookupByLibrary.simpleMessage("Enter access code"),
+        "enter_name_or_email_of_teacher": MessageLookupByLibrary.simpleMessage(
+            "Enter name or email of teacher"),
         "full_name": MessageLookupByLibrary.simpleMessage("Full name"),
         "full_name_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Full name cannot be empty"),
@@ -59,6 +73,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Password cannot be empty"),
         "passwords_do_not_match":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
+        "please_select_teacher":
+            MessageLookupByLibrary.simpleMessage("Please select teacher"),
         "problem_history":
             MessageLookupByLibrary.simpleMessage("Submission history"),
         "problem_result":
@@ -73,6 +89,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "search_course": MessageLookupByLibrary.simpleMessage("Search course"),
         "search_problem":
             MessageLookupByLibrary.simpleMessage("Search problem"),
+        "select_teacher":
+            MessageLookupByLibrary.simpleMessage("Select teacher"),
         "session_expired":
             MessageLookupByLibrary.simpleMessage("Session expired"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),

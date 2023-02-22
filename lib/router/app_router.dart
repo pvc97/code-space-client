@@ -1,8 +1,9 @@
 import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/presentation/auth/sign_up_screen.dart';
-import 'package:code_space_client/presentation/course_detail/course_detail.dart';
+import 'package:code_space_client/presentation/course_detail/course_detail_screen.dart';
 import 'package:code_space_client/presentation/course_list/course_list_screen.dart';
+import 'package:code_space_client/presentation/create_course/create_course_screen.dart';
 import 'package:code_space_client/presentation/problem/problem_screen.dart';
 import 'package:code_space_client/presentation/problem_history/problem_history_screen.dart';
 import 'package:code_space_client/presentation/problem_result/problem_result_screen.dart';
@@ -25,6 +26,7 @@ enum AppRoute {
   profile,
   settings,
   courseDetail,
+  createCourse,
   problemResult,
   problemHistory,
 }
@@ -62,6 +64,16 @@ final GoRouter router = GoRouter(
             );
           },
           routes: [
+            GoRoute(
+              path: 'create',
+              name: AppRoute.createCourse.name,
+              pageBuilder: (context, state) {
+                return AdaptiveTransitionPage.create(
+                  state.pageKey,
+                  child: const CreateCourseScreen(),
+                );
+              },
+            ),
             GoRoute(
               path: ':courseId',
               name: AppRoute.courseDetail.name,

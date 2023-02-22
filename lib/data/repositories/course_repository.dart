@@ -71,4 +71,23 @@ class CourseRepository {
       throw ExceptionParser.parse(e);
     }
   }
+
+  Future<String> createCourse({
+    required String name,
+    required String code,
+    required String accessCode,
+    required String teacherId,
+  }) async {
+    try {
+      final response = await courseService.createCourse(
+        name: name,
+        code: code,
+        accessCode: accessCode,
+        teacherId: teacherId,
+      );
+      return response;
+    } catch (e) {
+      throw ExceptionParser.parse(e);
+    }
+  }
 }

@@ -1,7 +1,9 @@
 import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/blocs/course/course_bloc.dart';
+import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
+import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +57,7 @@ class _CourseListViewState extends State<CourseListView> {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.select((UserCubit cubit) => cubit.state.user);
     return MultiBlocListener(
       listeners: [
         const BlocListener<CourseBloc, CourseState>(
@@ -82,6 +85,15 @@ class _CourseListViewState extends State<CourseListView> {
               _searchCourse(value);
             },
           ),
+          actions: [
+            if (user?.roleType == RoleType.manager)
+              IconButton(
+                onPressed: () {
+                  context.goNamed(AppRoute.createCourse.name);
+                },
+                icon: const Icon(Icons.add),
+              ),
+          ],
         ),
         body: BlocBuilder<CourseBloc, CourseState>(
           buildWhen: (previous, current) => previous.courses != current.courses,

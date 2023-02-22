@@ -9,6 +9,7 @@ void stateStatusListener(
   BaseState state, {
   VoidCallback? onLoading,
   VoidCallback? onError,
+  VoidCallback? onSuccess,
 }) {
   switch (state.stateStatus) {
     case StateStatus.loading:
@@ -24,6 +25,7 @@ void stateStatusListener(
       break;
     case StateStatus.success:
       EasyLoading.dismiss();
+      onSuccess?.call();
       break;
     default:
       EasyLoading.dismiss();

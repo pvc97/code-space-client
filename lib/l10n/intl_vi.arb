@@ -46,5 +46,15 @@
   "join_now": "Tham gia ngay",
   "enter_access_code": "Nhập mã truy cập",
   "ok": "Đồng ý",
-  "cancel": "Hủy"
+  "cancel": "Hủy",
+  "create_new_course": "Tạo lớp học mới",
+  "course_name": "Tên lớp học",
+  "course_name_cannot_be_empty": "Tên lớp học không được để trống",
+  "course_code_cannot_be_empty": "Mã lớp học không được để trống",
+  "access_code_cannot_be_empty": "Mã truy cập không được để trống",
+  "create": "Tạo",
+  "select_teacher": "Chọn giảng viên",
+  "enter_name_or_email_of_teacher": "Nhập tên hoặc email của giảng viên",
+  "please_select_teacher": "Vui lòng chọn giảng viên",
+  "course_created_successfully": "Tạo lớp học thành công"
 }

@@ -529,6 +529,106 @@ class S {
       args: [],
     );
   }
+
+  /// `Create new course`
+  String get create_new_course {
+    return Intl.message(
+      'Create new course',
+      name: 'create_new_course',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Course name`
+  String get course_name {
+    return Intl.message(
+      'Course name',
+      name: 'course_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Course name cannot be empty`
+  String get course_name_cannot_be_empty {
+    return Intl.message(
+      'Course name cannot be empty',
+      name: 'course_name_cannot_be_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Course code cannot be empty`
+  String get course_code_cannot_be_empty {
+    return Intl.message(
+      'Course code cannot be empty',
+      name: 'course_code_cannot_be_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Access code cannot be empty`
+  String get access_code_cannot_be_empty {
+    return Intl.message(
+      'Access code cannot be empty',
+      name: 'access_code_cannot_be_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create`
+  String get create {
+    return Intl.message(
+      'Create',
+      name: 'create',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select teacher`
+  String get select_teacher {
+    return Intl.message(
+      'Select teacher',
+      name: 'select_teacher',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter name or email of teacher`
+  String get enter_name_or_email_of_teacher {
+    return Intl.message(
+      'Enter name or email of teacher',
+      name: 'enter_name_or_email_of_teacher',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select teacher`
+  String get please_select_teacher {
+    return Intl.message(
+      'Please select teacher',
+      name: 'please_select_teacher',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Course created successfully`
+  String get course_created_successfully {
+    return Intl.message(
+      'Course created successfully',
+      name: 'course_created_successfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
