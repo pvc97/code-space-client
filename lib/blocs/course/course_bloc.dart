@@ -48,6 +48,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
         page: page,
         query: query,
         limit: NetworkConstants.defaultLimit,
+        me: event.onlyMyCourses,
       );
 
       emit(state.copyWith(
@@ -75,6 +76,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
     add(GetCourseListEvent(
       initialQuery: event.query.trim(),
       initialPage: NetworkConstants.defaultPage,
+      onlyMyCourses: event.onlyMyCourses,
     ));
   }
 
@@ -91,6 +93,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
         page: state.page + 1,
         query: state.query,
         limit: NetworkConstants.defaultLimit,
+        me: event.onlyMyCourses,
       );
 
       emit(state.copyWith(
@@ -116,6 +119,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
     add(GetCourseListEvent(
       initialQuery: state.query,
       initialPage: NetworkConstants.defaultPage,
+      onlyMyCourses: event.onlyMyCourses,
     ));
   }
 }

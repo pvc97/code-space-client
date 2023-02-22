@@ -27,7 +27,8 @@ class _CourseListScreenState extends State<CourseListScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CourseBloc>(
-      create: (context) => sl()..add(const GetCourseListEvent()),
+      create: (context) =>
+          sl()..add(GetCourseListEvent(onlyMyCourses: widget.me)),
       child: CourseListView(
         me: widget.me,
       ),
