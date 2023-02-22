@@ -6,10 +6,12 @@ import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.d
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/presentation/common_widgets/search_dropdown_button.dart';
-import 'package:code_space_client/utils/logger/logger.dart';
+import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:go_router/go_router.dart';
 
 class CreateCourseView extends StatefulWidget {
   const CreateCourseView({super.key});
@@ -22,6 +24,7 @@ class CreateCourseViewState extends State<CreateCourseView> {
   final _formKey = GlobalKey<FormState>();
   var _autovalidateMode = AutovalidateMode.disabled;
   String? _courseName, _courseCode, _accessCode;
+  BaseDropdownItem? _selectedTeacher;
 
   @override
   void initState() {
@@ -41,6 +44,19 @@ class CreateCourseViewState extends State<CreateCourseView> {
     if (form == null || !form.validate()) return;
 
     form.save();
+
+    if (_selectedTeacher == null) {
+      EasyLoading.showInfo(S.of(context).please_select_teacher,
+          dismissOnTap: true);
+      return;
+    }
+
+    context.read<CreateCourseCubit>().createCourse(
+          name: _courseName!.trim(),
+          code: _courseCode!.trim(),
+          accessCode: _accessCode!.trim(),
+          teacherId: _selectedTeacher!.id,
+        );
   }
 
   final List<BaseDropdownItem> items = [
@@ -62,9 +78,23 @@ class CreateCourseViewState extends State<CreateCourseView> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
-      listeners: const [
-        BlocListener<CreateCourseCubit, CreateCourseState>(
+      listeners: [
+        const BlocListener<CreateCourseCubit, CreateCourseState>(
           listener: stateStatusListener,
+        ),
+        BlocListener<CreateCourseCubit, CreateCourseState>(
+          listenWhen: (previous, current) =>
+              previous.courseId != current.courseId,
+          listener: (context, state) {
+            final courseId = state.courseId;
+            if (courseId != null) {
+              context.pushNamed(
+                AppRoute.courseDetail.name,
+                params: {'courseId': courseId},
+                queryParams: {'me': 'false'},
+              );
+            }
+          },
         ),
       ],
       child: GestureDetector(
@@ -142,7 +172,7 @@ class CreateCourseViewState extends State<CreateCourseView> {
                               S.of(context).enter_name_or_email_of_teacher,
                           textEditingController: textEditingController,
                           onChanged: (BaseDropdownItem? value) {
-                            logger.d(value?.title);
+                            _selectedTeacher = value;
                           },
                         );
                       },

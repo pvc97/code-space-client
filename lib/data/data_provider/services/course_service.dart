@@ -66,4 +66,22 @@ class CourseService {
     );
     return response?.statusCode == 201;
   }
+
+  Future<String> createCourse({
+    required String name,
+    required String code,
+    required String accessCode,
+    required String teacherId,
+  }) async {
+    final response = await apiProvider.post(
+      UrlConstants.courses,
+      params: {
+        'name': name,
+        'code': code,
+        'accessCode': accessCode,
+        'teacherId': teacherId,
+      },
+    );
+    return response?.data['data']['id'];
+  }
 }

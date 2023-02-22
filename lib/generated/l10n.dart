@@ -609,6 +609,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Please select teacher`
+  String get please_select_teacher {
+    return Intl.message(
+      'Please select teacher',
+      name: 'please_select_teacher',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Course created successfully`
+  String get course_created_successfully {
+    return Intl.message(
+      'Course created successfully',
+      name: 'course_created_successfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

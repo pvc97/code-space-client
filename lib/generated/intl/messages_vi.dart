@@ -38,6 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "course_code": MessageLookupByLibrary.simpleMessage("Mã lớp học"),
         "course_code_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Mã lớp học không được để trống"),
+        "course_created_successfully":
+            MessageLookupByLibrary.simpleMessage("Tạo lớp học thành công"),
         "course_list":
             MessageLookupByLibrary.simpleMessage("Danh sách lớp học"),
         "course_name": MessageLookupByLibrary.simpleMessage("Tên lớp học"),
@@ -72,6 +74,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Mật khẩu không được để trống"),
         "passwords_do_not_match":
             MessageLookupByLibrary.simpleMessage("Mật khẩu không khớp"),
+        "please_select_teacher":
+            MessageLookupByLibrary.simpleMessage("Vui lòng chọn giảng viên"),
         "problem_history":
             MessageLookupByLibrary.simpleMessage("Lịch sử chấm bài"),
         "problem_result":

@@ -54,5 +54,7 @@
   "access_code_cannot_be_empty": "Mã truy cập không được để trống",
   "create": "Tạo",
   "select_teacher": "Chọn giảng viên",
-  "enter_name_or_email_of_teacher": "Nhập tên hoặc email của giảng viên"
+  "enter_name_or_email_of_teacher": "Nhập tên hoặc email của giảng viên",
+  "please_select_teacher": "Vui lòng chọn giảng viên",
+  "course_created_successfully": "Tạo lớp học thành công"
 }

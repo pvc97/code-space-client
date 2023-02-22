@@ -157,6 +157,6 @@ abstract class Di {
     sl.registerFactory<CourseBloc>(() => CourseBloc(courseRepository: sl()));
 
     sl.registerFactory<CreateCourseCubit>(
-        () => CreateCourseCubit(userRepository: sl()));
+        () => CreateCourseCubit(userRepository: sl(), courseRepository: sl()));
   }
 }

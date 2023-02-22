@@ -39,6 +39,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "course_code": MessageLookupByLibrary.simpleMessage("Course code"),
         "course_code_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Course code cannot be empty"),
+        "course_created_successfully":
+            MessageLookupByLibrary.simpleMessage("Course created successfully"),
         "course_list": MessageLookupByLibrary.simpleMessage("Course List"),
         "course_name": MessageLookupByLibrary.simpleMessage("Course name"),
         "course_name_cannot_be_empty":
@@ -71,6 +73,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Password cannot be empty"),
         "passwords_do_not_match":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
+        "please_select_teacher":
+            MessageLookupByLibrary.simpleMessage("Please select teacher"),
         "problem_history":
             MessageLookupByLibrary.simpleMessage("Submission history"),
         "problem_result":
