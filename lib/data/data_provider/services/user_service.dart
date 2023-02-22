@@ -4,6 +4,7 @@ import 'package:code_space_client/constants/spref_key.dart';
 import 'package:code_space_client/constants/url_constants.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
+import 'package:code_space_client/models/teacher_model.dart';
 import 'package:code_space_client/models/user_model.dart';
 
 class UserService {
@@ -47,5 +48,11 @@ class UserService {
       return UserModel.fromJson(jsonDecode(userJson));
     }
     return null;
+  }
+
+  Future<List<TeacherModel>> getTeachers() async {
+    final response = await apiProvider.get(UrlConstants.teachers);
+    final teachers = response?.data['data'] as List;
+    return teachers.map((e) => TeacherModel.fromJson(e)).toList();
   }
 }

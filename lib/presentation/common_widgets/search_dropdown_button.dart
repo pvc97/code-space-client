@@ -6,7 +6,7 @@ import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/models/dropdown_item.dart';
 
 class SearchDropdownButton<T extends BaseDropdownItem> extends StatefulWidget {
-  final List<T> items;
+  final Iterable<T> items;
   final String hint;
   final String searchHint;
   final TextEditingController textEditingController;
