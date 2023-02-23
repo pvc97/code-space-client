@@ -84,6 +84,9 @@ class _CourseListViewState extends State<CourseListView> {
               prefixIcon: const Icon(Icons.search),
               fillColor: Colors.white,
               filled: true,
+              // Make textfield height smaller
+              isDense: true,
+              contentPadding: const EdgeInsets.all(Sizes.s8),
             ),
             onChanged: (value) {
               _searchCourse(value);
@@ -139,10 +142,19 @@ class _CourseListViewState extends State<CourseListView> {
                     },
                     child: Card(
                       child: ListTile(
-                        contentPadding: const EdgeInsets.all(Sizes.s24),
-                        leading: Text(course.name),
-                        title: Text('Teacher: ${course.teacher.name}'),
-                        trailing: Text(course.code),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: Sizes.s24,
+                          vertical: Sizes.s12,
+                        ),
+                        title: Text(course.name),
+                        subtitle:
+                            Text('${course.code}\n${course.teacher.name}'),
+                        trailing: (user?.roleType == RoleType.manager)
+                            ? IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.more_vert),
+                              )
+                            : null,
                       ),
                     ),
                   );
