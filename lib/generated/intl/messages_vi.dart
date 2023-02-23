@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "access_code": MessageLookupByLibrary.simpleMessage("Mã truy cập"),
         "access_code_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Mã truy cập không được để trống"),
+        "add_test_case": MessageLookupByLibrary.simpleMessage("Thêm mới"),
         "an_error_occurred":
             MessageLookupByLibrary.simpleMessage("Có lỗi xảy ra"),
         "cancel": MessageLookupByLibrary.simpleMessage("Hủy"),
@@ -48,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "create": MessageLookupByLibrary.simpleMessage("Tạo"),
         "create_new_course":
             MessageLookupByLibrary.simpleMessage("Tạo lớp học mới"),
+        "create_new_problem":
+            MessageLookupByLibrary.simpleMessage("Tạo bài tập mới"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Bạn chưa có tài khoản?"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -56,13 +59,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "english": MessageLookupByLibrary.simpleMessage("Tiếng Anh"),
         "enter_access_code":
             MessageLookupByLibrary.simpleMessage("Nhập mã truy cập"),
+        "enter_name_of_language":
+            MessageLookupByLibrary.simpleMessage("Nhập tên ngôn ngữ"),
         "enter_name_or_email_of_teacher": MessageLookupByLibrary.simpleMessage(
             "Nhập tên hoặc email của giảng viên"),
+        "expected_output":
+            MessageLookupByLibrary.simpleMessage("Kết quả mong muốn:"),
         "full_name": MessageLookupByLibrary.simpleMessage("Họ và tên"),
         "full_name_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Họ và tên không được để trống"),
         "home_screen_title": MessageLookupByLibrary.simpleMessage("Trang chủ"),
+        "invalid_point_per_test_case": MessageLookupByLibrary.simpleMessage(
+            "Điểm cho mỗi test case không hợp lệ"),
         "join_now": MessageLookupByLibrary.simpleMessage("Tham gia ngay"),
+        "list_of_test_cases":
+            MessageLookupByLibrary.simpleMessage("Danh sách các test case:"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "login_screen_title": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "my_courses": MessageLookupByLibrary.simpleMessage("Lớp học của tôi"),
@@ -74,10 +85,19 @@ class MessageLookup extends MessageLookupByLibrary {
             "Mật khẩu không được để trống"),
         "passwords_do_not_match":
             MessageLookupByLibrary.simpleMessage("Mật khẩu không khớp"),
+        "please_fill_all_fields": MessageLookupByLibrary.simpleMessage(
+            "Vui lòng điền đầy đủ thông tin"),
+        "please_select_language":
+            MessageLookupByLibrary.simpleMessage("Vui lòng chọn ngôn ngữ"),
         "please_select_teacher":
             MessageLookupByLibrary.simpleMessage("Vui lòng chọn giảng viên"),
+        "point_per_test_case":
+            MessageLookupByLibrary.simpleMessage("Điểm cho mỗi test case"),
         "problem_history":
             MessageLookupByLibrary.simpleMessage("Lịch sử chấm bài"),
+        "problem_name": MessageLookupByLibrary.simpleMessage("Tên bài tập"),
+        "problem_name_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
+            "Tên bài tập không được để trống"),
         "problem_result":
             MessageLookupByLibrary.simpleMessage("Kết quả chấm bài"),
         "problem_tab": MessageLookupByLibrary.simpleMessage("Đề bài"),
@@ -91,13 +111,21 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Tìm kiếm lớp học"),
         "search_problem":
             MessageLookupByLibrary.simpleMessage("Tìm kiếm bài tập"),
+        "select_languages":
+            MessageLookupByLibrary.simpleMessage("Chọn ngôn ngữ"),
+        "select_problem_file":
+            MessageLookupByLibrary.simpleMessage("Chọn file đề bài:"),
         "select_teacher":
             MessageLookupByLibrary.simpleMessage("Chọn giảng viên"),
         "session_expired":
             MessageLookupByLibrary.simpleMessage("Phiên đăng nhập đã hết hạn"),
         "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Đăng ký"),
+        "stdin": MessageLookupByLibrary.simpleMessage("Dữ liệu đầu vào:"),
         "teacher": MessageLookupByLibrary.simpleMessage("Giảng viên"),
+        "test_case": MessageLookupByLibrary.simpleMessage("Test case"),
+        "the_course_has_no_problems":
+            MessageLookupByLibrary.simpleMessage("Lớp học này chưa có bài tập"),
         "total_point": MessageLookupByLibrary.simpleMessage("Tổng điểm"),
         "update": MessageLookupByLibrary.simpleMessage("Cập nhật"),
         "username": MessageLookupByLibrary.simpleMessage("Tài khoản"),

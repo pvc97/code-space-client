@@ -9,4 +9,5 @@ class UrlConstants {
   static const String problems = '/problems';
   static const String courses = '/courses';
   static const String teachers = '$user/teachers';
+  static const String languages = '/languages';
 }

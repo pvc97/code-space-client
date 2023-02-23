@@ -76,8 +76,12 @@ class _CourseListViewState extends State<CourseListView> {
           backgroundColor: widget.me ? Colors.green : Colors.pink,
           title: TextField(
             decoration: InputDecoration(
-              border: InputBorder.none,
+              // border: InputBorder.none,
+              border: const OutlineInputBorder(borderSide: BorderSide.none),
+              enabledBorder:
+                  const OutlineInputBorder(borderSide: BorderSide.none),
               hintText: S.of(context).search_course,
+              prefixIcon: const Icon(Icons.search),
               fillColor: Colors.white,
               filled: true,
             ),

@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "access_code": MessageLookupByLibrary.simpleMessage("Access code"),
         "access_code_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Access code cannot be empty"),
+        "add_test_case": MessageLookupByLibrary.simpleMessage("Add new"),
         "an_error_occurred":
             MessageLookupByLibrary.simpleMessage("An error occurred"),
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
@@ -48,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "create": MessageLookupByLibrary.simpleMessage("Create"),
         "create_new_course":
             MessageLookupByLibrary.simpleMessage("Create new course"),
+        "create_new_problem":
+            MessageLookupByLibrary.simpleMessage("Create new problem"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -56,13 +59,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "enter_access_code":
             MessageLookupByLibrary.simpleMessage("Enter access code"),
+        "enter_name_of_language":
+            MessageLookupByLibrary.simpleMessage("Enter name of language"),
         "enter_name_or_email_of_teacher": MessageLookupByLibrary.simpleMessage(
             "Enter name or email of teacher"),
+        "expected_output":
+            MessageLookupByLibrary.simpleMessage("Expected output:"),
         "full_name": MessageLookupByLibrary.simpleMessage("Full name"),
         "full_name_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Full name cannot be empty"),
         "home_screen_title": MessageLookupByLibrary.simpleMessage("Home"),
+        "invalid_point_per_test_case":
+            MessageLookupByLibrary.simpleMessage("Invalid point per test case"),
         "join_now": MessageLookupByLibrary.simpleMessage("Join now"),
+        "list_of_test_cases":
+            MessageLookupByLibrary.simpleMessage("List of test cases:"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "login_screen_title": MessageLookupByLibrary.simpleMessage("Login"),
         "my_courses": MessageLookupByLibrary.simpleMessage("My Courses"),
@@ -73,10 +84,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Password cannot be empty"),
         "passwords_do_not_match":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
+        "please_fill_all_fields":
+            MessageLookupByLibrary.simpleMessage("Please fill all fields"),
+        "please_select_language":
+            MessageLookupByLibrary.simpleMessage("Please select language"),
         "please_select_teacher":
             MessageLookupByLibrary.simpleMessage("Please select teacher"),
+        "point_per_test_case":
+            MessageLookupByLibrary.simpleMessage("Point per test case"),
         "problem_history":
             MessageLookupByLibrary.simpleMessage("Submission history"),
+        "problem_name": MessageLookupByLibrary.simpleMessage("Problem name"),
+        "problem_name_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
+            "Problem name cannot be empty"),
         "problem_result":
             MessageLookupByLibrary.simpleMessage("Problem result"),
         "problem_tab": MessageLookupByLibrary.simpleMessage("Problem"),
@@ -89,13 +109,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "search_course": MessageLookupByLibrary.simpleMessage("Search course"),
         "search_problem":
             MessageLookupByLibrary.simpleMessage("Search problem"),
+        "select_languages":
+            MessageLookupByLibrary.simpleMessage("Select languages"),
+        "select_problem_file":
+            MessageLookupByLibrary.simpleMessage("Select problem file:"),
         "select_teacher":
             MessageLookupByLibrary.simpleMessage("Select teacher"),
         "session_expired":
             MessageLookupByLibrary.simpleMessage("Session expired"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
+        "stdin": MessageLookupByLibrary.simpleMessage("Stdin:"),
         "teacher": MessageLookupByLibrary.simpleMessage("Teacher"),
+        "test_case": MessageLookupByLibrary.simpleMessage("Test case"),
+        "the_course_has_no_problems":
+            MessageLookupByLibrary.simpleMessage("The course has no problems"),
         "total_point": MessageLookupByLibrary.simpleMessage("Total point"),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),

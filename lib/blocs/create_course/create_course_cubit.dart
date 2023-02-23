@@ -17,7 +17,7 @@ class CreateCourseCubit extends Cubit<CreateCourseState> {
     required this.courseRepository,
   }) : super(CreateCourseState.initial());
 
-  void fetchTeachers() async {
+  void getTeachers() async {
     try {
       emit(state.copyWith(stateStatus: StateStatus.loading));
       final teachers = await userRepository.getTeachers();

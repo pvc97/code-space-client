@@ -93,20 +93,24 @@ class _CourseDetailViewState extends State<CourseDetailView> {
         child: Scaffold(
           appBar: AdaptiveAppBar(
             context: context,
-            title:
-                BlocSelector<CourseDetailBloc, CourseDetailState, CourseModel?>(
-              selector: (state) => state.course,
-              builder: (context, course) {
-                if (course != null) {
-                  return Text('${course.name} - ${course.code}');
-                }
-
-                return const SizedBox.shrink();
+            title: TextField(
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(borderSide: BorderSide.none),
+                enabledBorder:
+                    const OutlineInputBorder(borderSide: BorderSide.none),
+                prefixIcon: const Icon(Icons.search),
+                hintText: S.of(context).search_problem,
+                fillColor: Colors.white,
+                filled: true,
+              ),
+              controller: _searchController,
+              onChanged: (value) {
+                _searchProblem(value);
               },
             ),
             actions: [
               IconButton(
-                icon: const Icon(Icons.foggy),
+                icon: const Icon(Icons.military_tech),
                 onPressed: () {
                   context.goNamed(
                     AppRoute.ranking.name,
@@ -117,6 +121,18 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                   );
                 },
               ),
+              if (user?.roleType == RoleType.teacher)
+                IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () {
+                    context.goNamed(
+                      AppRoute.createProblem.name,
+                      params: {'courseId': widget.courseId},
+                      queryParams: widget.me ? {'me': 'true'} : {},
+                      extra: _refreshProblems,
+                    );
+                  },
+                ),
             ],
           ),
           body: BlocSelector<CourseDetailBloc, CourseDetailState, bool>(
@@ -165,29 +181,59 @@ class _CourseDetailViewState extends State<CourseDetailView> {
 
               return Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: Sizes.s20,
-                      right: Sizes.s20,
-                      top: Sizes.s20,
-                      bottom: Sizes.s8,
-                    ),
-                    child: TextField(
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        labelText: S.of(context).search_problem,
-                      ),
-                      onChanged: (value) {
-                        _searchProblem(value);
-                      },
-                    ),
+                  BlocSelector<CourseDetailBloc, CourseDetailState,
+                      CourseModel?>(
+                    selector: (state) => state.course,
+                    builder: (context, course) {
+                      if (course != null) {
+                        return Container(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: Sizes.s20,
+                            vertical: Sizes.s12,
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: Sizes.s20,
+                            vertical: Sizes.s12,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            borderRadius: BorderRadius.circular(Sizes.s8),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text('${course.name} - ${course.code}'),
+                              Text(
+                                  '${course.teacher.name} - ${course.teacher.email}'),
+                            ],
+                          ),
+                        );
+                      }
+
+                      return const SizedBox.shrink();
+                    },
                   ),
                   BlocBuilder<CourseDetailBloc, CourseDetailState>(
                     buildWhen: (previous, current) =>
                         previous.problems != current.problems,
                     builder: (context, state) {
                       final problems = state.problems;
+
+                      if (problems.isEmpty) {
+                        return Expanded(
+                          child: Center(
+                            child: Text(
+                              S.of(context).the_course_has_no_problems,
+                              style: const TextStyle(
+                                fontSize: Sizes.s16,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
 
                       return Expanded(
                         child: RefreshIndicator(

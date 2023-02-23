@@ -629,6 +629,166 @@ class S {
       args: [],
     );
   }
+
+  /// `The course has no problems`
+  String get the_course_has_no_problems {
+    return Intl.message(
+      'The course has no problems',
+      name: 'the_course_has_no_problems',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create new problem`
+  String get create_new_problem {
+    return Intl.message(
+      'Create new problem',
+      name: 'create_new_problem',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select languages`
+  String get select_languages {
+    return Intl.message(
+      'Select languages',
+      name: 'select_languages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter name of language`
+  String get enter_name_of_language {
+    return Intl.message(
+      'Enter name of language',
+      name: 'enter_name_of_language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select language`
+  String get please_select_language {
+    return Intl.message(
+      'Please select language',
+      name: 'please_select_language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Problem name`
+  String get problem_name {
+    return Intl.message(
+      'Problem name',
+      name: 'problem_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Problem name cannot be empty`
+  String get problem_name_cannot_be_empty {
+    return Intl.message(
+      'Problem name cannot be empty',
+      name: 'problem_name_cannot_be_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Point per test case`
+  String get point_per_test_case {
+    return Intl.message(
+      'Point per test case',
+      name: 'point_per_test_case',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid point per test case`
+  String get invalid_point_per_test_case {
+    return Intl.message(
+      'Invalid point per test case',
+      name: 'invalid_point_per_test_case',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `List of test cases:`
+  String get list_of_test_cases {
+    return Intl.message(
+      'List of test cases:',
+      name: 'list_of_test_cases',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new`
+  String get add_test_case {
+    return Intl.message(
+      'Add new',
+      name: 'add_test_case',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select problem file:`
+  String get select_problem_file {
+    return Intl.message(
+      'Select problem file:',
+      name: 'select_problem_file',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Test case`
+  String get test_case {
+    return Intl.message(
+      'Test case',
+      name: 'test_case',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stdin:`
+  String get stdin {
+    return Intl.message(
+      'Stdin:',
+      name: 'stdin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Expected output:`
+  String get expected_output {
+    return Intl.message(
+      'Expected output:',
+      name: 'expected_output',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please fill all fields`
+  String get please_fill_all_fields {
+    return Intl.message(
+      'Please fill all fields',
+      name: 'please_fill_all_fields',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

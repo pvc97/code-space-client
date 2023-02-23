@@ -10,7 +10,7 @@ import 'package:code_space_client/models/language_model.dart';
 
 extension LanguageExt on LanguageModel {
   get highlight {
-    switch (id) {
+    switch (languageId) {
       case 50:
         return lang1C;
       case 54:

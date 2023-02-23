@@ -2,6 +2,7 @@ import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/blocs/course/course_bloc.dart';
 import 'package:code_space_client/blocs/course_detail/course_detail_bloc.dart';
 import 'package:code_space_client/blocs/create_course/create_course_cubit.dart';
+import 'package:code_space_client/blocs/create_problem/create_problem_cubit.dart';
 import 'package:code_space_client/blocs/locale/locale_cubit.dart';
 import 'package:code_space_client/blocs/problem/problem_cubit.dart';
 import 'package:code_space_client/blocs/problem_result/problem_result_cubit.dart';
@@ -11,6 +12,7 @@ import 'package:code_space_client/data/data_provider/local/local_storage_manager
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/data/data_provider/network/intercepters/auth_intercepter.dart';
 import 'package:code_space_client/data/data_provider/services/course_service.dart';
+import 'package:code_space_client/data/data_provider/services/language_service.dart';
 import 'package:code_space_client/data/data_provider/services/locale_service.dart';
 import 'package:code_space_client/data/data_provider/services/problem_service.dart';
 import 'package:code_space_client/data/data_provider/services/submission_service.dart';
@@ -18,6 +20,7 @@ import 'package:code_space_client/data/repositories/auth_repository.dart';
 import 'package:code_space_client/data/data_provider/services/auth_service.dart';
 import 'package:code_space_client/data/data_provider/services/user_service.dart';
 import 'package:code_space_client/data/repositories/course_repository.dart';
+import 'package:code_space_client/data/repositories/language_repository.dart';
 import 'package:code_space_client/data/repositories/problem_repository.dart';
 import 'package:code_space_client/data/repositories/submission_repository.dart';
 import 'package:code_space_client/data/repositories/user_repository.dart';
@@ -158,5 +161,16 @@ abstract class Di {
 
     sl.registerFactory<CreateCourseCubit>(
         () => CreateCourseCubit(userRepository: sl(), courseRepository: sl()));
+
+    sl.registerLazySingleton<LanguageService>(
+      () => LanguageService(apiProvider: sl()),
+    );
+
+    sl.registerLazySingleton<LanguageRepository>(
+      () => LanguageRepository(languageService: sl()),
+    );
+
+    sl.registerFactory<CreateProblemCubit>(() =>
+        CreateProblemCubit(languageRepository: sl(), problemRepository: sl()));
   }
 }
