@@ -80,12 +80,11 @@ class _CreateProblemViewState extends State<CreateProblemView> {
       allowedExtensions: ['pdf'],
     );
 
-    final _pdfPath = result?.files.single.path;
-    if (_pdfPath == null) return;
+    final pdfPath = result?.files.single.path;
 
     // If screen is not mounted, do not update state
-    if (mounted) {
-      context.read<CreateProblemCubit>().updatePdfPath(_pdfPath);
+    if (mounted && pdfPath != null) {
+      context.read<CreateProblemCubit>().updatePdfPath(pdfPath);
     }
   }
 
