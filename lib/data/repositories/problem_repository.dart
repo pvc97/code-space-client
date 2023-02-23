@@ -2,6 +2,7 @@ import 'package:code_space_client/data/data_provider/services/problem_service.da
 import 'package:code_space_client/models/problem_detail_model.dart';
 import 'package:code_space_client/models/test_case_model.dart';
 import 'package:code_space_client/utils/exception_parser.dart';
+import 'package:dio/dio.dart';
 
 class ProblemRepository {
   final ProblemService problemService;
@@ -24,7 +25,7 @@ class ProblemRepository {
     required String courseId,
     required int languageId,
     required Iterable<TestCaseModel> testCases,
-    required String pdfPath,
+    required MultipartFile file,
   }) async {
     try {
       final problemId = await problemService.createProblem(
@@ -33,7 +34,7 @@ class ProblemRepository {
         courseId: courseId,
         languageId: languageId,
         testCases: testCases,
-        pdfPath: pdfPath,
+        file: file,
       );
 
       return problemId;

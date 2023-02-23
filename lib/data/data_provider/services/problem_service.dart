@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:code_space_client/constants/url_constants.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/models/problem_detail_model.dart';
@@ -24,7 +23,7 @@ class ProblemService {
     required String courseId,
     required int languageId,
     required Iterable<TestCaseModel> testCases,
-    required String pdfPath,
+    required MultipartFile file,
   }) async {
     final formData = FormData.fromMap(
       {
@@ -33,7 +32,7 @@ class ProblemService {
         'courseId': courseId,
         'languageId': languageId,
         'testCases': jsonEncode(testCases.map((e) => e.toJson()).toList()),
-        'pdfFile': await MultipartFile.fromFile(pdfPath),
+        'pdfFile': file,
       },
     );
 

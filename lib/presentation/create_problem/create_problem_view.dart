@@ -2,7 +2,9 @@ import 'package:code_space_client/models/test_case_model.dart';
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/presentation/create_problem/widgets/test_case_dialog.dart';
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,13 +68,6 @@ class _CreateProblemViewState extends State<CreateProblemView> {
       return;
     }
 
-    // context.read<CreateCourseCubit>().createCourse(
-    //       name: _courseName!.trim(),
-    //       code: _courseCode!.trim(),
-    //       accessCode: _accessCode!.trim(),
-    //       teacherId: _selectedTeacher!.id,
-    //     );
-
     context.read<CreateProblemCubit>().createProblem(
           name: _problemName!.trim(),
           pointPerTestCase: _pointPerTestCase!,
@@ -91,13 +86,25 @@ class _CreateProblemViewState extends State<CreateProblemView> {
       allowedExtensions: ['pdf'],
     );
 
-    final pdfPath = result?.files.single.path;
+    final MultipartFile file;
 
-    // If screen is not mounted, do not update state
-    if (mounted) {
-      if (pdfPath != null) {
-        context.read<CreateProblemCubit>().updatePdfPath(pdfPath);
+    if (result != null) {
+      // result.files.single.path return null on web, so I need to use bytes to get the file
+      if (kIsWeb) {
+        final bytes = result.files.single.bytes;
+        file =
+            MultipartFile.fromBytes(bytes!, filename: result.files.single.name);
       } else {
+        final pdfPath = result.files.single.path;
+        file = await MultipartFile.fromFile(pdfPath!);
+      }
+
+      // If screen is not mounted, do not update state
+      if (mounted) {
+        context.read<CreateProblemCubit>().updatePdfPath(file);
+      }
+    } else {
+      if (mounted) {
         context.read<CreateProblemCubit>().setSelectingPdf(false);
       }
     }
@@ -331,12 +338,12 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                         ),
                         Box.w20,
                         BlocSelector<CreateProblemCubit, CreateProblemState,
-                            String?>(
-                          selector: (state) => state.pdfPath,
-                          builder: (context, pdfPath) {
+                            MultipartFile?>(
+                          selector: (state) => state.pdfFile,
+                          builder: (context, pdfFile) {
                             return Expanded(
                               child: Text(
-                                pdfPath ?? '...',
+                                pdfFile?.filename ?? '...',
                                 maxLines: 2,
                               ),
                             );
@@ -348,7 +355,7 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                     BlocBuilder<CreateProblemCubit, CreateProblemState>(
                       builder: (context, state) {
                         final testCases = state.testCases;
-                        final pdfPath = state.pdfPath;
+                        final pdfPath = state.pdfFile;
 
                         return AppElevatedButton(
                           onPressed: (testCases.isNotEmpty && pdfPath != null)

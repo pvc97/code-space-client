@@ -4,7 +4,7 @@ class CreateProblemState extends BaseState {
   final Iterable<LanguageModel> languages;
   final Iterable<TestCaseModel> testCases;
   final String? problemId;
-  final String? pdfPath;
+  final MultipartFile? pdfFile;
   final bool selectingPdf;
 
   const CreateProblemState({
@@ -12,7 +12,7 @@ class CreateProblemState extends BaseState {
     required this.testCases,
     required this.selectingPdf,
     this.problemId,
-    this.pdfPath,
+    this.pdfFile,
     required super.stateStatus,
     super.error,
   });
@@ -24,7 +24,7 @@ class CreateProblemState extends BaseState {
       selectingPdf: false,
       stateStatus: StateStatus.initial,
       problemId: null,
-      pdfPath: null,
+      pdfFile: null,
     );
   }
 
@@ -35,7 +35,7 @@ class CreateProblemState extends BaseState {
     bool? selectingPdf,
     AppException? error,
     String? problemId,
-    String? pdfPath,
+    MultipartFile? pdfFile,
   }) {
     return CreateProblemState(
       languages: languages ?? this.languages,
@@ -44,11 +44,11 @@ class CreateProblemState extends BaseState {
       selectingPdf: selectingPdf ?? this.selectingPdf,
       error: error ?? this.error,
       problemId: problemId ?? this.problemId,
-      pdfPath: pdfPath ?? this.pdfPath,
+      pdfFile: pdfFile ?? this.pdfFile,
     );
   }
 
   @override
   List<Object?> get props =>
-      [languages, testCases, problemId, pdfPath, selectingPdf, ...super.props];
+      [languages, testCases, problemId, pdfFile, selectingPdf, ...super.props];
 }

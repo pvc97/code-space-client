@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:code_space_client/blocs/base/base_state.dart';
@@ -53,9 +54,9 @@ class CreateProblemCubit extends Cubit<CreateProblemState> {
     emit(state.copyWith(testCases: newTestCases));
   }
 
-  void updatePdfPath(String? path) {
+  void updatePdfPath(MultipartFile? file) {
     emit(state.copyWith(
-      pdfPath: path,
+      pdfFile: file,
       selectingPdf: false,
     ));
   }
@@ -69,8 +70,8 @@ class CreateProblemCubit extends Cubit<CreateProblemState> {
     try {
       emit(state.copyWith(stateStatus: StateStatus.loading));
 
-      final pdfPath = state.pdfPath;
-      if (pdfPath == null) {
+      final pdfFile = state.pdfFile;
+      if (pdfFile == null) {
         return;
       }
 
@@ -80,7 +81,7 @@ class CreateProblemCubit extends Cubit<CreateProblemState> {
         courseId: courseId,
         languageId: languageId,
         testCases: state.testCases,
-        pdfPath: pdfPath,
+        file: pdfFile,
       );
 
       emit(state.copyWith(
