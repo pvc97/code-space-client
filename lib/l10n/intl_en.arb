@@ -72,5 +72,6 @@
   "test_case": "Test case",
   "stdin": "Stdin:",
   "expected_output": "Expected output:",
-  "please_fill_all_fields": "Please fill all fields"
+  "please_fill_all_fields": "Please fill all fields",
+  "course": "Course"
 }

@@ -49,11 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView(
             shrinkWrap: true,
             children: [
-              BlocBuilder<UserCubit, UserState>(
-                builder: (context, state) {
-                  return Center(child: Text(state.user?.name ?? ''));
-                },
-              ),
               Padding(
                 padding: const EdgeInsets.only(bottom: Sizes.s12),
                 child: AppElevatedButton(

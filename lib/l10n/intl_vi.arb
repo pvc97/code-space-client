@@ -72,5 +72,6 @@
   "test_case": "Test case",
   "stdin": "Dữ liệu đầu vào:",
   "expected_output": "Kết quả mong muốn:",
-  "please_fill_all_fields": "Vui lòng điền đầy đủ thông tin"
+  "please_fill_all_fields": "Vui lòng điền đầy đủ thông tin",
+  "course": "Lớp học"
 }

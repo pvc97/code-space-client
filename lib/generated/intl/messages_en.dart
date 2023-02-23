@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "comment_role____": MessageLookupByLibrary.simpleMessage(""),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
+        "course": MessageLookupByLibrary.simpleMessage("Course"),
         "course_code": MessageLookupByLibrary.simpleMessage("Course code"),
         "course_code_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Course code cannot be empty"),

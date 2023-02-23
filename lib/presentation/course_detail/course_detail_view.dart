@@ -102,6 +102,9 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                 hintText: S.of(context).search_problem,
                 fillColor: Colors.white,
                 filled: true,
+                // Make textfield height smaller
+                isDense: true,
+                contentPadding: const EdgeInsets.all(Sizes.s8),
               ),
               controller: _searchController,
               onChanged: (value) {
@@ -155,11 +158,13 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
+                                      '${S.of(context).course}: ${course.name}'),
+                                  Text(
+                                      '${S.of(context).course_code}: ${course.code}'),
+                                  Text(
                                       '${S.of(context).teacher}: ${course.teacher.name}'),
                                   Text(
                                       '${S.of(context).email}: ${course.teacher.email}'),
-                                  Text(
-                                      '${S.of(context).course_code}: ${course.code}'),
                                 ],
                               );
                             }
@@ -187,8 +192,9 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                     builder: (context, course) {
                       if (course != null) {
                         return Container(
+                          width: double.infinity,
                           margin: const EdgeInsets.symmetric(
-                            horizontal: Sizes.s20,
+                            horizontal: Sizes.s24,
                             vertical: Sizes.s12,
                           ),
                           padding: const EdgeInsets.symmetric(
@@ -201,13 +207,37 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                             ),
                             borderRadius: BorderRadius.circular(Sizes.s8),
                           ),
-                          child: Column(
+                          child: Row(
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text('${course.name} - ${course.code}'),
-                              Text(
-                                  '${course.teacher.name} - ${course.teacher.email}'),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                        '${S.of(context).course}: ${course.name}'),
+                                    Text(
+                                        '${S.of(context).course_code}: ${course.code}'),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      '${S.of(context).teacher}: ${course.teacher.name}',
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      '${S.of(context).email}: ${course.teacher.email}',
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         );
@@ -282,6 +312,13 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                                     contentPadding:
                                         const EdgeInsets.all(Sizes.s24),
                                     title: Text(problem.name),
+                                    trailing: (user?.roleType ==
+                                            RoleType.teacher)
+                                        ? IconButton(
+                                            onPressed: () {},
+                                            icon: const Icon(Icons.more_vert),
+                                          )
+                                        : null,
                                   ),
                                 ),
                               );
