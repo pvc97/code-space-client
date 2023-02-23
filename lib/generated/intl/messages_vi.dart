@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "comment_role____": MessageLookupByLibrary.simpleMessage(""),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Xác nhận mật khẩu"),
+        "course": MessageLookupByLibrary.simpleMessage("Lớp học"),
         "course_code": MessageLookupByLibrary.simpleMessage("Mã lớp học"),
         "course_code_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Mã lớp học không được để trống"),

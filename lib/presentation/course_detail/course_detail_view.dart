@@ -155,11 +155,13 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                      '${S.of(context).teacher}: ${course.teacher.name}'),
-                                  Text(
-                                      '${S.of(context).email}: ${course.teacher.email}'),
+                                      '${S.of(context).course}: ${course.name}'),
                                   Text(
                                       '${S.of(context).course_code}: ${course.code}'),
+                                  Text(
+                                      '${S.of(context).teacher} - ${course.teacher.name}'),
+                                  Text(
+                                      '${S.of(context).email} - ${course.teacher.email}'),
                                 ],
                               );
                             }
@@ -187,8 +189,9 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                     builder: (context, course) {
                       if (course != null) {
                         return Container(
+                          width: double.infinity,
                           margin: const EdgeInsets.symmetric(
-                            horizontal: Sizes.s20,
+                            horizontal: Sizes.s24,
                             vertical: Sizes.s12,
                           ),
                           padding: const EdgeInsets.symmetric(
@@ -201,13 +204,29 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                             ),
                             borderRadius: BorderRadius.circular(Sizes.s8),
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('${course.name} - ${course.code}'),
-                              Text(
-                                  '${course.teacher.name} - ${course.teacher.email}'),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                      '${S.of(context).course}: ${course.name}'),
+                                  Text(
+                                      '${S.of(context).course_code}: ${course.code}'),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                      '${S.of(context).teacher} - ${course.teacher.name}'),
+                                  Text(
+                                      '${S.of(context).email} - ${course.teacher.email}'),
+                                ],
+                              ),
                             ],
                           ),
                         );
@@ -282,6 +301,13 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                                     contentPadding:
                                         const EdgeInsets.all(Sizes.s24),
                                     title: Text(problem.name),
+                                    trailing: (user?.roleType ==
+                                            RoleType.teacher)
+                                        ? IconButton(
+                                            onPressed: () {},
+                                            icon: const Icon(Icons.more_vert),
+                                          )
+                                        : null,
                                   ),
                                 ),
                               );
