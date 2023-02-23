@@ -60,5 +60,13 @@
   "the_course_has_no_problems": "Lớp học này chưa có bài tập",
   "create_new_problem": "Tạo bài tập mới",
   "select_languages": "Chọn ngôn ngữ",
-  "enter_name_of_language": "Nhập tên ngôn ngữ"
+  "enter_name_of_language": "Nhập tên ngôn ngữ",
+  "please_select_language": "Vui lòng chọn ngôn ngữ",
+  "problem_name": "Tên bài tập",
+  "problem_name_cannot_be_empty": "Tên bài tập không được để trống",
+  "point_per_test_case": "Điểm cho mỗi test case",
+  "invalid_point_per_test_case": "Điểm cho mỗi test case không hợp lệ",
+  "list_of_test_cases": "Danh sách các test case:",
+  "add_test_case": "Thêm test case",
+  "select_problem_file": "Chọn file đề bài:"
 }

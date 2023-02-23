@@ -669,6 +669,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Please select language`
+  String get please_select_language {
+    return Intl.message(
+      'Please select language',
+      name: 'please_select_language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Problem name`
+  String get problem_name {
+    return Intl.message(
+      'Problem name',
+      name: 'problem_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Problem name cannot be empty`
+  String get problem_name_cannot_be_empty {
+    return Intl.message(
+      'Problem name cannot be empty',
+      name: 'problem_name_cannot_be_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Point per test case`
+  String get point_per_test_case {
+    return Intl.message(
+      'Point per test case',
+      name: 'point_per_test_case',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid point per test case`
+  String get invalid_point_per_test_case {
+    return Intl.message(
+      'Invalid point per test case',
+      name: 'invalid_point_per_test_case',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `List of test cases:`
+  String get list_of_test_cases {
+    return Intl.message(
+      'List of test cases:',
+      name: 'list_of_test_cases',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add test case`
+  String get add_test_case {
+    return Intl.message(
+      'Add test case',
+      name: 'add_test_case',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select problem file:`
+  String get select_problem_file {
+    return Intl.message(
+      'Select problem file:',
+      name: 'select_problem_file',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -60,5 +60,13 @@
   "the_course_has_no_problems": "The course has no problems",
   "create_new_problem": "Create new problem",
   "select_languages": "Select languages",
-  "enter_name_of_language": "Enter name of language"
+  "enter_name_of_language": "Enter name of language",
+  "please_select_language": "Please select language",
+  "problem_name": "Problem name",
+  "problem_name_cannot_be_empty": "Problem name cannot be empty",
+  "point_per_test_case": "Point per test case",
+  "invalid_point_per_test_case": "Invalid point per test case",
+  "list_of_test_cases": "List of test cases:",
+  "add_test_case": "Add test case",
+  "select_problem_file": "Select problem file:"
 }
