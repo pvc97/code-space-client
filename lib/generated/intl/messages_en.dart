@@ -25,7 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "access_code": MessageLookupByLibrary.simpleMessage("Access code"),
         "access_code_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Access code cannot be empty"),
-        "add_test_case": MessageLookupByLibrary.simpleMessage("Add test case"),
+        "add_test_case": MessageLookupByLibrary.simpleMessage("Add new"),
         "an_error_occurred":
             MessageLookupByLibrary.simpleMessage("An error occurred"),
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),

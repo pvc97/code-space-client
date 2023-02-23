@@ -67,7 +67,7 @@
   "point_per_test_case": "Điểm cho mỗi test case",
   "invalid_point_per_test_case": "Điểm cho mỗi test case không hợp lệ",
   "list_of_test_cases": "Danh sách các test case:",
-  "add_test_case": "Thêm test case",
+  "add_test_case": "Thêm mới",
   "select_problem_file": "Chọn file đề bài:",
   "test_case": "Test case",
   "stdin": "Dữ liệu đầu vào:",

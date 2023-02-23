@@ -244,15 +244,55 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                                     const Divider(),
                                 itemBuilder: (context, index) {
                                   final testCase = testCases.elementAt(index);
-                                  return Column(
+                                  return Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(S.of(context).stdin),
-                                      SelectableText(testCase.stdin),
-                                      Text(S.of(context).expected_output),
-                                      SelectableText(testCase.expectedOutput),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(S.of(context).stdin),
+                                          SelectableText(testCase.stdin),
+                                          Box.h4,
+                                          Text(S.of(context).expected_output),
+                                          SelectableText(
+                                              testCase.expectedOutput),
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          IconButton(
+                                            onPressed: () {
+                                              showTestCaseDialog(
+                                                context,
+                                                EditTestCaseAction(
+                                                  index: index,
+                                                  testCase: testCase,
+                                                ),
+                                              );
+                                            },
+                                            icon: Icon(
+                                              Icons.edit,
+                                              color: Colors.blue.shade300,
+                                            ),
+                                          ),
+                                          IconButton(
+                                            onPressed: () {
+                                              context
+                                                  .read<CreateProblemCubit>()
+                                                  .removeTestCase(index);
+                                            },
+                                            icon: const Icon(
+                                              Icons.delete,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                        ],
+                                      )
                                     ],
                                   );
                                 },
@@ -274,7 +314,12 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                             String?>(
                           selector: (state) => state.pdfPath,
                           builder: (context, pdfPath) {
-                            return Text(pdfPath ?? '...');
+                            return Expanded(
+                              child: Text(
+                                pdfPath ?? '...',
+                                maxLines: 2,
+                              ),
+                            );
                           },
                         ),
                       ],

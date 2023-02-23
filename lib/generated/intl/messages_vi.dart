@@ -25,7 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "access_code": MessageLookupByLibrary.simpleMessage("Mã truy cập"),
         "access_code_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Mã truy cập không được để trống"),
-        "add_test_case": MessageLookupByLibrary.simpleMessage("Thêm test case"),
+        "add_test_case": MessageLookupByLibrary.simpleMessage("Thêm mới"),
         "an_error_occurred":
             MessageLookupByLibrary.simpleMessage("Có lỗi xảy ra"),
         "cancel": MessageLookupByLibrary.simpleMessage("Hủy"),

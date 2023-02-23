@@ -67,7 +67,7 @@
   "point_per_test_case": "Point per test case",
   "invalid_point_per_test_case": "Invalid point per test case",
   "list_of_test_cases": "List of test cases:",
-  "add_test_case": "Add test case",
+  "add_test_case": "Add new",
   "select_problem_file": "Select problem file:",
   "test_case": "Test case",
   "stdin": "Stdin:",

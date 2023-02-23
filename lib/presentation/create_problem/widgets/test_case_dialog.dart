@@ -88,6 +88,12 @@ void showTestCaseDialog(BuildContext ctx, TestCaseAction action) {
                       TestCaseModel(
                           stdin: stdin, expectedOutput: expectedOutput),
                     );
+                  } else if (action is EditTestCaseAction) {
+                    cubit.editTestCase(
+                      action.index,
+                      TestCaseModel(
+                          stdin: stdin, expectedOutput: expectedOutput),
+                    );
                   }
 
                   Navigator.pop(context);
@@ -154,6 +160,11 @@ void showTestCaseDialog(BuildContext ctx, TestCaseAction action) {
 
                 if (action is AddTestCaseAction) {
                   cubit.addTestCase(
+                    TestCaseModel(stdin: stdin, expectedOutput: expectedOutput),
+                  );
+                } else if (action is EditTestCaseAction) {
+                  cubit.editTestCase(
+                    action.index,
                     TestCaseModel(stdin: stdin, expectedOutput: expectedOutput),
                   );
                 }

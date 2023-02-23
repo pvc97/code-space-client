@@ -42,7 +42,7 @@ class CreateProblemCubit extends Cubit<CreateProblemState> {
     emit(state.copyWith(testCases: newTestCases));
   }
 
-  void updateTestCase(int index, TestCaseModel testCase) {
+  void editTestCase(int index, TestCaseModel testCase) {
     final newTestCases = [...state.testCases];
     newTestCases[index] = testCase;
     emit(state.copyWith(testCases: newTestCases));

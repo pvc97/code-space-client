@@ -730,10 +730,10 @@ class S {
     );
   }
 
-  /// `Add test case`
+  /// `Add new`
   String get add_test_case {
     return Intl.message(
-      'Add test case',
+      'Add new',
       name: 'add_test_case',
       desc: '',
       args: [],
