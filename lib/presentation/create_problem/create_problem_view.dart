@@ -1,3 +1,4 @@
+import 'package:code_space_client/models/test_case_model.dart';
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/presentation/create_problem/widgets/test_case_dialog.dart';
@@ -204,6 +205,43 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                                 child: Text(S.of(context).add_test_case),
                               ),
                             ],
+                          ),
+                          BlocSelector<CreateProblemCubit, CreateProblemState,
+                              Iterable<TestCaseModel>>(
+                            selector: (state) => state.testCases,
+                            builder: (context, testCases) {
+                              if (testCases.isEmpty) {
+                                return const SizedBox.shrink();
+                              }
+                              return const Divider();
+                            },
+                          ),
+                          BlocSelector<CreateProblemCubit, CreateProblemState,
+                              Iterable<TestCaseModel>>(
+                            selector: (state) => state.testCases,
+                            builder: (context, testCases) {
+                              return ListView.separated(
+                                shrinkWrap: true,
+                                itemCount: testCases.length,
+                                physics: const NeverScrollableScrollPhysics(),
+                                separatorBuilder: (context, index) =>
+                                    const Divider(),
+                                itemBuilder: (context, index) {
+                                  final testCase = testCases.elementAt(index);
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(S.of(context).stdin),
+                                      SelectableText(testCase.stdin),
+                                      Text(S.of(context).expected_output),
+                                      SelectableText(testCase.expectedOutput),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
                           ),
                         ],
                       ),

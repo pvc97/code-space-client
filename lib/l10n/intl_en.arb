@@ -70,7 +70,7 @@
   "add_test_case": "Add test case",
   "select_problem_file": "Select problem file:",
   "test_case": "Test case",
-  "stdin": "Stdin",
-  "expected_output": "Expected output",
+  "stdin": "Stdin:",
+  "expected_output": "Expected output:",
   "please_fill_all_fields": "Please fill all fields"
 }

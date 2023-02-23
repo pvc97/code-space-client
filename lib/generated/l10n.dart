@@ -760,20 +760,20 @@ class S {
     );
   }
 
-  /// `Stdin`
+  /// `Stdin:`
   String get stdin {
     return Intl.message(
-      'Stdin',
+      'Stdin:',
       name: 'stdin',
       desc: '',
       args: [],
     );
   }
 
-  /// `Expected output`
+  /// `Expected output:`
   String get expected_output {
     return Intl.message(
-      'Expected output',
+      'Expected output:',
       name: 'expected_output',
       desc: '',
       args: [],

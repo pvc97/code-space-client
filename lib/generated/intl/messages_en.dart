@@ -64,7 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enter_name_or_email_of_teacher": MessageLookupByLibrary.simpleMessage(
             "Enter name or email of teacher"),
         "expected_output":
-            MessageLookupByLibrary.simpleMessage("Expected output"),
+            MessageLookupByLibrary.simpleMessage("Expected output:"),
         "full_name": MessageLookupByLibrary.simpleMessage("Full name"),
         "full_name_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Full name cannot be empty"),
@@ -119,7 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Session expired"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
-        "stdin": MessageLookupByLibrary.simpleMessage("Stdin"),
+        "stdin": MessageLookupByLibrary.simpleMessage("Stdin:"),
         "teacher": MessageLookupByLibrary.simpleMessage("Teacher"),
         "test_case": MessageLookupByLibrary.simpleMessage("Test case"),
         "the_course_has_no_problems":
