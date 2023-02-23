@@ -1,5 +1,4 @@
 import 'package:code_space_client/blocs/auth/auth_cubit.dart';
-import 'package:code_space_client/blocs/course_detail/course_detail_bloc.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/presentation/auth/sign_up_screen.dart';
 import 'package:code_space_client/presentation/course_detail/course_detail_screen.dart';
@@ -16,6 +15,7 @@ import 'package:code_space_client/router/adaptive_transition_page.dart';
 import 'package:code_space_client/router/go_router_refresh_stream.dart';
 import 'package:code_space_client/presentation/auth/login_screen.dart';
 import 'package:code_space_client/presentation/home/home_screen.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 enum AppRoute {
@@ -99,7 +99,7 @@ final GoRouter router = GoRouter(
                       child: CreateProblemScreen(
                         courseId: state.params['courseId'] ?? '',
                         me: state.queryParams['me'] == 'true',
-                        courseDetailBloc: state.extra as CourseDetailBloc?,
+                        onProblemCreated: state.extra as VoidCallback?,
                       ),
                     );
                   },
