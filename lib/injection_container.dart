@@ -170,7 +170,7 @@ abstract class Di {
       () => LanguageRepository(languageService: sl()),
     );
 
-    sl.registerFactory<CreateProblemCubit>(
-        () => CreateProblemCubit(languageRepository: sl()));
+    sl.registerFactory<CreateProblemCubit>(() =>
+        CreateProblemCubit(languageRepository: sl(), problemRepository: sl()));
   }
 }

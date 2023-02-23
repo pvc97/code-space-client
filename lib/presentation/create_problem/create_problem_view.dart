@@ -72,6 +72,13 @@ class _CreateProblemViewState extends State<CreateProblemView> {
     //       accessCode: _accessCode!.trim(),
     //       teacherId: _selectedTeacher!.id,
     //     );
+
+    context.read<CreateProblemCubit>().createProblem(
+          name: _problemName!.trim(),
+          pointPerTestCase: _pointPerTestCase!,
+          courseId: widget.courseId,
+          languageId: int.parse(_selectedLanguage!.id),
+        );
   }
 
   void _selectPdf() async {
