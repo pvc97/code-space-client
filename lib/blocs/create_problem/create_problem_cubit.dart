@@ -47,4 +47,8 @@ class CreateProblemCubit extends Cubit<CreateProblemState> {
     newTestCases[index] = testCase;
     emit(state.copyWith(testCases: newTestCases));
   }
+
+  void updatePdfPath(String? path) {
+    emit(state.copyWith(pdfPath: path));
+  }
 }

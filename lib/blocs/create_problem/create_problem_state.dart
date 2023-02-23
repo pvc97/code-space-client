@@ -4,11 +4,13 @@ class CreateProblemState extends BaseState {
   final Iterable<LanguageModel> languages;
   final Iterable<TestCaseModel> testCases;
   final String? problemId;
+  final String? pdfPath;
 
   const CreateProblemState({
     required this.languages,
     required this.testCases,
     this.problemId,
+    this.pdfPath,
     required super.stateStatus,
     super.error,
   });
@@ -19,6 +21,7 @@ class CreateProblemState extends BaseState {
       languages: [],
       stateStatus: StateStatus.initial,
       problemId: null,
+      pdfPath: null,
     );
   }
 
@@ -28,6 +31,7 @@ class CreateProblemState extends BaseState {
     StateStatus? stateStatus,
     AppException? error,
     String? problemId,
+    String? pdfPath,
   }) {
     return CreateProblemState(
       languages: languages ?? this.languages,
@@ -35,9 +39,11 @@ class CreateProblemState extends BaseState {
       stateStatus: stateStatus ?? this.stateStatus,
       error: error ?? this.error,
       problemId: problemId ?? this.problemId,
+      pdfPath: pdfPath ?? this.pdfPath,
     );
   }
 
   @override
-  List<Object?> get props => [languages, testCases, problemId, ...super.props];
+  List<Object?> get props =>
+      [languages, testCases, problemId, pdfPath, ...super.props];
 }

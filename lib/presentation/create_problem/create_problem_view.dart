@@ -36,7 +36,7 @@ class _CreateProblemViewState extends State<CreateProblemView> {
   final _formKey = GlobalKey<FormState>();
   var _autovalidateMode = AutovalidateMode.disabled;
   final _searchLanguageController = TextEditingController();
-  String? _problemName, _pdfPath;
+  String? _problemName;
   int? _pointPerTestCase;
   // TODO: Add time limit
   BaseDropdownItem? _selectedLanguage;
@@ -72,6 +72,21 @@ class _CreateProblemViewState extends State<CreateProblemView> {
     //       accessCode: _accessCode!.trim(),
     //       teacherId: _selectedTeacher!.id,
     //     );
+  }
+
+  void _selectPdf() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+
+    final _pdfPath = result?.files.single.path;
+    if (_pdfPath == null) return;
+
+    // If screen is not mounted, do not update state
+    if (mounted) {
+      context.read<CreateProblemCubit>().updatePdfPath(_pdfPath);
+    }
   }
 
   @override
@@ -174,7 +189,8 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                         return null;
                       },
                       onSaved: (String? value) {
-                        _problemName = value;
+                        if (value == null) return;
+                        _pointPerTestCase = int.parse(value);
                       },
                     ),
                     Box.h16,
@@ -250,18 +266,17 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                     Row(
                       children: [
                         ElevatedButton(
-                          onPressed: () async {
-                            FilePickerResult? result =
-                                await FilePicker.platform.pickFiles(
-                              type: FileType.custom,
-                              allowedExtensions: ['pdf'],
-                            );
-                            _pdfPath = result?.files.single.path;
-                          },
+                          onPressed: _selectPdf,
                           child: Text(S.of(context).select_problem_file),
                         ),
                         Box.w20,
-                        Text(_pdfPath ?? '...'),
+                        BlocSelector<CreateProblemCubit, CreateProblemState,
+                            String?>(
+                          selector: (state) => state.pdfPath,
+                          builder: (context, pdfPath) {
+                            return Text(pdfPath ?? '...');
+                          },
+                        ),
                       ],
                     ),
                     Box.h16,
