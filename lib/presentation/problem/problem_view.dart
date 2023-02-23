@@ -1,4 +1,6 @@
+import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/models/problem_detail_model.dart';
+import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/presentation/problem/widgets/code_tab.dart';
 import 'package:code_space_client/presentation/problem/widgets/pdf_tab.dart';
 import 'package:code_space_client/utils/extensions/language_ext.dart';
@@ -60,9 +62,7 @@ class _ProblemViewState extends State<ProblemView> {
 
   @override
   Widget build(BuildContext context) {
-    // Access user info without using BlocBuilder
-    // final userCubit = context.read<UserCubit>();
-    // logger.d(userCubit.state.user?.roleType);
+    final user = context.select((UserCubit cubit) => cubit.state.user);
 
     final screenWidth = MediaQuery.of(context).size.width;
 
@@ -138,9 +138,12 @@ class _ProblemViewState extends State<ProblemView> {
         ),
         body: LayoutBuilder(
           builder: (context, constraints) {
-            if (constraints.maxWidth < 600) {
+            bool isManager = user?.roleType == RoleType.manager;
+            if (constraints.maxWidth < 600 || isManager) {
               return PageView(
-                physics: const ClampingScrollPhysics(),
+                physics: isManager
+                    ? const NeverScrollableScrollPhysics()
+                    : const ClampingScrollPhysics(),
                 onPageChanged: (index) {
                   context.read<ProblemCubit>().changeTab(
                         ProblemTab.values.elementAt(index),
@@ -172,27 +175,27 @@ class _ProblemViewState extends State<ProblemView> {
           },
         ),
         // Only show this button when current the tab is code or width >= 600
-        floatingActionButton:
-            BlocSelector<ProblemCubit, ProblemState, ProblemTab>(
-          selector: (ProblemState state) => state.problemTab,
-          builder: (context, state) {
-            if (state == ProblemTab.code || screenWidth >= 600) {
-              return FloatingActionButton(
-                onPressed: () {
-                  final sourceCode = _codeController.text;
-                  final problemId = widget.problemId;
+        floatingActionButton: (user?.roleType == RoleType.manager)
+            ? null
+            : BlocSelector<ProblemCubit, ProblemState, ProblemTab>(
+                selector: (ProblemState state) => state.problemTab,
+                builder: (context, state) {
+                  if (state == ProblemTab.code || screenWidth >= 600) {
+                    return FloatingActionButton(
+                      onPressed: () {
+                        final sourceCode = _codeController.text;
+                        final problemId = widget.problemId;
 
-                  context
-                      .read<ProblemCubit>()
-                      .submitCode(sourceCode: sourceCode, problemId: problemId);
+                        context.read<ProblemCubit>().submitCode(
+                            sourceCode: sourceCode, problemId: problemId);
+                      },
+                      child: const Icon(Icons.play_arrow),
+                    );
+                  }
+
+                  return const SizedBox.shrink();
                 },
-                child: const Icon(Icons.play_arrow),
-              );
-            }
-
-            return const SizedBox.shrink();
-          },
-        ),
+              ),
       ),
     );
   }

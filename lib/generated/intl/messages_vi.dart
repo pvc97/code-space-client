@@ -129,6 +129,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Lớp học này chưa có bài tập"),
         "total_point": MessageLookupByLibrary.simpleMessage("Tổng điểm"),
         "update": MessageLookupByLibrary.simpleMessage("Cập nhật"),
+        "user_list":
+            MessageLookupByLibrary.simpleMessage("Danh sách tài khoản"),
         "username": MessageLookupByLibrary.simpleMessage("Tài khoản"),
         "username_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Tài khoản không được để trống"),
