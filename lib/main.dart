@@ -11,7 +11,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_web_plugins/url_strategy.dart';
+// import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
@@ -22,7 +22,8 @@ void main() async {
   await AppConfigManager.init(environmentType: EnvironmentType.dev);
 
   // https://github.com/flutter/flutter/issues/107996
-  usePathUrlStrategy();
+  // TODO: Uncomment this line when the issue is fixed
+  // usePathUrlStrategy();
 
   runApp(
     MultiBlocProvider(
