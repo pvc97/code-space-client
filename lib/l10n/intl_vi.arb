@@ -68,5 +68,9 @@
   "invalid_point_per_test_case": "Điểm cho mỗi test case không hợp lệ",
   "list_of_test_cases": "Danh sách các test case:",
   "add_test_case": "Thêm test case",
-  "select_problem_file": "Chọn file đề bài:"
+  "select_problem_file": "Chọn file đề bài:",
+  "test_case": "Test case",
+  "stdin": "Dữ liệu đầu vào",
+  "expected_output": "Kết quả mong muốn",
+  "please_fill_all_fields": "Vui lòng điền đầy đủ thông tin"
 }

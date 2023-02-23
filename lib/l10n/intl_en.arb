@@ -68,5 +68,9 @@
   "invalid_point_per_test_case": "Invalid point per test case",
   "list_of_test_cases": "List of test cases:",
   "add_test_case": "Add test case",
-  "select_problem_file": "Select problem file:"
+  "select_problem_file": "Select problem file:",
+  "test_case": "Test case",
+  "stdin": "Stdin",
+  "expected_output": "Expected output",
+  "please_fill_all_fields": "Please fill all fields"
 }

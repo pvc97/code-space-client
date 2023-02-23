@@ -749,6 +749,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Test case`
+  String get test_case {
+    return Intl.message(
+      'Test case',
+      name: 'test_case',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stdin`
+  String get stdin {
+    return Intl.message(
+      'Stdin',
+      name: 'stdin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Expected output`
+  String get expected_output {
+    return Intl.message(
+      'Expected output',
+      name: 'expected_output',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please fill all fields`
+  String get please_fill_all_fields {
+    return Intl.message(
+      'Please fill all fields',
+      name: 'please_fill_all_fields',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

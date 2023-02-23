@@ -1,7 +1,9 @@
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
+import 'package:code_space_client/presentation/create_problem/widgets/test_case_dialog.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
@@ -153,6 +155,7 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                     ),
                     Box.h16,
                     TextFormField(
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         labelText: S.of(context).point_per_test_case,
@@ -192,7 +195,12 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                             children: [
                               Text(S.of(context).list_of_test_cases),
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showTestCaseDialog(
+                                    context,
+                                    const AddTestCaseAction(),
+                                  );
+                                },
                                 child: Text(S.of(context).add_test_case),
                               ),
                             ],

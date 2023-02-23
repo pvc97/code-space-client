@@ -1,11 +1,13 @@
 part of 'create_problem_cubit.dart';
 
 class CreateProblemState extends BaseState {
-  final List<LanguageModel> languages;
+  final Iterable<LanguageModel> languages;
+  final Iterable<TestCaseModel> testCases;
   final String? problemId;
 
   const CreateProblemState({
     required this.languages,
+    required this.testCases,
     this.problemId,
     required super.stateStatus,
     super.error,
@@ -13,6 +15,7 @@ class CreateProblemState extends BaseState {
 
   factory CreateProblemState.initial() {
     return const CreateProblemState(
+      testCases: [],
       languages: [],
       stateStatus: StateStatus.initial,
       problemId: null,
@@ -20,13 +23,15 @@ class CreateProblemState extends BaseState {
   }
 
   CreateProblemState copyWith({
-    List<LanguageModel>? languages,
+    Iterable<LanguageModel>? languages,
+    Iterable<TestCaseModel>? testCases,
     StateStatus? stateStatus,
     AppException? error,
     String? problemId,
   }) {
     return CreateProblemState(
       languages: languages ?? this.languages,
+      testCases: testCases ?? this.testCases,
       stateStatus: stateStatus ?? this.stateStatus,
       error: error ?? this.error,
       problemId: problemId ?? this.problemId,
@@ -34,5 +39,5 @@ class CreateProblemState extends BaseState {
   }
 
   @override
-  List<Object?> get props => [languages, problemId, ...super.props];
+  List<Object?> get props => [languages, testCases, problemId, ...super.props];
 }

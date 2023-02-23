@@ -63,6 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter name of language"),
         "enter_name_or_email_of_teacher": MessageLookupByLibrary.simpleMessage(
             "Enter name or email of teacher"),
+        "expected_output":
+            MessageLookupByLibrary.simpleMessage("Expected output"),
         "full_name": MessageLookupByLibrary.simpleMessage("Full name"),
         "full_name_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Full name cannot be empty"),
@@ -82,6 +84,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Password cannot be empty"),
         "passwords_do_not_match":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
+        "please_fill_all_fields":
+            MessageLookupByLibrary.simpleMessage("Please fill all fields"),
         "please_select_language":
             MessageLookupByLibrary.simpleMessage("Please select language"),
         "please_select_teacher":
@@ -115,7 +119,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Session expired"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
+        "stdin": MessageLookupByLibrary.simpleMessage("Stdin"),
         "teacher": MessageLookupByLibrary.simpleMessage("Teacher"),
+        "test_case": MessageLookupByLibrary.simpleMessage("Test case"),
         "the_course_has_no_problems":
             MessageLookupByLibrary.simpleMessage("The course has no problems"),
         "total_point": MessageLookupByLibrary.simpleMessage("Total point"),
