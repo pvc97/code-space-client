@@ -82,6 +82,10 @@ class _CreateProblemViewState extends State<CreateProblemView> {
   }
 
   void _selectPdf() async {
+    if (mounted) {
+      context.read<CreateProblemCubit>().setSelectingPdf(true);
+    }
+
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf'],
@@ -90,8 +94,12 @@ class _CreateProblemViewState extends State<CreateProblemView> {
     final pdfPath = result?.files.single.path;
 
     // If screen is not mounted, do not update state
-    if (mounted && pdfPath != null) {
-      context.read<CreateProblemCubit>().updatePdfPath(pdfPath);
+    if (mounted) {
+      if (pdfPath != null) {
+        context.read<CreateProblemCubit>().updatePdfPath(pdfPath);
+      } else {
+        context.read<CreateProblemCubit>().setSelectingPdf(false);
+      }
     }
   }
 
@@ -311,9 +319,15 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                     Box.h16,
                     Row(
                       children: [
-                        ElevatedButton(
-                          onPressed: _selectPdf,
-                          child: Text(S.of(context).select_problem_file),
+                        BlocSelector<CreateProblemCubit, CreateProblemState,
+                            bool>(
+                          selector: (state) => state.selectingPdf,
+                          builder: (context, selecting) {
+                            return ElevatedButton(
+                              onPressed: selecting ? null : _selectPdf,
+                              child: Text(S.of(context).select_problem_file),
+                            );
+                          },
                         ),
                         Box.w20,
                         BlocSelector<CreateProblemCubit, CreateProblemState,

@@ -54,7 +54,10 @@ class CreateProblemCubit extends Cubit<CreateProblemState> {
   }
 
   void updatePdfPath(String? path) {
-    emit(state.copyWith(pdfPath: path));
+    emit(state.copyWith(
+      pdfPath: path,
+      selectingPdf: false,
+    ));
   }
 
   void createProblem({
@@ -92,5 +95,9 @@ class CreateProblemCubit extends Cubit<CreateProblemState> {
         ),
       );
     }
+  }
+
+  void setSelectingPdf(bool selecting) {
+    emit(state.copyWith(selectingPdf: selecting));
   }
 }
