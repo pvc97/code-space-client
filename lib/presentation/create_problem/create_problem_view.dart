@@ -1,7 +1,3 @@
-import 'package:code_space_client/models/test_case_model.dart';
-import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
-import 'package:code_space_client/presentation/common_widgets/box.dart';
-import 'package:code_space_client/presentation/create_problem/widgets/test_case_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -10,24 +6,32 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
+
+import 'package:code_space_client/blocs/course_detail/course_detail_bloc.dart';
 import 'package:code_space_client/blocs/create_problem/create_problem_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/dropdown_item.dart';
 import 'package:code_space_client/models/language_model.dart';
+import 'package:code_space_client/models/test_case_model.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
+import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/presentation/common_widgets/search_dropdown_button.dart';
+import 'package:code_space_client/presentation/create_problem/widgets/test_case_dialog.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 
 class CreateProblemView extends StatefulWidget {
-  final String courseId;
   final bool me;
+  final String courseId;
+  final CourseDetailBloc? courseDetailBloc;
 
   const CreateProblemView({
     Key? key,
-    required this.courseId,
     required this.me,
+    required this.courseId,
+    this.courseDetailBloc,
   }) : super(key: key);
 
   @override
@@ -129,6 +133,13 @@ class _CreateProblemViewState extends State<CreateProblemView> {
           listener: (context, state) {
             final problemId = state.problemId;
             if (problemId != null) {
+              // When problem is created, reload list problem in course detail
+              // and navigate to problem detail page
+
+              widget.courseDetailBloc?.add(CourseDetailRefreshProblemsEvent(
+                courseId: widget.courseId,
+              ));
+
               context.goNamed(
                 AppRoute.problem.name,
                 params: {

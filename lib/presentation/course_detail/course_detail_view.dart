@@ -129,6 +129,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                       AppRoute.createProblem.name,
                       params: {'courseId': widget.courseId},
                       queryParams: widget.me ? {'me': 'true'} : {},
+                      extra: context.read<CourseDetailBloc>(),
                     );
                   },
                 ),
