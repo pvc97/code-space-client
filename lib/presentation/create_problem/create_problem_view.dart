@@ -325,9 +325,18 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                       ],
                     ),
                     Box.h16,
-                    AppElevatedButton(
-                      onPressed: _submit,
-                      text: S.of(context).create,
+                    BlocBuilder<CreateProblemCubit, CreateProblemState>(
+                      builder: (context, state) {
+                        final testCases = state.testCases;
+                        final pdfPath = state.pdfPath;
+
+                        return AppElevatedButton(
+                          onPressed: (testCases.isNotEmpty && pdfPath != null)
+                              ? _submit
+                              : null,
+                          text: S.of(context).create,
+                        );
+                      },
                     )
                   ],
                 ),
