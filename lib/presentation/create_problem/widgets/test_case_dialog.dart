@@ -26,6 +26,7 @@ class EditTestCaseAction extends TestCaseAction {
 void showTestCaseDialog(BuildContext ctx, TestCaseAction action) {
   final CreateProblemCubit cubit = ctx.read<CreateProblemCubit>();
   String? stdin0, expectedOutput0;
+  bool showTestCase = false;
 
   showDialog(
     context: ctx,
@@ -58,6 +59,24 @@ void showTestCaseDialog(BuildContext ctx, TestCaseAction action) {
                 expectedOutput0 = value.trim();
               },
             ),
+            Box.h12,
+            Row(
+              children: [
+                Text(S.of(context).show_when_wrong),
+                StatefulBuilder(
+                  builder: (context, setState) {
+                    return Checkbox(
+                      value: showTestCase,
+                      onChanged: (value) {
+                        setState(() {
+                          showTestCase = !showTestCase;
+                        });
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
           ],
         ),
         actions: [
@@ -83,12 +102,20 @@ void showTestCaseDialog(BuildContext ctx, TestCaseAction action) {
 
               if (action is AddTestCaseAction) {
                 cubit.addTestCase(
-                  TestCaseModel(stdin: stdin, expectedOutput: expectedOutput),
+                  TestCaseModel(
+                    stdin: stdin,
+                    expectedOutput: expectedOutput,
+                    show: showTestCase,
+                  ),
                 );
               } else if (action is EditTestCaseAction) {
                 cubit.editTestCase(
                   action.index,
-                  TestCaseModel(stdin: stdin, expectedOutput: expectedOutput),
+                  TestCaseModel(
+                    stdin: stdin,
+                    expectedOutput: expectedOutput,
+                    show: showTestCase,
+                  ),
                 );
               }
 

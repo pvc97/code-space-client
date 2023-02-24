@@ -74,5 +74,6 @@
   "expected_output": "Kết quả mong muốn:",
   "please_fill_all_fields": "Vui lòng điền đầy đủ thông tin",
   "course": "Lớp học",
-  "user_list": "Danh sách tài khoản"
+  "user_list": "Danh sách tài khoản",
+  "show_when_wrong": "Hiển thị khi sai"
 }
