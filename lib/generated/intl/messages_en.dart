@@ -119,6 +119,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "session_expired":
             MessageLookupByLibrary.simpleMessage("Session expired"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "show_when_wrong":
+            MessageLookupByLibrary.simpleMessage("Show when wrong:"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign up"),
         "stdin": MessageLookupByLibrary.simpleMessage("Stdin:"),
         "teacher": MessageLookupByLibrary.simpleMessage("Teacher"),

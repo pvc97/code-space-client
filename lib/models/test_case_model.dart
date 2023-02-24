@@ -6,10 +6,12 @@ part 'test_case_model.g.dart';
 class TestCaseModel {
   final String stdin;
   final String expectedOutput;
+  final bool show; // Show when wrong
 
   TestCaseModel({
     required this.stdin,
     required this.expectedOutput,
+    required this.show,
   });
 
   factory TestCaseModel.fromJson(Map<String, dynamic> json) =>

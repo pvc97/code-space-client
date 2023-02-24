@@ -23,9 +23,24 @@ class EditTestCaseAction extends TestCaseAction {
   });
 }
 
-void showTestCaseDialog(BuildContext ctx, TestCaseAction action) {
+void showTestCaseDialog({
+  required BuildContext ctx,
+  required TestCaseAction action,
+  required TextEditingController stdinController,
+  required TextEditingController expectedOutputController,
+}) {
   final CreateProblemCubit cubit = ctx.read<CreateProblemCubit>();
-  String? stdin0, expectedOutput0;
+
+  bool showTestCase = false;
+
+  if (action is EditTestCaseAction) {
+    stdinController.text = action.testCase.stdin;
+    expectedOutputController.text = action.testCase.expectedOutput;
+    showTestCase = action.testCase.show;
+  } else if (action is AddTestCaseAction) {
+    stdinController.clear();
+    expectedOutputController.clear();
+  }
 
   showDialog(
     context: ctx,
@@ -36,27 +51,41 @@ void showTestCaseDialog(BuildContext ctx, TestCaseAction action) {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
+              controller: stdinController,
               keyboardType: TextInputType.multiline,
               maxLines: null,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 labelText: S.of(context).stdin,
               ),
-              onChanged: (value) {
-                stdin0 = value.trim();
-              },
             ),
             Box.h12,
             TextField(
+              controller: expectedOutputController,
               keyboardType: TextInputType.multiline,
               maxLines: null,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 labelText: S.of(context).expected_output,
               ),
-              onChanged: (value) {
-                expectedOutput0 = value.trim();
-              },
+            ),
+            Box.h12,
+            Row(
+              children: [
+                Text(S.of(context).show_when_wrong),
+                StatefulBuilder(
+                  builder: (context, setState) {
+                    return Checkbox(
+                      value: showTestCase,
+                      onChanged: (value) {
+                        setState(() {
+                          showTestCase = !showTestCase;
+                        });
+                      },
+                    );
+                  },
+                ),
+              ],
             ),
           ],
         ),
@@ -67,12 +96,9 @@ void showTestCaseDialog(BuildContext ctx, TestCaseAction action) {
           ),
           TextButton(
             onPressed: () {
-              final stdin = stdin0;
-              final expectedOutput = expectedOutput0;
-              if (stdin == null ||
-                  stdin.isEmpty ||
-                  expectedOutput == null ||
-                  expectedOutput.isEmpty) {
+              final stdin = stdinController.text.trim();
+              final expectedOutput = expectedOutputController.text.trim();
+              if (stdin.isEmpty || expectedOutput.isEmpty) {
                 EasyLoading.showInfo(
                   dismissOnTap: true,
                   duration: const Duration(seconds: 1),
@@ -83,12 +109,20 @@ void showTestCaseDialog(BuildContext ctx, TestCaseAction action) {
 
               if (action is AddTestCaseAction) {
                 cubit.addTestCase(
-                  TestCaseModel(stdin: stdin, expectedOutput: expectedOutput),
+                  TestCaseModel(
+                    stdin: stdin,
+                    expectedOutput: expectedOutput,
+                    show: showTestCase,
+                  ),
                 );
               } else if (action is EditTestCaseAction) {
                 cubit.editTestCase(
                   action.index,
-                  TestCaseModel(stdin: stdin, expectedOutput: expectedOutput),
+                  TestCaseModel(
+                    stdin: stdin,
+                    expectedOutput: expectedOutput,
+                    show: showTestCase,
+                  ),
                 );
               }
 

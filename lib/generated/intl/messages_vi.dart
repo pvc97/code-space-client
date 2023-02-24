@@ -121,6 +121,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "session_expired":
             MessageLookupByLibrary.simpleMessage("Phiên đăng nhập đã hết hạn"),
         "settings": MessageLookupByLibrary.simpleMessage("Cài đặt"),
+        "show_when_wrong":
+            MessageLookupByLibrary.simpleMessage("Hiển thị khi làm sai:"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Đăng ký"),
         "stdin": MessageLookupByLibrary.simpleMessage("Dữ liệu đầu vào:"),
         "teacher": MessageLookupByLibrary.simpleMessage("Giảng viên"),

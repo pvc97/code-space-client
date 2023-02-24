@@ -809,6 +809,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Show when wrong:`
+  String get show_when_wrong {
+    return Intl.message(
+      'Show when wrong:',
+      name: 'show_when_wrong',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
