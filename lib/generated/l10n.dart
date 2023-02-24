@@ -810,10 +810,10 @@ class S {
     );
   }
 
-  /// `Show when wrong`
+  /// `Show when wrong:`
   String get show_when_wrong {
     return Intl.message(
-      'Show when wrong',
+      'Show when wrong:',
       name: 'show_when_wrong',
       desc: '',
       args: [],

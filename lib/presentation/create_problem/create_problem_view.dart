@@ -40,6 +40,8 @@ class _CreateProblemViewState extends State<CreateProblemView> {
   final _formKey = GlobalKey<FormState>();
   var _autovalidateMode = AutovalidateMode.disabled;
   final _searchLanguageController = TextEditingController();
+  final _stdinController = TextEditingController();
+  final _expectedOutputController = TextEditingController();
   String? _problemName;
   int? _pointPerTestCase;
   // TODO: Add time limit
@@ -115,6 +117,8 @@ class _CreateProblemViewState extends State<CreateProblemView> {
   @override
   void dispose() {
     _searchLanguageController.dispose();
+    _stdinController.dispose();
+    _expectedOutputController.dispose();
     super.dispose();
   }
 
@@ -241,8 +245,11 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                               ElevatedButton(
                                 onPressed: () {
                                   showTestCaseDialog(
-                                    context,
-                                    const AddTestCaseAction(),
+                                    ctx: context,
+                                    action: const AddTestCaseAction(),
+                                    stdinController: _stdinController,
+                                    expectedOutputController:
+                                        _expectedOutputController,
                                   );
                                 },
                                 child: Text(S.of(context).add_test_case),
@@ -288,6 +295,24 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                                           Text(S.of(context).expected_output),
                                           SelectableText(
                                               testCase.expectedOutput),
+                                          Box.h4,
+                                          Row(
+                                            children: [
+                                              Text(S
+                                                  .of(context)
+                                                  .show_when_wrong),
+                                              Box.w4,
+                                              testCase.show
+                                                  ? const Icon(
+                                                      Icons.check_box,
+                                                      color: Colors.blue,
+                                                    )
+                                                  : const Icon(
+                                                      Icons.close,
+                                                      color: Colors.red,
+                                                    ),
+                                            ],
+                                          ),
                                         ],
                                       ),
                                       Column(
@@ -295,11 +320,15 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                                           IconButton(
                                             onPressed: () {
                                               showTestCaseDialog(
-                                                context,
-                                                EditTestCaseAction(
+                                                ctx: context,
+                                                action: EditTestCaseAction(
                                                   index: index,
                                                   testCase: testCase,
                                                 ),
+                                                stdinController:
+                                                    _stdinController,
+                                                expectedOutputController:
+                                                    _expectedOutputController,
                                               );
                                             },
                                             icon: Icon(
