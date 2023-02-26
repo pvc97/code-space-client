@@ -67,6 +67,7 @@ final GoRouter router = GoRouter(
               child: CourseListScreen(
                 me: me,
                 key: ValueKey(me),
+                // Add key to force rebuild when me changes
               ),
             );
           },
