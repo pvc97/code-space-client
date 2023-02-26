@@ -1,7 +1,7 @@
-import 'package:code_space_client/router/app_router.dart';
-import 'package:flutter/foundation.dart';
+// import 'package:code_space_client/router/app_router.dart';
+// import 'package:flutter/foundation.dart';
+// import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class AdaptiveAppBar extends AppBar {
   AdaptiveAppBar({
@@ -19,13 +19,13 @@ class AdaptiveAppBar extends AppBar {
           actions: actions,
           backgroundColor: backgroundColor,
           bottom: bottom,
-          leading: kIsWeb
-              ? IconButton(
-                  onPressed: () {
-                    context.goNamed(AppRoute.home.name);
-                  },
-                  icon: const Icon(Icons.home),
-                )
-              : null,
+          // leading: kIsWeb
+          //     ? IconButton(
+          //         onPressed: () {
+          //           context.goNamed(AppRoute.home.name);
+          //         },
+          //         icon: const Icon(Icons.home),
+          //       )
+          //     : null,
         );
 }

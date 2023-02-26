@@ -5,6 +5,7 @@ import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/router/app_router.dart';
+import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +31,7 @@ class _CourseListViewState extends State<CourseListView> {
   @override
   void dispose() {
     _scrollController.dispose();
+    logger.d('CourseListView dispose: me =  ${widget.me}');
     super.dispose();
   }
 
