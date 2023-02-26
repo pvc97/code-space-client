@@ -43,7 +43,9 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
             : Row(
                 children: [
                   NavigationRail(
-                    minWidth: Sizes.s108,
+                    // TODO: Bug about wrong hightlight, see:
+                    // https://github.com/flutter/flutter/issues/117126
+                    // From this issue, flutter team said it fixed, but it's not
                     elevation: Sizes.s4,
                     backgroundColor: AppColor.primaryColor.shade100,
                     selectedIndex: _calculateSelectedIndex(context),
