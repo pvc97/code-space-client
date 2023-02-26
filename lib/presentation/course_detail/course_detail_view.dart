@@ -217,7 +217,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                                     width: double.infinity,
                                     alignment: Alignment.bottomLeft,
                                     padding: const EdgeInsets.only(
-                                      top: Sizes.s56,
+                                      top: Sizes.s48,
                                       bottom: Sizes.s12,
                                       left: Sizes.s12,
                                       right: Sizes.s12,
