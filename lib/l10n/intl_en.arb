@@ -76,5 +76,6 @@
   "course": "Course",
   "user_list": "User list",
   "show_when_wrong": "Show when wrong:",
-  "accounts": "Accounts"
+  "accounts": "Accounts",
+  "courses": "Courses"
 }

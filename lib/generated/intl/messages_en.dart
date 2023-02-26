@@ -48,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "course_name": MessageLookupByLibrary.simpleMessage("Course name"),
         "course_name_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Course name cannot be empty"),
+        "courses": MessageLookupByLibrary.simpleMessage("Courses"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
         "create_new_course":
             MessageLookupByLibrary.simpleMessage("Create new course"),

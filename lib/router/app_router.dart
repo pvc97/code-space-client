@@ -235,6 +235,7 @@ final GoRouter router = GoRouter(
 
     if (subloc == '/login') {
       if (loggedIn) {
+        // Because /courses is the screen that is shown when the user is logged in
         return '/courses';
       } else {
         return null;

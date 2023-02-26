@@ -48,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "course_name": MessageLookupByLibrary.simpleMessage("Tên lớp học"),
         "course_name_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Tên lớp học không được để trống"),
+        "courses": MessageLookupByLibrary.simpleMessage("Lớp học"),
         "create": MessageLookupByLibrary.simpleMessage("Tạo"),
         "create_new_course":
             MessageLookupByLibrary.simpleMessage("Tạo lớp học mới"),

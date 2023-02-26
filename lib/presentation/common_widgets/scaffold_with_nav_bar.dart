@@ -5,6 +5,7 @@ import 'package:code_space_client/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 // Follow example from:
 // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/shell_route.dart
@@ -35,20 +36,20 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
-            label: S.of(context).course,
+            icon: const Icon(Bootstrap.book_half),
+            label: S.of(context).courses,
           ),
           (user?.roleType != RoleType.manager)
               ? BottomNavigationBarItem(
-                  icon: const Icon(Icons.class_),
+                  icon: const Icon(Bootstrap.bookmark_heart),
                   label: S.of(context).my_courses,
                 )
               : BottomNavigationBarItem(
-                  icon: const Icon(Icons.account_balance),
+                  icon: const Icon(Bootstrap.people),
                   label: S.of(context).accounts,
                 ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.person),
+            icon: const Icon(Bootstrap.person),
             label: S.of(context).profile,
           ),
         ],
