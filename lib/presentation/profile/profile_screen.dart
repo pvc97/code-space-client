@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -80,12 +81,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         appBar: AdaptiveAppBar(
           context: context,
           title: Text(S.of(context).profile),
+          showHomeButton: false,
           actions: [
             IconButton(
               onPressed: () {
                 context.goNamed(AppRoute.settings.name);
               },
-              icon: const Icon(Icons.settings),
+              icon: const Icon(Bootstrap.gear),
             )
           ],
         ),

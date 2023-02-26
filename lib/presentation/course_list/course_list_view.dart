@@ -75,23 +75,27 @@ class _CourseListViewState extends State<CourseListView> {
       child: Scaffold(
         appBar: AdaptiveAppBar(
           context: context,
-          title: TextField(
-            decoration: InputDecoration(
-              // border: InputBorder.none,
-              border: const OutlineInputBorder(borderSide: BorderSide.none),
-              enabledBorder:
-                  const OutlineInputBorder(borderSide: BorderSide.none),
-              hintText: S.of(context).search_course,
-              prefixIcon: const Icon(Icons.search),
-              fillColor: Colors.white,
-              filled: true,
-              // Make textfield height smaller
-              isDense: true,
-              contentPadding: const EdgeInsets.all(Sizes.s8),
+          showHomeButton: false,
+          title: Container(
+            margin: const EdgeInsets.symmetric(horizontal: Sizes.s16),
+            child: TextField(
+              decoration: InputDecoration(
+                // border: InputBorder.none,
+                border: const OutlineInputBorder(borderSide: BorderSide.none),
+                enabledBorder:
+                    const OutlineInputBorder(borderSide: BorderSide.none),
+                hintText: S.of(context).search_course,
+                prefixIcon: const Icon(Icons.search),
+                fillColor: Colors.white,
+                filled: true,
+                // Make textfield height smaller
+                isDense: true,
+                contentPadding: const EdgeInsets.all(Sizes.s8),
+              ),
+              onChanged: (value) {
+                _searchCourse(value);
+              },
             ),
-            onChanged: (value) {
-              _searchCourse(value);
-            },
           ),
           actions: [
             if (user?.roleType == RoleType.manager)
