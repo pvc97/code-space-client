@@ -57,7 +57,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
                         ),
                         selectedIcon: const Icon(
                           Bootstrap.book_half,
-                          color: AppColor.primaryColor,
+                          color: AppColor.selectedNavIconColor,
                         ),
                         label: Text(S.of(context).courses),
                       ),
@@ -69,7 +69,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
                               ),
                               selectedIcon: const Icon(
                                 Bootstrap.bookmark_heart_fill,
-                                color: AppColor.primaryColor,
+                                color: AppColor.selectedNavIconColor,
                               ),
                               label: Text(S.of(context).my_courses),
                             )
@@ -80,7 +80,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
                               ),
                               selectedIcon: const Icon(
                                 Bootstrap.people_fill,
-                                color: AppColor.primaryColor,
+                                color: AppColor.selectedNavIconColor,
                               ),
                               label: Text(S.of(context).accounts),
                             ),
@@ -92,7 +92,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
                         ),
                         selectedIcon: const Icon(
                           Bootstrap.person_fill,
-                          color: AppColor.primaryColor,
+                          color: AppColor.selectedNavIconColor,
                         ),
                       ),
                     ],
@@ -116,7 +116,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
                     ),
                     selectedIcon: const Icon(
                       Bootstrap.book_half,
-                      color: AppColor.primaryColor,
+                      color: AppColor.selectedNavIconColor,
                     ),
                     label: S.of(context).courses,
                   ),
@@ -128,7 +128,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
                           ),
                           selectedIcon: const Icon(
                             Bootstrap.bookmark_heart_fill,
-                            color: AppColor.primaryColor,
+                            color: AppColor.selectedNavIconColor,
                           ),
                           label: S.of(context).my_courses,
                         )
@@ -139,7 +139,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
                           ),
                           selectedIcon: const Icon(
                             Bootstrap.people_fill,
-                            color: AppColor.primaryColor,
+                            color: AppColor.selectedNavIconColor,
                           ),
                           label: S.of(context).accounts,
                         ),
@@ -150,7 +150,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
                     ),
                     selectedIcon: const Icon(
                       Bootstrap.person_fill,
-                      color: AppColor.primaryColor,
+                      color: AppColor.selectedNavIconColor,
                     ),
                     label: S.of(context).profile,
                   ),

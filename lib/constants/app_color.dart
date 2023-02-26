@@ -6,4 +6,6 @@ class AppColor {
   static const primaryColor = Colors.green;
 
   static const appBarTextColor = Colors.white;
+
+  static const selectedNavIconColor = Colors.pink;
 }
