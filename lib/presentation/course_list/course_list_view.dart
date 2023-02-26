@@ -77,7 +77,7 @@ class _CourseListViewState extends State<CourseListView> {
           context: context,
           showHomeButton: false,
           title: Container(
-            margin: const EdgeInsets.symmetric(horizontal: Sizes.s16),
+            margin: const EdgeInsets.only(left: Sizes.s16, right: Sizes.s8),
             child: TextField(
               decoration: InputDecoration(
                 // border: InputBorder.none,
