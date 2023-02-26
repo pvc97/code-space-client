@@ -1,10 +1,12 @@
 import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/injection_container.dart';
+import 'package:code_space_client/presentation/account/account_screen.dart';
 import 'package:code_space_client/presentation/auth/sign_up_screen.dart';
 import 'package:code_space_client/presentation/course_detail/course_detail_screen.dart';
 import 'package:code_space_client/presentation/course_list/course_list_screen.dart';
 import 'package:code_space_client/presentation/create_course/create_course_screen.dart';
 import 'package:code_space_client/presentation/create_problem/create_problem_screen.dart';
+import 'package:code_space_client/presentation/common_widgets/scaffold_with_nav_bar.dart';
 import 'package:code_space_client/presentation/problem/problem_screen.dart';
 import 'package:code_space_client/presentation/problem_history/problem_history_screen.dart';
 import 'package:code_space_client/presentation/problem_result/problem_result_screen.dart';
@@ -14,18 +16,17 @@ import 'package:code_space_client/presentation/setting/setting_screen.dart';
 import 'package:code_space_client/router/adaptive_transition_page.dart';
 import 'package:code_space_client/router/go_router_refresh_stream.dart';
 import 'package:code_space_client/presentation/auth/login_screen.dart';
-import 'package:code_space_client/presentation/home/home_screen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 enum AppRoute {
-  home,
   login,
   signUp,
   courses,
   problem,
   ranking,
   profile,
+  account,
   settings,
   courseDetail,
   createCourse,
@@ -34,7 +35,15 @@ enum AppRoute {
   problemHistory,
 }
 
+// NOTE: All screen wrap by ShellRoute don't need to use bottom navigation bar
+// have to use _rootNavigatorKey
+final GlobalKey<NavigatorState> _rootNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'root');
+final GlobalKey<NavigatorState> _shellNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shell');
+
 final GoRouter router = GoRouter(
+  navigatorKey: _rootNavigatorKey,
   routes: [
     GoRoute(
       path: '/login',
@@ -46,30 +55,32 @@ final GoRouter router = GoRouter(
         );
       },
     ),
-    GoRoute(
-      path: '/',
-      name: AppRoute.home.name,
-      pageBuilder: (context, state) {
-        return AdaptiveTransitionPage.create(
-          state.pageKey,
-          child: const HomeScreen(),
-        );
+    ShellRoute(
+      navigatorKey: _shellNavigatorKey,
+      builder: (BuildContext context, GoRouterState state, Widget child) {
+        return ScaffoldWithNavBar(child: child);
       },
       routes: [
         GoRoute(
-          path: 'courses',
+          path: '/courses',
           name: AppRoute.courses.name,
           pageBuilder: (context, state) {
             final me = state.queryParams['me'] == 'true';
-            return AdaptiveTransitionPage.create(
-              state.pageKey,
-              child: CourseListScreen(me: me),
+            return NoTransitionPage(
+              key: state.pageKey,
+              child: CourseListScreen(
+                me: me,
+                key: ValueKey(me),
+                // Add key to force rebuild when me changes
+              ),
             );
           },
           routes: [
             GoRoute(
               path: 'create',
               name: AppRoute.createCourse.name,
+              parentNavigatorKey:
+                  _rootNavigatorKey, // Open new screen without bottom nav bar
               pageBuilder: (context, state) {
                 return AdaptiveTransitionPage.create(
                   state.pageKey,
@@ -80,6 +91,7 @@ final GoRouter router = GoRouter(
             GoRoute(
               path: ':courseId',
               name: AppRoute.courseDetail.name,
+              parentNavigatorKey: _rootNavigatorKey,
               pageBuilder: (context, state) {
                 return AdaptiveTransitionPage.create(
                   state.pageKey,
@@ -93,6 +105,7 @@ final GoRouter router = GoRouter(
                 GoRoute(
                   path: 'create',
                   name: AppRoute.createProblem.name,
+                  parentNavigatorKey: _rootNavigatorKey,
                   pageBuilder: (context, state) {
                     return AdaptiveTransitionPage.create(
                       state.pageKey,
@@ -107,6 +120,7 @@ final GoRouter router = GoRouter(
                 GoRoute(
                   path: 'problem/:problemId',
                   name: AppRoute.problem.name,
+                  parentNavigatorKey: _rootNavigatorKey,
                   pageBuilder: (context, state) {
                     return AdaptiveTransitionPage.create(
                       state.pageKey,
@@ -121,6 +135,7 @@ final GoRouter router = GoRouter(
                     GoRoute(
                       path: 'submit/:submitId',
                       name: AppRoute.problemResult.name,
+                      parentNavigatorKey: _rootNavigatorKey,
                       pageBuilder: (context, state) {
                         return AdaptiveTransitionPage.create(
                           state.pageKey,
@@ -132,6 +147,7 @@ final GoRouter router = GoRouter(
                     GoRoute(
                       path: 'history',
                       name: AppRoute.problemHistory.name,
+                      parentNavigatorKey: _rootNavigatorKey,
                       pageBuilder: (context, state) {
                         return AdaptiveTransitionPage.create(
                           state.pageKey,
@@ -148,6 +164,7 @@ final GoRouter router = GoRouter(
                 GoRoute(
                   path: 'ranking',
                   name: AppRoute.ranking.name,
+                  parentNavigatorKey: _rootNavigatorKey,
                   pageBuilder: (context, state) {
                     return AdaptiveTransitionPage.create(
                       state.pageKey,
@@ -163,22 +180,35 @@ final GoRouter router = GoRouter(
           ],
         ),
         GoRoute(
-          path: 'profile',
+          path: '/profile',
           name: AppRoute.profile.name,
           pageBuilder: (context, state) {
-            return AdaptiveTransitionPage.create(
-              state.pageKey,
+            return NoTransitionPage(
+              key: state.pageKey,
               child: const ProfileScreen(),
             );
           },
+          routes: [
+            GoRoute(
+              path: 'setting',
+              name: AppRoute.settings.name,
+              parentNavigatorKey: _rootNavigatorKey,
+              pageBuilder: (context, state) {
+                return AdaptiveTransitionPage.create(
+                  state.pageKey,
+                  child: const SettingScreen(),
+                );
+              },
+            ),
+          ],
         ),
         GoRoute(
-          path: 'setting',
-          name: AppRoute.settings.name,
+          path: '/account',
+          name: AppRoute.account.name,
           pageBuilder: (context, state) {
-            return AdaptiveTransitionPage.create(
-              state.pageKey,
-              child: const SettingScreen(),
+            return NoTransitionPage(
+              key: state.pageKey,
+              child: const AccountScreen(),
             );
           },
         ),
@@ -205,7 +235,8 @@ final GoRouter router = GoRouter(
 
     if (subloc == '/login') {
       if (loggedIn) {
-        return '/';
+        // Because /courses is the screen that is shown when the user is logged in
+        return '/courses';
       } else {
         return null;
       }

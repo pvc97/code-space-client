@@ -93,23 +93,27 @@ class _CourseDetailViewState extends State<CourseDetailView> {
         child: Scaffold(
           appBar: AdaptiveAppBar(
             context: context,
-            title: TextField(
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(borderSide: BorderSide.none),
-                enabledBorder:
-                    const OutlineInputBorder(borderSide: BorderSide.none),
-                prefixIcon: const Icon(Icons.search),
-                hintText: S.of(context).search_problem,
-                fillColor: Colors.white,
-                filled: true,
-                // Make textfield height smaller
-                isDense: true,
-                contentPadding: const EdgeInsets.all(Sizes.s8),
+            centerTitle: false,
+            title: Container(
+              margin: const EdgeInsets.only(right: Sizes.s8),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(borderSide: BorderSide.none),
+                  enabledBorder:
+                      const OutlineInputBorder(borderSide: BorderSide.none),
+                  prefixIcon: const Icon(Icons.search),
+                  hintText: S.of(context).search_problem,
+                  fillColor: Colors.white,
+                  filled: true,
+                  // Make textfield height smaller
+                  isDense: true,
+                  contentPadding: const EdgeInsets.all(Sizes.s8),
+                ),
+                controller: _searchController,
+                onChanged: (value) {
+                  _searchProblem(value);
+                },
               ),
-              controller: _searchController,
-              onChanged: (value) {
-                _searchProblem(value);
-              },
             ),
             actions: [
               IconButton(

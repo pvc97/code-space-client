@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "access_code": MessageLookupByLibrary.simpleMessage("Mã truy cập"),
         "access_code_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Mã truy cập không được để trống"),
+        "accounts": MessageLookupByLibrary.simpleMessage("Tài khoản"),
         "add_test_case": MessageLookupByLibrary.simpleMessage("Thêm mới"),
         "an_error_occurred":
             MessageLookupByLibrary.simpleMessage("Có lỗi xảy ra"),
@@ -47,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "course_name": MessageLookupByLibrary.simpleMessage("Tên lớp học"),
         "course_name_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Tên lớp học không được để trống"),
+        "courses": MessageLookupByLibrary.simpleMessage("Lớp học"),
         "create": MessageLookupByLibrary.simpleMessage("Tạo"),
         "create_new_course":
             MessageLookupByLibrary.simpleMessage("Tạo lớp học mới"),
@@ -102,16 +104,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "problem_result":
             MessageLookupByLibrary.simpleMessage("Kết quả chấm bài"),
         "problem_tab": MessageLookupByLibrary.simpleMessage("Đề bài"),
-        "profile": MessageLookupByLibrary.simpleMessage("Hồ sơ"),
+        "profile": MessageLookupByLibrary.simpleMessage("Tôi"),
         "ranking": MessageLookupByLibrary.simpleMessage("Bảng xếp hạng"),
         "role": MessageLookupByLibrary.simpleMessage("Chức vụ"),
         "role_manager": MessageLookupByLibrary.simpleMessage("Quản lý"),
         "role_student": MessageLookupByLibrary.simpleMessage("Học viên"),
         "role_teacher": MessageLookupByLibrary.simpleMessage("Giảng viên"),
         "search_course":
-            MessageLookupByLibrary.simpleMessage("Tìm kiếm lớp học"),
+            MessageLookupByLibrary.simpleMessage("Tìm kiếm lớp học..."),
         "search_problem":
-            MessageLookupByLibrary.simpleMessage("Tìm kiếm bài tập"),
+            MessageLookupByLibrary.simpleMessage("Tìm kiếm bài tập..."),
         "select_languages":
             MessageLookupByLibrary.simpleMessage("Chọn ngôn ngữ"),
         "select_problem_file":

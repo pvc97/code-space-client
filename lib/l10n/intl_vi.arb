@@ -15,9 +15,9 @@
   "passwords_do_not_match": "Mật khẩu không khớp",
   "course_list": "Danh sách lớp học",
   "my_courses": "Lớp học của tôi",
-  "profile": "Hồ sơ",
+  "profile": "Tôi",
   "settings": "Cài đặt",
-  "search_course": "Tìm kiếm lớp học",
+  "search_course": "Tìm kiếm lớp học...",
   "problem_tab": "Đề bài",
   "code_tab": "Bài làm",
   "problem_result": "Kết quả chấm bài",
@@ -39,7 +39,7 @@
   "role_manager": "Quản lý",
   "vietnamese": "Tiếng Việt",
   "english": "Tiếng Anh",
-  "search_problem": "Tìm kiếm bài tập",
+  "search_problem": "Tìm kiếm bài tập...",
   "teacher": "Giảng viên",
   "course_code": "Mã lớp học",
   "access_code": "Mã truy cập",
@@ -75,5 +75,7 @@
   "please_fill_all_fields": "Vui lòng điền đầy đủ thông tin",
   "course": "Lớp học",
   "user_list": "Danh sách tài khoản",
-  "show_when_wrong": "Hiển thị khi làm sai:"
+  "show_when_wrong": "Hiển thị khi làm sai:",
+  "accounts": "Tài khoản",
+  "courses": "Lớp học"
 }

@@ -5,6 +5,7 @@ import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/router/app_router.dart';
+import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +31,7 @@ class _CourseListViewState extends State<CourseListView> {
   @override
   void dispose() {
     _scrollController.dispose();
+    logger.d('CourseListView dispose: me =  ${widget.me}');
     super.dispose();
   }
 
@@ -73,24 +75,27 @@ class _CourseListViewState extends State<CourseListView> {
       child: Scaffold(
         appBar: AdaptiveAppBar(
           context: context,
-          backgroundColor: widget.me ? Colors.green : Colors.pink,
-          title: TextField(
-            decoration: InputDecoration(
-              // border: InputBorder.none,
-              border: const OutlineInputBorder(borderSide: BorderSide.none),
-              enabledBorder:
-                  const OutlineInputBorder(borderSide: BorderSide.none),
-              hintText: S.of(context).search_course,
-              prefixIcon: const Icon(Icons.search),
-              fillColor: Colors.white,
-              filled: true,
-              // Make textfield height smaller
-              isDense: true,
-              contentPadding: const EdgeInsets.all(Sizes.s8),
+          showHomeButton: false,
+          title: Container(
+            margin: const EdgeInsets.symmetric(horizontal: Sizes.s16),
+            child: TextField(
+              decoration: InputDecoration(
+                // border: InputBorder.none,
+                border: const OutlineInputBorder(borderSide: BorderSide.none),
+                enabledBorder:
+                    const OutlineInputBorder(borderSide: BorderSide.none),
+                hintText: S.of(context).search_course,
+                prefixIcon: const Icon(Icons.search),
+                fillColor: Colors.white,
+                filled: true,
+                // Make textfield height smaller
+                isDense: true,
+                contentPadding: const EdgeInsets.all(Sizes.s8),
+              ),
+              onChanged: (value) {
+                _searchCourse(value);
+              },
             ),
-            onChanged: (value) {
-              _searchCourse(value);
-            },
           ),
           actions: [
             if (user?.roleType == RoleType.manager)

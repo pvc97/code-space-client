@@ -4,6 +4,8 @@ import 'package:code_space_client/configs/app_config_manager.dart';
 import 'package:code_space_client/configs/environment_type.dart';
 import 'package:code_space_client/blocs/locale/locale_cubit.dart';
 import 'package:code_space_client/blocs/user/user_cubit.dart';
+import 'package:code_space_client/constants/app_color.dart';
+import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/injection_container.dart';
@@ -68,7 +70,16 @@ class _MyAppState extends State<MyApp> {
           ),
           title: 'Code Space',
           theme: ThemeData(
-            primarySwatch: Colors.pink,
+            useMaterial3: true,
+            colorSchemeSeed: AppColor.primaryColor,
+            appBarTheme: const AppBarTheme(
+              color: AppColor.primaryColor,
+              iconTheme: IconThemeData(color: Colors.white),
+              titleTextStyle: TextStyle(
+                color: AppColor.appBarTextColor,
+                fontSize: Sizes.s20,
+              ),
+            ),
           ),
           debugShowCheckedModeBanner: false,
           routeInformationParser: router.routeInformationParser,

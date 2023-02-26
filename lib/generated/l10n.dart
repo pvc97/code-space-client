@@ -230,10 +230,10 @@ class S {
     );
   }
 
-  /// `Search course`
+  /// `Search course...`
   String get search_course {
     return Intl.message(
-      'Search course',
+      'Search course...',
       name: 'search_course',
       desc: '',
       args: [],
@@ -450,10 +450,10 @@ class S {
     );
   }
 
-  /// `Search problem`
+  /// `Search problem...`
   String get search_problem {
     return Intl.message(
-      'Search problem',
+      'Search problem...',
       name: 'search_problem',
       desc: '',
       args: [],
@@ -815,6 +815,26 @@ class S {
     return Intl.message(
       'Show when wrong:',
       name: 'show_when_wrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accounts`
+  String get accounts {
+    return Intl.message(
+      'Accounts',
+      name: 'accounts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Courses`
+  String get courses {
+    return Intl.message(
+      'Courses',
+      name: 'courses',
       desc: '',
       args: [],
     );
