@@ -1,4 +1,6 @@
 import 'package:code_space_client/blocs/user/user_cubit.dart';
+import 'package:code_space_client/constants/app_color.dart';
+import 'package:code_space_client/constants/app_constants.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/role_type.dart';
@@ -32,59 +34,130 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
   @override
   Widget build(BuildContext context) {
     final user = context.select((UserCubit cubit) => cubit.state.user);
-    return Scaffold(
-      body: widget.child,
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: <BottomNavigationBarItem>[
-      //     BottomNavigationBarItem(
-      //       icon: const Icon(Bootstrap.book_half),
-      //       label: S.of(context).courses,
-      //     ),
-      //     (user?.roleType != RoleType.manager)
-      //         ? BottomNavigationBarItem(
-      //             icon: const Icon(Bootstrap.bookmark_heart),
-      //             label: S.of(context).my_courses,
-      //           )
-      //         : BottomNavigationBarItem(
-      //             icon: const Icon(Bootstrap.people),
-      //             label: S.of(context).accounts,
-      //           ),
-      //     BottomNavigationBarItem(
-      //       icon: const Icon(Bootstrap.person),
-      //       label: S.of(context).profile,
-      //     ),
-      //   ],
-      //   currentIndex: _calculateSelectedIndex(context),
-      //   onTap: (int idx) => _onItemTapped(idx, context, user?.roleType),
-      // ),
-      bottomNavigationBar: NavigationBar(
-        height: Sizes.s56,
-        elevation: Sizes.s8,
-        backgroundColor: Colors.white,
-        selectedIndex: _calculateSelectedIndex(context),
-        onDestinationSelected: (int idx) =>
-            _onItemTapped(idx, context, user?.roleType),
-        destinations: [
-          NavigationDestination(
-            icon: const Icon(Bootstrap.book_half),
-            label: S.of(context).courses,
-          ),
-          (user?.roleType != RoleType.manager)
-              ? NavigationDestination(
-                  icon: const Icon(Bootstrap.bookmark_heart),
-                  label: S.of(context).my_courses,
-                )
-              : NavigationDestination(
-                  icon: const Icon(Bootstrap.people),
-                  label: S.of(context).accounts,
-                ),
-          NavigationDestination(
-            icon: const Icon(Bootstrap.person),
-            label: S.of(context).profile,
-          ),
-        ],
-      ),
-    );
+    return LayoutBuilder(builder: (context, constraints) {
+      final isMobile = constraints.maxWidth <= AppConstants.maxMobileWidth;
+      return Scaffold(
+        body: isMobile
+            ? widget.child
+            : Row(
+                children: [
+                  NavigationRail(
+                    minWidth: Sizes.s108,
+                    elevation: Sizes.s4,
+                    backgroundColor: AppColor.primaryColor.shade100,
+                    selectedIndex: _calculateSelectedIndex(context),
+                    labelType: NavigationRailLabelType.all,
+                    onDestinationSelected: (int idx) =>
+                        _onItemTapped(idx, context, user?.roleType),
+                    destinations: [
+                      NavigationRailDestination(
+                        icon: const Icon(
+                          Bootstrap.book,
+                          color: AppColor.primaryColor,
+                        ),
+                        selectedIcon: const Icon(
+                          Bootstrap.book_half,
+                          color: AppColor.primaryColor,
+                        ),
+                        label: Text(S.of(context).courses),
+                      ),
+                      (user?.roleType != RoleType.manager)
+                          ? NavigationRailDestination(
+                              icon: const Icon(
+                                Bootstrap.bookmark_heart,
+                                color: AppColor.primaryColor,
+                              ),
+                              selectedIcon: const Icon(
+                                Bootstrap.bookmark_heart_fill,
+                                color: AppColor.primaryColor,
+                              ),
+                              label: Text(S.of(context).my_courses),
+                            )
+                          : NavigationRailDestination(
+                              icon: const Icon(
+                                Bootstrap.people,
+                                color: AppColor.primaryColor,
+                              ),
+                              selectedIcon: const Icon(
+                                Bootstrap.people_fill,
+                                color: AppColor.primaryColor,
+                              ),
+                              label: Text(S.of(context).accounts),
+                            ),
+                      NavigationRailDestination(
+                        label: Text(S.of(context).profile),
+                        icon: const Icon(
+                          Bootstrap.person,
+                          color: AppColor.primaryColor,
+                        ),
+                        selectedIcon: const Icon(
+                          Bootstrap.person_fill,
+                          color: AppColor.primaryColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Expanded(child: widget.child),
+                ],
+              ),
+        bottomNavigationBar: !isMobile
+            ? null
+            : NavigationBar(
+                height: Sizes.s56,
+                elevation: Sizes.s4,
+                selectedIndex: _calculateSelectedIndex(context),
+                onDestinationSelected: (int idx) =>
+                    _onItemTapped(idx, context, user?.roleType),
+                destinations: [
+                  NavigationDestination(
+                    icon: const Icon(
+                      Bootstrap.book,
+                      color: AppColor.primaryColor,
+                    ),
+                    selectedIcon: const Icon(
+                      Bootstrap.book_half,
+                      color: AppColor.primaryColor,
+                    ),
+                    label: S.of(context).courses,
+                  ),
+                  (user?.roleType != RoleType.manager)
+                      ? NavigationDestination(
+                          icon: const Icon(
+                            Bootstrap.bookmark_heart,
+                            color: AppColor.primaryColor,
+                          ),
+                          selectedIcon: const Icon(
+                            Bootstrap.bookmark_heart_fill,
+                            color: AppColor.primaryColor,
+                          ),
+                          label: S.of(context).my_courses,
+                        )
+                      : NavigationDestination(
+                          icon: const Icon(
+                            Bootstrap.people,
+                            color: AppColor.primaryColor,
+                          ),
+                          selectedIcon: const Icon(
+                            Bootstrap.people_fill,
+                            color: AppColor.primaryColor,
+                          ),
+                          label: S.of(context).accounts,
+                        ),
+                  NavigationDestination(
+                    icon: const Icon(
+                      Bootstrap.person,
+                      color: AppColor.primaryColor,
+                    ),
+                    selectedIcon: const Icon(
+                      Bootstrap.person_fill,
+                      color: AppColor.primaryColor,
+                    ),
+                    label: S.of(context).profile,
+                  ),
+                ],
+              ),
+      );
+    });
   }
 
   void _onItemTapped(int index, BuildContext context, RoleType? role) {

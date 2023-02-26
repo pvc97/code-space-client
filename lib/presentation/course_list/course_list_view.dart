@@ -75,7 +75,6 @@ class _CourseListViewState extends State<CourseListView> {
       child: Scaffold(
         appBar: AdaptiveAppBar(
           context: context,
-          backgroundColor: widget.me ? Colors.green : Colors.pink,
           title: TextField(
             decoration: InputDecoration(
               // border: InputBorder.none,

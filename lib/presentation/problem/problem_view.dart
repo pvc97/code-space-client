@@ -140,7 +140,7 @@ class _ProblemViewState extends State<ProblemView> {
         body: LayoutBuilder(
           builder: (context, constraints) {
             bool isManager = user?.roleType == RoleType.manager;
-            if (constraints.maxWidth < AppConstants.maxMobileWidth ||
+            if (constraints.maxWidth <= AppConstants.maxMobileWidth ||
                 isManager) {
               return PageView(
                 physics: isManager
@@ -176,14 +176,14 @@ class _ProblemViewState extends State<ProblemView> {
             );
           },
         ),
-        // Only show this button when current the tab is code or width >= AppConstants.maxMobileWidth
+        // Only show this button when current the tab is code or width > AppConstants.maxMobileWidth
         floatingActionButton: (user?.roleType == RoleType.manager)
             ? null
             : BlocSelector<ProblemCubit, ProblemState, ProblemTab>(
                 selector: (ProblemState state) => state.problemTab,
                 builder: (context, state) {
                   if (state == ProblemTab.code ||
-                      screenWidth >= AppConstants.maxMobileWidth) {
+                      screenWidth > AppConstants.maxMobileWidth) {
                     return FloatingActionButton(
                       onPressed: () {
                         final sourceCode = _codeController.text;
