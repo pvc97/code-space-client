@@ -1,5 +1,6 @@
 import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/injection_container.dart';
+import 'package:code_space_client/presentation/account/account_screen.dart';
 import 'package:code_space_client/presentation/auth/sign_up_screen.dart';
 import 'package:code_space_client/presentation/course_detail/course_detail_screen.dart';
 import 'package:code_space_client/presentation/course_list/course_list_screen.dart';
@@ -25,6 +26,7 @@ enum AppRoute {
   problem,
   ranking,
   profile,
+  account,
   settings,
   courseDetail,
   createCourse,
@@ -178,27 +180,38 @@ final GoRouter router = GoRouter(
           ],
         ),
         GoRoute(
-            path: '/profile',
-            name: AppRoute.profile.name,
-            pageBuilder: (context, state) {
-              return NoTransitionPage(
-                key: state.pageKey,
-                child: const ProfileScreen(),
-              );
-            },
-            routes: [
-              GoRoute(
-                path: 'setting',
-                name: AppRoute.settings.name,
-                parentNavigatorKey: _rootNavigatorKey,
-                pageBuilder: (context, state) {
-                  return AdaptiveTransitionPage.create(
-                    state.pageKey,
-                    child: const SettingScreen(),
-                  );
-                },
-              ),
-            ]),
+          path: '/profile',
+          name: AppRoute.profile.name,
+          pageBuilder: (context, state) {
+            return NoTransitionPage(
+              key: state.pageKey,
+              child: const ProfileScreen(),
+            );
+          },
+          routes: [
+            GoRoute(
+              path: 'setting',
+              name: AppRoute.settings.name,
+              parentNavigatorKey: _rootNavigatorKey,
+              pageBuilder: (context, state) {
+                return AdaptiveTransitionPage.create(
+                  state.pageKey,
+                  child: const SettingScreen(),
+                );
+              },
+            ),
+          ],
+        ),
+        GoRoute(
+          path: '/account',
+          name: AppRoute.account.name,
+          pageBuilder: (context, state) {
+            return NoTransitionPage(
+              key: state.pageKey,
+              child: const AccountScreen(),
+            );
+          },
+        ),
       ],
     ),
     GoRoute(

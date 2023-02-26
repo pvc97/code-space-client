@@ -1,4 +1,5 @@
 import 'package:code_space_client/blocs/user/user_cubit.dart';
+import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,36 +40,46 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.select((UserCubit cubit) => cubit.state.user);
     return Scaffold(
       body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+        items: <BottomNavigationBarItem>[
+          const BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Courses',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.class_),
-            label: 'My Courses',
-          ),
-          BottomNavigationBarItem(
+          (user?.roleType != RoleType.manager)
+              ? const BottomNavigationBarItem(
+                  icon: Icon(Icons.class_),
+                  label: 'My Courses',
+                )
+              : const BottomNavigationBarItem(
+                  icon: Icon(Icons.account_balance),
+                  label: 'Accounts',
+                ),
+          const BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',
           ),
         ],
         currentIndex: ScaffoldWithNavBar._calculateSelectedIndex(context),
-        onTap: (int idx) => _onItemTapped(idx, context),
+        onTap: (int idx) => _onItemTapped(idx, context, user?.roleType),
       ),
     );
   }
 
-  void _onItemTapped(int index, BuildContext context) {
+  void _onItemTapped(int index, BuildContext context, RoleType? role) {
     switch (index) {
       case 0:
         context.goNamed(AppRoute.courses.name);
         break;
       case 1:
-        context.goNamed(AppRoute.courses.name, queryParams: {'me': 'true'});
+        if (role == RoleType.manager) {
+          context.goNamed(AppRoute.account.name);
+        } else {
+          context.goNamed(AppRoute.courses.name, queryParams: {'me': 'true'});
+        }
         break;
       case 2:
         context.goNamed(AppRoute.profile.name);
