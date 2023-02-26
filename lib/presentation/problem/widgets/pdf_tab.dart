@@ -1,4 +1,6 @@
 import 'package:code_space_client/blocs/problem/problem_cubit.dart';
+import 'package:code_space_client/constants/app_color.dart';
+import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/models/problem_detail_model.dart';
 import 'package:code_space_client/utils/extensions/problem_detail_ext.dart';
 import 'package:flutter/material.dart';
@@ -23,14 +25,35 @@ class _PdfTabState extends State<PdfTab> with AutomaticKeepAliveClientMixin {
     super.build(context);
     return BlocSelector<ProblemCubit, ProblemState, ProblemDetailModel?>(
       selector: (ProblemState state) => state.problemDetail,
-      builder: (context, state) {
-        if (state != null) {
-          return SfPdfViewer.network(
-            state.fullPdfPath,
-            key: _pdfViewerKey,
-            // Use PdfInteractionMode.pan and set scrollBehavior in main
-            // to enable changing page with mouse
-            interactionMode: PdfInteractionMode.pan,
+      builder: (context, problem) {
+        if (problem != null) {
+          return Stack(
+            children: [
+              SfPdfViewer.network(
+                problem.fullPdfPath,
+                key: _pdfViewerKey,
+                // Use PdfInteractionMode.pan and set scrollBehavior in main
+                // to enable changing page with mouse
+                interactionMode: PdfInteractionMode.pan,
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: Container(
+                  margin: const EdgeInsets.all(Sizes.s8),
+                  padding: const EdgeInsets.all(Sizes.s4),
+                  decoration: BoxDecoration(
+                    color: AppColor.primaryColor.shade100,
+                    borderRadius: BorderRadius.circular(Sizes.s8),
+                    border: Border.all(
+                      color: AppColor.primaryColor,
+                      width: Sizes.s1,
+                    ),
+                  ),
+                  child: Text(problem.language.name),
+                ),
+              ),
+            ],
           );
         }
 
