@@ -47,7 +47,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
                     // https://github.com/flutter/flutter/issues/117126
                     // From this issue, flutter team said it fixed, but it's not
                     elevation: Sizes.s4,
-                    backgroundColor: AppColor.primaryColor.shade100,
+                    backgroundColor: AppColor.primaryColor.shade50,
                     selectedIndex: _calculateSelectedIndex(context),
                     labelType: NavigationRailLabelType.all,
                     onDestinationSelected: (int idx) =>
