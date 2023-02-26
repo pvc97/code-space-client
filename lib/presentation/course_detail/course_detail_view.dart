@@ -197,228 +197,208 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                 onRefresh: () async {
                   _refreshProblems();
                 },
-                child: BlocBuilder<CourseDetailBloc, CourseDetailState>(
-                  buildWhen: (previous, current) =>
-                      previous.problems != current.problems,
-                  builder: (context, state) {
-                    final problems = state.problems;
-                    return CustomScrollView(
-                      controller: _scrollController,
-                      slivers: [
-                        SliverToBoxAdapter(
-                          child: BlocSelector<CourseDetailBloc,
-                              CourseDetailState, CourseModel?>(
-                            selector: (state) => state.course,
-                            builder: (context, course) {
-                              if (course != null) {
-                                return Container(
-                                  margin: const EdgeInsets.symmetric(
-                                    horizontal: Sizes.s24,
-                                    vertical: Sizes.s12,
-                                  ),
-                                  child: Stack(
-                                    children: [
-                                      Container(
-                                        width: double.infinity,
-                                        alignment: Alignment.bottomLeft,
-                                        padding: const EdgeInsets.only(
-                                          top: Sizes.s56,
-                                          bottom: Sizes.s12,
-                                          left: Sizes.s12,
-                                          right: Sizes.s12,
+                child: CustomScrollView(
+                  controller: _scrollController,
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: BlocSelector<CourseDetailBloc, CourseDetailState,
+                          CourseModel?>(
+                        selector: (state) => state.course,
+                        builder: (context, course) {
+                          if (course != null) {
+                            return Container(
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: Sizes.s24,
+                                vertical: Sizes.s12,
+                              ),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    width: double.infinity,
+                                    alignment: Alignment.bottomLeft,
+                                    padding: const EdgeInsets.only(
+                                      top: Sizes.s56,
+                                      bottom: Sizes.s12,
+                                      left: Sizes.s12,
+                                      right: Sizes.s12,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(Sizes.s8),
+                                      image: const DecorationImage(
+                                        image: AssetImage(
+                                          AppImages.courseDescriptionBackground,
                                         ),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(Sizes.s8),
-                                          image: const DecorationImage(
-                                            image: AssetImage(
-                                              AppImages
-                                                  .courseDescriptionBackground,
-                                            ),
-                                            fit: BoxFit.cover,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          course.name,
+                                          style:
+                                              AppTextStyle.textStyle24.copyWith(
+                                            color: AppColor.white,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
-                                        child: Column(
+                                        Box.h8,
+                                        Row(
                                           mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              course.name,
-                                              style: AppTextStyle.textStyle24
-                                                  .copyWith(
-                                                color: AppColor.white,
-                                                fontWeight: FontWeight.w500,
-                                              ),
+                                            const Icon(
+                                              Bootstrap.upc_scan,
+                                              color: AppColor.white,
                                             ),
-                                            Box.h8,
-                                            Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                const Icon(
-                                                  Bootstrap.upc_scan,
+                                            Box.w8,
+                                            Expanded(
+                                              child: SelectableText(
+                                                course.code,
+                                                style: AppTextStyle.textStyle14
+                                                    .copyWith(
                                                   color: AppColor.white,
+                                                  fontWeight: FontWeight.w400,
                                                 ),
-                                                Box.w8,
-                                                Expanded(
-                                                  child: SelectableText(
-                                                    course.code,
-                                                    style: AppTextStyle
-                                                        .textStyle14
-                                                        .copyWith(
-                                                      color: AppColor.white,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
+                                              ),
                                             ),
                                           ],
                                         ),
-                                      ),
-                                      Positioned(
-                                        bottom: 0,
-                                        right: 0,
-                                        child: IconButton(
-                                          onPressed: () {
-                                            showModalBottomSheet<void>(
-                                              context: context,
-                                              shape:
-                                                  const RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.vertical(
-                                                  top:
-                                                      Radius.circular(Sizes.s8),
-                                                ),
+                                      ],
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        showModalBottomSheet<void>(
+                                          context: context,
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(Sizes.s8),
+                                            ),
+                                          ),
+                                          builder: (BuildContext context) {
+                                            return Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                horizontal: Sizes.s20,
+                                                vertical: Sizes.s12,
                                               ),
-                                              builder: (BuildContext context) {
-                                                return Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    horizontal: Sizes.s20,
-                                                    vertical: Sizes.s12,
-                                                  ),
-                                                  child: Column(
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: <Widget>[
+                                                  Row(
                                                     mainAxisSize:
                                                         MainAxisSize.min,
-                                                    children: <Widget>[
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: [
-                                                          const Icon(
-                                                            Bootstrap
-                                                                .person_video,
+                                                    children: [
+                                                      const Icon(
+                                                        Bootstrap.person_video,
+                                                        color: AppColor.black,
+                                                      ),
+                                                      Box.w8,
+                                                      Expanded(
+                                                        child: SelectableText(
+                                                          course.teacher.name,
+                                                          style: AppTextStyle
+                                                              .textStyle14
+                                                              .copyWith(
                                                             color:
                                                                 AppColor.black,
+                                                            fontWeight:
+                                                                FontWeight.w400,
                                                           ),
-                                                          Box.w8,
-                                                          Expanded(
-                                                            child:
-                                                                SelectableText(
-                                                              course
-                                                                  .teacher.name,
-                                                              style: AppTextStyle
-                                                                  .textStyle14
-                                                                  .copyWith(
-                                                                color: AppColor
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Box.h4,
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: [
-                                                          const Icon(
-                                                            Bootstrap
-                                                                .envelope_at,
-                                                            color:
-                                                                AppColor.black,
-                                                          ),
-                                                          Box.w8,
-                                                          Expanded(
-                                                            child:
-                                                                SelectableText(
-                                                              course.teacher
-                                                                  .email,
-                                                              style: AppTextStyle
-                                                                  .textStyle14
-                                                                  .copyWith(
-                                                                color: AppColor
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      if (user?.roleType !=
-                                                              RoleType
-                                                                  .student &&
-                                                          course.accessCode !=
-                                                              null) ...[
-                                                        Box.h4,
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            const Icon(
-                                                              Bootstrap.key,
-                                                              color: AppColor
-                                                                  .black,
-                                                            ),
-                                                            Box.w8,
-                                                            Expanded(
-                                                              child:
-                                                                  SelectableText(
-                                                                course
-                                                                    .accessCode!,
-                                                                style: AppTextStyle
-                                                                    .textStyle14
-                                                                    .copyWith(
-                                                                  color: AppColor
-                                                                      .black,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
                                                         ),
-                                                      ],
+                                                      ),
                                                     ],
                                                   ),
-                                                );
-                                              },
+                                                  Box.h4,
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      const Icon(
+                                                        Bootstrap.envelope_at,
+                                                        color: AppColor.black,
+                                                      ),
+                                                      Box.w8,
+                                                      Expanded(
+                                                        child: SelectableText(
+                                                          course.teacher.email,
+                                                          style: AppTextStyle
+                                                              .textStyle14
+                                                              .copyWith(
+                                                            color:
+                                                                AppColor.black,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  if (user?.roleType !=
+                                                          RoleType.student &&
+                                                      course.accessCode !=
+                                                          null) ...[
+                                                    Box.h4,
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        const Icon(
+                                                          Bootstrap.key,
+                                                          color: AppColor.black,
+                                                        ),
+                                                        Box.w8,
+                                                        Expanded(
+                                                          child: SelectableText(
+                                                            course.accessCode!,
+                                                            style: AppTextStyle
+                                                                .textStyle14
+                                                                .copyWith(
+                                                              color: AppColor
+                                                                  .black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ],
+                                              ),
                                             );
                                           },
-                                          icon: const Icon(
-                                            Bootstrap.info_circle,
-                                            color: AppColor.white,
-                                          ),
-                                        ),
+                                        );
+                                      },
+                                      icon: const Icon(
+                                        Bootstrap.info_circle,
+                                        color: AppColor.white,
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                );
-                              }
+                                ],
+                              ),
+                            );
+                          }
 
-                              return const SizedBox.shrink();
-                            },
-                          ),
-                        ),
-                        SliverList(
+                          return const SizedBox.shrink();
+                        },
+                      ),
+                    ),
+                    BlocBuilder<CourseDetailBloc, CourseDetailState>(
+                      buildWhen: (previous, current) =>
+                          previous.problems != current.problems,
+                      builder: (context, state) {
+                        final problems = state.problems;
+
+                        return SliverList(
                           delegate: SliverChildBuilderDelegate(
                             childCount: problems.length + 1,
                             (BuildContext context, int index) {
@@ -483,10 +463,10 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                               );
                             },
                           ),
-                        ),
-                      ],
-                    );
-                  },
+                        );
+                      },
+                    ),
+                  ],
                 ),
               );
             },
