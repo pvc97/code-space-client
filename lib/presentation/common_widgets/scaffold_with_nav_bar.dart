@@ -1,3 +1,4 @@
+import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_color.dart';
 import 'package:code_space_client/constants/app_constants.dart';
@@ -49,6 +50,20 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
                     labelType: NavigationRailLabelType.all,
                     onDestinationSelected: (int idx) =>
                         _onItemTapped(idx, context, user?.roleType),
+                    trailing: Expanded(
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: IconButton(
+                            onPressed: () {
+                              context.read<AuthCubit>().logout();
+                            },
+                            icon: const Icon(Bootstrap.box_arrow_left),
+                          ),
+                        ),
+                      ),
+                    ),
                     destinations: [
                       NavigationRailDestination(
                         icon: const Icon(
