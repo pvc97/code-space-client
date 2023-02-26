@@ -98,7 +98,7 @@ void showTestCaseDialog({
             onPressed: () {
               final stdin = stdinController.text.trim();
               final expectedOutput = expectedOutputController.text.trim();
-              if (stdin.isEmpty || expectedOutput.isEmpty) {
+              if (expectedOutput.isEmpty) {
                 EasyLoading.showInfo(
                   dismissOnTap: true,
                   duration: const Duration(seconds: 1),
