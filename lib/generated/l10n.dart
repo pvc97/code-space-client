@@ -230,10 +230,10 @@ class S {
     );
   }
 
-  /// `Search course`
+  /// `Search course...`
   String get search_course {
     return Intl.message(
-      'Search course',
+      'Search course...',
       name: 'search_course',
       desc: '',
       args: [],
@@ -450,10 +450,10 @@ class S {
     );
   }
 
-  /// `Search problem`
+  /// `Search problem...`
   String get search_problem {
     return Intl.message(
-      'Search problem',
+      'Search problem...',
       name: 'search_problem',
       desc: '',
       args: [],

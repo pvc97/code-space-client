@@ -109,9 +109,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "role_manager": MessageLookupByLibrary.simpleMessage("Manager"),
         "role_student": MessageLookupByLibrary.simpleMessage("Student"),
         "role_teacher": MessageLookupByLibrary.simpleMessage("Teacher"),
-        "search_course": MessageLookupByLibrary.simpleMessage("Search course"),
+        "search_course":
+            MessageLookupByLibrary.simpleMessage("Search course..."),
         "search_problem":
-            MessageLookupByLibrary.simpleMessage("Search problem"),
+            MessageLookupByLibrary.simpleMessage("Search problem..."),
         "select_languages":
             MessageLookupByLibrary.simpleMessage("Select languages"),
         "select_problem_file":
