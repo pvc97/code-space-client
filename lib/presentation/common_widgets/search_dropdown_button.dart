@@ -1,3 +1,4 @@
+import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:diacritic/diacritic.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -62,12 +63,10 @@ class _SearchDropdownButtonState<T extends BaseDropdownItem>
                       ),
                       if (item.subtitle != null)
                         Padding(
-                          padding: const EdgeInsets.only(top: Sizes.s4),
+                          padding: const EdgeInsets.only(top: Sizes.s2),
                           child: Text(
                             item.subtitle!,
-                            style: const TextStyle(
-                              fontSize: 14,
-                            ),
+                            style: AppTextStyle.textStyle12,
                           ),
                         ),
                     ],
@@ -82,9 +81,9 @@ class _SearchDropdownButtonState<T extends BaseDropdownItem>
           widget.onChanged?.call(value);
         },
         searchController: widget.textEditingController,
-        searchInnerWidgetHeight: 50,
+        searchInnerWidgetHeight: 60,
         searchInnerWidget: Container(
-          height: 50,
+          height: 60,
           padding: const EdgeInsets.only(
             top: 8,
             bottom: 4,
@@ -104,7 +103,7 @@ class _SearchDropdownButtonState<T extends BaseDropdownItem>
               hintText: widget.searchHint,
               hintStyle: const TextStyle(fontSize: 12),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(Sizes.s8),
               ),
             ),
           ),
