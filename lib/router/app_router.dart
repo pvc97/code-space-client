@@ -6,7 +6,7 @@ import 'package:code_space_client/presentation/course_detail/course_detail_scree
 import 'package:code_space_client/presentation/course_list/course_list_screen.dart';
 import 'package:code_space_client/presentation/create_course/create_course_screen.dart';
 import 'package:code_space_client/presentation/create_problem/create_problem_screen.dart';
-import 'package:code_space_client/presentation/home/scaffold_with_nav_bar.dart';
+import 'package:code_space_client/presentation/common_widgets/scaffold_with_nav_bar.dart';
 import 'package:code_space_client/presentation/problem/problem_screen.dart';
 import 'package:code_space_client/presentation/problem_history/problem_history_screen.dart';
 import 'package:code_space_client/presentation/problem_result/problem_result_screen.dart';

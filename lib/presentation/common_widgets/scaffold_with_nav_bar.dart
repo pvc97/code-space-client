@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+// Follow example from:
+// https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/shell_route.dart
 class ScaffoldWithNavBar extends StatefulWidget {
   final Widget child;
 
@@ -15,20 +17,6 @@ class ScaffoldWithNavBar extends StatefulWidget {
 
   @override
   State<ScaffoldWithNavBar> createState() => _ScaffoldWithNavBarState();
-
-  static int _calculateSelectedIndex(BuildContext context) {
-    final String location = GoRouterState.of(context).location;
-    final bool me = GoRouterState.of(context).queryParams['me'] == 'true';
-    if (location.startsWith('/courses')) {
-      return me ? 1 : 0;
-    }
-
-    if (location.startsWith('/profile')) {
-      return 2;
-    }
-
-    return 0;
-  }
 }
 
 class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
@@ -63,7 +51,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
             label: 'Profile',
           ),
         ],
-        currentIndex: ScaffoldWithNavBar._calculateSelectedIndex(context),
+        currentIndex: _calculateSelectedIndex(context),
         onTap: (int idx) => _onItemTapped(idx, context, user?.roleType),
       ),
     );
@@ -88,5 +76,19 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
       //   context.goNamed(AppRoute.settings.name);
       //   break;
     }
+  }
+
+  int _calculateSelectedIndex(BuildContext context) {
+    final String location = GoRouterState.of(context).location;
+    final bool me = GoRouterState.of(context).queryParams['me'] == 'true';
+    if (location.startsWith('/courses')) {
+      return me ? 1 : 0;
+    }
+
+    if (location.startsWith('/profile')) {
+      return 2;
+    }
+
+    return 0;
   }
 }
