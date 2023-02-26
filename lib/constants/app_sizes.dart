@@ -9,6 +9,7 @@ class Sizes {
   static const s24 = 24.0;
   static const s32 = 32.0;
   static const s48 = 48.0;
+  static const s56 = 56.0;
   static const s64 = 64.0;
   static const s200 = 200.0;
   static const s300 = 300.0;

@@ -1,4 +1,5 @@
 import 'package:code_space_client/blocs/user/user_cubit.dart';
+import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/router/app_router.dart';
@@ -33,28 +34,55 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
     final user = context.select((UserCubit cubit) => cubit.state.user);
     return Scaffold(
       body: widget.child,
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: const Icon(Bootstrap.book_half),
+      //       label: S.of(context).courses,
+      //     ),
+      //     (user?.roleType != RoleType.manager)
+      //         ? BottomNavigationBarItem(
+      //             icon: const Icon(Bootstrap.bookmark_heart),
+      //             label: S.of(context).my_courses,
+      //           )
+      //         : BottomNavigationBarItem(
+      //             icon: const Icon(Bootstrap.people),
+      //             label: S.of(context).accounts,
+      //           ),
+      //     BottomNavigationBarItem(
+      //       icon: const Icon(Bootstrap.person),
+      //       label: S.of(context).profile,
+      //     ),
+      //   ],
+      //   currentIndex: _calculateSelectedIndex(context),
+      //   onTap: (int idx) => _onItemTapped(idx, context, user?.roleType),
+      // ),
+      bottomNavigationBar: NavigationBar(
+        height: Sizes.s56,
+        elevation: Sizes.s8,
+        backgroundColor: Colors.white,
+        selectedIndex: _calculateSelectedIndex(context),
+        onDestinationSelected: (int idx) =>
+            _onItemTapped(idx, context, user?.roleType),
+        destinations: [
+          NavigationDestination(
             icon: const Icon(Bootstrap.book_half),
             label: S.of(context).courses,
           ),
           (user?.roleType != RoleType.manager)
-              ? BottomNavigationBarItem(
+              ? NavigationDestination(
                   icon: const Icon(Bootstrap.bookmark_heart),
                   label: S.of(context).my_courses,
                 )
-              : BottomNavigationBarItem(
+              : NavigationDestination(
                   icon: const Icon(Bootstrap.people),
                   label: S.of(context).accounts,
                 ),
-          BottomNavigationBarItem(
+          NavigationDestination(
             icon: const Icon(Bootstrap.person),
             label: S.of(context).profile,
           ),
         ],
-        currentIndex: _calculateSelectedIndex(context),
-        onTap: (int idx) => _onItemTapped(idx, context, user?.roleType),
       ),
     );
   }
