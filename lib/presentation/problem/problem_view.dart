@@ -1,4 +1,5 @@
 import 'package:code_space_client/blocs/user/user_cubit.dart';
+import 'package:code_space_client/constants/app_constants.dart';
 import 'package:code_space_client/models/problem_detail_model.dart';
 import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/presentation/problem/widgets/code_tab.dart';
@@ -139,7 +140,8 @@ class _ProblemViewState extends State<ProblemView> {
         body: LayoutBuilder(
           builder: (context, constraints) {
             bool isManager = user?.roleType == RoleType.manager;
-            if (constraints.maxWidth < 600 || isManager) {
+            if (constraints.maxWidth < AppConstants.maxMobileWidth ||
+                isManager) {
               return PageView(
                 physics: isManager
                     ? const NeverScrollableScrollPhysics()
@@ -174,13 +176,14 @@ class _ProblemViewState extends State<ProblemView> {
             );
           },
         ),
-        // Only show this button when current the tab is code or width >= 600
+        // Only show this button when current the tab is code or width >= AppConstants.maxMobileWidth
         floatingActionButton: (user?.roleType == RoleType.manager)
             ? null
             : BlocSelector<ProblemCubit, ProblemState, ProblemTab>(
                 selector: (ProblemState state) => state.problemTab,
                 builder: (context, state) {
-                  if (state == ProblemTab.code || screenWidth >= 600) {
+                  if (state == ProblemTab.code ||
+                      screenWidth >= AppConstants.maxMobileWidth) {
                     return FloatingActionButton(
                       onPressed: () {
                         final sourceCode = _codeController.text;
