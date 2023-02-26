@@ -93,6 +93,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
         child: Scaffold(
           appBar: AdaptiveAppBar(
             context: context,
+            centerTitle: false,
             title: TextField(
               decoration: InputDecoration(
                 border: const OutlineInputBorder(borderSide: BorderSide.none),
