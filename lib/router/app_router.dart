@@ -33,6 +33,8 @@ enum AppRoute {
   problemHistory,
 }
 
+// NOTE: All screen wrap by ShellRoute don't need to use bottom navigation bar
+// have to use _rootNavigatorKey
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> _shellNavigatorKey =
@@ -75,6 +77,8 @@ final GoRouter router = GoRouter(
             GoRoute(
               path: 'create',
               name: AppRoute.createCourse.name,
+              parentNavigatorKey:
+                  _rootNavigatorKey, // Open new screen without bottom nav bar
               pageBuilder: (context, state) {
                 return AdaptiveTransitionPage.create(
                   state.pageKey,
@@ -85,6 +89,7 @@ final GoRouter router = GoRouter(
             GoRoute(
               path: ':courseId',
               name: AppRoute.courseDetail.name,
+              parentNavigatorKey: _rootNavigatorKey,
               pageBuilder: (context, state) {
                 return AdaptiveTransitionPage.create(
                   state.pageKey,
@@ -98,6 +103,7 @@ final GoRouter router = GoRouter(
                 GoRoute(
                   path: 'create',
                   name: AppRoute.createProblem.name,
+                  parentNavigatorKey: _rootNavigatorKey,
                   pageBuilder: (context, state) {
                     return AdaptiveTransitionPage.create(
                       state.pageKey,
@@ -112,6 +118,7 @@ final GoRouter router = GoRouter(
                 GoRoute(
                   path: 'problem/:problemId',
                   name: AppRoute.problem.name,
+                  parentNavigatorKey: _rootNavigatorKey,
                   pageBuilder: (context, state) {
                     return AdaptiveTransitionPage.create(
                       state.pageKey,
@@ -126,6 +133,7 @@ final GoRouter router = GoRouter(
                     GoRoute(
                       path: 'submit/:submitId',
                       name: AppRoute.problemResult.name,
+                      parentNavigatorKey: _rootNavigatorKey,
                       pageBuilder: (context, state) {
                         return AdaptiveTransitionPage.create(
                           state.pageKey,
@@ -137,6 +145,7 @@ final GoRouter router = GoRouter(
                     GoRoute(
                       path: 'history',
                       name: AppRoute.problemHistory.name,
+                      parentNavigatorKey: _rootNavigatorKey,
                       pageBuilder: (context, state) {
                         return AdaptiveTransitionPage.create(
                           state.pageKey,
@@ -153,6 +162,7 @@ final GoRouter router = GoRouter(
                 GoRoute(
                   path: 'ranking',
                   name: AppRoute.ranking.name,
+                  parentNavigatorKey: _rootNavigatorKey,
                   pageBuilder: (context, state) {
                     return AdaptiveTransitionPage.create(
                       state.pageKey,
@@ -168,25 +178,27 @@ final GoRouter router = GoRouter(
           ],
         ),
         GoRoute(
-          path: '/profile',
-          name: AppRoute.profile.name,
-          pageBuilder: (context, state) {
-            return NoTransitionPage(
-              key: state.pageKey,
-              child: const ProfileScreen(),
-            );
-          },
-        ),
-        GoRoute(
-          path: '/setting',
-          name: AppRoute.settings.name,
-          pageBuilder: (context, state) {
-            return AdaptiveTransitionPage.create(
-              state.pageKey,
-              child: const SettingScreen(),
-            );
-          },
-        ),
+            path: '/profile',
+            name: AppRoute.profile.name,
+            pageBuilder: (context, state) {
+              return NoTransitionPage(
+                key: state.pageKey,
+                child: const ProfileScreen(),
+              );
+            },
+            routes: [
+              GoRoute(
+                path: 'setting',
+                name: AppRoute.settings.name,
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) {
+                  return AdaptiveTransitionPage.create(
+                    state.pageKey,
+                    child: const SettingScreen(),
+                  );
+                },
+              ),
+            ]),
       ],
     ),
     GoRoute(

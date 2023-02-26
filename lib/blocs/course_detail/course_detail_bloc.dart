@@ -95,6 +95,7 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
       ));
     } on AppException catch (e) {
       if (e.code == StatusCodeConstants.code403) {
+        logger.d('============> Unjoined course <============');
         emit(state.copyWith(
           isLoadingMore: false,
           stateStatus: StateStatus.success,
@@ -159,6 +160,7 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
       ));
     } on AppException catch (e) {
       if (e.code == StatusCodeConstants.code403) {
+        logger.d('============> Unjoined course <============');
         emit(state.copyWith(
           isLoadingMore: false,
           stateStatus: StateStatus.success,

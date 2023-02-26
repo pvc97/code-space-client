@@ -1,3 +1,4 @@
+import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/blocs/locale/locale_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/languages.dart';
@@ -21,6 +22,14 @@ class _SettingScreenState extends State<SettingScreen> {
         context: context,
         title: Text(S.of(context).settings),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<AuthCubit>().logout();
+            },
+            icon: const Icon(Icons.logout),
+          )
+        ],
       ),
       body: Center(
         child: Column(
