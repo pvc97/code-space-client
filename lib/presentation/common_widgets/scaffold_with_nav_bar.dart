@@ -1,4 +1,5 @@
 import 'package:code_space_client/blocs/user/user_cubit.dart';
+import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:flutter/material.dart';
@@ -33,22 +34,22 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
       body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Courses',
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.home),
+            label: S.of(context).course,
           ),
           (user?.roleType != RoleType.manager)
-              ? const BottomNavigationBarItem(
-                  icon: Icon(Icons.class_),
-                  label: 'My Courses',
+              ? BottomNavigationBarItem(
+                  icon: const Icon(Icons.class_),
+                  label: S.of(context).my_courses,
                 )
-              : const BottomNavigationBarItem(
-                  icon: Icon(Icons.account_balance),
-                  label: 'Accounts',
+              : BottomNavigationBarItem(
+                  icon: const Icon(Icons.account_balance),
+                  label: S.of(context).accounts,
                 ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.person),
+            label: S.of(context).profile,
           ),
         ],
         currentIndex: _calculateSelectedIndex(context),
@@ -72,15 +73,17 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
       case 2:
         context.goNamed(AppRoute.profile.name);
         break;
-      // case 3:
-      //   context.goNamed(AppRoute.settings.name);
-      //   break;
     }
   }
 
   int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).location;
     final bool me = GoRouterState.of(context).queryParams['me'] == 'true';
+
+    if (location.startsWith('/account')) {
+      return 1;
+    }
+
     if (location.startsWith('/courses')) {
       return me ? 1 : 0;
     }

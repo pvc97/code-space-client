@@ -15,7 +15,7 @@
   "passwords_do_not_match": "Mật khẩu không khớp",
   "course_list": "Danh sách lớp học",
   "my_courses": "Lớp học của tôi",
-  "profile": "Hồ sơ",
+  "profile": "Tôi",
   "settings": "Cài đặt",
   "search_course": "Tìm kiếm lớp học",
   "problem_tab": "Đề bài",
@@ -75,5 +75,6 @@
   "please_fill_all_fields": "Vui lòng điền đầy đủ thông tin",
   "course": "Lớp học",
   "user_list": "Danh sách tài khoản",
-  "show_when_wrong": "Hiển thị khi làm sai:"
+  "show_when_wrong": "Hiển thị khi làm sai:",
+  "accounts": "Tài khoản"
 }

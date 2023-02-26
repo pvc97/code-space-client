@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "access_code": MessageLookupByLibrary.simpleMessage("Mã truy cập"),
         "access_code_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Mã truy cập không được để trống"),
+        "accounts": MessageLookupByLibrary.simpleMessage("Tài khoản"),
         "add_test_case": MessageLookupByLibrary.simpleMessage("Thêm mới"),
         "an_error_occurred":
             MessageLookupByLibrary.simpleMessage("Có lỗi xảy ra"),
@@ -102,7 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "problem_result":
             MessageLookupByLibrary.simpleMessage("Kết quả chấm bài"),
         "problem_tab": MessageLookupByLibrary.simpleMessage("Đề bài"),
-        "profile": MessageLookupByLibrary.simpleMessage("Hồ sơ"),
+        "profile": MessageLookupByLibrary.simpleMessage("Tôi"),
         "ranking": MessageLookupByLibrary.simpleMessage("Bảng xếp hạng"),
         "role": MessageLookupByLibrary.simpleMessage("Chức vụ"),
         "role_manager": MessageLookupByLibrary.simpleMessage("Quản lý"),
