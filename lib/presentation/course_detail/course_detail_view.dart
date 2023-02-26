@@ -208,12 +208,13 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                           child: Stack(
                             children: [
                               Container(
-                                height: Sizes.s120,
                                 width: double.infinity,
                                 alignment: Alignment.bottomLeft,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: Sizes.s20,
-                                  vertical: Sizes.s12,
+                                padding: const EdgeInsets.only(
+                                  top: Sizes.s56,
+                                  bottom: Sizes.s12,
+                                  left: Sizes.s12,
+                                  right: Sizes.s12,
                                 ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(Sizes.s8),
@@ -325,6 +326,35 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                                                   ),
                                                 ],
                                               ),
+                                              if (user?.roleType !=
+                                                      RoleType.student &&
+                                                  course.accessCode !=
+                                                      null) ...[
+                                                Box.h4,
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    const Icon(
+                                                      Bootstrap.key,
+                                                      color: AppColor.black,
+                                                    ),
+                                                    Box.w8,
+                                                    Expanded(
+                                                      child: SelectableText(
+                                                        course.accessCode!,
+                                                        style: AppTextStyle
+                                                            .textStyle14
+                                                            .copyWith(
+                                                          color: AppColor.black,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
                                             ],
                                           ),
                                         );

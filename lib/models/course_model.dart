@@ -9,12 +9,14 @@ class CourseModel {
   final String name;
   final String code;
   final TeacherModel teacher;
+  final String? accessCode;
 
   CourseModel({
     required this.id,
     required this.name,
     required this.code,
     required this.teacher,
+    this.accessCode,
   });
 
   factory CourseModel.fromJson(Map<String, dynamic> json) =>
