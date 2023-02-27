@@ -1,24 +1,21 @@
-import 'package:code_space_client/blocs/user/user_cubit.dart';
-import 'package:code_space_client/constants/app_color.dart';
 import 'package:code_space_client/constants/app_images.dart';
-import 'package:code_space_client/constants/app_sizes.dart';
+import 'package:code_space_client/constants/app_text_style.dart';
+import 'package:code_space_client/presentation/course_detail/widgets/course_detail_banner.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/blocs/course_detail/course_detail_bloc.dart';
-import 'package:code_space_client/constants/app_text_style.dart';
+import 'package:code_space_client/blocs/user/user_cubit.dart';
+import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/course_model.dart';
 import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
-import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/presentation/course_detail/widgets/join_course_dialog.dart';
-import 'package:code_space_client/presentation/course_detail/widgets/leave_course_dialog.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:icons_plus/icons_plus.dart';
 
 class CourseDetailView extends StatefulWidget {
   final bool me;
@@ -152,45 +149,71 @@ class _CourseDetailViewState extends State<CourseDetailView> {
             selector: (state) => state.joinedCourse,
             builder: (context, joinedCourse) {
               if (!joinedCourse && user?.roleType == RoleType.student) {
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(Sizes.s20),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        BlocSelector<CourseDetailBloc, CourseDetailState,
-                            CourseModel?>(
-                          selector: (state) => state.course,
-                          builder: (context, course) {
-                            if (course != null) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                      '${S.of(context).course}: ${course.name}'),
-                                  Text(
-                                      '${S.of(context).course_code}: ${course.code}'),
-                                  Text(
-                                      '${S.of(context).teacher}: ${course.teacher.name}'),
-                                  Text(
-                                      '${S.of(context).email}: ${course.teacher.email}'),
-                                ],
-                              );
-                            }
+                // return Center(
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(Sizes.s20),
+                //     child: Row(
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         BlocSelector<CourseDetailBloc, CourseDetailState,
+                //             CourseModel?>(
+                //           selector: (state) => state.course,
+                //           builder: (context, course) {
+                //             if (course != null) {
+                //               return Column(
+                //                 crossAxisAlignment: CrossAxisAlignment.start,
+                //                 children: [
+                //                   Text(
+                //                       '${S.of(context).course}: ${course.name}'),
+                //                   Text(
+                //                       '${S.of(context).course_code}: ${course.code}'),
+                //                   Text(
+                //                       '${S.of(context).teacher}: ${course.teacher.name}'),
+                //                   Text(
+                //                       '${S.of(context).email}: ${course.teacher.email}'),
+                //                 ],
+                //               );
+                //             }
 
-                            return const SizedBox.shrink();
-                          },
-                        ),
-                        AppElevatedButton(
-                          text: S.of(context).join_now,
-                          onPressed: () {
-                            showJoinCourseDialog(context, widget.courseId);
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
+                //             return const SizedBox.shrink();
+                //           },
+                //         ),
+                //         AppElevatedButton(
+                //           text: S.of(context).join_now,
+                //           onPressed: () {
+                //             showJoinCourseDialog(context, widget.courseId);
+                //           },
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // );
+
+                return BlocSelector<CourseDetailBloc, CourseDetailState,
+                    CourseModel?>(
+                  selector: (state) => state.course,
+                  builder: (context, course) {
+                    if (course != null) {
+                      return Column(
+                        children: [
+                          CourseDetailBanner(
+                            user: user,
+                            course: course,
+                            joinedCourse: joinedCourse,
+                          ),
+                          AppElevatedButton(
+                            text: S.of(context).join_now,
+                            onPressed: () {
+                              showJoinCourseDialog(context, widget.courseId);
+                            },
+                          ),
+                        ],
+                      );
+                    }
+
+                    return const SizedBox.shrink();
+                  },
                 );
               }
 
@@ -207,231 +230,10 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                         selector: (state) => state.course,
                         builder: (context, course) {
                           if (course != null) {
-                            return Container(
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: Sizes.s24,
-                                vertical: Sizes.s12,
-                              ),
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    width: double.infinity,
-                                    alignment: Alignment.bottomLeft,
-                                    padding: const EdgeInsets.only(
-                                      top: Sizes.s48,
-                                      bottom: Sizes.s12,
-                                      left: Sizes.s12,
-                                      right: Sizes.s12,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(Sizes.s8),
-                                      image: const DecorationImage(
-                                        image: AssetImage(
-                                          AppImages.courseDescriptionBackground,
-                                        ),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          course.name,
-                                          style:
-                                              AppTextStyle.textStyle24.copyWith(
-                                            color: AppColor.white,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                        Box.h8,
-                                        Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            const Icon(
-                                              Bootstrap.upc_scan,
-                                              color: AppColor.white,
-                                            ),
-                                            Box.w8,
-                                            Expanded(
-                                              child: SelectableText(
-                                                course.code,
-                                                style: AppTextStyle.textStyle14
-                                                    .copyWith(
-                                                  color: AppColor.white,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: IconButton(
-                                      onPressed: () {
-                                        showModalBottomSheet<void>(
-                                          context: context,
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.vertical(
-                                              top: Radius.circular(Sizes.s8),
-                                            ),
-                                          ),
-                                          builder: (BuildContext ctx) {
-                                            return Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                horizontal: Sizes.s20,
-                                                vertical: Sizes.s12,
-                                              ),
-                                              child: Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      children: <Widget>[
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            const Icon(
-                                                              Bootstrap
-                                                                  .person_video,
-                                                              color: AppColor
-                                                                  .black,
-                                                            ),
-                                                            Box.w8,
-                                                            Expanded(
-                                                              child:
-                                                                  SelectableText(
-                                                                course.teacher
-                                                                    .name,
-                                                                style: AppTextStyle
-                                                                    .textStyle14
-                                                                    .copyWith(
-                                                                  color: AppColor
-                                                                      .black,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Box.h4,
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            const Icon(
-                                                              Bootstrap
-                                                                  .envelope_at,
-                                                              color: AppColor
-                                                                  .black,
-                                                            ),
-                                                            Box.w8,
-                                                            Expanded(
-                                                              child:
-                                                                  SelectableText(
-                                                                course.teacher
-                                                                    .email,
-                                                                style: AppTextStyle
-                                                                    .textStyle14
-                                                                    .copyWith(
-                                                                  color: AppColor
-                                                                      .black,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        if (user?.roleType !=
-                                                                RoleType
-                                                                    .student &&
-                                                            course.accessCode !=
-                                                                null) ...[
-                                                          Box.h4,
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              const Icon(
-                                                                Bootstrap.key,
-                                                                color: AppColor
-                                                                    .black,
-                                                              ),
-                                                              Box.w8,
-                                                              Expanded(
-                                                                child:
-                                                                    SelectableText(
-                                                                  course
-                                                                      .accessCode!,
-                                                                  style: AppTextStyle
-                                                                      .textStyle14
-                                                                      .copyWith(
-                                                                    color: AppColor
-                                                                        .black,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  ElevatedButton(
-                                                    onPressed: () async {
-                                                      showLeaveCourseDialog(
-                                                        context,
-                                                        course.id,
-                                                      ).then((_) =>
-                                                          Navigator.pop(ctx));
-                                                    },
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      backgroundColor:
-                                                          AppColor.primaryColor,
-                                                    ),
-                                                    child: Text(
-                                                      S
-                                                          .of(context)
-                                                          .leave_course,
-                                                      style: AppTextStyle
-                                                          .defaultFont
-                                                          .copyWith(
-                                                        color: AppColor.white,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                      icon: const Icon(
-                                        Bootstrap.info_circle,
-                                        color: AppColor.white,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            return CourseDetailBanner(
+                              user: user,
+                              course: course,
+                              joinedCourse: joinedCourse,
                             );
                           }
 
@@ -450,12 +252,23 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                             childCount: problems.length + 1,
                             (BuildContext context, int index) {
                               if (problems.isEmpty) {
+                                if (!state.joinedCourse) {
+                                  return const SizedBox.shrink();
+                                }
+
                                 return Center(
-                                  child: Text(
-                                    S.of(context).the_course_has_no_problems,
-                                    style: const TextStyle(
-                                      fontSize: Sizes.s16,
-                                    ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        AppImages.notFound,
+                                        width: Sizes.s200,
+                                      ),
+                                      Text(
+                                        S.of(context).no_problems_found,
+                                        style: AppTextStyle.textStyle24,
+                                      ),
+                                    ],
                                   ),
                                 );
                               }

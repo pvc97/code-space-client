@@ -84,6 +84,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "login_screen_title": MessageLookupByLibrary.simpleMessage("Login"),
         "my_courses": MessageLookupByLibrary.simpleMessage("My Courses"),
         "no_network": MessageLookupByLibrary.simpleMessage("No network"),
+        "no_problems_found":
+            MessageLookupByLibrary.simpleMessage("No problems found"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_cannot_be_empty":
@@ -131,8 +133,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "stdin": MessageLookupByLibrary.simpleMessage("Stdin:"),
         "teacher": MessageLookupByLibrary.simpleMessage("Teacher"),
         "test_case": MessageLookupByLibrary.simpleMessage("Test case"),
-        "the_course_has_no_problems":
-            MessageLookupByLibrary.simpleMessage("The course has no problems"),
         "total_point": MessageLookupByLibrary.simpleMessage("Total point"),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
         "user_list": MessageLookupByLibrary.simpleMessage("User list"),

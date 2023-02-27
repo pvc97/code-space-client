@@ -117,7 +117,9 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
     CourseDetailSearchProblemsEvent event,
     Emitter<CourseDetailState> emit,
   ) async {
-    if (event.query == state.query) return;
+    // Disable search if not joined course because this user can't see any problems
+    if (!state.joinedCourse || event.query == state.query) return;
+
     add(CourseDetailGetInitProblemsEvent(
       courseId: event.courseId,
       initialQuery: event.query.trim(),
