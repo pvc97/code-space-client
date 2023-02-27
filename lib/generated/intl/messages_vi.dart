@@ -85,6 +85,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "my_courses": MessageLookupByLibrary.simpleMessage("Lớp học của tôi"),
         "no_network":
             MessageLookupByLibrary.simpleMessage("Không có kết nối mạng"),
+        "no_problems_found":
+            MessageLookupByLibrary.simpleMessage("Không tìm thấy bài tập"),
         "ok": MessageLookupByLibrary.simpleMessage("Đồng ý"),
         "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
         "password_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
@@ -132,8 +134,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "stdin": MessageLookupByLibrary.simpleMessage("Dữ liệu đầu vào:"),
         "teacher": MessageLookupByLibrary.simpleMessage("Giảng viên"),
         "test_case": MessageLookupByLibrary.simpleMessage("Test case"),
-        "the_course_has_no_problems":
-            MessageLookupByLibrary.simpleMessage("Lớp học này chưa có bài tập"),
         "total_point": MessageLookupByLibrary.simpleMessage("Tổng điểm"),
         "update": MessageLookupByLibrary.simpleMessage("Cập nhật"),
         "user_list":

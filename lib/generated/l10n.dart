@@ -630,11 +630,11 @@ class S {
     );
   }
 
-  /// `The course has no problems`
-  String get the_course_has_no_problems {
+  /// `No problems found`
+  String get no_problems_found {
     return Intl.message(
-      'The course has no problems',
-      name: 'the_course_has_no_problems',
+      'No problems found',
+      name: 'no_problems_found',
       desc: '',
       args: [],
     );

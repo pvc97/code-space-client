@@ -1,3 +1,5 @@
+import 'package:code_space_client/constants/app_images.dart';
+import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/presentation/course_detail/widgets/course_detail_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -250,12 +252,23 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                             childCount: problems.length + 1,
                             (BuildContext context, int index) {
                               if (problems.isEmpty) {
+                                if (!state.joinedCourse) {
+                                  return const SizedBox.shrink();
+                                }
+
                                 return Center(
-                                  child: Text(
-                                    S.of(context).the_course_has_no_problems,
-                                    style: const TextStyle(
-                                      fontSize: Sizes.s16,
-                                    ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        AppImages.notFound,
+                                        width: Sizes.s200,
+                                      ),
+                                      Text(
+                                        S.of(context).no_problems_found,
+                                        style: AppTextStyle.textStyle24,
+                                      ),
+                                    ],
                                   ),
                                 );
                               }
