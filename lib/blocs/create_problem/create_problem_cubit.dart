@@ -1,3 +1,4 @@
+import 'package:code_space_client/utils/event_bus/app_event.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -88,6 +89,9 @@ class CreateProblemCubit extends Cubit<CreateProblemState> {
         problemId: problemId,
         stateStatus: StateStatus.success,
       ));
+
+      // When problem is created successfully, fire an event to update the problem list
+      eventBus.fire(CreateProblemSuccessEvent(courseId: courseId));
     } on AppException catch (e) {
       emit(
         state.copyWith(

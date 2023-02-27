@@ -7,13 +7,11 @@ import 'package:code_space_client/presentation/create_problem/create_problem_vie
 class CreateProblemScreen extends StatelessWidget {
   final bool me;
   final String courseId;
-  final VoidCallback? onProblemCreated;
 
   const CreateProblemScreen({
     Key? key,
     required this.me,
     required this.courseId,
-    this.onProblemCreated,
   }) : super(key: key);
 
   @override
@@ -23,7 +21,6 @@ class CreateProblemScreen extends StatelessWidget {
       child: CreateProblemView(
         me: me,
         courseId: courseId,
-        onProblemCreated: onProblemCreated,
       ),
     );
   }
