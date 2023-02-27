@@ -1,3 +1,4 @@
+import 'package:code_space_client/constants/status_code_constants.dart';
 import 'package:code_space_client/constants/url_constants.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/models/course_model.dart';
@@ -65,6 +66,15 @@ class CourseService {
       },
     );
     return response?.statusCode == 201;
+  }
+
+  Future<bool> leaveCourse({
+    required String courseId,
+  }) async {
+    final response = await apiProvider.delete(
+      '${UrlConstants.courses}/$courseId/leave',
+    );
+    return response?.statusCode == StatusCodeConstants.code204;
   }
 
   Future<String> createCourse({

@@ -26,7 +26,9 @@ Future<void> showLeaveCourseDialog(BuildContext ctx, String courseId) {
               child: Text(S.of(context).cancel),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                bloc.add(CourseDetailLeaveCourseEvent(courseId: courseId));
+              },
               child: Text(S.of(context).ok),
             ),
           ],
