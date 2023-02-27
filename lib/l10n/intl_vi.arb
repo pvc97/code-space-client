@@ -77,5 +77,7 @@
   "user_list": "Danh sách tài khoản",
   "show_when_wrong": "Hiển thị khi làm sai:",
   "accounts": "Tài khoản",
-  "courses": "Lớp học"
+  "courses": "Lớp học",
+  "leave_course": "Rời lớp học",
+  "confirm_leave_course": "Xác nhận rời lớp học?"
 }

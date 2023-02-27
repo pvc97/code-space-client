@@ -72,6 +72,17 @@ class CourseRepository {
     }
   }
 
+  Future<bool> leaveCourse({
+    required String courseId,
+  }) async {
+    try {
+      final response = await courseService.leaveCourse(courseId: courseId);
+      return response;
+    } catch (e) {
+      throw ExceptionParser.parse(e);
+    }
+  }
+
   Future<String> createCourse({
     required String name,
     required String code,

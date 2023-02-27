@@ -35,6 +35,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "comment_home____": MessageLookupByLibrary.simpleMessage(""),
         "comment_login____": MessageLookupByLibrary.simpleMessage(""),
         "comment_role____": MessageLookupByLibrary.simpleMessage(""),
+        "confirm_leave_course":
+            MessageLookupByLibrary.simpleMessage("Xác nhận rời lớp học?"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Xác nhận mật khẩu"),
         "course": MessageLookupByLibrary.simpleMessage("Lớp học"),
@@ -75,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalid_point_per_test_case": MessageLookupByLibrary.simpleMessage(
             "Điểm cho mỗi test case không hợp lệ"),
         "join_now": MessageLookupByLibrary.simpleMessage("Tham gia ngay"),
+        "leave_course": MessageLookupByLibrary.simpleMessage("Rời lớp học"),
         "list_of_test_cases":
             MessageLookupByLibrary.simpleMessage("Danh sách các test case:"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),

@@ -80,3 +80,14 @@ class CourseDetailJoinCourseEvent extends CourseDetailEvent {
   @override
   List<Object> get props => [courseId, accessCode];
 }
+
+class CourseDetailLeaveCourseEvent extends CourseDetailEvent {
+  final String courseId;
+
+  const CourseDetailLeaveCourseEvent({
+    required this.courseId,
+  });
+
+  @override
+  List<Object> get props => [courseId];
+}

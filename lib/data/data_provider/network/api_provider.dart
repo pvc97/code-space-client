@@ -108,4 +108,17 @@ class ApiProvider {
     );
     return response;
   }
+
+  Future<Response?> delete(
+    String path, {
+    dynamic params,
+    Options? options,
+  }) async {
+    final response = await dio.delete(
+      '${UrlConstants.api}$path',
+      data: params,
+      options: options,
+    );
+    return response;
+  }
 }

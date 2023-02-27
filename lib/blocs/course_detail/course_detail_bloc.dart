@@ -32,6 +32,7 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
     on<CourseDetailLoadMoreProblemsEvent>(_loadMoreProblems);
     on<CourseDetailGetCourseEvent>(_onGetCourse);
     on<CourseDetailJoinCourseEvent>(_onJoinCourse);
+    on<CourseDetailLeaveCourseEvent>(_onLeaveCourse);
   }
 
   // NOTE: In bloc listener, I think check lastEvent is not good
@@ -216,6 +217,32 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
       );
       emit(state.copyWith(
         joinedCourse: success,
+        stateStatus: StateStatus.success,
+      ));
+    } on AppException catch (e) {
+      emit(
+        state.copyWith(
+          stateStatus: StateStatus.error,
+          error: e,
+        ),
+      );
+    }
+  }
+
+  void _onLeaveCourse(
+    CourseDetailLeaveCourseEvent event,
+    Emitter<CourseDetailState> emit,
+  ) async {
+    emit(state.copyWith(
+      stateStatus: StateStatus.loading,
+    ));
+
+    try {
+      await courseRepository.leaveCourse(
+        courseId: event.courseId,
+      );
+      emit(state.copyWith(
+        joinedCourse: false,
         stateStatus: StateStatus.success,
       ));
     } on AppException catch (e) {

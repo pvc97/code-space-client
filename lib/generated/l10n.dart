@@ -839,6 +839,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Leave course`
+  String get leave_course {
+    return Intl.message(
+      'Leave course',
+      name: 'leave_course',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm leave course?`
+  String get confirm_leave_course {
+    return Intl.message(
+      'Confirm leave course?',
+      name: 'confirm_leave_course',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
