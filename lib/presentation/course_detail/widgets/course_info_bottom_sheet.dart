@@ -100,7 +100,7 @@ void showCourseInfoBottomSheet({
                 ],
               ),
             ),
-            if (joinedCourse)
+            if (joinedCourse && user?.roleType == RoleType.student)
               ElevatedButton(
                 onPressed: () async {
                   showLeaveCourseDialog(
