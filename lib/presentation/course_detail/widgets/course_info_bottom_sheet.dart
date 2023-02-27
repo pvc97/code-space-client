@@ -14,6 +14,7 @@ void showCourseInfoBottomSheet({
   required BuildContext context,
   required CourseModel course,
   required UserModel? user,
+  required bool joinedCourse,
 }) {
   showModalBottomSheet<void>(
     context: context,
@@ -99,23 +100,24 @@ void showCourseInfoBottomSheet({
                 ],
               ),
             ),
-            ElevatedButton(
-              onPressed: () async {
-                showLeaveCourseDialog(
-                  context,
-                  course.id,
-                ).then((_) => Navigator.pop(ctx));
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColor.primaryColor,
-              ),
-              child: Text(
-                S.of(context).leave_course,
-                style: AppTextStyle.defaultFont.copyWith(
-                  color: AppColor.white,
+            if (joinedCourse)
+              ElevatedButton(
+                onPressed: () async {
+                  showLeaveCourseDialog(
+                    context,
+                    course.id,
+                  ).then((_) => Navigator.pop(ctx));
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColor.primaryColor,
+                ),
+                child: Text(
+                  S.of(context).leave_course,
+                  style: AppTextStyle.defaultFont.copyWith(
+                    color: AppColor.white,
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       );

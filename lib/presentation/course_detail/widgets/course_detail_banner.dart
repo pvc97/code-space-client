@@ -14,10 +14,12 @@ class CourseDetailBanner extends StatelessWidget {
     Key? key,
     required this.course,
     required this.user,
+    required this.joinedCourse,
   }) : super(key: key);
 
   final CourseModel course;
   final UserModel? user;
+  final bool joinedCourse;
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +88,10 @@ class CourseDetailBanner extends StatelessWidget {
             child: IconButton(
               onPressed: () {
                 showCourseInfoBottomSheet(
-                  context: context,
-                  course: course,
                   user: user,
+                  course: course,
+                  context: context,
+                  joinedCourse: joinedCourse,
                 );
               },
               icon: const Icon(

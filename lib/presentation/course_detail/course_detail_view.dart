@@ -147,45 +147,71 @@ class _CourseDetailViewState extends State<CourseDetailView> {
             selector: (state) => state.joinedCourse,
             builder: (context, joinedCourse) {
               if (!joinedCourse && user?.roleType == RoleType.student) {
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(Sizes.s20),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        BlocSelector<CourseDetailBloc, CourseDetailState,
-                            CourseModel?>(
-                          selector: (state) => state.course,
-                          builder: (context, course) {
-                            if (course != null) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                      '${S.of(context).course}: ${course.name}'),
-                                  Text(
-                                      '${S.of(context).course_code}: ${course.code}'),
-                                  Text(
-                                      '${S.of(context).teacher}: ${course.teacher.name}'),
-                                  Text(
-                                      '${S.of(context).email}: ${course.teacher.email}'),
-                                ],
-                              );
-                            }
+                // return Center(
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(Sizes.s20),
+                //     child: Row(
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         BlocSelector<CourseDetailBloc, CourseDetailState,
+                //             CourseModel?>(
+                //           selector: (state) => state.course,
+                //           builder: (context, course) {
+                //             if (course != null) {
+                //               return Column(
+                //                 crossAxisAlignment: CrossAxisAlignment.start,
+                //                 children: [
+                //                   Text(
+                //                       '${S.of(context).course}: ${course.name}'),
+                //                   Text(
+                //                       '${S.of(context).course_code}: ${course.code}'),
+                //                   Text(
+                //                       '${S.of(context).teacher}: ${course.teacher.name}'),
+                //                   Text(
+                //                       '${S.of(context).email}: ${course.teacher.email}'),
+                //                 ],
+                //               );
+                //             }
 
-                            return const SizedBox.shrink();
-                          },
-                        ),
-                        AppElevatedButton(
-                          text: S.of(context).join_now,
-                          onPressed: () {
-                            showJoinCourseDialog(context, widget.courseId);
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
+                //             return const SizedBox.shrink();
+                //           },
+                //         ),
+                //         AppElevatedButton(
+                //           text: S.of(context).join_now,
+                //           onPressed: () {
+                //             showJoinCourseDialog(context, widget.courseId);
+                //           },
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // );
+
+                return BlocSelector<CourseDetailBloc, CourseDetailState,
+                    CourseModel?>(
+                  selector: (state) => state.course,
+                  builder: (context, course) {
+                    if (course != null) {
+                      return Column(
+                        children: [
+                          CourseDetailBanner(
+                            user: user,
+                            course: course,
+                            joinedCourse: joinedCourse,
+                          ),
+                          AppElevatedButton(
+                            text: S.of(context).join_now,
+                            onPressed: () {
+                              showJoinCourseDialog(context, widget.courseId);
+                            },
+                          ),
+                        ],
+                      );
+                    }
+
+                    return const SizedBox.shrink();
+                  },
                 );
               }
 
@@ -205,6 +231,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                             return CourseDetailBanner(
                               user: user,
                               course: course,
+                              joinedCourse: joinedCourse,
                             );
                           }
 
