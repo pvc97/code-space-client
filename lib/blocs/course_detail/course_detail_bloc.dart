@@ -238,11 +238,11 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
     ));
 
     try {
-      final success = await courseRepository.leaveCourse(
+      await courseRepository.leaveCourse(
         courseId: event.courseId,
       );
       emit(state.copyWith(
-        joinedCourse: success,
+        joinedCourse: false,
         stateStatus: StateStatus.success,
       ));
     } on AppException catch (e) {
