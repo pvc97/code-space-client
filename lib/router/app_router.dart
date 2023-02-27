@@ -112,7 +112,6 @@ final GoRouter router = GoRouter(
                       child: CreateProblemScreen(
                         courseId: state.params['courseId'] ?? '',
                         me: state.queryParams['me'] == 'true',
-                        onProblemCreated: state.extra as VoidCallback?,
                       ),
                     );
                   },

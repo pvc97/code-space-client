@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:code_space_client/constants/app_constants.dart';
 import 'package:code_space_client/constants/status_code_constants.dart';
 import 'package:code_space_client/models/course_model.dart';
 import 'package:code_space_client/utils/bloc_transformer.dart';
+import 'package:code_space_client/utils/event_bus/app_event.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +22,8 @@ part 'course_detail_state.dart';
 class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
   final CourseRepository courseRepository;
 
+  StreamSubscription? _eventSubscription;
+
   CourseDetailBloc({required this.courseRepository})
       : super(CourseDetailState.initial()) {
     on<CourseDetailGetInitProblemsEvent>(_onGetInitProblems);
@@ -33,6 +38,15 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
     on<CourseDetailGetCourseEvent>(_onGetCourse);
     on<CourseDetailJoinCourseEvent>(_onJoinCourse);
     on<CourseDetailLeaveCourseEvent>(_onLeaveCourse);
+
+    _registerToEventBus();
+  }
+
+  void _registerToEventBus() {
+    _eventSubscription =
+        eventBus.on<CreateProblemSuccessEvent>().listen((event) {
+      add(CourseDetailRefreshProblemsEvent(courseId: event.courseId));
+    });
   }
 
   // NOTE: In bloc listener, I think check lastEvent is not good
@@ -58,6 +72,7 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
   @override
   Future<void> close() {
     logger.d('CourseDetailBloc closed');
+    _eventSubscription?.cancel();
     return super.close();
   }
 

@@ -23,13 +23,11 @@ import 'package:code_space_client/utils/state_status_listener.dart';
 class CreateProblemView extends StatefulWidget {
   final bool me;
   final String courseId;
-  final VoidCallback? onProblemCreated;
 
   const CreateProblemView({
     Key? key,
     required this.me,
     required this.courseId,
-    this.onProblemCreated,
   }) : super(key: key);
 
   @override
@@ -135,10 +133,7 @@ class _CreateProblemViewState extends State<CreateProblemView> {
           listener: (context, state) {
             final problemId = state.problemId;
             if (problemId != null) {
-              // When problem is created, reload list problem in course detail
-              // and navigate to problem detail page
-              widget.onProblemCreated?.call();
-
+              // When problem is created and navigate to problem detail page
               context.goNamed(
                 AppRoute.problem.name,
                 params: {
