@@ -36,6 +36,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "comment_home____": MessageLookupByLibrary.simpleMessage(""),
         "comment_login____": MessageLookupByLibrary.simpleMessage(""),
         "comment_role____": MessageLookupByLibrary.simpleMessage(""),
+        "confirm_leave_course":
+            MessageLookupByLibrary.simpleMessage("Confirm leave course?"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
         "course": MessageLookupByLibrary.simpleMessage("Course"),
@@ -76,8 +78,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Invalid point per test case"),
         "join_now": MessageLookupByLibrary.simpleMessage("Join now"),
         "leave_course": MessageLookupByLibrary.simpleMessage("Leave course"),
-        "leave_this_course":
-            MessageLookupByLibrary.simpleMessage("Leave this course?"),
         "list_of_test_cases":
             MessageLookupByLibrary.simpleMessage("List of test cases:"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),

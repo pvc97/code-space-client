@@ -19,7 +19,7 @@ Future<void> showLeaveCourseDialog(BuildContext ctx, String courseId) {
           Navigator.pop(context);
         },
         child: AlertDialog(
-          title: Text(S.of(context).leave_this_course),
+          title: Text(S.of(context).confirm_leave_course),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),

@@ -850,11 +850,11 @@ class S {
     );
   }
 
-  /// `Leave this course?`
-  String get leave_this_course {
+  /// `Confirm leave course?`
+  String get confirm_leave_course {
     return Intl.message(
-      'Leave this course?',
-      name: 'leave_this_course',
+      'Confirm leave course?',
+      name: 'confirm_leave_course',
       desc: '',
       args: [],
     );
