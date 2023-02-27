@@ -75,6 +75,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalid_point_per_test_case":
             MessageLookupByLibrary.simpleMessage("Invalid point per test case"),
         "join_now": MessageLookupByLibrary.simpleMessage("Join now"),
+        "leave_course": MessageLookupByLibrary.simpleMessage("Leave course"),
+        "leave_this_course":
+            MessageLookupByLibrary.simpleMessage("Leave this course?"),
         "list_of_test_cases":
             MessageLookupByLibrary.simpleMessage("List of test cases:"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),

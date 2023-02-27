@@ -75,6 +75,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalid_point_per_test_case": MessageLookupByLibrary.simpleMessage(
             "Điểm cho mỗi test case không hợp lệ"),
         "join_now": MessageLookupByLibrary.simpleMessage("Tham gia ngay"),
+        "leave_course": MessageLookupByLibrary.simpleMessage("Rời lớp học"),
+        "leave_this_course":
+            MessageLookupByLibrary.simpleMessage("Rời khỏi lớp học?"),
         "list_of_test_cases":
             MessageLookupByLibrary.simpleMessage("Danh sách các test case:"),
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
