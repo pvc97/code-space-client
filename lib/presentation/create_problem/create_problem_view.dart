@@ -1,3 +1,4 @@
+import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -155,14 +156,16 @@ class _CreateProblemViewState extends State<CreateProblemView> {
           ),
           body: Align(
             alignment: Alignment.topCenter,
-            child: Container(
-              padding: const EdgeInsets.all(Sizes.s20),
-              constraints: const BoxConstraints(maxWidth: 600),
-              child: Form(
-                key: _formKey,
-                autovalidateMode: _autovalidateMode,
-                child: ListView(
-                  shrinkWrap: true,
+            child: Form(
+              key: _formKey,
+              autovalidateMode: _autovalidateMode,
+              // Don't wrap TextFormField inside ListView because validation will not work
+              // if TextFormField isn't visible
+              // https://github.com/flutter/flutter/issues/56159
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(Sizes.s20),
+                child: Column(
+                  // shrinkWrap: true,
                   children: [
                     BlocSelector<CreateProblemCubit, CreateProblemState,
                         Iterable<LanguageModel>>(
@@ -236,7 +239,14 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(S.of(context).list_of_test_cases),
+                              Expanded(
+                                child: Text(
+                                  S.of(context).list_of_test_cases,
+                                  style: AppTextStyle.textStyle18.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
                               ElevatedButton(
                                 onPressed: () {
                                   showTestCaseDialog(
@@ -387,11 +397,14 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                         final testCases = state.testCases;
                         final pdfPath = state.pdfFile;
 
-                        return AppElevatedButton(
-                          onPressed: (testCases.isNotEmpty && pdfPath != null)
-                              ? _submit
-                              : null,
-                          text: S.of(context).create,
+                        return FractionallySizedBox(
+                          widthFactor: 0.5,
+                          child: AppElevatedButton(
+                            onPressed: (testCases.isNotEmpty && pdfPath != null)
+                                ? _submit
+                                : null,
+                            text: S.of(context).create,
+                          ),
                         );
                       },
                     )
