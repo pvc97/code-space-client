@@ -1,8 +1,8 @@
+import 'package:code_space_client/blocs/ranking/ranking_cubit.dart';
+import 'package:code_space_client/injection_container.dart';
+import 'package:code_space_client/presentation/ranking/ranking_view.dart';
 import 'package:flutter/material.dart';
-
-import 'package:code_space_client/constants/app_sizes.dart';
-import 'package:code_space_client/generated/l10n.dart';
-import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RankingScreen extends StatelessWidget {
   final bool me;
@@ -10,30 +10,15 @@ class RankingScreen extends StatelessWidget {
 
   const RankingScreen({
     Key? key,
-    required this.me,
+    this.me = false,
     required this.courseId,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AdaptiveAppBar(
-        context: context,
-        title: Text(S.of(context).ranking),
-      ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(Sizes.s20),
-        itemCount: 20,
-        itemBuilder: (BuildContext context, int index) {
-          return Card(
-            child: ListTile(
-              leading: Text('${index + 1}'),
-              title: const Text('Pham Van Cuong'),
-              subtitle: const Text('Score 100'),
-            ),
-          );
-        },
-      ),
+    return BlocProvider<RankingCubit>(
+      create: (context) => sl(),
+      child: RankingView(me: me, courseId: courseId),
     );
   }
 }
