@@ -56,4 +56,6 @@ class CourseDetailState extends BasePageState<ProblemModel> {
       isLoadMoreDone: isLoadMoreDone ?? this.isLoadMoreDone,
     );
   }
+
+  List<ProblemModel> get problems => items;
 }

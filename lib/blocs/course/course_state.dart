@@ -1,17 +1,13 @@
 part of 'course_bloc.dart';
 
-class CourseState extends BaseState {
-  final List<CourseModel> courses;
-  final int page;
-  final bool isLoadingMore;
-  final bool isLoadMoreDone;
+class CourseState extends BasePageState<CourseModel> {
   final String query;
 
   const CourseState({
-    required this.courses,
-    required this.page,
-    required this.isLoadingMore,
-    required this.isLoadMoreDone,
+    required super.items,
+    required super.page,
+    required super.isLoadingMore,
+    required super.isLoadMoreDone,
     required this.query,
     required super.stateStatus,
     super.error,
@@ -19,7 +15,7 @@ class CourseState extends BaseState {
 
   factory CourseState.initial() {
     return const CourseState(
-      courses: [],
+      items: [],
       page: NetworkConstants.defaultPage,
       stateStatus: StateStatus.initial,
       isLoadingMore: false,
@@ -29,7 +25,7 @@ class CourseState extends BaseState {
   }
 
   CourseState copyWith({
-    List<CourseModel>? courses,
+    List<CourseModel>? items,
     int? page,
     bool? isLoadingMore,
     bool? isLoadMoreDone,
@@ -38,7 +34,7 @@ class CourseState extends BaseState {
     AppException? error,
   }) {
     return CourseState(
-      courses: courses ?? this.courses,
+      items: items ?? this.items,
       page: page ?? this.page,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
       isLoadMoreDone: isLoadMoreDone ?? this.isLoadMoreDone,
@@ -51,12 +47,10 @@ class CourseState extends BaseState {
   @override
   List<Object?> get props {
     return [
-      courses,
-      page,
-      isLoadingMore,
-      isLoadMoreDone,
       query,
       ...super.props,
     ];
   }
+
+  List<CourseModel> get courses => items;
 }

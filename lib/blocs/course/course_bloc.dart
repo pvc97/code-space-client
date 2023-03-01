@@ -1,3 +1,4 @@
+import 'package:code_space_client/blocs/base/base_page_state.dart';
 import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/constants/app_constants.dart';
 import 'package:code_space_client/constants/network_constants.dart';
@@ -52,7 +53,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
       );
 
       emit(state.copyWith(
-        courses: courses,
+        items: courses,
         page: page,
         query: query,
         isLoadingMore: false,
@@ -97,7 +98,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
       );
 
       emit(state.copyWith(
-        courses: [...state.courses, ...courses],
+        items: [...state.items, ...courses],
         page: state.page + 1,
         isLoadingMore: false,
         isLoadMoreDone: courses.length < NetworkConstants.defaultLimit,

@@ -242,9 +242,9 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                     ),
                     BlocBuilder<CourseDetailBloc, CourseDetailState>(
                       buildWhen: (previous, current) =>
-                          previous.items != current.items,
+                          previous.problems != current.problems,
                       builder: (context, state) {
-                        final problems = state.items;
+                        final problems = state.problems;
 
                         return SliverList(
                           delegate: SliverChildBuilderDelegate(
