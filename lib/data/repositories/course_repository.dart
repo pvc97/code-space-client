@@ -1,6 +1,7 @@
 import 'package:code_space_client/data/data_provider/services/course_service.dart';
 import 'package:code_space_client/models/course_model.dart';
 import 'package:code_space_client/models/problem_model.dart';
+import 'package:code_space_client/models/ranking_model.dart';
 import 'package:code_space_client/utils/exception_parser.dart';
 
 class CourseRepository {
@@ -97,6 +98,24 @@ class CourseRepository {
         teacherId: teacherId,
       );
       return response;
+    } catch (e) {
+      throw ExceptionParser.parse(e);
+    }
+  }
+
+  Future<List<RankingModel>> getRankings({
+    required String courseId,
+    required int page,
+    required int limit,
+  }) async {
+    try {
+      final rankings = await courseService.getRankings(
+        courseId: courseId,
+        page: page,
+        limit: limit,
+      );
+
+      return rankings;
     } catch (e) {
       throw ExceptionParser.parse(e);
     }

@@ -3,6 +3,7 @@ import 'package:code_space_client/constants/url_constants.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/models/course_model.dart';
 import 'package:code_space_client/models/problem_model.dart';
+import 'package:code_space_client/models/ranking_model.dart';
 
 class CourseService {
   final ApiProvider apiProvider;
@@ -93,5 +94,22 @@ class CourseService {
       },
     );
     return response?.data['data']['id'];
+  }
+
+  Future<List<RankingModel>> getRankings({
+    required String courseId,
+    required int page,
+    required int limit,
+  }) async {
+    final response = await apiProvider.get(
+      '${UrlConstants.courses}/$courseId/ranking',
+      queryParameters: {
+        'page': page,
+        'limit': limit,
+      },
+    );
+    return (response?.data['data'] as List)
+        .map((e) => RankingModel.fromJson(e))
+        .toList();
   }
 }
