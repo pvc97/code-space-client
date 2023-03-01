@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:code_space_client/blocs/base/base_page_state.dart';
 import 'package:code_space_client/constants/app_constants.dart';
 import 'package:code_space_client/constants/status_code_constants.dart';
 import 'package:code_space_client/models/course_model.dart';
@@ -102,7 +103,7 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
       );
 
       emit(state.copyWith(
-        problems: problems,
+        items: problems,
         page: page,
         query: query,
         isLoadingMore: false,
@@ -170,7 +171,7 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
       );
 
       emit(state.copyWith(
-        problems: [...state.problems, ...problems],
+        items: [...state.items, ...problems],
         page: state.page + 1,
         isLoadingMore: false,
         isLoadMoreDone: problems.length < NetworkConstants.defaultLimit,

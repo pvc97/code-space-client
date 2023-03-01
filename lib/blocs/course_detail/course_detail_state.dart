@@ -1,22 +1,18 @@
 part of 'course_detail_bloc.dart';
 
-class CourseDetailState extends BaseState {
+class CourseDetailState extends BasePageState<ProblemModel> {
   final CourseModel? course;
-  final List<ProblemModel> problems;
-  final int page;
-  final bool isLoadingMore;
-  final bool isLoadMoreDone;
   final String query;
   final bool joinedCourse;
 
   const CourseDetailState({
     this.course,
-    required this.joinedCourse,
-    required this.problems,
-    required this.page,
-    required this.isLoadingMore,
-    required this.isLoadMoreDone,
     required this.query,
+    required this.joinedCourse,
+    required super.items,
+    required super.page,
+    required super.isLoadMoreDone,
+    required super.isLoadingMore,
     required super.stateStatus,
     super.error,
   });
@@ -24,7 +20,7 @@ class CourseDetailState extends BaseState {
   factory CourseDetailState.initial() {
     return const CourseDetailState(
       course: null,
-      problems: [],
+      items: [],
       joinedCourse: true,
       page: NetworkConstants.defaultPage,
       stateStatus: StateStatus.initial,
@@ -35,40 +31,29 @@ class CourseDetailState extends BaseState {
   }
 
   @override
-  List<Object?> get props {
-    return [
-      course,
-      problems,
-      page,
-      query,
-      isLoadingMore,
-      isLoadMoreDone,
-      joinedCourse,
-      ...super.props,
-    ];
-  }
+  List<Object?> get props => [query, course, joinedCourse, ...super.props];
 
   CourseDetailState copyWith({
-    CourseModel? course,
-    List<ProblemModel>? problems,
     int? page,
+    String? query,
+    bool? joinedCourse,
+    CourseModel? course,
+    AppException? error,
     bool? isLoadingMore,
     bool? isLoadMoreDone,
-    String? query,
     StateStatus? stateStatus,
-    AppException? error,
-    bool? joinedCourse,
+    List<ProblemModel>? items,
   }) {
     return CourseDetailState(
-      course: course ?? this.course,
-      problems: problems ?? this.problems,
       page: page ?? this.page,
+      items: items ?? this.items,
+      query: query ?? this.query,
+      error: error ?? this.error,
+      course: course ?? this.course,
+      stateStatus: stateStatus ?? this.stateStatus,
+      joinedCourse: joinedCourse ?? this.joinedCourse,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
       isLoadMoreDone: isLoadMoreDone ?? this.isLoadMoreDone,
-      stateStatus: stateStatus ?? this.stateStatus,
-      error: error ?? this.error,
-      query: query ?? this.query,
-      joinedCourse: joinedCourse ?? this.joinedCourse,
     );
   }
 }
