@@ -4,6 +4,7 @@ part 'ranking_model.g.dart';
 
 @JsonSerializable()
 class RankingModel {
+  @JsonKey(name: 'name')
   final String studentName;
   final int totalPoint;
 

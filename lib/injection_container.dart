@@ -6,6 +6,7 @@ import 'package:code_space_client/blocs/create_problem/create_problem_cubit.dart
 import 'package:code_space_client/blocs/locale/locale_cubit.dart';
 import 'package:code_space_client/blocs/problem/problem_cubit.dart';
 import 'package:code_space_client/blocs/problem_result/problem_result_cubit.dart';
+import 'package:code_space_client/blocs/ranking/ranking_cubit.dart';
 import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager_impl.dart';
@@ -172,5 +173,8 @@ abstract class Di {
 
     sl.registerFactory<CreateProblemCubit>(() =>
         CreateProblemCubit(languageRepository: sl(), problemRepository: sl()));
+
+    sl.registerFactory<RankingCubit>(
+        () => RankingCubit(courseRepository: sl()));
   }
 }

@@ -12,9 +12,9 @@ part 'ranking_state.dart';
 class RankingCubit extends Cubit<RankingState> {
   final CourseRepository courseRepository;
 
-  RankingCubit(
-    this.courseRepository,
-  ) : super(RankingState.initial());
+  RankingCubit({
+    required this.courseRepository,
+  }) : super(RankingState.initial());
 
   @override
   Future<void> close() {
