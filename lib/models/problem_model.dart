@@ -6,10 +6,12 @@ part 'problem_model.g.dart';
 class ProblemModel {
   final String id;
   final String name;
+  final bool completed;
 
   ProblemModel({
     required this.id,
     required this.name,
+    required this.completed,
   });
 
   factory ProblemModel.fromJson(Map<String, dynamic> json) =>
