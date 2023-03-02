@@ -77,7 +77,7 @@ class _CourseListViewState extends State<CourseListView> {
           context: context,
           showHomeButton: false,
           title: Container(
-            margin: const EdgeInsets.only(left: Sizes.s16, right: Sizes.s8),
+            margin: const EdgeInsets.symmetric(horizontal: Sizes.s20),
             child: TextField(
               decoration: InputDecoration(
                 // border: InputBorder.none,
@@ -118,7 +118,10 @@ class _CourseListViewState extends State<CourseListView> {
               },
               child: ListView.builder(
                 controller: _scrollController,
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.symmetric(
+                  vertical: Sizes.s12,
+                  horizontal: Sizes.s20,
+                ),
                 itemCount: courses.length + 1,
                 itemBuilder: (context, index) {
                   if (index == courses.length) {

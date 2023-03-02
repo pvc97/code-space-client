@@ -101,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Vui lòng chọn giảng viên"),
         "point_per_test_case":
             MessageLookupByLibrary.simpleMessage("Điểm cho mỗi test case"),
+        "points": MessageLookupByLibrary.simpleMessage("Điểm"),
         "problem_history":
             MessageLookupByLibrary.simpleMessage("Lịch sử chấm bài"),
         "problem_name": MessageLookupByLibrary.simpleMessage("Tên bài tập"),

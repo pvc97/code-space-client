@@ -398,7 +398,7 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                         final pdfPath = state.pdfFile;
 
                         return FractionallySizedBox(
-                          widthFactor: 0.5,
+                          widthFactor: 0.7,
                           child: AppElevatedButton(
                             onPressed: (testCases.isNotEmpty && pdfPath != null)
                                 ? _submit

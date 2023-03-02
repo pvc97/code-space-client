@@ -79,5 +79,6 @@
   "accounts": "Accounts",
   "courses": "Courses",
   "leave_course": "Leave course",
-  "confirm_leave_course": "Confirm leave course?"
+  "confirm_leave_course": "Confirm leave course?",
+  "points": "Points"
 }
