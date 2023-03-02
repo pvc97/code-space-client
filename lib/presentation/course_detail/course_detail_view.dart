@@ -1,3 +1,4 @@
+import 'package:code_space_client/constants/app_color.dart';
 import 'package:code_space_client/constants/app_images.dart';
 import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/presentation/course_detail/widgets/course_detail_banner.dart';
@@ -16,6 +17,7 @@ import 'package:code_space_client/presentation/common_widgets/app_elevated_butto
 import 'package:code_space_client/presentation/course_detail/widgets/join_course_dialog.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 class CourseDetailView extends StatefulWidget {
   final bool me;
@@ -278,7 +280,13 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                                             },
                                             icon: const Icon(Icons.more_vert),
                                           )
-                                        : null,
+                                        : (user?.roleType == RoleType.student &&
+                                                problem.completed)
+                                            ? const Icon(
+                                                Bootstrap.check2_circle,
+                                                color: AppColor.primaryColor,
+                                              )
+                                            : null,
                                   ),
                                 ),
                               );
