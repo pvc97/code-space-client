@@ -98,7 +98,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
             context: context,
             centerTitle: false,
             title: Container(
-              margin: const EdgeInsets.only(right: Sizes.s8),
+              margin: const EdgeInsets.only(right: Sizes.s4),
               child: TextField(
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(borderSide: BorderSide.none),
@@ -210,7 +210,8 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                             childCount: problems.length + 1,
                             (BuildContext context, int index) {
                               if (problems.isEmpty) {
-                                if (!state.joinedCourse) {
+                                if (!state.joinedCourse ||
+                                    state.stateStatus == StateStatus.initial) {
                                   return const SizedBox.shrink();
                                 }
 

@@ -3,6 +3,7 @@ class Sizes {
   Sizes._();
   static const s1 = 1.0;
   static const s2 = 2.0;
+  static const s3 = 3.0;
   static const s4 = 4.0;
   static const s8 = 8.0;
   static const s12 = 12.0;
@@ -12,6 +13,7 @@ class Sizes {
   static const s32 = 32.0;
   static const s48 = 48.0;
   static const s56 = 56.0;
+  static const s60 = 60.0;
   static const s64 = 64.0;
   static const s108 = 108.0;
   static const s120 = 120.0;

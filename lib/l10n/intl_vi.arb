@@ -79,5 +79,6 @@
   "accounts": "Tài khoản",
   "courses": "Lớp học",
   "leave_course": "Rời lớp học",
-  "confirm_leave_course": "Xác nhận rời lớp học?"
+  "confirm_leave_course": "Xác nhận rời lớp học?",
+  "points": "Điểm"
 }

@@ -100,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please select teacher"),
         "point_per_test_case":
             MessageLookupByLibrary.simpleMessage("Point per test case"),
+        "points": MessageLookupByLibrary.simpleMessage("Points"),
         "problem_history":
             MessageLookupByLibrary.simpleMessage("Submission history"),
         "problem_name": MessageLookupByLibrary.simpleMessage("Problem name"),

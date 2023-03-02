@@ -1,4 +1,8 @@
 import 'package:code_space_client/blocs/base/base_state.dart';
+import 'package:code_space_client/constants/app_color.dart';
+import 'package:code_space_client/constants/app_images.dart';
+import 'package:code_space_client/constants/app_text_style.dart';
+import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +11,7 @@ import 'package:code_space_client/blocs/ranking/ranking_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
+import 'package:lottie/lottie.dart';
 
 class RankingView extends StatefulWidget {
   final bool me;
@@ -45,6 +50,50 @@ class _RankingViewState extends State<RankingView> {
 
   void _refreshRankings() {
     context.read<RankingCubit>().refreshRankings(courseId: widget.courseId);
+  }
+
+  Widget _buildBadge(int index) {
+    switch (index) {
+      case 0:
+        return Lottie.asset(
+          AppImages.top1,
+          width: Sizes.s64,
+        );
+      case 1:
+        return Lottie.asset(
+          AppImages.top2,
+          width: Sizes.s64,
+        );
+      case 2:
+        return Lottie.asset(
+          AppImages.top3,
+          width: Sizes.s64,
+        );
+      default:
+        return Container(
+          width: Sizes.s56,
+          height: Sizes.s56,
+          margin: const EdgeInsets.only(
+            left: Sizes.s8,
+            top: Sizes.s4,
+            bottom: Sizes.s4,
+          ),
+          decoration: BoxDecoration(
+            color: AppColor.primaryColor.shade50,
+            borderRadius: BorderRadius.circular(Sizes.s32),
+            border: Border.all(
+              color: AppColor.primaryColor,
+              width: Sizes.s3,
+            ),
+          ),
+          child: Center(
+            child: Text(
+              '${index + 1}',
+              style: AppTextStyle.textStyle18,
+            ),
+          ),
+        );
+    }
   }
 
   @override
@@ -93,10 +142,25 @@ class _RankingViewState extends State<RankingView> {
 
                     final item = rankings[index];
                     return Card(
-                      child: ListTile(
-                        leading: Text('${index + 1}'),
-                        title: Text(item.studentName),
-                        subtitle: Text('${item.totalPoint}'),
+                      child: Padding(
+                        padding: const EdgeInsets.all(Sizes.s8),
+                        child: Row(
+                          children: [
+                            _buildBadge(index),
+                            Box.w8,
+                            Expanded(
+                              child: Text(
+                                item.studentName,
+                                style: AppTextStyle.textStyle18,
+                              ),
+                            ),
+                            Text(
+                              '${item.totalPoint} ${S.of(context).points}',
+                              style: AppTextStyle.textStyle16,
+                            ),
+                            Box.w8,
+                          ],
+                        ),
                       ),
                     );
                   },

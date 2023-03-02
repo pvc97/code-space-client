@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class AppTextStyle {
   static const TextStyle defaultFont = TextStyle(
-    fontWeight: FontWeight.w300,
+    fontWeight: FontWeight.w400,
     overflow: TextOverflow.ellipsis,
     color: AppColor.black,
   );
