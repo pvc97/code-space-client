@@ -29,7 +29,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
   @override
   void initState() {
     super.initState();
-    context.read<UserCubit>().getUserInfo();
+    context.read<UserCubit>().getMe();
   }
 
   @override
