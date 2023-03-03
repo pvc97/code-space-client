@@ -11,27 +11,25 @@ class UserService {
   final ApiProvider apiProvider;
   final LocalStorageManager localStorage;
 
-  UserModel? user;
+  UserModel? me;
 
   UserService({
     required this.apiProvider,
     required this.localStorage,
   });
 
-  /// Fetch user info from server
-  Future<UserModel> fetchUserInfo() async {
-    final response = await apiProvider.get(UrlConstants.userInfo);
-    user = UserModel.fromJson(response?.data['data']);
-    await saveUser(user!);
-    return user!;
+  /// Fetch user info with id from server
+  Future<UserModel> fetchUserInfo(String userId) async {
+    final response = await apiProvider.get('${UrlConstants.users}/$userId');
+    return UserModel.fromJson(response?.data['data']);
   }
 
   /// Get user cached user info
   /// If user is null, get user info from local storage
   /// Use cached user to improve performance :)
-  Future<UserModel?> getUserInfo() async {
-    if (user != null) {
-      return user;
+  Future<UserModel?> getMe() async {
+    if (me != null) {
+      return me;
     }
 
     return getLocalUser();
@@ -51,7 +49,12 @@ class UserService {
   }
 
   Future<List<TeacherModel>> getTeachers() async {
-    final response = await apiProvider.get(UrlConstants.teachers);
+    final response = await apiProvider.get(
+      UrlConstants.users,
+      queryParameters: {
+        'roleType': 'teacher',
+      },
+    );
     final teachers = response?.data['data'] as List;
     return teachers.map((e) => TeacherModel.fromJson(e)).toList();
   }

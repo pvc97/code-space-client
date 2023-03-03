@@ -10,19 +10,19 @@ class UserRepository {
     required this.userService,
   });
 
-  /// Fetch user info from server
-  Future<UserModel> fetchUserInfo() async {
+  /// Fetch specific user info from server
+  Future<UserModel> fetchUserInfo(String problemId) async {
     try {
-      final user = await userService.fetchUserInfo();
+      final user = await userService.fetchUserInfo(problemId);
       return user;
     } catch (e) {
       throw ExceptionParser.parse(e);
     }
   }
 
-  /// Get user cached user info
-  Future<UserModel?> getUserInfo() async {
-    return userService.getUserInfo();
+  /// Get me: cached user info
+  Future<UserModel?> getMe() async {
+    return userService.getMe();
   }
 
   Future<List<TeacherModel>> getTeachers() async {
