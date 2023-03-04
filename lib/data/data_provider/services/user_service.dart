@@ -53,6 +53,7 @@ class UserService {
       UrlConstants.users,
       queryParameters: {
         'roleType': 'teacher',
+        'all': true,
       },
     );
     final teachers = response?.data['data'] as List;
