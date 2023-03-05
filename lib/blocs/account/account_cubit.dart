@@ -1,3 +1,5 @@
+import 'package:code_space_client/constants/app_constants.dart';
+import 'package:code_space_client/utils/debounce.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,6 +13,7 @@ part 'account_state.dart';
 
 // I call this class AccountCubit instead of UserCubit because I already have a UserCubit class
 class AccountCubit extends Cubit<AccountState> {
+  final _debounce = Debounce(milliseconds: AppConstants.searchDebounceDuration);
   final UserRepository userRepository;
 
   AccountCubit({
@@ -101,12 +104,16 @@ class AccountCubit extends Cubit<AccountState> {
     );
   }
 
+  // Because I am using CUBIT, so I have to create my own debounce
+  // instead of using a debounce from BLOC
   void searchAccounts({required String query}) async {
-    if (query == state.query) return;
+    _debounce.run(debouncedAction: () {
+      if (query == state.query) return;
 
-    getAccounts(
-      initialQuery: query.trim(),
-      initialPage: NetworkConstants.defaultPage,
-    );
+      getAccounts(
+        initialQuery: query.trim(),
+        initialPage: NetworkConstants.defaultPage,
+      );
+    });
   }
 }
