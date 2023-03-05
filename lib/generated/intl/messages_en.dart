@@ -61,6 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "email_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Email cannot be empty"),
+        "email_is_not_valid":
+            MessageLookupByLibrary.simpleMessage("Email is not valid"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "enter_access_code":
             MessageLookupByLibrary.simpleMessage("Enter access code"),

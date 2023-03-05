@@ -3,6 +3,7 @@ import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
+import 'package:code_space_client/utils/extensions/string_ext.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -68,7 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       return S.of(context).username_cannot_be_empty;
                     }
 
-                    if (!RegExp(r'^[A-Za-z0-9]+$').hasMatch(value)) {
+                    if (!value.isValidUserName()) {
                       return S.of(context).username_only_alphanumeric;
                     }
 
@@ -104,6 +105,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
                       return S.of(context).email_cannot_be_empty;
+                    }
+
+                    if (!value.isValidEmail()) {
+                      return S.of(context).email_is_not_valid;
                     }
                     return null;
                   },

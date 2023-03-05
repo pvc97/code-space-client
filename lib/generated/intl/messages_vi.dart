@@ -61,6 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "email_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Email không được để trống"),
+        "email_is_not_valid":
+            MessageLookupByLibrary.simpleMessage("Email không hợp lệ"),
         "english": MessageLookupByLibrary.simpleMessage("Tiếng Anh"),
         "enter_access_code":
             MessageLookupByLibrary.simpleMessage("Nhập mã truy cập"),

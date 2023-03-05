@@ -879,6 +879,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Email is not valid`
+  String get email_is_not_valid {
+    return Intl.message(
+      'Email is not valid',
+      name: 'email_is_not_valid',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
