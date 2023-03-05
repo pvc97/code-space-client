@@ -1,3 +1,4 @@
+import 'package:code_space_client/blocs/account/account_cubit.dart';
 import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/blocs/course/course_bloc.dart';
 import 'package:code_space_client/blocs/course_detail/course_detail_bloc.dart';
@@ -176,5 +177,7 @@ abstract class Di {
 
     sl.registerFactory<RankingCubit>(
         () => RankingCubit(courseRepository: sl()));
+
+    sl.registerFactory<AccountCubit>(() => AccountCubit(userRepository: sl()));
   }
 }

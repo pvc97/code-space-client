@@ -1,72 +1,62 @@
+import 'package:code_space_client/blocs/account/account_cubit.dart';
 import 'package:code_space_client/blocs/base/base_state.dart';
-import 'package:code_space_client/blocs/course/course_bloc.dart';
-import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/generated/l10n.dart';
-import 'package:code_space_client/models/role_type.dart';
-import 'package:code_space_client/router/app_router.dart';
-import 'package:code_space_client/utils/logger/logger.dart';
+import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/utils/extensions/role_type_ext.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
-
-import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
-class CourseListView extends StatefulWidget {
-  final bool me;
-
-  const CourseListView({
-    Key? key,
-    required this.me,
-  }) : super(key: key);
+class AccountView extends StatefulWidget {
+  const AccountView({super.key});
 
   @override
-  State<CourseListView> createState() => _CourseListViewState();
+  State<AccountView> createState() => AccountViewState();
 }
 
-class _CourseListViewState extends State<CourseListView> {
+class AccountViewState extends State<AccountView> {
   final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<AccountCubit>().getAccounts();
+    });
+  }
 
   @override
   void dispose() {
     _scrollController.dispose();
-    logger.d('CourseListView dispose: me =  ${widget.me}');
     super.dispose();
-  }
-
-  void _searchCourse(String query) {
-    context
-        .read<CourseBloc>()
-        .add(SearchCourseEvent(query: query, onlyMyCourses: widget.me));
-  }
-
-  void _loadMore() {
-    context
-        .read<CourseBloc>()
-        .add(LoadMoreCourseEvent(onlyMyCourses: widget.me));
   }
 
   void _resetScrollPosition() {
     _scrollController.jumpTo(0);
   }
 
-  void _refreshCourses() {
-    context
-        .read<CourseBloc>()
-        .add(RefreshCoursesEvent(onlyMyCourses: widget.me));
+  void _loadMore() {
+    context.read<AccountCubit>().loadMoreAccounts();
+  }
+
+  void _refreshAccounts() {
+    context.read<AccountCubit>().refreshAccounts();
+  }
+
+  void _searchAccount(String query) {
+    context.read<AccountCubit>().searchAccounts(query: query);
   }
 
   @override
   Widget build(BuildContext context) {
-    final user = context.select((UserCubit cubit) => cubit.state.user);
     return MultiBlocListener(
       listeners: [
-        const BlocListener<CourseBloc, CourseState>(
+        const BlocListener<AccountCubit, AccountState>(
           listener: stateStatusListener,
         ),
-        BlocListener<CourseBloc, CourseState>(
+        BlocListener<AccountCubit, AccountState>(
           listenWhen: (previous, current) => previous.query != current.query,
           listener: (context, state) {
             _resetScrollPosition();
@@ -85,7 +75,7 @@ class _CourseListViewState extends State<CourseListView> {
                 border: const OutlineInputBorder(borderSide: BorderSide.none),
                 enabledBorder:
                     const OutlineInputBorder(borderSide: BorderSide.none),
-                hintText: S.of(context).search_course,
+                hintText: S.of(context).search_accounts,
                 prefixIcon: const Icon(Icons.search),
                 fillColor: Colors.white,
                 filled: true,
@@ -94,28 +84,20 @@ class _CourseListViewState extends State<CourseListView> {
                 contentPadding: const EdgeInsets.all(Sizes.s8),
               ),
               onChanged: (value) {
-                _searchCourse(value);
+                _searchAccount(value);
               },
             ),
           ),
-          actions: [
-            if (user?.roleType == RoleType.manager)
-              IconButton(
-                onPressed: () {
-                  context.goNamed(AppRoute.createCourse.name);
-                },
-                icon: const Icon(Icons.add),
-              ),
-          ],
         ),
-        body: BlocBuilder<CourseBloc, CourseState>(
-          buildWhen: (previous, current) => previous.courses != current.courses,
+        body: BlocBuilder<AccountCubit, AccountState>(
+          buildWhen: (previous, current) =>
+              previous.accounts != current.accounts,
           builder: (context, state) {
-            final courses = state.courses;
+            final accounts = state.accounts;
 
             return RefreshIndicator(
               onRefresh: () async {
-                _refreshCourses();
+                _refreshAccounts();
               },
               child: ListView.builder(
                 controller: _scrollController,
@@ -123,9 +105,9 @@ class _CourseListViewState extends State<CourseListView> {
                   vertical: Sizes.s12,
                   horizontal: Sizes.s20,
                 ),
-                itemCount: courses.length + 1,
+                itemCount: accounts.length + 1,
                 itemBuilder: (context, index) {
-                  if (index == courses.length) {
+                  if (index == accounts.length) {
                     // Check stateStatus to avoid infinite loop call loadMore
                     if (state.isLoadMoreDone ||
                         state.stateStatus != StateStatus.success) {
@@ -140,14 +122,14 @@ class _CourseListViewState extends State<CourseListView> {
                     );
                   }
 
-                  final course = courses[index];
+                  final account = accounts[index];
                   return GestureDetector(
                     onTap: () {
-                      context.goNamed(
-                        AppRoute.courseDetail.name,
-                        params: {'courseId': course.id},
-                        queryParams: widget.me ? {'me': 'true'} : {},
-                      );
+                      // context.goNamed(
+                      //   AppRoute.courseDetail.name,
+                      //   params: {'courseId': course.id},
+                      //   queryParams: widget.me ? {'me': 'true'} : {},
+                      // );
                     },
                     child: Card(
                       child: ListTile(
@@ -155,22 +137,21 @@ class _CourseListViewState extends State<CourseListView> {
                           horizontal: Sizes.s24,
                           vertical: Sizes.s12,
                         ),
+                        leading: Image.asset(account.roleType.imagePath),
                         title: Text(
-                          course.name,
+                          account.name,
                           style: AppTextStyle.defaultFont.copyWith(
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         subtitle: Text(
-                          '${course.code}\n${course.teacher.name}',
+                          '${account.userName}\n${account.email}',
                           style: AppTextStyle.defaultFont,
                         ),
-                        trailing: (user?.roleType == RoleType.manager)
-                            ? IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.more_vert),
-                              )
-                            : null,
+                        trailing: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.more_vert),
+                        ),
                       ),
                     ),
                   );

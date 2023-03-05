@@ -25,7 +25,6 @@ class RankingCubit extends Cubit<RankingState> {
   void getRankings({
     required String courseId,
     int? initialPage,
-    String? initialQuery,
   }) async {
     int page = initialPage ?? state.page;
 

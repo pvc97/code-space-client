@@ -9,4 +9,8 @@ class AppImages {
   static const String top1 = 'assets/images/top1.json';
   static const String top2 = 'assets/images/top2.json';
   static const String top3 = 'assets/images/top3.json';
+
+  static const String student = 'assets/images/student.png';
+  static const String teacher = 'assets/images/teacher.png';
+  static const String manager = 'assets/images/manager.png';
 }

@@ -118,6 +118,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "role_manager": MessageLookupByLibrary.simpleMessage("Quản lý"),
         "role_student": MessageLookupByLibrary.simpleMessage("Học viên"),
         "role_teacher": MessageLookupByLibrary.simpleMessage("Giảng viên"),
+        "search_accounts":
+            MessageLookupByLibrary.simpleMessage("Tìm kiếm tài khoản..."),
         "search_course":
             MessageLookupByLibrary.simpleMessage("Tìm kiếm lớp học..."),
         "search_problem":
