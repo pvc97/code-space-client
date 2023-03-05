@@ -2,6 +2,7 @@ import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/blocs/course/course_bloc.dart';
 import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
+import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/router/app_router.dart';
@@ -154,9 +155,16 @@ class _CourseListViewState extends State<CourseListView> {
                           horizontal: Sizes.s24,
                           vertical: Sizes.s12,
                         ),
-                        title: Text(course.name),
-                        subtitle:
-                            Text('${course.code}\n${course.teacher.name}'),
+                        title: Text(
+                          course.name,
+                          style: AppTextStyle.defaultFont.copyWith(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        subtitle: Text(
+                          '${course.code}\n${course.teacher.name}',
+                          style: AppTextStyle.defaultFont,
+                        ),
                         trailing: (user?.roleType == RoleType.manager)
                             ? IconButton(
                                 onPressed: () {},
