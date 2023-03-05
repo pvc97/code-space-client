@@ -17,6 +17,7 @@ import 'package:code_space_client/router/adaptive_transition_page.dart';
 import 'package:code_space_client/router/go_router_refresh_stream.dart';
 import 'package:code_space_client/presentation/auth/login_screen.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 enum AppRoute {
@@ -228,11 +229,16 @@ final GoRouter router = GoRouter(
   debugLogDiagnostics: true,
   redirect: (context, state) {
     final loggedIn =
-        sl<AuthCubit>().state.authStatus == AuthStatus.authenticated;
+        context.read<AuthCubit>().state.authStatus == AuthStatus.authenticated;
 
     final subloc = state.subloc;
 
-    if (subloc == '/login') {
+    // subloc vs location
+    // subloc: /courses
+    // location: /courses?me=true
+    // => Use subloc
+
+    if (subloc == '/login' || subloc == '/sign-up') {
       if (loggedIn) {
         // Because /courses is the screen that is shown when the user is logged in
         return '/courses';
@@ -247,5 +253,12 @@ final GoRouter router = GoRouter(
 
     return null;
   },
-  refreshListenable: GoRouterRefreshStream(sl<AuthCubit>().stream),
+  refreshListenable: GoRouterRefreshStream(
+    stream: sl<AuthCubit>().stream,
+    equals: (oldState, newState) => oldState.authStatus == newState.authStatus,
+    // Because AuthState have multiple fields,
+    // I only want to refresh when authStatus changes
+    // If equals returns true, new event will not be emitted
+    // => Prevent duplicate refresh
+  ),
 );

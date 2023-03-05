@@ -48,4 +48,33 @@ class AuthCubit extends Cubit<AuthState> {
       emit(state.copyWith(authStatus: AuthStatus.unauthenticated));
     }
   }
+
+  void registerStudent({
+    required String userName,
+    required String fullName,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      emit(state.copyWith(stateStatus: StateStatus.loading));
+      await authRepository.registerStudent(
+        username: userName,
+        fullName: fullName,
+        email: email,
+        password: password,
+      );
+      emit(state.copyWith(
+        authStatus: AuthStatus.authenticated,
+        stateStatus: StateStatus.success,
+      ));
+    } on AppException catch (e) {
+      emit(
+        state.copyWith(
+          authStatus: AuthStatus.unauthenticated,
+          error: e,
+          stateStatus: StateStatus.error,
+        ),
+      );
+    }
+  }
 }
