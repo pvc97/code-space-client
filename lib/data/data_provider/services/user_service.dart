@@ -59,4 +59,23 @@ class UserService {
     final teachers = response?.data['data'] as List;
     return teachers.map((e) => TeacherModel.fromJson(e)).toList();
   }
+
+  Future<List<UserModel>> getUsers({
+    required String query,
+    required int page,
+    required int limit,
+  }) async {
+    final response = await apiProvider.get(
+      UrlConstants.users,
+      queryParameters: {
+        'page': page,
+        'q': query,
+        'limit': limit,
+        'all': false,
+        // if all == true => don't use pagination, otherwise use pagination
+      },
+    );
+    final users = response?.data['data'] as List;
+    return users.map((e) => UserModel.fromJson(e)).toList();
+  }
 }

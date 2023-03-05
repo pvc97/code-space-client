@@ -33,4 +33,21 @@ class UserRepository {
       throw ExceptionParser.parse(e);
     }
   }
+
+  Future<List<UserModel>> getUsers({
+    required String query,
+    required int page,
+    required int limit,
+  }) async {
+    try {
+      final users = await userService.getUsers(
+        query: query,
+        page: page,
+        limit: limit,
+      );
+      return users;
+    } catch (e) {
+      throw ExceptionParser.parse(e);
+    }
+  }
 }
