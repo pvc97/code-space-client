@@ -1,3 +1,4 @@
+import 'package:code_space_client/presentation/account/account_view.dart';
 import 'package:flutter/material.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -5,10 +6,6 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Account Screen'),
-      ),
-    );
+    return const AccountView();
   }
 }

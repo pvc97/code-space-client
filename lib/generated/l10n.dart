@@ -889,6 +889,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Search accounts...`
+  String get search_accounts {
+    return Intl.message(
+      'Search accounts...',
+      name: 'search_accounts',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

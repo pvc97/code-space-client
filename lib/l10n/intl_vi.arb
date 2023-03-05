@@ -82,5 +82,6 @@
   "confirm_leave_course": "Xác nhận rời lớp học?",
   "points": "Điểm",
   "username_only_alphanumeric": "Tài khoản chỉ được chứa các ký tự chữ cái và số",
-  "email_is_not_valid": "Email không hợp lệ"
+  "email_is_not_valid": "Email không hợp lệ",
+  "search_accounts": "Tìm kiếm tài khoản..."
 }
