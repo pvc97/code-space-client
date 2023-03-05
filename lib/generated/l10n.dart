@@ -869,6 +869,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Username only alphanumeric`
+  String get username_only_alphanumeric {
+    return Intl.message(
+      'Username only alphanumeric',
+      name: 'username_only_alphanumeric',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email is not valid`
+  String get email_is_not_valid {
+    return Intl.message(
+      'Email is not valid',
+      name: 'email_is_not_valid',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

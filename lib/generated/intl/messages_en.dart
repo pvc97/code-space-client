@@ -61,6 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "email_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Email cannot be empty"),
+        "email_is_not_valid":
+            MessageLookupByLibrary.simpleMessage("Email is not valid"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "enter_access_code":
             MessageLookupByLibrary.simpleMessage("Enter access code"),
@@ -140,6 +142,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "username": MessageLookupByLibrary.simpleMessage("Username"),
         "username_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Username cannot be empty"),
+        "username_only_alphanumeric":
+            MessageLookupByLibrary.simpleMessage("Username only alphanumeric"),
         "vietnamese": MessageLookupByLibrary.simpleMessage("Vietnamese")
       };
 }

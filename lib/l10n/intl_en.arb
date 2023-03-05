@@ -80,5 +80,7 @@
   "courses": "Courses",
   "leave_course": "Leave course",
   "confirm_leave_course": "Confirm leave course?",
-  "points": "Points"
+  "points": "Points",
+  "username_only_alphanumeric": "Username only alphanumeric",
+  "email_is_not_valid": "Email is not valid"
 }

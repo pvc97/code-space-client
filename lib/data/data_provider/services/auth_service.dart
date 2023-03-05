@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:code_space_client/constants/spref_key.dart';
+import 'package:code_space_client/constants/status_code_constants.dart';
 import 'package:code_space_client/constants/url_constants.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager.dart';
 import 'package:code_space_client/models/token_model.dart';
@@ -77,5 +78,39 @@ class AuthService {
     final savedToken = listData[1];
 
     return savedUser != null && savedToken != null;
+  }
+
+  Future<bool> registerStudent({
+    required String username,
+    required String fullName,
+    required String email,
+    required String password,
+  }) async {
+    final response = await apiProvider.post(
+      UrlConstants.register,
+      params: {
+        'username': username,
+        'name': fullName,
+        'email': email,
+        'password': password,
+      },
+    );
+
+    if (response?.statusCode != StatusCodeConstants.code201) {
+      return false;
+    }
+
+    final tokenModel = TokenModel.fromJson(response?.data['data']);
+
+    apiProvider.accessToken = tokenModel.accessToken;
+    await localStorage.write<String>(
+        SPrefKey.tokenModel, jsonEncode(tokenModel.toJson()));
+
+    final UserModel user =
+        UserModel.fromJson(JwtDecoder.decode(tokenModel.accessToken));
+
+    await saveUser(user);
+
+    return true;
   }
 }

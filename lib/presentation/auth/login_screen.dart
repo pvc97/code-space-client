@@ -5,6 +5,7 @@ import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.d
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/router/app_router.dart';
+import 'package:code_space_client/utils/extensions/string_ext.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,6 +68,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (value == null || value.isEmpty) {
                           return S.of(context).username_cannot_be_empty;
                         }
+
+                        if (!value.isValidUserName()) {
+                          return S.of(context).username_only_alphanumeric;
+                        }
+
                         return null;
                       },
                       onSaved: (String? value) {

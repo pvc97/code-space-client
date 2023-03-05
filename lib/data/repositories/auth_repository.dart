@@ -30,4 +30,23 @@ class AuthRepository {
   Future<TokenModel?> getSavedToken() => authService.getLocalToken();
 
   Future<bool> isLoggedIn() => authService.isLoggedIn();
+
+  Future<bool> registerStudent({
+    required String username,
+    required String fullName,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final success = await authService.registerStudent(
+        username: username,
+        fullName: fullName,
+        email: email,
+        password: password,
+      );
+      return success;
+    } catch (e) {
+      throw ExceptionParser.parse(e);
+    }
+  }
 }
