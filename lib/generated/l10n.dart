@@ -869,6 +869,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Username only alphanumeric`
+  String get username_only_alphanumeric {
+    return Intl.message(
+      'Username only alphanumeric',
+      name: 'username_only_alphanumeric',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

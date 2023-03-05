@@ -80,5 +80,6 @@
   "courses": "Lớp học",
   "leave_course": "Rời lớp học",
   "confirm_leave_course": "Xác nhận rời lớp học?",
-  "points": "Điểm"
+  "points": "Điểm",
+  "username_only_alphanumeric": "Tài khoản chỉ được chứa các ký tự chữ cái và số"
 }

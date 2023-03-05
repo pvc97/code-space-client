@@ -67,6 +67,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     if (value == null || value.isEmpty) {
                       return S.of(context).username_cannot_be_empty;
                     }
+
+                    if (!RegExp(r'^[A-Za-z0-9]+$').hasMatch(value)) {
+                      return S.of(context).username_only_alphanumeric;
+                    }
+
                     return null;
                   },
                   onSaved: (String? value) {
@@ -118,6 +123,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     if (value == null || value.isEmpty) {
                       return S.of(context).password_cannot_be_empty;
                     }
+
                     return null;
                   },
                   onSaved: (String? value) {
@@ -128,7 +134,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 TextFormField(
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
-                    labelText: S.of(context).password,
+                    labelText: S.of(context).confirm_password,
                   ),
                   obscureText: true,
                   validator: (String? value) {
