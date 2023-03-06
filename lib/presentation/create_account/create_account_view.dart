@@ -1,3 +1,4 @@
+import 'package:code_space_client/blocs/create_account/create_account_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/generated/l10n.dart';
@@ -8,6 +9,7 @@ import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/utils/extensions/string_ext.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateAccountView extends StatefulWidget {
   const CreateAccountView({super.key});
@@ -40,12 +42,13 @@ class _CreateAccountViewState extends State<CreateAccountView> {
 
     form.save();
 
-    // context.read<AuthCubit>().registerStudent(
-    //       userName: _username!,
-    //       fullName: _fullName!,
-    //       email: _email!,
-    //       password: _password!,
-    //     );
+    context.read<CreateAccountCubit>().createAccount(
+          username: _username!,
+          fullName: _fullName!,
+          email: _email!,
+          password: _password!,
+          role: _selectedRole!,
+        );
   }
 
   @override

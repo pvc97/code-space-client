@@ -78,4 +78,24 @@ class UserService {
     final users = response?.data['data'] as List;
     return users.map((e) => UserModel.fromJson(e)).toList();
   }
+
+  Future<String> createUser({
+    required String username,
+    required String fullName,
+    required String email,
+    required String password,
+    required String role,
+  }) async {
+    final response = await apiProvider.post(
+      UrlConstants.users,
+      params: {
+        'username': username,
+        'name': fullName,
+        'email': email,
+        'password': password,
+        'roleType': role,
+      },
+    );
+    return response?.data['data']['id'];
+  }
 }

@@ -50,4 +50,25 @@ class UserRepository {
       throw ExceptionParser.parse(e);
     }
   }
+
+  Future<String> createUser({
+    required String username,
+    required String fullName,
+    required String email,
+    required String password,
+    required String role,
+  }) async {
+    try {
+      final userId = await userService.createUser(
+        username: username,
+        fullName: fullName,
+        email: email,
+        password: password,
+        role: role,
+      );
+      return userId;
+    } catch (e) {
+      throw ExceptionParser.parse(e);
+    }
+  }
 }
