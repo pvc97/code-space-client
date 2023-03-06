@@ -899,6 +899,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Create new account`
+  String get create_new_account {
+    return Intl.message(
+      'Create new account',
+      name: 'create_new_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select role`
+  String get please_select_role {
+    return Intl.message(
+      'Please select role',
+      name: 'please_select_role',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select role`
+  String get select_role {
+    return Intl.message(
+      'Select role',
+      name: 'select_role',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create account`
+  String get create_account {
+    return Intl.message(
+      'Create account',
+      name: 'create_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account created successfully`
+  String get account_created_successfully {
+    return Intl.message(
+      'Account created successfully',
+      name: 'account_created_successfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

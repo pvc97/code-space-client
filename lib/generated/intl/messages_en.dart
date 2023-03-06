@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "access_code": MessageLookupByLibrary.simpleMessage("Access code"),
         "access_code_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Access code cannot be empty"),
+        "account_created_successfully": MessageLookupByLibrary.simpleMessage(
+            "Account created successfully"),
         "accounts": MessageLookupByLibrary.simpleMessage("Accounts"),
         "add_test_case": MessageLookupByLibrary.simpleMessage("Add new"),
         "an_error_occurred":
@@ -52,6 +54,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Course name cannot be empty"),
         "courses": MessageLookupByLibrary.simpleMessage("Courses"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
+        "create_account":
+            MessageLookupByLibrary.simpleMessage("Create account"),
+        "create_new_account":
+            MessageLookupByLibrary.simpleMessage("Create new account"),
         "create_new_course":
             MessageLookupByLibrary.simpleMessage("Create new course"),
         "create_new_problem":
@@ -98,6 +104,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please fill all fields"),
         "please_select_language":
             MessageLookupByLibrary.simpleMessage("Please select language"),
+        "please_select_role":
+            MessageLookupByLibrary.simpleMessage("Please select role"),
         "please_select_teacher":
             MessageLookupByLibrary.simpleMessage("Please select teacher"),
         "point_per_test_case":
@@ -127,6 +135,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Select languages"),
         "select_problem_file":
             MessageLookupByLibrary.simpleMessage("Select problem file:"),
+        "select_role": MessageLookupByLibrary.simpleMessage("Select role"),
         "select_teacher":
             MessageLookupByLibrary.simpleMessage("Select teacher"),
         "session_expired":

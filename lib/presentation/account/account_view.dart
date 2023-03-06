@@ -1,13 +1,17 @@
 import 'package:code_space_client/blocs/account/account_cubit.dart';
 import 'package:code_space_client/blocs/base/base_state.dart';
+import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/generated/l10n.dart';
+import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/extensions/role_type_ext.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class AccountView extends StatefulWidget {
   const AccountView({super.key});
@@ -51,6 +55,8 @@ class AccountViewState extends State<AccountView> {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.select((UserCubit cubit) => cubit.state.user);
+
     return MultiBlocListener(
       listeners: [
         const BlocListener<AccountCubit, AccountState>(
@@ -88,6 +94,15 @@ class AccountViewState extends State<AccountView> {
               },
             ),
           ),
+          actions: [
+            if (user?.roleType == RoleType.manager)
+              IconButton(
+                onPressed: () {
+                  context.goNamed(AppRoute.createAccount.name);
+                },
+                icon: const Icon(Icons.add),
+              ),
+          ],
         ),
         body: BlocBuilder<AccountCubit, AccountState>(
           buildWhen: (previous, current) =>

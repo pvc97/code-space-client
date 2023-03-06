@@ -1,26 +1,31 @@
-import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/blocs/base/base_state.dart';
+import 'package:code_space_client/blocs/create_account/create_account_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
+import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/generated/l10n.dart';
+import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/utils/extensions/string_ext.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:go_router/go_router.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class CreateAccountView extends StatefulWidget {
+  const CreateAccountView({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<CreateAccountView> createState() => _CreateAccountViewState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _CreateAccountViewState extends State<CreateAccountView> {
   final _formKey = GlobalKey<FormState>();
   var _autovalidateMode = AutovalidateMode.disabled;
-  String? _username, _fullName, _email, _password;
+  String? _username, _fullName, _email, _password, _selectedRole;
 
   final _passwordController = TextEditingController();
 
@@ -41,22 +46,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     form.save();
 
-    context.read<AuthCubit>().registerStudent(
-          userName: _username!,
+    context.read<CreateAccountCubit>().createAccount(
+          username: _username!,
           fullName: _fullName!,
           email: _email!,
           password: _password!,
+          role: _selectedRole!,
         );
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthCubit, AuthState>(
-      listener: stateStatusListener,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<CreateAccountCubit, CreateAccountState>(
+            listener: (ctx, state) {
+          stateStatusListener(
+            ctx,
+            state,
+            onSuccess: () {
+              EasyLoading.showInfo(S.of(context).account_created_successfully,
+                  dismissOnTap: true);
+            },
+          );
+        }),
+        BlocListener<CreateAccountCubit, CreateAccountState>(
+          listenWhen: (previous, current) => previous.userId != current.userId,
+          listener: (context, state) {
+            final userId = state.userId;
+            if (userId != null && context.canPop()) {
+              // TODO: Navigate to the user profile page
+              context.pop();
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         appBar: AdaptiveAppBar(
           context: context,
-          title: Text(S.of(context).sign_up),
+          title: Text(S.of(context).create_new_account),
         ),
         body: Center(
           child: Form(
@@ -161,7 +189,47 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         },
                       ),
                       Box.h16,
-                      BlocBuilder<AuthCubit, AuthState>(
+                      DropdownButtonFormField2(
+                        buttonOverlayColor:
+                            MaterialStateProperty.all(Colors.transparent),
+                        decoration: InputDecoration(
+                          //Add isDense true and zero Padding.
+                          //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
+                          isDense: true,
+                          contentPadding: EdgeInsets.zero,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(Sizes.s4),
+                          ),
+                        ),
+                        hint: Text(
+                          S.of(context).select_role,
+                          style: AppTextStyle.defaultFont,
+                        ),
+                        items: RoleType.values.map((role) {
+                          return DropdownMenuItem<String>(
+                            value: role.name,
+                            child: Text(
+                              role.getName(context),
+                              style: AppTextStyle.defaultFont,
+                            ),
+                          );
+                        }).toList(),
+                        validator: (value) {
+                          if (value == null) {
+                            return S.of(context).please_select_role;
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          //Do something when changing the item if you want.
+                        },
+                        onSaved: (value) {
+                          _selectedRole = value;
+                        },
+                        buttonHeight: Sizes.s64,
+                      ),
+                      Box.h16,
+                      BlocBuilder<CreateAccountCubit, CreateAccountState>(
                         builder: (context, state) {
                           return FractionallySizedBox(
                             widthFactor: 0.7,
@@ -170,7 +238,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   state.stateStatus == StateStatus.loading
                                       ? null
                                       : _submit,
-                              text: S.of(context).sign_up,
+                              text: S.of(context).create_account,
                             ),
                           );
                         },
