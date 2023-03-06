@@ -83,5 +83,9 @@
   "points": "Points",
   "username_only_alphanumeric": "Username only alphanumeric",
   "email_is_not_valid": "Email is not valid",
-  "search_accounts": "Search accounts..."
+  "search_accounts": "Search accounts...",
+  "create_new_account": "Create new account",
+  "please_select_role": "Please select role",
+  "select_role": "Select role",
+  "create_account": "Create account"
 }

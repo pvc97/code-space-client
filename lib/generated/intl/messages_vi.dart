@@ -52,6 +52,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Tên lớp học không được để trống"),
         "courses": MessageLookupByLibrary.simpleMessage("Lớp học"),
         "create": MessageLookupByLibrary.simpleMessage("Tạo"),
+        "create_account": MessageLookupByLibrary.simpleMessage("Tạo tài khoản"),
+        "create_new_account":
+            MessageLookupByLibrary.simpleMessage("Tạo tài khoản mới"),
         "create_new_course":
             MessageLookupByLibrary.simpleMessage("Tạo lớp học mới"),
         "create_new_problem":
@@ -99,6 +102,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Vui lòng điền đầy đủ thông tin"),
         "please_select_language":
             MessageLookupByLibrary.simpleMessage("Vui lòng chọn ngôn ngữ"),
+        "please_select_role":
+            MessageLookupByLibrary.simpleMessage("Vui lòng chọn chức vụ"),
         "please_select_teacher":
             MessageLookupByLibrary.simpleMessage("Vui lòng chọn giảng viên"),
         "point_per_test_case":
@@ -128,6 +133,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Chọn ngôn ngữ"),
         "select_problem_file":
             MessageLookupByLibrary.simpleMessage("Chọn file đề bài:"),
+        "select_role": MessageLookupByLibrary.simpleMessage("Chọn chức vụ"),
         "select_teacher":
             MessageLookupByLibrary.simpleMessage("Chọn giảng viên"),
         "session_expired":

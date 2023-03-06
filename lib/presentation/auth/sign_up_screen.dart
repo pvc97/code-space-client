@@ -90,7 +90,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           _username = value;
                         },
                       ),
-                      const Box(height: 10),
+                      Box.h12,
                       TextFormField(
                         decoration: InputDecoration(
                           border: const OutlineInputBorder(),
@@ -106,7 +106,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           _fullName = value;
                         },
                       ),
-                      const Box(height: 10),
+                      Box.h12,
                       TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
@@ -127,7 +127,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           _email = value;
                         },
                       ),
-                      const Box(height: 10),
+                      Box.h12,
                       TextFormField(
                         controller: _passwordController,
                         decoration: InputDecoration(
@@ -146,7 +146,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           _password = value;
                         },
                       ),
-                      const Box(height: 10),
+                      Box.h12,
                       TextFormField(
                         decoration: InputDecoration(
                           border: const OutlineInputBorder(),
@@ -160,7 +160,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           return null;
                         },
                       ),
-                      const Box(height: 16),
+                      Box.h16,
                       BlocBuilder<AuthCubit, AuthState>(
                         builder: (context, state) {
                           return FractionallySizedBox(

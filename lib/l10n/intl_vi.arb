@@ -83,5 +83,9 @@
   "points": "Điểm",
   "username_only_alphanumeric": "Tài khoản chỉ được chứa các ký tự chữ cái và số",
   "email_is_not_valid": "Email không hợp lệ",
-  "search_accounts": "Tìm kiếm tài khoản..."
+  "search_accounts": "Tìm kiếm tài khoản...",
+  "create_new_account": "Tạo tài khoản mới",
+  "please_select_role": "Vui lòng chọn chức vụ",
+  "select_role": "Chọn chức vụ",
+  "create_account": "Tạo tài khoản"
 }

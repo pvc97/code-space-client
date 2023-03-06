@@ -4,6 +4,7 @@ import 'package:code_space_client/presentation/account/account_screen.dart';
 import 'package:code_space_client/presentation/auth/sign_up_screen.dart';
 import 'package:code_space_client/presentation/course_detail/course_detail_screen.dart';
 import 'package:code_space_client/presentation/course_list/course_list_screen.dart';
+import 'package:code_space_client/presentation/create_account/create_account_screen.dart';
 import 'package:code_space_client/presentation/create_course/create_course_screen.dart';
 import 'package:code_space_client/presentation/create_problem/create_problem_screen.dart';
 import 'package:code_space_client/presentation/common_widgets/scaffold_with_nav_bar.dart';
@@ -31,6 +32,7 @@ enum AppRoute {
   settings,
   courseDetail,
   createCourse,
+  createAccount,
   problemResult,
   createProblem,
   problemHistory,
@@ -203,15 +205,28 @@ final GoRouter router = GoRouter(
           ],
         ),
         GoRoute(
-          path: '/account',
-          name: AppRoute.account.name,
-          pageBuilder: (context, state) {
-            return NoTransitionPage(
-              key: state.pageKey,
-              child: const AccountScreen(),
-            );
-          },
-        ),
+            path: '/account',
+            name: AppRoute.account.name,
+            pageBuilder: (context, state) {
+              return NoTransitionPage(
+                key: state.pageKey,
+                child: const AccountScreen(),
+              );
+            },
+            routes: [
+              GoRoute(
+                path: 'create',
+                name: AppRoute.createAccount.name,
+                parentNavigatorKey:
+                    _rootNavigatorKey, // Open new screen without bottom nav bar
+                pageBuilder: (context, state) {
+                  return AdaptiveTransitionPage.create(
+                    state.pageKey,
+                    child: const CreateAccountScreen(),
+                  );
+                },
+              ),
+            ]),
       ],
     ),
     GoRoute(
