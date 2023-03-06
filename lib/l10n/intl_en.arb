@@ -94,5 +94,6 @@
   "new_password": "New password",
   "new_password_cannot_be_empty": "New password cannot be empty",
   "confirm_new_password": "Confirm new password",
-  "new_password_do_not_match": "New password do not match"
+  "new_password_do_not_match": "New password do not match",
+  "change_password_successfully": "Change password successfully"
 }

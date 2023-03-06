@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
         "change_password":
             MessageLookupByLibrary.simpleMessage("Change password"),
+        "change_password_successfully": MessageLookupByLibrary.simpleMessage(
+            "Change password successfully"),
         "code_tab": MessageLookupByLibrary.simpleMessage("Code"),
         "comment_home____": MessageLookupByLibrary.simpleMessage(""),
         "comment_login____": MessageLookupByLibrary.simpleMessage(""),

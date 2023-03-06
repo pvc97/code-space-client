@@ -33,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Có lỗi xảy ra"),
         "cancel": MessageLookupByLibrary.simpleMessage("Hủy"),
         "change_password": MessageLookupByLibrary.simpleMessage("Đổi mật khẩu"),
+        "change_password_successfully":
+            MessageLookupByLibrary.simpleMessage("Đổi mật khẩu thành công"),
         "code_tab": MessageLookupByLibrary.simpleMessage("Bài làm"),
         "comment_home____": MessageLookupByLibrary.simpleMessage(""),
         "comment_login____": MessageLookupByLibrary.simpleMessage(""),
