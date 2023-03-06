@@ -39,6 +39,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "comment_role____": MessageLookupByLibrary.simpleMessage(""),
         "confirm_leave_course":
             MessageLookupByLibrary.simpleMessage("Xác nhận rời lớp học?"),
+        "confirm_new_password":
+            MessageLookupByLibrary.simpleMessage("Xác nhận mật khẩu mới"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Xác nhận mật khẩu"),
         "course": MessageLookupByLibrary.simpleMessage("Lớp học"),
@@ -61,6 +63,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Tạo lớp học mới"),
         "create_new_problem":
             MessageLookupByLibrary.simpleMessage("Tạo bài tập mới"),
+        "current_password":
+            MessageLookupByLibrary.simpleMessage("Mật khẩu hiện tại"),
+        "current_password_cannot_be_empty":
+            MessageLookupByLibrary.simpleMessage(
+                "Mật khẩu hiện tại không được để trống"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Bạn chưa có tài khoản?"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -90,6 +97,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "login_screen_title": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "my_courses": MessageLookupByLibrary.simpleMessage("Lớp học của tôi"),
+        "new_password": MessageLookupByLibrary.simpleMessage("Mật khẩu mới"),
+        "new_password_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
+            "Mật khẩu mới không được để trống"),
+        "new_password_do_not_match":
+            MessageLookupByLibrary.simpleMessage("Mật khẩu mới không khớp"),
         "no_network":
             MessageLookupByLibrary.simpleMessage("Không có kết nối mạng"),
         "no_problems_found":
@@ -98,7 +110,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
         "password_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Mật khẩu không được để trống"),
-        "passwords_do_not_match":
+        "password_do_not_match":
             MessageLookupByLibrary.simpleMessage("Mật khẩu không khớp"),
         "please_fill_all_fields": MessageLookupByLibrary.simpleMessage(
             "Vui lòng điền đầy đủ thông tin"),

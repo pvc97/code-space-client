@@ -1,3 +1,8 @@
+import 'package:code_space_client/constants/app_sizes.dart';
+import 'package:code_space_client/generated/l10n.dart';
+import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
+import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:flutter/material.dart';
 
 class ChangePasswordView extends StatefulWidget {
@@ -8,8 +13,132 @@ class ChangePasswordView extends StatefulWidget {
 }
 
 class _ChangePasswordViewState extends State<ChangePasswordView> {
+  final _formKey = GlobalKey<FormState>();
+  var _autovalidateMode = AutovalidateMode.disabled;
+  String? _newPassword;
+
+  final _newPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _newPasswordController.dispose();
+    super.dispose();
+  }
+
+  void _submit() async {
+    setState(() {
+      _autovalidateMode = AutovalidateMode.always;
+    });
+
+    final form = _formKey.currentState;
+
+    if (form == null || !form.validate()) return;
+
+    form.save();
+
+    // context.read<CreateAccountCubit>().createAccount(
+    //       username: _username!,
+    //       fullName: _fullName!,
+    //       email: _email!,
+    //       password: _password!,
+    //       role: _selectedRole!,
+    //     );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AdaptiveAppBar(
+        context: context,
+        title: Text(S.of(context).change_password),
+      ),
+      body: Center(
+        child: Form(
+          key: _formKey,
+          autovalidateMode: _autovalidateMode,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(Sizes.s20),
+            child: Center(
+              child: SizedBox(
+                width: Sizes.s300,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextFormField(
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: S.of(context).current_password,
+                      ),
+                      obscureText: true,
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return S.of(context).current_password_cannot_be_empty;
+                        }
+
+                        return null;
+                      },
+                    ),
+                    Box.h12,
+                    TextFormField(
+                      controller: _newPasswordController,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: S.of(context).new_password,
+                      ),
+                      obscureText: true,
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return S.of(context).new_password_cannot_be_empty;
+                        }
+
+                        return null;
+                      },
+                    ),
+                    Box.h12,
+                    TextFormField(
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: S.of(context).confirm_new_password,
+                      ),
+                      obscureText: true,
+                      validator: (String? value) {
+                        if (_newPasswordController.text != value) {
+                          return S.of(context).new_password_do_not_match;
+                        }
+                        return null;
+                      },
+                      onSaved: (String? value) {
+                        _newPassword = value;
+                      },
+                    ),
+                    Box.h16,
+                    // BlocBuilder<CreateAccountCubit, CreateAccountState>(
+                    //   builder: (context, state) {
+                    //     return FractionallySizedBox(
+                    //       widthFactor: 0.7,
+                    //       child: AppElevatedButton(
+                    //         onPressed: state.stateStatus == StateStatus.loading
+                    //             ? null
+                    //             : _submit,
+                    //         text: S.of(context).create_account,
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
+                    FractionallySizedBox(
+                      widthFactor: 0.7,
+                      child: AppElevatedButton(
+                        onPressed: _submit,
+                        text: S.of(context).change_password,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -12,7 +12,7 @@
   "no_network": "Không có kết nối mạng",
   "full_name_cannot_be_empty": "Họ và tên không được để trống",
   "email_cannot_be_empty": "Email không được để trống",
-  "passwords_do_not_match": "Mật khẩu không khớp",
+  "password_do_not_match": "Mật khẩu không khớp",
   "course_list": "Danh sách lớp học",
   "my_courses": "Lớp học của tôi",
   "profile": "Tôi",
@@ -88,5 +88,11 @@
   "please_select_role": "Vui lòng chọn chức vụ",
   "select_role": "Chọn chức vụ",
   "create_account": "Tạo tài khoản",
-  "account_created_successfully": "Tạo tài khoản thành công"
+  "account_created_successfully": "Tạo tài khoản thành công",
+  "current_password_cannot_be_empty": "Mật khẩu hiện tại không được để trống",
+  "current_password": "Mật khẩu hiện tại",
+  "new_password": "Mật khẩu mới",
+  "new_password_cannot_be_empty": "Mật khẩu mới không được để trống",
+  "confirm_new_password": "Xác nhận mật khẩu mới",
+  "new_password_do_not_match": "Mật khẩu mới không khớp"
 }

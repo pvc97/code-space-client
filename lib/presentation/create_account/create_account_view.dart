@@ -183,12 +183,12 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                         obscureText: true,
                         validator: (String? value) {
                           if (_passwordController.text != value) {
-                            return S.of(context).passwords_do_not_match;
+                            return S.of(context).password_do_not_match;
                           }
                           return null;
                         },
                       ),
-                      Box.h16,
+                      Box.h12,
                       DropdownButtonFormField2(
                         buttonOverlayColor:
                             MaterialStateProperty.all(Colors.transparent),
