@@ -2,6 +2,7 @@ import 'package:code_space_client/blocs/account/account_cubit.dart';
 import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/blocs/course/course_bloc.dart';
 import 'package:code_space_client/blocs/course_detail/course_detail_bloc.dart';
+import 'package:code_space_client/blocs/create_account/create_account_cubit.dart';
 import 'package:code_space_client/blocs/create_course/create_course_cubit.dart';
 import 'package:code_space_client/blocs/create_problem/create_problem_cubit.dart';
 import 'package:code_space_client/blocs/locale/locale_cubit.dart';
@@ -179,5 +180,11 @@ abstract class Di {
         () => RankingCubit(courseRepository: sl()));
 
     sl.registerFactory<AccountCubit>(() => AccountCubit(userRepository: sl()));
+
+    sl.registerFactory<CreateAccountCubit>(
+      () => CreateAccountCubit(
+        userRepository: sl(),
+      ),
+    );
   }
 }

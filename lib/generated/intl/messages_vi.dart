@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "access_code": MessageLookupByLibrary.simpleMessage("Mã truy cập"),
         "access_code_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Mã truy cập không được để trống"),
+        "account_created_successfully":
+            MessageLookupByLibrary.simpleMessage("Tạo tài khoản thành công"),
         "accounts": MessageLookupByLibrary.simpleMessage("Tài khoản"),
         "add_test_case": MessageLookupByLibrary.simpleMessage("Thêm mới"),
         "an_error_occurred":

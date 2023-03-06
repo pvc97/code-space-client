@@ -87,5 +87,6 @@
   "create_new_account": "Create new account",
   "please_select_role": "Please select role",
   "select_role": "Select role",
-  "create_account": "Create account"
+  "create_account": "Create account",
+  "account_created_successfully": "Account created successfully"
 }

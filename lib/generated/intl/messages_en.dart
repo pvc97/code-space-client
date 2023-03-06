@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "access_code": MessageLookupByLibrary.simpleMessage("Access code"),
         "access_code_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Access code cannot be empty"),
+        "account_created_successfully": MessageLookupByLibrary.simpleMessage(
+            "Account created successfully"),
         "accounts": MessageLookupByLibrary.simpleMessage("Accounts"),
         "add_test_case": MessageLookupByLibrary.simpleMessage("Add new"),
         "an_error_occurred":

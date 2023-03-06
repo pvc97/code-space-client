@@ -87,5 +87,6 @@
   "create_new_account": "Tạo tài khoản mới",
   "please_select_role": "Vui lòng chọn chức vụ",
   "select_role": "Chọn chức vụ",
-  "create_account": "Tạo tài khoản"
+  "create_account": "Tạo tài khoản",
+  "account_created_successfully": "Tạo tài khoản thành công"
 }
