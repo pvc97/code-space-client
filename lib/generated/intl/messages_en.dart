@@ -34,12 +34,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
         "change_password":
             MessageLookupByLibrary.simpleMessage("Change password"),
+        "change_password_successfully": MessageLookupByLibrary.simpleMessage(
+            "Change password successfully"),
         "code_tab": MessageLookupByLibrary.simpleMessage("Code"),
         "comment_home____": MessageLookupByLibrary.simpleMessage(""),
         "comment_login____": MessageLookupByLibrary.simpleMessage(""),
         "comment_role____": MessageLookupByLibrary.simpleMessage(""),
         "confirm_leave_course":
             MessageLookupByLibrary.simpleMessage("Confirm leave course?"),
+        "confirm_new_password":
+            MessageLookupByLibrary.simpleMessage("Confirm new password"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
         "course": MessageLookupByLibrary.simpleMessage("Course"),
@@ -62,6 +66,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Create new course"),
         "create_new_problem":
             MessageLookupByLibrary.simpleMessage("Create new problem"),
+        "current_password":
+            MessageLookupByLibrary.simpleMessage("Current password"),
+        "current_password_cannot_be_empty":
+            MessageLookupByLibrary.simpleMessage(
+                "Current password cannot be empty"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -91,6 +100,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "login_screen_title": MessageLookupByLibrary.simpleMessage("Login"),
         "my_courses": MessageLookupByLibrary.simpleMessage("My Courses"),
+        "new_password": MessageLookupByLibrary.simpleMessage("New password"),
+        "new_password_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
+            "New password cannot be empty"),
+        "new_password_do_not_match":
+            MessageLookupByLibrary.simpleMessage("New password do not match"),
         "no_network": MessageLookupByLibrary.simpleMessage("No network"),
         "no_problems_found":
             MessageLookupByLibrary.simpleMessage("No problems found"),
@@ -98,7 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Password cannot be empty"),
-        "passwords_do_not_match":
+        "password_do_not_match":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
         "please_fill_all_fields":
             MessageLookupByLibrary.simpleMessage("Please fill all fields"),

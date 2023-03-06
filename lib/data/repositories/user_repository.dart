@@ -71,4 +71,19 @@ class UserRepository {
       throw ExceptionParser.parse(e);
     }
   }
+
+  Future<bool> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    try {
+      final success = await userService.changePassword(
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+      );
+      return success;
+    } catch (e) {
+      throw ExceptionParser.parse(e);
+    }
+  }
 }

@@ -79,7 +79,7 @@ class CreateCourseViewState extends State<CreateCourseView> {
           listener: (context, state) {
             final courseId = state.courseId;
             if (courseId != null) {
-              context.pushNamed(
+              context.goNamed(
                 AppRoute.courseDetail.name,
                 params: {'courseId': courseId},
                 queryParams: {'me': 'false'},

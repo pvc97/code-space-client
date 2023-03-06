@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:code_space_client/constants/spref_key.dart';
+import 'package:code_space_client/constants/status_code_constants.dart';
 import 'package:code_space_client/constants/url_constants.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
@@ -97,5 +98,24 @@ class UserService {
       },
     );
     return response?.data['data']['id'];
+  }
+
+  Future<bool> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    final response = await apiProvider.post(
+      UrlConstants.changePassword,
+      params: {
+        'oldPassword': oldPassword,
+        'newPassword': newPassword,
+      },
+    );
+
+    if (response?.statusCode == StatusCodeConstants.code200) {
+      return true;
+    }
+
+    return false;
   }
 }

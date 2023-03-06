@@ -181,10 +181,10 @@ class S {
   }
 
   /// `Passwords do not match`
-  String get passwords_do_not_match {
+  String get password_do_not_match {
     return Intl.message(
       'Passwords do not match',
-      name: 'passwords_do_not_match',
+      name: 'password_do_not_match',
       desc: '',
       args: [],
     );
@@ -945,6 +945,76 @@ class S {
     return Intl.message(
       'Account created successfully',
       name: 'account_created_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current password cannot be empty`
+  String get current_password_cannot_be_empty {
+    return Intl.message(
+      'Current password cannot be empty',
+      name: 'current_password_cannot_be_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current password`
+  String get current_password {
+    return Intl.message(
+      'Current password',
+      name: 'current_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New password`
+  String get new_password {
+    return Intl.message(
+      'New password',
+      name: 'new_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New password cannot be empty`
+  String get new_password_cannot_be_empty {
+    return Intl.message(
+      'New password cannot be empty',
+      name: 'new_password_cannot_be_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm new password`
+  String get confirm_new_password {
+    return Intl.message(
+      'Confirm new password',
+      name: 'confirm_new_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New password do not match`
+  String get new_password_do_not_match {
+    return Intl.message(
+      'New password do not match',
+      name: 'new_password_do_not_match',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change password successfully`
+  String get change_password_successfully {
+    return Intl.message(
+      'Change password successfully',
+      name: 'change_password_successfully',
       desc: '',
       args: [],
     );

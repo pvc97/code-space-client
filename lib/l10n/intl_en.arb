@@ -12,7 +12,7 @@
   "no_network": "No network",
   "full_name_cannot_be_empty": "Full name cannot be empty",
   "email_cannot_be_empty": "Email cannot be empty",
-  "passwords_do_not_match": "Passwords do not match",
+  "password_do_not_match": "Passwords do not match",
   "course_list": "Course List",
   "my_courses": "My Courses",
   "profile": "Profile",
@@ -88,5 +88,12 @@
   "please_select_role": "Please select role",
   "select_role": "Select role",
   "create_account": "Create account",
-  "account_created_successfully": "Account created successfully"
+  "account_created_successfully": "Account created successfully",
+  "current_password_cannot_be_empty": "Current password cannot be empty",
+  "current_password": "Current password",
+  "new_password": "New password",
+  "new_password_cannot_be_empty": "New password cannot be empty",
+  "confirm_new_password": "Confirm new password",
+  "new_password_do_not_match": "New password do not match",
+  "change_password_successfully": "Change password successfully"
 }

@@ -31,7 +31,7 @@ class ProblemHistoryScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
-              context.pushNamed(
+              context.goNamed(
                 AppRoute.problemResult.name,
                 params: {
                   'courseId': courseId,

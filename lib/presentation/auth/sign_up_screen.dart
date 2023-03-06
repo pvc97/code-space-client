@@ -155,7 +155,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         obscureText: true,
                         validator: (String? value) {
                           if (_passwordController.text != value) {
-                            return S.of(context).passwords_do_not_match;
+                            return S.of(context).password_do_not_match;
                           }
                           return null;
                         },

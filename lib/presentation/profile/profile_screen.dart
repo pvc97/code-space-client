@@ -163,7 +163,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.goNamed(AppRoute.changePassword.name);
+                      },
                       child: Text(S.of(context).change_password),
                     ),
                   ),

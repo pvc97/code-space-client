@@ -2,6 +2,7 @@ import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/presentation/account/account_screen.dart';
 import 'package:code_space_client/presentation/auth/sign_up_screen.dart';
+import 'package:code_space_client/presentation/change_password/change_password_screen.dart';
 import 'package:code_space_client/presentation/course_detail/course_detail_screen.dart';
 import 'package:code_space_client/presentation/course_list/course_list_screen.dart';
 import 'package:code_space_client/presentation/create_account/create_account_screen.dart';
@@ -36,6 +37,7 @@ enum AppRoute {
   problemResult,
   createProblem,
   problemHistory,
+  changePassword,
 }
 
 // NOTE: All screen wrap by ShellRoute don't need to use bottom navigation bar
@@ -199,6 +201,17 @@ final GoRouter router = GoRouter(
                 return AdaptiveTransitionPage.create(
                   state.pageKey,
                   child: const SettingScreen(),
+                );
+              },
+            ),
+            GoRoute(
+              path: 'change-password',
+              name: AppRoute.changePassword.name,
+              parentNavigatorKey: _rootNavigatorKey,
+              pageBuilder: (context, state) {
+                return AdaptiveTransitionPage.create(
+                  state.pageKey,
+                  child: const ChangePasswordScreen(),
                 );
               },
             ),
