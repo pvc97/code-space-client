@@ -149,30 +149,59 @@ class _CourseDetailViewState extends State<CourseDetailView> {
           body: BlocSelector<CourseDetailBloc, CourseDetailState, bool>(
             selector: (state) => state.joinedCourse,
             builder: (context, joinedCourse) {
-              if (!joinedCourse && user?.roleType == RoleType.student) {
+              if (!joinedCourse) {
                 return BlocSelector<CourseDetailBloc, CourseDetailState,
                     CourseModel?>(
                   selector: (state) => state.course,
                   builder: (context, course) {
-                    if (course != null) {
-                      return Column(
-                        children: [
-                          CourseDetailBanner(
-                            user: user,
-                            course: course,
-                            joinedCourse: joinedCourse,
-                          ),
-                          AppElevatedButton(
-                            text: S.of(context).join_now,
-                            onPressed: () {
-                              showJoinCourseDialog(context, widget.courseId);
-                            },
-                          ),
-                        ],
-                      );
+                    if (course == null) {
+                      return const SizedBox.shrink();
                     }
 
-                    return const SizedBox.shrink();
+                    return Column(
+                      children: [
+                        CourseDetailBanner(
+                          user: user,
+                          course: course,
+                          joinedCourse: joinedCourse,
+                        ),
+                        user?.roleType == RoleType.student
+                            ? AppElevatedButton(
+                                text: S.of(context).join_now,
+                                onPressed: () {
+                                  showJoinCourseDialog(
+                                      context, widget.courseId);
+                                },
+                              )
+                            : user?.roleType == RoleType.teacher
+                                ? Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          AppImages.notFound,
+                                          width: Sizes.s200,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: Sizes.s20,
+                                          ),
+                                          child: Text(
+                                            S
+                                                .of(context)
+                                                .you_are_not_the_teacher_of_this_course,
+                                            style: AppTextStyle.textStyle24,
+                                            maxLines: 2,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : const SizedBox.shrink(),
+                      ],
+                    );
                   },
                 );
               }
@@ -225,9 +254,14 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                                         AppImages.notFound,
                                         width: Sizes.s200,
                                       ),
-                                      Text(
-                                        S.of(context).no_problems_found,
-                                        style: AppTextStyle.textStyle24,
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: Sizes.s20,
+                                        ),
+                                        child: Text(
+                                          S.of(context).no_problems_found,
+                                          style: AppTextStyle.textStyle24,
+                                        ),
                                       ),
                                     ],
                                   ),
