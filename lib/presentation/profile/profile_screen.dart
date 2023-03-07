@@ -2,6 +2,7 @@ import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/blocs/user/user_cubit.dart';
+import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/models/user_model.dart';
@@ -26,8 +27,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  UserModel? _user;
-
   final _formKey = GlobalKey<FormState>();
   var _autovalidateMode = AutovalidateMode.disabled;
   String? _fullName, _email;
@@ -39,7 +38,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<UserCubit>().getMe();
+      // Because this view contains some textfield, so I can not use BlocBuilder
+      // to set initial value for textfield, so I set initial value with textcontroller
+      final user = context.read<UserCubit>().state.user;
+      if (user != null) {
+        _fullNameController.text = user.name;
+        _emailController.text = user.email;
+      }
     });
   }
 
@@ -61,14 +66,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     form.save();
 
-    if (_user == null) {
-      EasyLoading.showError(S.of(context).session_expired);
-      context.read<AuthCubit>().logout();
+    final user = context.read<UserCubit>().state.user;
+    if (user == null) {
       return;
     }
 
     context.read<UserCubit>().updateProfile(
-          userId: _user!.userId,
+          userId: user.userId,
           fullName: _fullName!,
           email: _email!,
         );
@@ -84,24 +88,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
           listener: stateStatusListener,
         ),
         BlocListener<UserCubit, UserState>(
-          listenWhen: (previous, current) =>
-              previous.user != current.user &&
-              current.stateStatus == StateStatus.success,
-          listener: (ctx, state) {
-            EasyLoading.showSuccess(
-              S.of(context).profile_updated,
-              dismissOnTap: true,
-            );
-          },
-        ),
-        BlocListener<UserCubit, UserState>(
+          listenWhen: (previous, current) => previous.user != current.user,
           listener: (context, state) {
             // https://dart.dev/guides/language/effective-dart/usage#consider-assigning-a-nullable-field-to-a-local-variable-to-enable-type-promotion
-            _user = state.user;
-            final user = _user;
-            if (user != null) {
+
+            final user = state.user;
+            if (user != null && state.stateStatus == StateStatus.success) {
               _fullNameController.text = user.name;
               _emailController.text = user.email;
+
+              EasyLoading.showSuccess(
+                S.of(context).profile_updated,
+                dismissOnTap: true,
+              );
             } else {
               // Handle case user clear user data
               EasyLoading.showInfo(S.of(context).session_expired);
@@ -138,8 +137,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       return state.user;
                     },
                     builder: (context, user) {
-                      if (user == null) return const SizedBox.shrink();
-
+                      if (user == null) {
+                        return const SizedBox.shrink();
+                      }
                       return CircleAvatar(
                         radius: Sizes.s64,
                         backgroundColor: Colors.pink[200],
@@ -148,19 +148,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                   ),
                   Box.h24,
-                  Align(
-                    alignment: Alignment.center,
-                    child: BlocSelector<UserCubit, UserState, UserModel?>(
-                      selector: (state) => state.user,
-                      builder: (context, user) {
-                        return Text(
+                  BlocSelector<UserCubit, UserState, UserModel?>(
+                    selector: (state) {
+                      return state.user;
+                    },
+                    builder: (context, user) {
+                      return Align(
+                        alignment: Alignment.center,
+                        child: Text(
                           "${S.of(context).role}: ${user?.roleType.getName(context) ?? ''}",
-                          style: const TextStyle(
-                            fontSize: Sizes.s20,
-                          ),
-                        );
-                      },
-                    ),
+                          style: AppTextStyle.textStyle20,
+                        ),
+                      );
+                    },
                   ),
                   Box.h24,
                   TextFormField(
