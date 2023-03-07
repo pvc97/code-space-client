@@ -118,4 +118,25 @@ class UserService {
 
     return false;
   }
+
+  Future<UserModel> updateProfile({
+    required String userId,
+    required String fullName,
+    required String email,
+  }) async {
+    final response = await apiProvider.put(
+      '${UrlConstants.users}/$userId',
+      params: {
+        'name': fullName,
+        'email': email,
+      },
+    );
+
+    final user = UserModel.fromJson(response?.data['data']);
+
+    // Update local user
+    saveUser(user);
+
+    return user;
+  }
 }

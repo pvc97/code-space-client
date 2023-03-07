@@ -5,7 +5,7 @@ import 'package:code_space_client/blocs/course_detail/course_detail_bloc.dart';
 import 'package:code_space_client/blocs/create_account/create_account_cubit.dart';
 import 'package:code_space_client/blocs/create_course/create_course_cubit.dart';
 import 'package:code_space_client/blocs/create_problem/create_problem_cubit.dart';
-import 'package:code_space_client/blocs/cubit/change_password_cubit.dart';
+import 'package:code_space_client/blocs/change_password/change_password_cubit.dart';
 import 'package:code_space_client/blocs/locale/locale_cubit.dart';
 import 'package:code_space_client/blocs/problem/problem_cubit.dart';
 import 'package:code_space_client/blocs/problem_result/problem_result_cubit.dart';

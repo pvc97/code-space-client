@@ -1,4 +1,4 @@
-import 'package:code_space_client/blocs/cubit/change_password_cubit.dart';
+import 'package:code_space_client/blocs/change_password/change_password_cubit.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/presentation/change_password/change_password_view.dart';
 import 'package:flutter/material.dart';

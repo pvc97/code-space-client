@@ -134,6 +134,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Problem result"),
         "problem_tab": MessageLookupByLibrary.simpleMessage("Problem"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "profile_updated":
+            MessageLookupByLibrary.simpleMessage("Profile updated"),
         "ranking": MessageLookupByLibrary.simpleMessage("Ranking"),
         "role": MessageLookupByLibrary.simpleMessage("Role"),
         "role_manager": MessageLookupByLibrary.simpleMessage("Manager"),

@@ -1019,6 +1019,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Profile updated`
+  String get profile_updated {
+    return Intl.message(
+      'Profile updated',
+      name: 'profile_updated',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

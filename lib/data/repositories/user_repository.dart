@@ -86,4 +86,21 @@ class UserRepository {
       throw ExceptionParser.parse(e);
     }
   }
+
+  Future<UserModel> updateProfile({
+    required String userId,
+    required String fullName,
+    required String email,
+  }) async {
+    try {
+      final user = await userService.updateProfile(
+        userId: userId,
+        fullName: fullName,
+        email: email,
+      );
+      return user;
+    } catch (e) {
+      throw ExceptionParser.parse(e);
+    }
+  }
 }

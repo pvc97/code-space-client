@@ -1,5 +1,5 @@
 import 'package:code_space_client/blocs/base/base_state.dart';
-import 'package:code_space_client/blocs/cubit/change_password_cubit.dart';
+import 'package:code_space_client/blocs/change_password/change_password_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';

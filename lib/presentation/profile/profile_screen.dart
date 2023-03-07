@@ -1,6 +1,8 @@
+import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/blocs/user/user_cubit.dart';
+import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/models/user_model.dart';
@@ -8,7 +10,9 @@ import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.d
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/router/app_router.dart';
-import 'package:code_space_client/utils/logger/logger.dart';
+import 'package:code_space_client/utils/extensions/role_type_ext.dart';
+import 'package:code_space_client/utils/extensions/string_ext.dart';
+import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -23,8 +27,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  UserModel? _user;
-
   final _formKey = GlobalKey<FormState>();
   var _autovalidateMode = AutovalidateMode.disabled;
   String? _fullName, _email;
@@ -35,7 +37,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<UserCubit>().getMe();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Because this view contains some textfield, so I can not use BlocBuilder
+      // to set initial value for textfield, so I set initial value with textcontroller
+      final user = context.read<UserCubit>().state.user;
+      if (user != null) {
+        _fullNameController.text = user.name;
+        _emailController.text = user.email;
+      }
+    });
   }
 
   @override
@@ -56,27 +66,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     form.save();
 
-    // TODO: Handle sign up
-    logger.d('$_fullName, $_email');
+    final user = context.read<UserCubit>().state.user;
+    if (user == null) {
+      return;
+    }
+
+    context.read<UserCubit>().updateProfile(
+          userId: user.userId,
+          fullName: _fullName!,
+          email: _email!,
+        );
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UserCubit, UserState>(
-      listener: (context, state) {
-        _user = state.user;
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<UserCubit, UserState>(
+          listenWhen: (previous, current) =>
+              previous.stateStatus != current.stateStatus,
+          listener: stateStatusListener,
+        ),
+        BlocListener<UserCubit, UserState>(
+          listenWhen: (previous, current) => previous.user != current.user,
+          listener: (context, state) {
+            // https://dart.dev/guides/language/effective-dart/usage#consider-assigning-a-nullable-field-to-a-local-variable-to-enable-type-promotion
 
-        // https://dart.dev/guides/language/effective-dart/usage#consider-assigning-a-nullable-field-to-a-local-variable-to-enable-type-promotion
-        final user = _user;
-        if (user != null) {
-          _fullNameController.text = user.name;
-          _emailController.text = user.email;
-        } else {
-          // Handle case user clear user data
-          EasyLoading.showInfo(S.of(context).session_expired);
-          context.read<AuthCubit>().logout();
-        }
-      },
+            final user = state.user;
+            if (user != null && state.stateStatus == StateStatus.success) {
+              _fullNameController.text = user.name;
+              _emailController.text = user.email;
+
+              EasyLoading.showSuccess(
+                S.of(context).profile_updated,
+                dismissOnTap: true,
+              );
+            } else {
+              // Handle case user clear user data
+              EasyLoading.showInfo(S.of(context).session_expired);
+              context.read<AuthCubit>().logout();
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         appBar: AdaptiveAppBar(
           context: context,
@@ -100,24 +132,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: ListView(
                 shrinkWrap: true,
                 children: [
-                  CircleAvatar(
-                    radius: Sizes.s64,
-                    backgroundColor: Colors.pink[200],
-                    child: const FlutterLogo(size: Sizes.s64),
+                  BlocSelector<UserCubit, UserState, UserModel?>(
+                    selector: (state) {
+                      return state.user;
+                    },
+                    builder: (context, user) {
+                      if (user == null) {
+                        return const SizedBox.shrink();
+                      }
+                      return CircleAvatar(
+                        radius: Sizes.s64,
+                        backgroundColor: Colors.pink[200],
+                        child: Image.asset(user.roleType.imagePath),
+                      );
+                    },
                   ),
                   Box.h24,
-                  Align(
-                    alignment: Alignment.center,
-                    child: BlocBuilder<UserCubit, UserState>(
-                      builder: (context, state) {
-                        return Text(
-                          "${S.of(context).role}: ${_user?.roleType.getName(context) ?? ''}",
-                          style: const TextStyle(
-                            fontSize: Sizes.s20,
-                          ),
-                        );
-                      },
-                    ),
+                  BlocSelector<UserCubit, UserState, UserModel?>(
+                    selector: (state) {
+                      return state.user;
+                    },
+                    builder: (context, user) {
+                      return Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "${S.of(context).role}: ${user?.roleType.getName(context) ?? ''}",
+                          style: AppTextStyle.textStyle20,
+                        ),
+                      );
+                    },
                   ),
                   Box.h24,
                   TextFormField(
@@ -148,16 +191,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       if (value == null || value.isEmpty) {
                         return S.of(context).email_cannot_be_empty;
                       }
+
+                      if (!value.isValidEmail()) {
+                        return S.of(context).username_only_alphanumeric;
+                      }
+
                       return null;
                     },
                     onSaved: (String? value) {
                       _email = value;
                     },
                   ),
-                  Box.h12,
-                  AppElevatedButton(
-                    onPressed: _submit,
-                    text: S.of(context).update,
+                  Box.h16,
+                  BlocSelector<UserCubit, UserState, StateStatus>(
+                    selector: (state) => state.stateStatus,
+                    builder: (context, status) {
+                      return AppElevatedButton(
+                        onPressed: _submit,
+                        text: S.of(context).update,
+                      );
+                    },
                   ),
                   Box.h24,
                   Align(

@@ -1,3 +1,4 @@
+import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/blocs/create_course/create_course_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/dropdown_item.dart';
@@ -169,9 +170,16 @@ class CreateCourseViewState extends State<CreateCourseView> {
                       },
                     ),
                     Box.h16,
-                    AppElevatedButton(
-                      onPressed: _submit,
-                      text: S.of(context).create,
+                    BlocSelector<CreateCourseCubit, CreateCourseState,
+                        StateStatus>(
+                      selector: (state) => state.stateStatus,
+                      builder: (context, status) {
+                        return AppElevatedButton(
+                          onPressed:
+                              status == StateStatus.loading ? null : _submit,
+                          text: S.of(context).create,
+                        );
+                      },
                     )
                   ],
                 ),
