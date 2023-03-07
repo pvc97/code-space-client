@@ -7,3 +7,5 @@ class CreateProblemSuccessEvent {
 
   CreateProblemSuccessEvent({required this.courseId});
 }
+
+class CreateAccountSuccessEvent {}

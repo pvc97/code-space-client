@@ -1,3 +1,4 @@
+import 'package:code_space_client/utils/event_bus/app_event.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,6 +43,9 @@ class CreateAccountCubit extends Cubit<CreateAccountState> {
         stateStatus: StateStatus.success,
         userId: userId,
       ));
+
+      // When problem is created successfully, fire an event to update the problem list
+      eventBus.fire(CreateAccountSuccessEvent());
     } on AppException catch (e) {
       emit(
         state.copyWith(

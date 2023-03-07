@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:code_space_client/constants/app_constants.dart';
 import 'package:code_space_client/utils/debounce.dart';
+import 'package:code_space_client/utils/event_bus/app_event.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,16 +17,29 @@ part 'account_state.dart';
 // I call this class AccountCubit instead of UserCubit because I already have a UserCubit class
 class AccountCubit extends Cubit<AccountState> {
   final _debounce = Debounce(milliseconds: AppConstants.searchDebounceDuration);
+
   final UserRepository userRepository;
+
+  StreamSubscription? _eventSubscription;
 
   AccountCubit({
     required this.userRepository,
-  }) : super(AccountState.initial());
+  }) : super(AccountState.initial()) {
+    _registerToEventBus();
+  }
 
   @override
   Future<void> close() {
     logger.d('AccountCubit closed');
+    _eventSubscription?.cancel();
     return super.close();
+  }
+
+  void _registerToEventBus() {
+    _eventSubscription =
+        eventBus.on<CreateAccountSuccessEvent>().listen((event) {
+      refreshAccounts();
+    });
   }
 
   void getAccounts({
