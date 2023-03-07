@@ -172,6 +172,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Tài khoản không được để trống"),
         "username_only_alphanumeric": MessageLookupByLibrary.simpleMessage(
             "Tài khoản chỉ được chứa các ký tự chữ cái và số"),
-        "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng Việt")
+        "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
+        "you_are_not_the_teacher_of_this_course":
+            MessageLookupByLibrary.simpleMessage(
+                "Bạn không phải là giảng viên của lớp học này")
       };
 }

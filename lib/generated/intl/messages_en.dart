@@ -171,6 +171,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Username cannot be empty"),
         "username_only_alphanumeric":
             MessageLookupByLibrary.simpleMessage("Username only alphanumeric"),
-        "vietnamese": MessageLookupByLibrary.simpleMessage("Vietnamese")
+        "vietnamese": MessageLookupByLibrary.simpleMessage("Vietnamese"),
+        "you_are_not_the_teacher_of_this_course":
+            MessageLookupByLibrary.simpleMessage(
+                "You are not the teacher of this course")
       };
 }

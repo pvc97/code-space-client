@@ -1029,6 +1029,16 @@ class S {
       args: [],
     );
   }
+
+  /// `You are not the teacher of this course`
+  String get you_are_not_the_teacher_of_this_course {
+    return Intl.message(
+      'You are not the teacher of this course',
+      name: 'you_are_not_the_teacher_of_this_course',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
