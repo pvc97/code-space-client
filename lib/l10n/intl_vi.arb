@@ -95,5 +95,6 @@
   "new_password_cannot_be_empty": "Mật khẩu mới không được để trống",
   "confirm_new_password": "Xác nhận mật khẩu mới",
   "new_password_do_not_match": "Mật khẩu mới không khớp",
-  "change_password_successfully": "Đổi mật khẩu thành công"
+  "change_password_successfully": "Đổi mật khẩu thành công",
+  "profile_updated": "Cập nhật thông tin thành công"
 }

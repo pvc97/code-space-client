@@ -134,6 +134,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kết quả chấm bài"),
         "problem_tab": MessageLookupByLibrary.simpleMessage("Đề bài"),
         "profile": MessageLookupByLibrary.simpleMessage("Tôi"),
+        "profile_updated": MessageLookupByLibrary.simpleMessage(
+            "Cập nhật thông tin thành công"),
         "ranking": MessageLookupByLibrary.simpleMessage("Bảng xếp hạng"),
         "role": MessageLookupByLibrary.simpleMessage("Chức vụ"),
         "role_manager": MessageLookupByLibrary.simpleMessage("Quản lý"),
