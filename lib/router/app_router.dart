@@ -14,6 +14,7 @@ import 'package:code_space_client/presentation/problem_history/problem_history_s
 import 'package:code_space_client/presentation/problem_result/problem_result_screen.dart';
 import 'package:code_space_client/presentation/profile/profile_screen.dart';
 import 'package:code_space_client/presentation/ranking/ranking_screen.dart';
+import 'package:code_space_client/presentation/reset_password/reset_password_screen.dart';
 import 'package:code_space_client/presentation/setting/setting_screen.dart';
 import 'package:code_space_client/router/adaptive_transition_page.dart';
 import 'package:code_space_client/router/go_router_refresh_stream.dart';
@@ -38,6 +39,7 @@ enum AppRoute {
   createProblem,
   problemHistory,
   changePassword,
+  resetPassword,
 }
 
 // NOTE: All screen wrap by ShellRoute don't need to use bottom navigation bar
@@ -218,28 +220,42 @@ final GoRouter router = GoRouter(
           ],
         ),
         GoRoute(
-            path: '/account',
-            name: AppRoute.account.name,
-            pageBuilder: (context, state) {
-              return NoTransitionPage(
-                key: state.pageKey,
-                child: const AccountScreen(),
-              );
-            },
-            routes: [
-              GoRoute(
-                path: 'create',
-                name: AppRoute.createAccount.name,
-                parentNavigatorKey:
-                    _rootNavigatorKey, // Open new screen without bottom nav bar
-                pageBuilder: (context, state) {
-                  return AdaptiveTransitionPage.create(
-                    state.pageKey,
-                    child: const CreateAccountScreen(),
-                  );
-                },
-              ),
-            ]),
+          path: '/account',
+          name: AppRoute.account.name,
+          pageBuilder: (context, state) {
+            return NoTransitionPage(
+              key: state.pageKey,
+              child: const AccountScreen(),
+            );
+          },
+          routes: [
+            GoRoute(
+              path: 'create',
+              name: AppRoute.createAccount.name,
+              parentNavigatorKey:
+                  _rootNavigatorKey, // Open new screen without bottom nav bar
+              pageBuilder: (context, state) {
+                return AdaptiveTransitionPage.create(
+                  state.pageKey,
+                  child: const CreateAccountScreen(),
+                );
+              },
+            ),
+            GoRoute(
+              path: 'reset-password/:userId',
+              name: AppRoute.resetPassword.name,
+              parentNavigatorKey: _rootNavigatorKey,
+              pageBuilder: (context, state) {
+                return AdaptiveTransitionPage.create(
+                  state.pageKey,
+                  child: ResetPasswordScreen(
+                    userId: state.params['userId'] ?? '',
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ],
     ),
     GoRoute(

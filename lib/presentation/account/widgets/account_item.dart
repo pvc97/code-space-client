@@ -1,11 +1,13 @@
 import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/models/enums/account_action.dart';
 import 'package:code_space_client/presentation/common_widgets/app_popup_menu_button.dart';
+import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/extensions/role_type_ext.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/models/user_model.dart';
+import 'package:go_router/go_router.dart';
 
 class AccountItem extends StatelessWidget {
   final UserModel account;
@@ -60,7 +62,10 @@ class AccountItem extends StatelessWidget {
                 logger.d('Edit account');
                 break;
               case AccountAction.resetPassword:
-                logger.d('Reset password');
+                context.goNamed(
+                  AppRoute.resetPassword.name,
+                  params: {'userId': account.userId},
+                );
                 break;
               case AccountAction.delete:
                 logger.d('Delete account');

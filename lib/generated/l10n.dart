@@ -1069,6 +1069,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Reset password successfully`
+  String get reset_password_successfully {
+    return Intl.message(
+      'Reset password successfully',
+      name: 'reset_password_successfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

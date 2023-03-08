@@ -141,6 +141,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "ranking": MessageLookupByLibrary.simpleMessage("Ranking"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset password"),
+        "reset_password_successfully":
+            MessageLookupByLibrary.simpleMessage("Reset password successfully"),
         "role": MessageLookupByLibrary.simpleMessage("Role"),
         "role_manager": MessageLookupByLibrary.simpleMessage("Manager"),
         "role_student": MessageLookupByLibrary.simpleMessage("Student"),

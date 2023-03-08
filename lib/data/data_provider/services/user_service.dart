@@ -139,4 +139,24 @@ class UserService {
 
     return user;
   }
+
+  /// Manager reset password
+  Future<bool> resetPassword({
+    required String userId,
+    required String newPassword,
+  }) async {
+    final response = await apiProvider.post(
+      UrlConstants.resetPassword,
+      params: {
+        'userId': userId,
+        'newPassword': newPassword,
+      },
+    );
+
+    if (response?.statusCode == StatusCodeConstants.code200) {
+      return true;
+    }
+
+    return false;
+  }
 }

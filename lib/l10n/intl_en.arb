@@ -100,5 +100,6 @@
   "you_are_not_the_teacher_of_this_course": "You are not the teacher of this course",
   "edit": "Edit",
   "reset_password": "Reset password",
-  "delete": "Delete"
+  "delete": "Delete",
+  "reset_password_successfully": "Reset password successfully"
 }

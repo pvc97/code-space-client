@@ -141,6 +141,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "ranking": MessageLookupByLibrary.simpleMessage("Bảng xếp hạng"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Đặt lại mật khẩu"),
+        "reset_password_successfully":
+            MessageLookupByLibrary.simpleMessage("Đặt lại mật khẩu thành công"),
         "role": MessageLookupByLibrary.simpleMessage("Chức vụ"),
         "role_manager": MessageLookupByLibrary.simpleMessage("Quản lý"),
         "role_student": MessageLookupByLibrary.simpleMessage("Học viên"),

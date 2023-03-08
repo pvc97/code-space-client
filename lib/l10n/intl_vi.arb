@@ -100,5 +100,6 @@
   "you_are_not_the_teacher_of_this_course": "Bạn không phải là giảng viên của lớp học này",
   "edit": "Sửa",
   "reset_password": "Đặt lại mật khẩu",
-  "delete": "Xóa"
+  "delete": "Xóa",
+  "reset_password_successfully": "Đặt lại mật khẩu thành công"
 }
