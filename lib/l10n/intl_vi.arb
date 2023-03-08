@@ -97,5 +97,9 @@
   "new_password_do_not_match": "Mật khẩu mới không khớp",
   "change_password_successfully": "Đổi mật khẩu thành công",
   "profile_updated": "Cập nhật thông tin thành công",
-  "you_are_not_the_teacher_of_this_course": "Bạn không phải là giảng viên của lớp học này"
+  "you_are_not_the_teacher_of_this_course": "Bạn không phải là giảng viên của lớp học này",
+  "edit": "Sửa",
+  "reset_password": "Đặt lại mật khẩu",
+  "delete": "Xóa",
+  "reset_password_successfully": "Đặt lại mật khẩu thành công"
 }

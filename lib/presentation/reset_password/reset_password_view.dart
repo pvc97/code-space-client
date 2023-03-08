@@ -1,26 +1,32 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:code_space_client/blocs/base/base_state.dart';
-import 'package:code_space_client/blocs/change_password/change_password_cubit.dart';
+import 'package:code_space_client/blocs/reset_password/reset_password_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-class ChangePasswordView extends StatefulWidget {
-  const ChangePasswordView({super.key});
+class ResetPasswordView extends StatefulWidget {
+  final String userId;
+
+  const ResetPasswordView({
+    Key? key,
+    required this.userId,
+  }) : super(key: key);
 
   @override
-  State<ChangePasswordView> createState() => _ChangePasswordViewState();
+  State<ResetPasswordView> createState() => _ResetPasswordViewState();
 }
 
-class _ChangePasswordViewState extends State<ChangePasswordView> {
+class _ResetPasswordViewState extends State<ResetPasswordView> {
   final _formKey = GlobalKey<FormState>();
   var _autovalidateMode = AutovalidateMode.disabled;
-  String? _oldPassword, _newPassword;
+  String? _newPassword;
 
   final _newPasswordController = TextEditingController();
 
@@ -42,35 +48,31 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
     form.save();
 
     context
-        .read<ChangePasswordCubit>()
-        .changePassword(oldPassword: _oldPassword!, newPassword: _newPassword!);
+        .read<ResetPasswordCubit>()
+        .resetPassword(userId: widget.userId, newPassword: _newPassword!);
   }
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<ChangePasswordCubit, ChangePasswordState>(
-          listener: (ctx, state) {
-            stateStatusListener(
-              ctx,
-              state,
-              onSuccess: () {
-                EasyLoading.showInfo(
-                  S.of(context).change_password_successfully,
-                  dismissOnTap: true,
-                );
-              },
+    return BlocListener<ResetPasswordCubit, ResetPasswordState>(
+      listener: (ctx, state) {
+        stateStatusListener(
+          ctx,
+          state,
+          onSuccess: () {
+            EasyLoading.showInfo(
+              S.of(context).reset_password_successfully,
+              dismissOnTap: true,
             );
           },
-        ),
-      ],
+        );
+      },
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           appBar: AdaptiveAppBar(
             context: context,
-            title: Text(S.of(context).change_password),
+            title: Text(S.of(context).reset_password),
           ),
           body: Center(
             child: Form(
@@ -85,26 +87,6 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextFormField(
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            labelText: S.of(context).current_password,
-                          ),
-                          obscureText: true,
-                          validator: (String? value) {
-                            if (value == null || value.isEmpty) {
-                              return S
-                                  .of(context)
-                                  .current_password_cannot_be_empty;
-                            }
-
-                            return null;
-                          },
-                          onSaved: (value) {
-                            _oldPassword = value;
-                          },
-                        ),
-                        Box.h12,
-                        TextFormField(
                           controller: _newPasswordController,
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(),
@@ -117,6 +99,9 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                             }
 
                             return null;
+                          },
+                          onSaved: (value) {
+                            _newPassword = value;
                           },
                         ),
                         Box.h12,
@@ -132,12 +117,9 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                             }
                             return null;
                           },
-                          onSaved: (String? value) {
-                            _newPassword = value;
-                          },
                         ),
                         Box.h16,
-                        BlocBuilder<ChangePasswordCubit, ChangePasswordState>(
+                        BlocBuilder<ResetPasswordCubit, ResetPasswordState>(
                           builder: (context, state) {
                             return FractionallySizedBox(
                               widthFactor: 0.7,
@@ -146,7 +128,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                                     state.stateStatus == StateStatus.loading
                                         ? null
                                         : _submit,
-                                text: S.of(context).change_password,
+                                text: S.of(context).reset_password,
                               ),
                             );
                           },

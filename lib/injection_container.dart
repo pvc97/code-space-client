@@ -10,6 +10,7 @@ import 'package:code_space_client/blocs/locale/locale_cubit.dart';
 import 'package:code_space_client/blocs/problem/problem_cubit.dart';
 import 'package:code_space_client/blocs/problem_result/problem_result_cubit.dart';
 import 'package:code_space_client/blocs/ranking/ranking_cubit.dart';
+import 'package:code_space_client/blocs/reset_password/reset_password_cubit.dart';
 import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager_impl.dart';
@@ -190,6 +191,12 @@ abstract class Di {
 
     sl.registerFactory<ChangePasswordCubit>(
       () => ChangePasswordCubit(
+        userRepository: sl(),
+      ),
+    );
+
+    sl.registerFactory<ResetPasswordCubit>(
+      () => ResetPasswordCubit(
         userRepository: sl(),
       ),
     );

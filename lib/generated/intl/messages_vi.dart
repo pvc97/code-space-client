@@ -70,8 +70,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "current_password_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage(
                 "Mật khẩu hiện tại không được để trống"),
+        "delete": MessageLookupByLibrary.simpleMessage("Xóa"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Bạn chưa có tài khoản?"),
+        "edit": MessageLookupByLibrary.simpleMessage("Sửa"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "email_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Email không được để trống"),
@@ -137,6 +139,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile_updated": MessageLookupByLibrary.simpleMessage(
             "Cập nhật thông tin thành công"),
         "ranking": MessageLookupByLibrary.simpleMessage("Bảng xếp hạng"),
+        "reset_password":
+            MessageLookupByLibrary.simpleMessage("Đặt lại mật khẩu"),
+        "reset_password_successfully":
+            MessageLookupByLibrary.simpleMessage("Đặt lại mật khẩu thành công"),
         "role": MessageLookupByLibrary.simpleMessage("Chức vụ"),
         "role_manager": MessageLookupByLibrary.simpleMessage("Quản lý"),
         "role_student": MessageLookupByLibrary.simpleMessage("Học viên"),

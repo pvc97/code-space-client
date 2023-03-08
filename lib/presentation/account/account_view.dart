@@ -2,12 +2,11 @@ import 'package:code_space_client/blocs/account/account_cubit.dart';
 import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
-import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/role_type.dart';
+import 'package:code_space_client/presentation/account/widgets/account_item.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/router/app_router.dart';
-import 'package:code_space_client/utils/extensions/role_type_ext.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -146,29 +145,7 @@ class AccountViewState extends State<AccountView> {
                       //   queryParams: widget.me ? {'me': 'true'} : {},
                       // );
                     },
-                    child: Card(
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: Sizes.s24,
-                          vertical: Sizes.s12,
-                        ),
-                        leading: Image.asset(account.roleType.imagePath),
-                        title: Text(
-                          account.name,
-                          style: AppTextStyle.defaultFont.copyWith(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        subtitle: Text(
-                          '${account.userName}\n${account.email}',
-                          style: AppTextStyle.defaultFont,
-                        ),
-                        trailing: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.more_vert),
-                        ),
-                      ),
-                    ),
+                    child: AccountItem(account: account),
                   );
                 },
               ),

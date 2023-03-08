@@ -71,8 +71,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "current_password_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage(
                 "Current password cannot be empty"),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
+        "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "email_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Email cannot be empty"),
@@ -137,6 +139,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile_updated":
             MessageLookupByLibrary.simpleMessage("Profile updated"),
         "ranking": MessageLookupByLibrary.simpleMessage("Ranking"),
+        "reset_password":
+            MessageLookupByLibrary.simpleMessage("Reset password"),
+        "reset_password_successfully":
+            MessageLookupByLibrary.simpleMessage("Reset password successfully"),
         "role": MessageLookupByLibrary.simpleMessage("Role"),
         "role_manager": MessageLookupByLibrary.simpleMessage("Manager"),
         "role_student": MessageLookupByLibrary.simpleMessage("Student"),

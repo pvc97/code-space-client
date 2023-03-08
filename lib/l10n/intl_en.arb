@@ -97,5 +97,9 @@
   "new_password_do_not_match": "New password do not match",
   "change_password_successfully": "Change password successfully",
   "profile_updated": "Profile updated",
-  "you_are_not_the_teacher_of_this_course": "You are not the teacher of this course"
+  "you_are_not_the_teacher_of_this_course": "You are not the teacher of this course",
+  "edit": "Edit",
+  "reset_password": "Reset password",
+  "delete": "Delete",
+  "reset_password_successfully": "Reset password successfully"
 }
