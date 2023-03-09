@@ -39,6 +39,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "comment_home____": MessageLookupByLibrary.simpleMessage(""),
         "comment_login____": MessageLookupByLibrary.simpleMessage(""),
         "comment_role____": MessageLookupByLibrary.simpleMessage(""),
+        "confirm_delete_account": MessageLookupByLibrary.simpleMessage(
+            "Bạn có chắc chắn muốn xóa tài khoản này?"),
         "confirm_leave_course":
             MessageLookupByLibrary.simpleMessage("Xác nhận rời lớp học?"),
         "confirm_new_password":
@@ -71,6 +73,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Mật khẩu hiện tại không được để trống"),
         "delete": MessageLookupByLibrary.simpleMessage("Xóa"),
+        "delete_account": MessageLookupByLibrary.simpleMessage("Xóa tài khoản"),
+        "delete_account_success":
+            MessageLookupByLibrary.simpleMessage("Xóa tài khoản thành công"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Bạn chưa có tài khoản?"),
         "edit": MessageLookupByLibrary.simpleMessage("Sửa"),

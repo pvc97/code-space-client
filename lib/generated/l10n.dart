@@ -1079,6 +1079,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete account`
+  String get delete_account {
+    return Intl.message(
+      'Delete account',
+      name: 'delete_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this account?`
+  String get confirm_delete_account {
+    return Intl.message(
+      'Are you sure you want to delete this account?',
+      name: 'confirm_delete_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete account success`
+  String get delete_account_success {
+    return Intl.message(
+      'Delete account success',
+      name: 'delete_account_success',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

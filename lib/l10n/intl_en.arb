@@ -101,5 +101,8 @@
   "edit": "Edit",
   "reset_password": "Reset password",
   "delete": "Delete",
-  "reset_password_successfully": "Reset password successfully"
+  "reset_password_successfully": "Reset password successfully",
+  "delete_account": "Delete account",
+  "confirm_delete_account": "Are you sure you want to delete this account?",
+  "delete_account_success": "Delete account success"
 }

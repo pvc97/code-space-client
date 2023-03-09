@@ -17,7 +17,7 @@ class ProblemResultState extends BaseState {
   }
 
   @override
-  List<Object?> get props => [submission, ...super.props];
+  List<Object?> get props => [submission, stateStatus, error];
 
   ProblemResultState copyWith({
     SubmissionModel? submission,

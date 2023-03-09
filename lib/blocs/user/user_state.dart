@@ -17,7 +17,7 @@ class UserState extends BaseState {
   }
 
   @override
-  List<Object?> get props => [user, ...super.props];
+  List<Object?> get props => [user, stateStatus, error];
 
   UserState copyWith({
     UserModel? user,

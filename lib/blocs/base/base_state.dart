@@ -12,6 +12,6 @@ abstract class BaseState extends Equatable {
     this.error,
   });
 
-  @override
-  List<Object?> get props => [stateStatus, error];
+  // @override
+  // List<Object?> get props => [stateStatus, error];
 }

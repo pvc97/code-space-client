@@ -56,7 +56,8 @@ class CourseState extends BaseState {
       isLoadingMore,
       isLoadMoreDone,
       query,
-      ...super.props,
+      stateStatus,
+      error,
     ];
   }
 }

@@ -101,5 +101,8 @@
   "edit": "Sửa",
   "reset_password": "Đặt lại mật khẩu",
   "delete": "Xóa",
-  "reset_password_successfully": "Đặt lại mật khẩu thành công"
+  "reset_password_successfully": "Đặt lại mật khẩu thành công",
+  "delete_account": "Xóa tài khoản",
+  "confirm_delete_account": "Bạn có chắc chắn muốn xóa tài khoản này?",
+  "delete_account_success": "Xóa tài khoản thành công"
 }

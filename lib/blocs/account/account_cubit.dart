@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:code_space_client/constants/app_constants.dart';
+import 'package:code_space_client/models/enums/delete_status.dart';
 import 'package:code_space_client/utils/debounce.dart';
 import 'package:code_space_client/utils/event_bus/app_event.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
@@ -131,5 +132,37 @@ class AccountCubit extends Cubit<AccountState> {
         initialPage: NetworkConstants.defaultPage,
       );
     });
+  }
+
+  // TODO: Handle clear search
+  // void clearSearch() {
+  //   getAccounts(
+  //     initialQuery: NetworkConstants.defaultQuery,
+  //     initialPage: NetworkConstants.defaultPage,
+  //   );
+  // }
+
+  void deleteAccount({required String userId}) async {
+    emit(state.copyWith(deleteStatus: DeleteStatus.deleting));
+
+    try {
+      await userRepository.deleteUser(userId: userId);
+
+      final accounts = state.accounts
+          .where((account) => account.userId != userId)
+          .toList(growable: false);
+
+      emit(state.copyWith(
+        deleteStatus: DeleteStatus.deleteSuccess,
+        accounts: accounts,
+      ));
+
+      // refreshAccounts();
+    } on AppException catch (e) {
+      emit(state.copyWith(
+        deleteStatus: DeleteStatus.deleteFailed,
+        error: e,
+      ));
+    }
   }
 }

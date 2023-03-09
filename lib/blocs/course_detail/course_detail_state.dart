@@ -44,7 +44,8 @@ class CourseDetailState extends BaseState {
       isLoadingMore,
       isLoadMoreDone,
       joinedCourse,
-      ...super.props,
+      stateStatus,
+      error,
     ];
   }
 
