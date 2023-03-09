@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Access code cannot be empty"),
         "account_created_successfully": MessageLookupByLibrary.simpleMessage(
             "Account created successfully"),
+        "account_not_found":
+            MessageLookupByLibrary.simpleMessage("Account not found"),
         "accounts": MessageLookupByLibrary.simpleMessage("Accounts"),
         "add_test_case": MessageLookupByLibrary.simpleMessage("Add new"),
         "an_error_occurred":
@@ -58,6 +60,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "course_name": MessageLookupByLibrary.simpleMessage("Course name"),
         "course_name_cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Course name cannot be empty"),
+        "course_not_found":
+            MessageLookupByLibrary.simpleMessage("Course not found"),
         "courses": MessageLookupByLibrary.simpleMessage("Courses"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
         "create_account":
@@ -113,6 +117,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "New password cannot be empty"),
         "new_password_do_not_match":
             MessageLookupByLibrary.simpleMessage("New password do not match"),
+        "no_accounts_have_been_created_yet":
+            MessageLookupByLibrary.simpleMessage(
+                "No accounts have been created yet"),
+        "no_courses_have_been_created_yet":
+            MessageLookupByLibrary.simpleMessage(
+                "No courses have been created yet"),
         "no_network": MessageLookupByLibrary.simpleMessage("No network"),
         "no_problems_found":
             MessageLookupByLibrary.simpleMessage("No problems found"),
@@ -186,6 +196,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "vietnamese": MessageLookupByLibrary.simpleMessage("Vietnamese"),
         "you_are_not_the_teacher_of_this_course":
             MessageLookupByLibrary.simpleMessage(
-                "You are not the teacher of this course")
+                "You are not the teacher of this course"),
+        "you_don_t_have_any_course":
+            MessageLookupByLibrary.simpleMessage("You don\'t have any course")
       };
 }

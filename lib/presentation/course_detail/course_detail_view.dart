@@ -1,6 +1,5 @@
 import 'package:code_space_client/constants/app_color.dart';
-import 'package:code_space_client/constants/app_images.dart';
-import 'package:code_space_client/constants/app_text_style.dart';
+import 'package:code_space_client/presentation/common_widgets/empty_widget.dart';
 import 'package:code_space_client/presentation/course_detail/widgets/course_detail_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,7 +68,9 @@ class _CourseDetailViewState extends State<CourseDetailView> {
   }
 
   void _resetScrollPosition() {
-    _scrollController.jumpTo(0);
+    if (_scrollController.hasClients) {
+      _scrollController.jumpTo(0);
+    }
   }
 
   void _refreshProblems() {
@@ -175,28 +176,10 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                               )
                             : user?.roleType == RoleType.teacher
                                 ? Center(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          AppImages.notFound,
-                                          width: Sizes.s200,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: Sizes.s20,
-                                          ),
-                                          child: Text(
-                                            S
-                                                .of(context)
-                                                .you_are_not_the_teacher_of_this_course,
-                                            style: AppTextStyle.textStyle24,
-                                            maxLines: 2,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                      ],
+                                    child: EmptyWidget(
+                                      message: S
+                                          .of(context)
+                                          .you_are_not_the_teacher_of_this_course,
                                     ),
                                   )
                                 : const SizedBox.shrink(),
@@ -247,24 +230,8 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                                 }
 
                                 return Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        AppImages.notFound,
-                                        width: Sizes.s200,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: Sizes.s20,
-                                        ),
-                                        child: Text(
-                                          S.of(context).no_problems_found,
-                                          style: AppTextStyle.textStyle24,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  child: EmptyWidget(
+                                      message: S.of(context).no_problems_found),
                                 );
                               }
 
