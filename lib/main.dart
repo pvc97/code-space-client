@@ -1,5 +1,4 @@
 import 'package:code_space_client/blocs/auth/auth_cubit.dart';
-import 'package:code_space_client/blocs/base/simple_bloc_observer.dart';
 import 'package:code_space_client/configs/app_config_manager.dart';
 import 'package:code_space_client/configs/environment_type.dart';
 import 'package:code_space_client/blocs/locale/locale_cubit.dart';
@@ -17,9 +16,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
-  Bloc.observer = SimpleBlocObserver();
-  WidgetsFlutterBinding.ensureInitialized();
-
   await Di.init();
   await AppConfigManager.init(environmentType: EnvironmentType.dev);
 
@@ -53,15 +49,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     context.read<AuthCubit>().checkAuth();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // Init cache asset images
-    for (var image in AppConfigManager.imagesToCache) {
-      precacheImage(image, context);
-    }
   }
 
   @override
