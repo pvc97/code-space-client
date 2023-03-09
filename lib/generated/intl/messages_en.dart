@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "comment_home____": MessageLookupByLibrary.simpleMessage(""),
         "comment_login____": MessageLookupByLibrary.simpleMessage(""),
         "comment_role____": MessageLookupByLibrary.simpleMessage(""),
+        "confirm_delete_account": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to delete this account?"),
         "confirm_leave_course":
             MessageLookupByLibrary.simpleMessage("Confirm leave course?"),
         "confirm_new_password":
@@ -72,6 +74,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Current password cannot be empty"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "delete_account":
+            MessageLookupByLibrary.simpleMessage("Delete account"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),

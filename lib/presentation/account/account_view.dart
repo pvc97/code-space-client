@@ -4,7 +4,7 @@ import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/role_type.dart';
-import 'package:code_space_client/presentation/account/widgets/account_item.dart';
+import 'package:code_space_client/presentation/account/widgets/account_item_widget.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
@@ -145,7 +145,7 @@ class AccountViewState extends State<AccountView> {
                       //   queryParams: widget.me ? {'me': 'true'} : {},
                       // );
                     },
-                    child: AccountItem(account: account),
+                    child: AccountItemWidget(account: account),
                   );
                 },
               ),
