@@ -23,7 +23,7 @@ class AuthState extends BaseState {
   }
 
   @override
-  List<Object?> get props => [authStatus, ...super.props];
+  List<Object?> get props => [authStatus, stateStatus, error];
 
   AuthState copyWith({
     AuthStatus? authStatus,

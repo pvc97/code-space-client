@@ -34,5 +34,5 @@ class CreateCourseState extends BaseState {
   }
 
   @override
-  List<Object?> get props => [teachers, courseId, ...super.props];
+  List<Object?> get props => [teachers, courseId, stateStatus, error];
 }

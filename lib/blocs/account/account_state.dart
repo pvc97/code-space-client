@@ -6,6 +6,7 @@ class AccountState extends BaseState {
   final bool isLoadingMore;
   final bool isLoadMoreDone;
   final String query;
+  final DeleteStatus deleteStatus;
 
   const AccountState({
     required this.accounts,
@@ -13,6 +14,7 @@ class AccountState extends BaseState {
     required this.isLoadingMore,
     required this.isLoadMoreDone,
     required this.query,
+    required this.deleteStatus,
     required super.stateStatus,
     super.error,
   });
@@ -24,13 +26,22 @@ class AccountState extends BaseState {
       stateStatus: StateStatus.initial,
       isLoadingMore: false,
       isLoadMoreDone: false,
+      deleteStatus: DeleteStatus.initial,
       query: NetworkConstants.defaultQuery,
     );
   }
 
   @override
-  List<Object?> get props =>
-      [accounts, page, isLoadingMore, isLoadMoreDone, query, ...super.props];
+  List<Object?> get props => [
+        accounts,
+        page,
+        isLoadingMore,
+        isLoadMoreDone,
+        query,
+        deleteStatus,
+        stateStatus,
+        error
+      ];
 
   AccountState copyWith({
     List<UserModel>? accounts,
@@ -38,6 +49,7 @@ class AccountState extends BaseState {
     bool? isLoadingMore,
     bool? isLoadMoreDone,
     String? query,
+    DeleteStatus? deleteStatus,
     StateStatus? stateStatus,
     AppException? error,
   }) {
@@ -47,6 +59,7 @@ class AccountState extends BaseState {
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
       isLoadMoreDone: isLoadMoreDone ?? this.isLoadMoreDone,
       query: query ?? this.query,
+      deleteStatus: deleteStatus ?? this.deleteStatus,
       stateStatus: stateStatus ?? this.stateStatus,
       error: error ?? this.error,
     );

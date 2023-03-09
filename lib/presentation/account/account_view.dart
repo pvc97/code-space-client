@@ -3,6 +3,8 @@ import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
+import 'package:code_space_client/models/app_exception.dart';
+import 'package:code_space_client/models/enums/delete_status.dart';
 import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/presentation/account/widgets/account_item_widget.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
@@ -10,6 +12,7 @@ import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 
 class AccountView extends StatefulWidget {
@@ -59,10 +62,33 @@ class AccountViewState extends State<AccountView> {
     return MultiBlocListener(
       listeners: [
         BlocListener<AccountCubit, AccountState>(
-          listenWhen: (previous, current) =>
-              previous.stateStatus != current.stateStatus,
-          listener: stateStatusListener,
+          listenWhen: (previous, current) {
+            return previous.deleteStatus != current.deleteStatus;
+          },
+          listener: (context, state) {
+            // TODO: Extract this to a function
+            final deleteStatus = state.deleteStatus;
+            if (deleteStatus == DeleteStatus.deleting) {
+              EasyLoading.show(dismissOnTap: true);
+            } else if (deleteStatus == DeleteStatus.deleteSuccess) {
+              EasyLoading.dismiss();
+              EasyLoading.showSuccess(S.of(context).delete_account_success);
+            } else if (deleteStatus == DeleteStatus.deleteFailed) {
+              EasyLoading.dismiss();
+              if (state.error is NoNetworkException) {
+                EasyLoading.showInfo(S.of(context).no_network,
+                    dismissOnTap: true);
+              } else {
+                EasyLoading.showInfo(state.error?.message ?? '',
+                    dismissOnTap: true);
+              }
+            }
+          },
         ),
+        BlocListener<AccountCubit, AccountState>(
+            listenWhen: (previous, current) =>
+                previous.stateStatus != current.stateStatus,
+            listener: stateStatusListener),
         BlocListener<AccountCubit, AccountState>(
           listenWhen: (previous, current) {
             return previous.query != current.query;

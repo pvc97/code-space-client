@@ -49,6 +49,13 @@ class CreateProblemState extends BaseState {
   }
 
   @override
-  List<Object?> get props =>
-      [languages, testCases, problemId, pdfFile, selectingPdf, ...super.props];
+  List<Object?> get props => [
+        languages,
+        testCases,
+        problemId,
+        pdfFile,
+        selectingPdf,
+        stateStatus,
+        error
+      ];
 }

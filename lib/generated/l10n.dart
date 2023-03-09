@@ -1099,6 +1099,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete account success`
+  String get delete_account_success {
+    return Intl.message(
+      'Delete account success',
+      name: 'delete_account_success',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -22,4 +22,7 @@ class ChangePasswordState extends BaseState {
       error: error ?? this.error,
     );
   }
+
+  @override
+  List<Object?> get props => [stateStatus, error];
 }

@@ -27,7 +27,7 @@ class RankingState extends BaseState {
 
   @override
   List<Object?> get props =>
-      [rankings, page, isLoadingMore, isLoadMoreDone, ...super.props];
+      [rankings, page, isLoadingMore, isLoadMoreDone, stateStatus, error];
 
   RankingState copyWith({
     List<RankingModel>? rankings,

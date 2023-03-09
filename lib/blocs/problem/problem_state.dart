@@ -29,7 +29,7 @@ class ProblemState extends BaseState {
 
   @override
   List<Object?> get props =>
-      [submissionId, problemDetail, problemTab, ...super.props];
+      [submissionId, problemDetail, problemTab, stateStatus, error];
 
   ProblemState copyWith({
     ProblemTab? problemTab,
