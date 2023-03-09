@@ -56,6 +56,15 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Init cache asset images
+    for (var image in AppConfigManager.imagesToCache) {
+      precacheImage(image, context);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<LocaleCubit, LocaleState>(
       builder: (context, state) {
