@@ -8,6 +8,7 @@ import 'package:code_space_client/models/enums/delete_status.dart';
 import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/presentation/account/widgets/account_item_widget.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/presentation/common_widgets/empty_widget.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
@@ -140,6 +141,23 @@ class AccountViewState extends State<AccountView> {
               previous.accounts != current.accounts,
           builder: (context, state) {
             final accounts = state.accounts;
+
+            if (state.stateStatus == StateStatus.initial) {
+              return const SizedBox.shrink();
+            }
+
+            if (accounts.isEmpty) {
+              String message;
+              if (state.query.trim().isEmpty) {
+                message = S.of(context).no_accounts_have_been_created_yet;
+              } else {
+                message = S.of(context).account_not_found;
+              }
+
+              return Center(
+                child: EmptyWidget(message: message),
+              );
+            }
 
             return RefreshIndicator(
               onRefresh: () async {

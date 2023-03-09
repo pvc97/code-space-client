@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Mã truy cập không được để trống"),
         "account_created_successfully":
             MessageLookupByLibrary.simpleMessage("Tạo tài khoản thành công"),
+        "account_not_found":
+            MessageLookupByLibrary.simpleMessage("Không tìm thấy tài khoản"),
         "accounts": MessageLookupByLibrary.simpleMessage("Tài khoản"),
         "add_test_case": MessageLookupByLibrary.simpleMessage("Thêm mới"),
         "an_error_occurred":
@@ -113,6 +115,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Mật khẩu mới không được để trống"),
         "new_password_do_not_match":
             MessageLookupByLibrary.simpleMessage("Mật khẩu mới không khớp"),
+        "no_accounts_have_been_created_yet":
+            MessageLookupByLibrary.simpleMessage(
+                "Chưa có tài khoản nào được tạo"),
         "no_courses_have_been_created_yet":
             MessageLookupByLibrary.simpleMessage(
                 "Chưa có lớp học nào được tạo"),

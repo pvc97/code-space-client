@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Access code cannot be empty"),
         "account_created_successfully": MessageLookupByLibrary.simpleMessage(
             "Account created successfully"),
+        "account_not_found":
+            MessageLookupByLibrary.simpleMessage("Account not found"),
         "accounts": MessageLookupByLibrary.simpleMessage("Accounts"),
         "add_test_case": MessageLookupByLibrary.simpleMessage("Add new"),
         "an_error_occurred":
@@ -115,6 +117,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "New password cannot be empty"),
         "new_password_do_not_match":
             MessageLookupByLibrary.simpleMessage("New password do not match"),
+        "no_accounts_have_been_created_yet":
+            MessageLookupByLibrary.simpleMessage(
+                "No accounts have been created yet"),
         "no_courses_have_been_created_yet":
             MessageLookupByLibrary.simpleMessage(
                 "No courses have been created yet"),

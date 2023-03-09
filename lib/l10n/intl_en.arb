@@ -107,5 +107,7 @@
   "delete_account_success": "Delete account success",
   "you_don_t_have_any_course": "You don't have any course",
   "no_courses_have_been_created_yet": "No courses have been created yet",
-  "course_not_found": "Course not found"
+  "course_not_found": "Course not found",
+  "account_not_found": "Account not found",
+  "no_accounts_have_been_created_yet": "No accounts have been created yet"
 }

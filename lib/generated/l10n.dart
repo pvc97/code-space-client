@@ -1139,6 +1139,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Account not found`
+  String get account_not_found {
+    return Intl.message(
+      'Account not found',
+      name: 'account_not_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No accounts have been created yet`
+  String get no_accounts_have_been_created_yet {
+    return Intl.message(
+      'No accounts have been created yet',
+      name: 'no_accounts_have_been_created_yet',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
