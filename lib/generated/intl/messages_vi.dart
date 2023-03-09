@@ -58,6 +58,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "course_name": MessageLookupByLibrary.simpleMessage("Tên lớp học"),
         "course_name_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
             "Tên lớp học không được để trống"),
+        "course_not_found":
+            MessageLookupByLibrary.simpleMessage("Không tìm thấy lớp học"),
         "courses": MessageLookupByLibrary.simpleMessage("Lớp học"),
         "create": MessageLookupByLibrary.simpleMessage("Tạo"),
         "create_account": MessageLookupByLibrary.simpleMessage("Tạo tài khoản"),
@@ -111,6 +113,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Mật khẩu mới không được để trống"),
         "new_password_do_not_match":
             MessageLookupByLibrary.simpleMessage("Mật khẩu mới không khớp"),
+        "no_courses_have_been_created_yet":
+            MessageLookupByLibrary.simpleMessage(
+                "Chưa có lớp học nào được tạo"),
         "no_network":
             MessageLookupByLibrary.simpleMessage("Không có kết nối mạng"),
         "no_problems_found":
@@ -186,6 +191,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "vietnamese": MessageLookupByLibrary.simpleMessage("Tiếng Việt"),
         "you_are_not_the_teacher_of_this_course":
             MessageLookupByLibrary.simpleMessage(
-                "Bạn không phải là giảng viên của lớp học này")
+                "Bạn không phải là giảng viên của lớp học này"),
+        "you_don_t_have_any_course":
+            MessageLookupByLibrary.simpleMessage("Bạn không có lớp học nào")
       };
 }

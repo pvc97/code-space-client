@@ -104,5 +104,8 @@
   "reset_password_successfully": "Đặt lại mật khẩu thành công",
   "delete_account": "Xóa tài khoản",
   "confirm_delete_account": "Bạn có chắc chắn muốn xóa tài khoản này?",
-  "delete_account_success": "Xóa tài khoản thành công"
+  "delete_account_success": "Xóa tài khoản thành công",
+  "you_don_t_have_any_course": "Bạn không có lớp học nào",
+  "no_courses_have_been_created_yet": "Chưa có lớp học nào được tạo",
+  "course_not_found": "Không tìm thấy lớp học"
 }

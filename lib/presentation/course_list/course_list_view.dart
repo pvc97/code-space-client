@@ -5,6 +5,7 @@ import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/role_type.dart';
+import 'package:code_space_client/presentation/common_widgets/empty_widget.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
@@ -49,7 +50,12 @@ class _CourseListViewState extends State<CourseListView> {
   }
 
   void _resetScrollPosition() {
-    _scrollController.jumpTo(0);
+    // Have to check if the scrollController has clients
+    // Because if the user is searching and the search result is empty
+    // so _scrollController doesn't have any clients
+    if (_scrollController.hasClients) {
+      _scrollController.jumpTo(0);
+    }
   }
 
   void _refreshCourses() {
@@ -112,6 +118,25 @@ class _CourseListViewState extends State<CourseListView> {
           buildWhen: (previous, current) => previous.courses != current.courses,
           builder: (context, state) {
             final courses = state.courses;
+
+            if (state.stateStatus == StateStatus.initial) {
+              return const SizedBox.shrink();
+            }
+
+            if (courses.isEmpty) {
+              String message;
+              if (state.query.trim().isEmpty) {
+                message = widget.me
+                    ? S.of(context).you_don_t_have_any_course
+                    : S.of(context).no_courses_have_been_created_yet;
+              } else {
+                message = S.of(context).course_not_found;
+              }
+
+              return Center(
+                child: EmptyWidget(message: message),
+              );
+            }
 
             return RefreshIndicator(
               onRefresh: () async {

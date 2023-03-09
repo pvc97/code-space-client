@@ -104,5 +104,8 @@
   "reset_password_successfully": "Reset password successfully",
   "delete_account": "Delete account",
   "confirm_delete_account": "Are you sure you want to delete this account?",
-  "delete_account_success": "Delete account success"
+  "delete_account_success": "Delete account success",
+  "you_don_t_have_any_course": "You don't have any course",
+  "no_courses_have_been_created_yet": "No courses have been created yet",
+  "course_not_found": "Course not found"
 }

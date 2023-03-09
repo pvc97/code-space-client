@@ -1109,6 +1109,36 @@ class S {
       args: [],
     );
   }
+
+  /// `You don't have any course`
+  String get you_don_t_have_any_course {
+    return Intl.message(
+      'You don\'t have any course',
+      name: 'you_don_t_have_any_course',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No courses have been created yet`
+  String get no_courses_have_been_created_yet {
+    return Intl.message(
+      'No courses have been created yet',
+      name: 'no_courses_have_been_created_yet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Course not found`
+  String get course_not_found {
+    return Intl.message(
+      'Course not found',
+      name: 'course_not_found',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

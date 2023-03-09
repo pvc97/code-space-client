@@ -40,7 +40,9 @@ class AccountViewState extends State<AccountView> {
   }
 
   void _resetScrollPosition() {
-    _scrollController.jumpTo(0);
+    if (_scrollController.hasClients) {
+      _scrollController.jumpTo(0);
+    }
   }
 
   void _loadMore() {

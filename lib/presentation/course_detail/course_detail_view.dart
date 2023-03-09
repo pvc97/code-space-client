@@ -68,7 +68,9 @@ class _CourseDetailViewState extends State<CourseDetailView> {
   }
 
   void _resetScrollPosition() {
-    _scrollController.jumpTo(0);
+    if (_scrollController.hasClients) {
+      _scrollController.jumpTo(0);
+    }
   }
 
   void _refreshProblems() {
