@@ -147,8 +147,13 @@ class AccountCubit extends Cubit<AccountState> {
     try {
       await userRepository.deleteUser(userId: userId);
 
+      final accounts = state.accounts
+          .where((account) => account.userId != userId)
+          .toList(growable: false);
+
       emit(state.copyWith(
         stateStatus: StateStatus.success,
+        accounts: accounts,
       ));
 
       // refreshAccounts();

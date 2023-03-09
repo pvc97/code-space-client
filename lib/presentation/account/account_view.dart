@@ -149,7 +149,10 @@ class AccountViewState extends State<AccountView> {
                       //   queryParams: widget.me ? {'me': 'true'} : {},
                       // );
                     },
-                    child: AccountItemWidget(account: account),
+                    child: AccountItemWidget(
+                      account: account,
+                      key: ValueKey(account.userId),
+                    ),
                   );
                 },
               ),
