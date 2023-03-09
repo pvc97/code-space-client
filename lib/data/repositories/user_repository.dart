@@ -118,4 +118,13 @@ class UserRepository {
       throw ExceptionParser.parse(e);
     }
   }
+
+  Future<bool> deleteUser({required String userId}) async {
+    try {
+      final success = await userService.deleteUser(userId: userId);
+      return success;
+    } catch (e) {
+      throw ExceptionParser.parse(e);
+    }
+  }
 }

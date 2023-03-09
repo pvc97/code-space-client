@@ -159,4 +159,15 @@ class UserService {
 
     return false;
   }
+
+  /// Manager delete user
+  Future<bool> deleteUser({required String userId}) async {
+    final response = await apiProvider.delete('${UrlConstants.users}/$userId');
+
+    if (response?.statusCode == StatusCodeConstants.code200) {
+      return true;
+    }
+
+    return false;
+  }
 }

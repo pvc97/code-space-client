@@ -132,4 +132,31 @@ class AccountCubit extends Cubit<AccountState> {
       );
     });
   }
+
+  // TODO: Handle clear search
+  // void clearSearch() {
+  //   getAccounts(
+  //     initialQuery: NetworkConstants.defaultQuery,
+  //     initialPage: NetworkConstants.defaultPage,
+  //   );
+  // }
+
+  void deleteAccount({required String userId}) async {
+    emit(state.copyWith(stateStatus: StateStatus.loading));
+
+    try {
+      await userRepository.deleteUser(userId: userId);
+
+      emit(state.copyWith(
+        stateStatus: StateStatus.success,
+      ));
+
+      // refreshAccounts();
+    } on AppException catch (e) {
+      emit(state.copyWith(
+        stateStatus: StateStatus.error,
+        error: e,
+      ));
+    }
+  }
 }

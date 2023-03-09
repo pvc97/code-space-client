@@ -58,11 +58,15 @@ class AccountViewState extends State<AccountView> {
 
     return MultiBlocListener(
       listeners: [
-        const BlocListener<AccountCubit, AccountState>(
+        BlocListener<AccountCubit, AccountState>(
+          listenWhen: (previous, current) =>
+              previous.stateStatus != current.stateStatus,
           listener: stateStatusListener,
         ),
         BlocListener<AccountCubit, AccountState>(
-          listenWhen: (previous, current) => previous.query != current.query,
+          listenWhen: (previous, current) {
+            return previous.query != current.query;
+          },
           listener: (context, state) {
             _resetScrollPosition();
           },
