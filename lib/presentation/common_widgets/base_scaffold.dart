@@ -19,11 +19,13 @@ class BaseScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        if (unfocusOnTap && FocusScope.of(context).hasFocus) {
-          FocusScope.of(context).unfocus();
-        }
-      },
+      onTap: unfocusOnTap
+          ? () {
+              if (FocusScope.of(context).hasFocus) {
+                FocusScope.of(context).unfocus();
+              }
+            }
+          : null,
       child: Scaffold(
         appBar: appBar,
         body: body,
