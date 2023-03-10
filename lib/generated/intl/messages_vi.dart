@@ -190,6 +190,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "update": MessageLookupByLibrary.simpleMessage("Cập nhật"),
         "update_account":
             MessageLookupByLibrary.simpleMessage("Cập nhật tài khoản"),
+        "update_account_successfully": MessageLookupByLibrary.simpleMessage(
+            "Cập nhật tài khoản thành công"),
         "user_list":
             MessageLookupByLibrary.simpleMessage("Danh sách tài khoản"),
         "username": MessageLookupByLibrary.simpleMessage("Tài khoản"),

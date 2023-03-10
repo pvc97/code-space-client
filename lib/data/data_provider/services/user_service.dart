@@ -170,4 +170,21 @@ class UserService {
 
     return false;
   }
+
+  // Manager update user
+  Future<UserModel> updateUser({
+    required String userId,
+    required String fullName,
+    required String email,
+  }) async {
+    final response = await apiProvider.put(
+      '${UrlConstants.users}/$userId',
+      params: {
+        'name': fullName,
+        'email': email,
+      },
+    );
+
+    return UserModel.fromJson(response?.data['data']);
+  }
 }

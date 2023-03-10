@@ -31,4 +31,30 @@ class UpdateAccountCubit extends Cubit<UpdateAccountState> {
       );
     }
   }
+
+  Future<void> updateAccount({
+    required String userId,
+    required String name,
+    required String email,
+  }) async {
+    try {
+      emit(state.copyWith(updateStatus: StateStatus.loading));
+      final user = await userRepository.updateUser(
+        userId: userId,
+        email: email,
+        fullName: name,
+      );
+      emit(state.copyWith(
+        user: user,
+        updateStatus: StateStatus.success,
+      ));
+    } on AppException catch (e) {
+      emit(
+        state.copyWith(
+          error: e,
+          updateStatus: StateStatus.error,
+        ),
+      );
+    }
+  }
 }

@@ -111,5 +111,6 @@
   "account_not_found": "Account not found",
   "no_accounts_have_been_created_yet": "No accounts have been created yet",
   "no_ranking_yet": "No ranking yet",
-  "update_account": "Update account"
+  "update_account": "Update account",
+  "update_account_successfully": "Update account successfully"
 }

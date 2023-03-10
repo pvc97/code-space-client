@@ -1,3 +1,4 @@
+import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/blocs/update_account/update_account_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
@@ -8,6 +9,7 @@ import 'package:code_space_client/utils/extensions/string_ext.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class UpdateAccountView extends StatefulWidget {
   final String userId;
@@ -60,16 +62,11 @@ class _UpdateAccountViewState extends State<UpdateAccountView> {
 
     form.save();
 
-    // final user = context.read<UserCubit>().state.user;
-    // if (user == null) {
-    //   return;
-    // }
-
-    // context.read<UserCubit>().updateProfile(
-    //       userId: user.userId,
-    //       fullName: _fullName!,
-    //       email: _email!,
-    //     );
+    context.read<UpdateAccountCubit>().updateAccount(
+          userId: widget.userId,
+          name: _fullName!,
+          email: _email!,
+        );
   }
 
   @override
@@ -85,8 +82,31 @@ class _UpdateAccountViewState extends State<UpdateAccountView> {
           listenWhen: (previous, current) =>
               previous.user != current.user && current.user != null,
           listener: (context, state) {
-            _fullNameController.text = state.user!.name;
-            _emailController.text = state.user!.email;
+            final newName = state.user!.name;
+            final newEmail = state.user!.email;
+
+            if (newName != _fullNameController.text) {
+              _fullNameController.text = newName;
+            }
+
+            if (newEmail != _emailController.text) {
+              _emailController.text = newEmail;
+            }
+          },
+        ),
+        BlocListener<UpdateAccountCubit, UpdateAccountState>(
+          listenWhen: (previous, current) =>
+              previous.updateStatus != current.updateStatus,
+          listener: (context, state) {
+            stateStatusListener(
+              context,
+              state,
+              stateStatus: state.updateStatus,
+              onSuccess: () {
+                EasyLoading.showSuccess(
+                    S.of(context).update_account_successfully);
+              },
+            );
           },
         ),
       ],
@@ -146,21 +166,24 @@ class _UpdateAccountViewState extends State<UpdateAccountView> {
                       },
                     ),
                     Box.h16,
-                    // BlocSelector<UserCubit, UserState, StateStatus>(
-                    //   selector: (state) => state.stateStatus,
-                    //   builder: (context, status) {
-                    //     return AppElevatedButton(
-                    //       onPressed: _submit,
-                    //       text: S.of(context).update,
-                    //     );
-                    //   },
-                    // ),
-                    FractionallySizedBox(
-                      widthFactor: 0.7,
-                      child: AppElevatedButton(
-                        onPressed: _submit,
-                        text: S.of(context).update,
-                      ),
+                    BlocBuilder<UpdateAccountCubit, UpdateAccountState>(
+                      buildWhen: (previous, current) {
+                        return previous.stateStatus != current.stateStatus ||
+                            previous.updateStatus != current.updateStatus;
+                      },
+                      builder: (context, state) {
+                        return FractionallySizedBox(
+                          widthFactor: 0.7,
+                          child: AppElevatedButton(
+                            onPressed: (state.stateStatus ==
+                                        StateStatus.loading ||
+                                    state.updateStatus == StateStatus.loading)
+                                ? null
+                                : _submit,
+                            text: S.of(context).update,
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
