@@ -126,6 +126,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_network": MessageLookupByLibrary.simpleMessage("No network"),
         "no_problems_found":
             MessageLookupByLibrary.simpleMessage("No problems found"),
+        "no_ranking_yet":
+            MessageLookupByLibrary.simpleMessage("No ranking yet"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_cannot_be_empty":
