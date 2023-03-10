@@ -1,4 +1,5 @@
 import 'package:code_space_client/blocs/auth/auth_cubit.dart';
+import 'package:code_space_client/blocs/base/simple_bloc_observer.dart';
 import 'package:code_space_client/configs/app_config_manager.dart';
 import 'package:code_space_client/configs/environment_type.dart';
 import 'package:code_space_client/blocs/locale/locale_cubit.dart';
@@ -16,8 +17,14 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
+  final binding = WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = SimpleBlocObserver();
+
   await Di.init();
-  await AppConfigManager.init(environmentType: EnvironmentType.dev);
+  await AppConfigManager.init(
+    environmentType: EnvironmentType.dev,
+    binding: binding,
+  );
 
   // https://github.com/flutter/flutter/issues/107996
   // TODO: Uncomment this line when the issue is fixed

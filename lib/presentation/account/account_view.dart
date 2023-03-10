@@ -6,6 +6,7 @@ import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/presentation/account/widgets/account_item_widget.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
+import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
 import 'package:code_space_client/presentation/common_widgets/empty_widget.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
@@ -91,12 +92,13 @@ class AccountViewState extends State<AccountView> {
           },
         ),
       ],
-      child: Scaffold(
+      child: BaseScaffold(
+        unfocusOnTap: true,
         appBar: AdaptiveAppBar(
           context: context,
           showHomeButton: false,
           title: Container(
-            margin: const EdgeInsets.symmetric(horizontal: Sizes.s20),
+            margin: const EdgeInsets.only(left: Sizes.s20),
             child: TextField(
               decoration: InputDecoration(
                 // border: InputBorder.none,

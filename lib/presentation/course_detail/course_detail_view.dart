@@ -1,4 +1,5 @@
 import 'package:code_space_client/constants/app_color.dart';
+import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
 import 'package:code_space_client/presentation/common_widgets/empty_widget.dart';
 import 'package:code_space_client/presentation/course_detail/widgets/course_detail_banner.dart';
 import 'package:flutter/material.dart';
@@ -96,7 +97,8 @@ class _CourseDetailViewState extends State<CourseDetailView> {
       ],
       child: GestureDetector(
         onTap: FocusScope.of(context).unfocus,
-        child: Scaffold(
+        child: BaseScaffold(
+          unfocusOnTap: true,
           appBar: AdaptiveAppBar(
             context: context,
             centerTitle: false,

@@ -4,6 +4,7 @@ import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
+import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/utils/extensions/string_ext.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
@@ -110,7 +111,8 @@ class _UpdateAccountViewState extends State<UpdateAccountView> {
           },
         ),
       ],
-      child: Scaffold(
+      child: BaseScaffold(
+        unfocusOnTap: true,
         appBar: AdaptiveAppBar(
           context: context,
           title: Text(S.of(context).update_account),

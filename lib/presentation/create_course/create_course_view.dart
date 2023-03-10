@@ -5,6 +5,7 @@ import 'package:code_space_client/models/dropdown_item.dart';
 import 'package:code_space_client/models/teacher_model.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
+import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/presentation/common_widgets/search_dropdown_button.dart';
 import 'package:code_space_client/router/app_router.dart';
@@ -89,100 +90,98 @@ class CreateCourseViewState extends State<CreateCourseView> {
           },
         ),
       ],
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Scaffold(
-          appBar: AdaptiveAppBar(
-            context: context,
-            title: Text(S.of(context).create_new_course),
-          ),
-          body: Center(
-            child: Form(
-              key: _formKey,
-              autovalidateMode: _autovalidateMode,
-              child: Container(
-                constraints: const BoxConstraints(maxWidth: 300.0),
-                child: ListView(
-                  shrinkWrap: true,
-                  children: [
-                    TextFormField(
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        labelText: S.of(context).course_name,
-                      ),
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return S.of(context).course_name_cannot_be_empty;
-                        }
-                        return null;
-                      },
-                      onSaved: (String? value) {
-                        _courseName = value;
-                      },
+      child: BaseScaffold(
+        unfocusOnTap: true,
+        appBar: AdaptiveAppBar(
+          context: context,
+          title: Text(S.of(context).create_new_course),
+        ),
+        body: Center(
+          child: Form(
+            key: _formKey,
+            autovalidateMode: _autovalidateMode,
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 300.0),
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  TextFormField(
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: S.of(context).course_name,
                     ),
-                    Box.h16,
-                    TextFormField(
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        labelText: S.of(context).course_code,
-                      ),
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return S.of(context).course_code_cannot_be_empty;
-                        }
-                        return null;
-                      },
-                      onSaved: (String? value) {
-                        _courseCode = value;
-                      },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return S.of(context).course_name_cannot_be_empty;
+                      }
+                      return null;
+                    },
+                    onSaved: (String? value) {
+                      _courseName = value;
+                    },
+                  ),
+                  Box.h16,
+                  TextFormField(
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: S.of(context).course_code,
                     ),
-                    Box.h16,
-                    TextFormField(
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        labelText: S.of(context).access_code,
-                      ),
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return S.of(context).access_code_cannot_be_empty;
-                        }
-                        return null;
-                      },
-                      onSaved: (String? value) {
-                        _accessCode = value;
-                      },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return S.of(context).course_code_cannot_be_empty;
+                      }
+                      return null;
+                    },
+                    onSaved: (String? value) {
+                      _courseCode = value;
+                    },
+                  ),
+                  Box.h16,
+                  TextFormField(
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: S.of(context).access_code,
                     ),
-                    Box.h16,
-                    BlocSelector<CreateCourseCubit, CreateCourseState,
-                        Iterable<TeacherModel>>(
-                      selector: (state) => state.teachers,
-                      builder: (context, teachers) {
-                        return SearchDropdownButton(
-                          items: teachers,
-                          hint: S.of(context).select_teacher,
-                          searchHint:
-                              S.of(context).enter_name_or_email_of_teacher,
-                          textEditingController: searchTeacherController,
-                          onChanged: (BaseDropdownItem? value) {
-                            _selectedTeacher = value;
-                          },
-                        );
-                      },
-                    ),
-                    Box.h16,
-                    BlocSelector<CreateCourseCubit, CreateCourseState,
-                        StateStatus>(
-                      selector: (state) => state.stateStatus,
-                      builder: (context, status) {
-                        return AppElevatedButton(
-                          onPressed:
-                              status == StateStatus.loading ? null : _submit,
-                          text: S.of(context).create,
-                        );
-                      },
-                    )
-                  ],
-                ),
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return S.of(context).access_code_cannot_be_empty;
+                      }
+                      return null;
+                    },
+                    onSaved: (String? value) {
+                      _accessCode = value;
+                    },
+                  ),
+                  Box.h16,
+                  BlocSelector<CreateCourseCubit, CreateCourseState,
+                      Iterable<TeacherModel>>(
+                    selector: (state) => state.teachers,
+                    builder: (context, teachers) {
+                      return SearchDropdownButton(
+                        items: teachers,
+                        hint: S.of(context).select_teacher,
+                        searchHint:
+                            S.of(context).enter_name_or_email_of_teacher,
+                        textEditingController: searchTeacherController,
+                        onChanged: (BaseDropdownItem? value) {
+                          _selectedTeacher = value;
+                        },
+                      );
+                    },
+                  ),
+                  Box.h16,
+                  BlocSelector<CreateCourseCubit, CreateCourseState,
+                      StateStatus>(
+                    selector: (state) => state.stateStatus,
+                    builder: (context, status) {
+                      return AppElevatedButton(
+                        onPressed:
+                            status == StateStatus.loading ? null : _submit,
+                        text: S.of(context).create,
+                      );
+                    },
+                  )
+                ],
               ),
             ),
           ),
