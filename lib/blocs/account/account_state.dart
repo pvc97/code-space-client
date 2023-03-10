@@ -6,7 +6,7 @@ class AccountState extends BaseState {
   final bool isLoadingMore;
   final bool isLoadMoreDone;
   final String query;
-  final DeleteStatus deleteStatus;
+  final StateStatus deleteStatus;
 
   const AccountState({
     required this.accounts,
@@ -26,7 +26,7 @@ class AccountState extends BaseState {
       stateStatus: StateStatus.initial,
       isLoadingMore: false,
       isLoadMoreDone: false,
-      deleteStatus: DeleteStatus.initial,
+      deleteStatus: StateStatus.initial,
       query: NetworkConstants.defaultQuery,
     );
   }
@@ -49,7 +49,7 @@ class AccountState extends BaseState {
     bool? isLoadingMore,
     bool? isLoadMoreDone,
     String? query,
-    DeleteStatus? deleteStatus,
+    StateStatus? deleteStatus,
     StateStatus? stateStatus,
     AppException? error,
   }) {

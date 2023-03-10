@@ -1,6 +1,7 @@
 part of 'update_account_cubit.dart';
 
 class UpdateAccountState extends BaseState {
+  // stateStatus from BaseState is used to manage the state of get user info
   final UserModel? user;
 
   const UpdateAccountState({
