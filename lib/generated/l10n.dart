@@ -1159,6 +1159,16 @@ class S {
       args: [],
     );
   }
+
+  /// `No ranking yet`
+  String get no_ranking_yet {
+    return Intl.message(
+      'No ranking yet',
+      name: 'no_ranking_yet',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

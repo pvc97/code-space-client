@@ -125,6 +125,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Không có kết nối mạng"),
         "no_problems_found":
             MessageLookupByLibrary.simpleMessage("Không tìm thấy bài tập"),
+        "no_ranking_yet":
+            MessageLookupByLibrary.simpleMessage("Chưa có xếp hạng"),
         "ok": MessageLookupByLibrary.simpleMessage("Đồng ý"),
         "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
         "password_cannot_be_empty": MessageLookupByLibrary.simpleMessage(

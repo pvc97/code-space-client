@@ -3,6 +3,7 @@ import 'package:code_space_client/constants/app_color.dart';
 import 'package:code_space_client/constants/app_images.dart';
 import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
+import 'package:code_space_client/presentation/common_widgets/empty_widget.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -120,6 +121,18 @@ class _RankingViewState extends State<RankingView> {
                   previous.rankings != current.rankings,
               builder: (context, state) {
                 final rankings = state.rankings;
+
+                if (state.stateStatus == StateStatus.initial) {
+                  return const SizedBox.shrink();
+                }
+
+                if (rankings.isEmpty) {
+                  String message = S.of(context).no_ranking_yet;
+
+                  return Center(
+                    child: EmptyWidget(message: message),
+                  );
+                }
 
                 return ListView.builder(
                   padding: const EdgeInsets.all(Sizes.s20),

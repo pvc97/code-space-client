@@ -109,5 +109,6 @@
   "no_courses_have_been_created_yet": "No courses have been created yet",
   "course_not_found": "Course not found",
   "account_not_found": "Account not found",
-  "no_accounts_have_been_created_yet": "No accounts have been created yet"
+  "no_accounts_have_been_created_yet": "No accounts have been created yet",
+  "no_ranking_yet": "No ranking yet"
 }

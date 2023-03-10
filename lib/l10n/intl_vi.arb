@@ -109,5 +109,6 @@
   "no_courses_have_been_created_yet": "Chưa có lớp học nào được tạo",
   "course_not_found": "Không tìm thấy lớp học",
   "account_not_found": "Không tìm thấy tài khoản",
-  "no_accounts_have_been_created_yet": "Chưa có tài khoản nào được tạo"
+  "no_accounts_have_been_created_yet": "Chưa có tài khoản nào được tạo",
+  "no_ranking_yet": "Chưa có xếp hạng"
 }
