@@ -30,6 +30,16 @@ void main() async {
     FirebaseMessaging.instance.getToken().then((token) {
       logger.d('FCM Token: $token');
     });
+
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
+      logger.d('getInitialMessage: ${message?.data}');
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      logger.d('onMessageOpenedApp: ${message.data}');
+    });
+
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 
   await Di.init();
@@ -54,6 +64,13 @@ void main() async {
       child: const MyApp(),
     ),
   );
+}
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  logger.d('Handling a background message ${message.data}');
 }
 
 class MyApp extends StatefulWidget {
