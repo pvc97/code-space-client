@@ -1,3 +1,4 @@
+import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -67,74 +68,72 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
           },
         );
       },
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Scaffold(
-          appBar: AdaptiveAppBar(
-            context: context,
-            title: Text(S.of(context).reset_password),
-          ),
-          body: Center(
-            child: Form(
-              key: _formKey,
-              autovalidateMode: _autovalidateMode,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(Sizes.s20),
-                child: Center(
-                  child: SizedBox(
-                    width: Sizes.s300,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextFormField(
-                          controller: _newPasswordController,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            labelText: S.of(context).new_password,
-                          ),
-                          obscureText: true,
-                          validator: (String? value) {
-                            if (value == null || value.isEmpty) {
-                              return S.of(context).new_password_cannot_be_empty;
-                            }
+      child: BaseScaffold(
+        unfocusOnTap: true,
+        appBar: AdaptiveAppBar(
+          context: context,
+          title: Text(S.of(context).reset_password),
+        ),
+        body: Center(
+          child: Form(
+            key: _formKey,
+            autovalidateMode: _autovalidateMode,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(Sizes.s20),
+              child: Center(
+                child: SizedBox(
+                  width: Sizes.s300,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextFormField(
+                        controller: _newPasswordController,
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          labelText: S.of(context).new_password,
+                        ),
+                        obscureText: true,
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return S.of(context).new_password_cannot_be_empty;
+                          }
 
-                            return null;
-                          },
-                          onSaved: (value) {
-                            _newPassword = value;
-                          },
+                          return null;
+                        },
+                        onSaved: (value) {
+                          _newPassword = value;
+                        },
+                      ),
+                      Box.h12,
+                      TextFormField(
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          labelText: S.of(context).confirm_new_password,
                         ),
-                        Box.h12,
-                        TextFormField(
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            labelText: S.of(context).confirm_new_password,
-                          ),
-                          obscureText: true,
-                          validator: (String? value) {
-                            if (_newPasswordController.text != value) {
-                              return S.of(context).new_password_do_not_match;
-                            }
-                            return null;
-                          },
-                        ),
-                        Box.h16,
-                        BlocBuilder<ResetPasswordCubit, ResetPasswordState>(
-                          builder: (context, state) {
-                            return FractionallySizedBox(
-                              widthFactor: 0.7,
-                              child: AppElevatedButton(
-                                onPressed:
-                                    state.stateStatus == StateStatus.loading
-                                        ? null
-                                        : _submit,
-                                text: S.of(context).reset_password,
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                        obscureText: true,
+                        validator: (String? value) {
+                          if (_newPasswordController.text != value) {
+                            return S.of(context).new_password_do_not_match;
+                          }
+                          return null;
+                        },
+                      ),
+                      Box.h16,
+                      BlocBuilder<ResetPasswordCubit, ResetPasswordState>(
+                        builder: (context, state) {
+                          return FractionallySizedBox(
+                            widthFactor: 0.7,
+                            child: AppElevatedButton(
+                              onPressed:
+                                  state.stateStatus == StateStatus.loading
+                                      ? null
+                                      : _submit,
+                              text: S.of(context).reset_password,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),

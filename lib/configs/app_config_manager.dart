@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:code_space_client/blocs/base/simple_bloc_observer.dart';
 import 'package:code_space_client/constants/app_images.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
@@ -10,17 +9,15 @@ import 'package:code_space_client/constants/network_constants.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:lottie/lottie.dart';
 
 abstract class AppConfigManager {
   AppConfigManager._();
 
-  static Future<void> init({required EnvironmentType environmentType}) async {
-    Bloc.observer = SimpleBlocObserver();
-    final binding = WidgetsFlutterBinding.ensureInitialized();
-
+  static Future<void> init(
+      {required EnvironmentType environmentType,
+      required WidgetsBinding binding}) async {
     // TODO: Remove this if statement when deploying to web
     // User local host for web and desktop development
     // Check Platform.something cause runtime error on web, so check kIsWeb first
@@ -50,6 +47,8 @@ abstract class AppConfigManager {
     // Preload cache asset images
     // https://stackoverflow.com/a/62710235
     // Compare with call precacheImage in didChangeDependencies will have the same result
+
+    // Tested with image size 25MB, and it actually works :)
     binding.addPostFrameCallback((_) {
       final BuildContext? context = binding.renderViewElement;
       if (context != null) {

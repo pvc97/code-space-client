@@ -2,6 +2,7 @@ import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_constants.dart';
 import 'package:code_space_client/models/problem_detail_model.dart';
 import 'package:code_space_client/models/role_type.dart';
+import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
 import 'package:code_space_client/presentation/problem/widgets/code_tab.dart';
 import 'package:code_space_client/presentation/problem/widgets/pdf_tab.dart';
 import 'package:code_space_client/utils/extensions/language_ext.dart';
@@ -103,7 +104,7 @@ class _ProblemViewState extends State<ProblemView> {
           },
         ),
       ],
-      child: Scaffold(
+      child: BaseScaffold(
         appBar: AdaptiveAppBar(
           context: context,
           title: BlocSelector<ProblemCubit, ProblemState, ProblemDetailModel?>(

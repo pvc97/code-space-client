@@ -2,6 +2,7 @@ import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/constants/app_color.dart';
 import 'package:code_space_client/constants/app_images.dart';
 import 'package:code_space_client/constants/app_text_style.dart';
+import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/presentation/common_widgets/empty_widget.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
@@ -105,81 +106,78 @@ class _RankingViewState extends State<RankingView> {
           listener: stateStatusListener,
         ),
       ],
-      child: GestureDetector(
-        onTap: FocusScope.of(context).unfocus,
-        child: Scaffold(
-          appBar: AdaptiveAppBar(
-            context: context,
-            title: Text(S.of(context).ranking),
-          ),
-          body: RefreshIndicator(
-            onRefresh: () async {
-              _refreshRankings();
-            },
-            child: BlocBuilder<RankingCubit, RankingState>(
-              buildWhen: (previous, current) =>
-                  previous.rankings != current.rankings,
-              builder: (context, state) {
-                final rankings = state.rankings;
+      child: BaseScaffold(
+        appBar: AdaptiveAppBar(
+          context: context,
+          title: Text(S.of(context).ranking),
+        ),
+        body: RefreshIndicator(
+          onRefresh: () async {
+            _refreshRankings();
+          },
+          child: BlocBuilder<RankingCubit, RankingState>(
+            buildWhen: (previous, current) =>
+                previous.rankings != current.rankings,
+            builder: (context, state) {
+              final rankings = state.rankings;
 
-                if (state.stateStatus == StateStatus.initial) {
-                  return const SizedBox.shrink();
-                }
+              if (state.stateStatus == StateStatus.initial) {
+                return const SizedBox.shrink();
+              }
 
-                if (rankings.isEmpty) {
-                  String message = S.of(context).no_ranking_yet;
+              if (rankings.isEmpty) {
+                String message = S.of(context).no_ranking_yet;
 
-                  return Center(
-                    child: EmptyWidget(message: message),
-                  );
-                }
+                return Center(
+                  child: EmptyWidget(message: message),
+                );
+              }
 
-                return ListView.builder(
-                  padding: const EdgeInsets.all(Sizes.s20),
-                  itemCount: rankings.length + 1,
-                  itemBuilder: (BuildContext context, int index) {
-                    if (index == rankings.length) {
-                      // Check stateStatus to avoid infinite loop call loadMore
-                      if (state.isLoadMoreDone ||
-                          state.stateStatus != StateStatus.success) {
-                        return const SizedBox.shrink();
-                      }
-
-                      // Loadmore when last item is rendered
-                      _loadMore();
-
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
+              return ListView.builder(
+                padding: const EdgeInsets.all(Sizes.s20),
+                itemCount: rankings.length + 1,
+                itemBuilder: (BuildContext context, int index) {
+                  if (index == rankings.length) {
+                    // Check stateStatus to avoid infinite loop call loadMore
+                    if (state.isLoadMoreDone ||
+                        state.stateStatus != StateStatus.success) {
+                      return const SizedBox.shrink();
                     }
 
-                    final item = rankings[index];
-                    return Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(Sizes.s8),
-                        child: Row(
-                          children: [
-                            _buildBadge(index),
-                            Box.w8,
-                            Expanded(
-                              child: Text(
-                                item.studentName,
-                                style: AppTextStyle.textStyle18,
-                              ),
-                            ),
-                            Text(
-                              '${item.totalPoint} ${S.of(context).points}',
-                              style: AppTextStyle.textStyle16,
-                            ),
-                            Box.w8,
-                          ],
-                        ),
-                      ),
+                    // Loadmore when last item is rendered
+                    _loadMore();
+
+                    return const Center(
+                      child: CircularProgressIndicator(),
                     );
-                  },
-                );
-              },
-            ),
+                  }
+
+                  final item = rankings[index];
+                  return Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(Sizes.s8),
+                      child: Row(
+                        children: [
+                          _buildBadge(index),
+                          Box.w8,
+                          Expanded(
+                            child: Text(
+                              item.studentName,
+                              style: AppTextStyle.textStyle18,
+                            ),
+                          ),
+                          Text(
+                            '${item.totalPoint} ${S.of(context).points}',
+                            style: AppTextStyle.textStyle16,
+                          ),
+                          Box.w8,
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
           ),
         ),
       ),
