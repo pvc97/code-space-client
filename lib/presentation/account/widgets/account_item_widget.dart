@@ -7,7 +7,6 @@ import 'package:code_space_client/presentation/common_widgets/app_popup_menu_but
 import 'package:code_space_client/presentation/common_widgets/show_confirm_dialog.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/extensions/role_type_ext.dart';
-import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/models/user_model.dart';
@@ -68,7 +67,10 @@ class AccountItemWidget extends StatelessWidget {
                 onSelected: (value) {
                   switch (value) {
                     case AccountAction.edit:
-                      logger.d('Edit account');
+                      context.goNamed(
+                        AppRoute.updateAccount.name,
+                        params: {'userId': account.userId},
+                      );
                       break;
                     case AccountAction.resetPassword:
                       context.goNamed(

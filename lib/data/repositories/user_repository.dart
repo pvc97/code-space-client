@@ -11,9 +11,9 @@ class UserRepository {
   });
 
   /// Fetch specific user info from server
-  Future<UserModel> fetchUserInfo(String problemId) async {
+  Future<UserModel> fetchUserInfo({required String userId}) async {
     try {
-      final user = await userService.fetchUserInfo(problemId);
+      final user = await userService.fetchUserInfo(userId: userId);
       return user;
     } catch (e) {
       throw ExceptionParser.parse(e);
@@ -93,6 +93,7 @@ class UserRepository {
     required String email,
   }) async {
     try {
+      await Future.delayed(const Duration(seconds: 3));
       final user = await userService.updateProfile(
         userId: userId,
         fullName: fullName,
@@ -123,6 +124,24 @@ class UserRepository {
     try {
       final success = await userService.deleteUser(userId: userId);
       return success;
+    } catch (e) {
+      throw ExceptionParser.parse(e);
+    }
+  }
+
+  /// Manager update user info
+  Future<UserModel> updateUser({
+    required String userId,
+    required String fullName,
+    required String email,
+  }) async {
+    try {
+      final user = await userService.updateUser(
+        userId: userId,
+        fullName: fullName,
+        email: email,
+      );
+      return user;
     } catch (e) {
       throw ExceptionParser.parse(e);
     }

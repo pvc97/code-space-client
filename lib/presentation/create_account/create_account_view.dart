@@ -95,7 +95,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(Sizes.s20),
                 child: Center(
-                  child: SizedBox(
+                  child: Box(
                     width: Sizes.s300,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

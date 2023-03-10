@@ -1169,6 +1169,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Update account`
+  String get update_account {
+    return Intl.message(
+      'Update account',
+      name: 'update_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update account successfully`
+  String get update_account_successfully {
+    return Intl.message(
+      'Update account successfully',
+      name: 'update_account_successfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

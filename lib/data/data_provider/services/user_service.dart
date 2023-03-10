@@ -20,7 +20,7 @@ class UserService {
   });
 
   /// Fetch user info with id from server
-  Future<UserModel> fetchUserInfo(String userId) async {
+  Future<UserModel> fetchUserInfo({required String userId}) async {
     final response = await apiProvider.get('${UrlConstants.users}/$userId');
     return UserModel.fromJson(response?.data['data']);
   }
@@ -169,5 +169,22 @@ class UserService {
     }
 
     return false;
+  }
+
+  // Manager update user
+  Future<UserModel> updateUser({
+    required String userId,
+    required String fullName,
+    required String email,
+  }) async {
+    final response = await apiProvider.put(
+      '${UrlConstants.users}/$userId',
+      params: {
+        'name': fullName,
+        'email': email,
+      },
+    );
+
+    return UserModel.fromJson(response?.data['data']);
   }
 }

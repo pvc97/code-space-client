@@ -7,11 +7,13 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 void stateStatusListener(
   BuildContext context,
   BaseState state, {
+  StateStatus? stateStatus,
   VoidCallback? onLoading,
   VoidCallback? onError,
   VoidCallback? onSuccess,
 }) {
-  switch (state.stateStatus) {
+  // If stateStatus is null, use stateStatus from state
+  switch (stateStatus ?? state.stateStatus) {
     case StateStatus.loading:
       EasyLoading.show(dismissOnTap: true);
       break;

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:code_space_client/constants/app_constants.dart';
-import 'package:code_space_client/models/enums/delete_status.dart';
 import 'package:code_space_client/utils/debounce.dart';
 import 'package:code_space_client/utils/event_bus/app_event.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
@@ -143,7 +142,7 @@ class AccountCubit extends Cubit<AccountState> {
   // }
 
   void deleteAccount({required String userId}) async {
-    emit(state.copyWith(deleteStatus: DeleteStatus.deleting));
+    emit(state.copyWith(deleteStatus: StateStatus.loading));
 
     try {
       await userRepository.deleteUser(userId: userId);
@@ -153,14 +152,14 @@ class AccountCubit extends Cubit<AccountState> {
           .toList(growable: false);
 
       emit(state.copyWith(
-        deleteStatus: DeleteStatus.deleteSuccess,
+        deleteStatus: StateStatus.success,
         accounts: accounts,
       ));
 
       // refreshAccounts();
     } on AppException catch (e) {
       emit(state.copyWith(
-        deleteStatus: DeleteStatus.deleteFailed,
+        deleteStatus: StateStatus.error,
         error: e,
       ));
     }
