@@ -9,6 +9,9 @@ import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/injection_container.dart';
+import 'package:code_space_client/utils/logger/logger.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +22,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 void main() async {
   final binding = WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = SimpleBlocObserver();
+
+  await Firebase.initializeApp();
+  FirebaseMessaging.instance.getToken().then((token) {
+    logger.d('FCM Token: $token');
+  });
 
   await Di.init();
   await AppConfigManager.init(
