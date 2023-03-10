@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/blocs/base/simple_bloc_observer.dart';
 import 'package:code_space_client/configs/app_config_manager.dart';
@@ -23,10 +25,12 @@ void main() async {
   final binding = WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = SimpleBlocObserver();
 
-  await Firebase.initializeApp();
-  FirebaseMessaging.instance.getToken().then((token) {
-    logger.d('FCM Token: $token');
-  });
+  if (!Platform.isWindows) {
+    await Firebase.initializeApp();
+    FirebaseMessaging.instance.getToken().then((token) {
+      logger.d('FCM Token: $token');
+    });
+  }
 
   await Di.init();
   await AppConfigManager.init(
