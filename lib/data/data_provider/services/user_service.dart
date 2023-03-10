@@ -20,7 +20,7 @@ class UserService {
   });
 
   /// Fetch user info with id from server
-  Future<UserModel> fetchUserInfo(String userId) async {
+  Future<UserModel> fetchUserInfo({required String userId}) async {
     final response = await apiProvider.get('${UrlConstants.users}/$userId');
     return UserModel.fromJson(response?.data['data']);
   }

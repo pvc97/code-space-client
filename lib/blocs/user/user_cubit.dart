@@ -12,10 +12,10 @@ class UserCubit extends Cubit<UserState> {
   UserCubit({required this.userRepository}) : super(UserState.initial());
 
   /// Fetch specific user info from server
-  Future<void> fetchUserInfo(String problemId) async {
+  Future<void> fetchUserInfo({required String userId}) async {
     try {
       emit(state.copyWith(stateStatus: StateStatus.loading));
-      final user = await userRepository.fetchUserInfo(problemId);
+      final user = await userRepository.fetchUserInfo(userId: userId);
       emit(state.copyWith(
         user: user,
         stateStatus: StateStatus.success,

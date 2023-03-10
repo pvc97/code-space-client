@@ -11,9 +11,9 @@ class UserRepository {
   });
 
   /// Fetch specific user info from server
-  Future<UserModel> fetchUserInfo(String problemId) async {
+  Future<UserModel> fetchUserInfo({required String userId}) async {
     try {
-      final user = await userService.fetchUserInfo(problemId);
+      final user = await userService.fetchUserInfo(userId: userId);
       return user;
     } catch (e) {
       throw ExceptionParser.parse(e);
