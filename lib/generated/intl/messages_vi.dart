@@ -188,6 +188,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "test_case": MessageLookupByLibrary.simpleMessage("Test case"),
         "total_point": MessageLookupByLibrary.simpleMessage("Tổng điểm"),
         "update": MessageLookupByLibrary.simpleMessage("Cập nhật"),
+        "update_account":
+            MessageLookupByLibrary.simpleMessage("Cập nhật tài khoản"),
         "user_list":
             MessageLookupByLibrary.simpleMessage("Danh sách tài khoản"),
         "username": MessageLookupByLibrary.simpleMessage("Tài khoản"),
