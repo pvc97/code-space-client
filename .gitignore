@@ -50,3 +50,5 @@ app.*.map.json
 # generated intl files
 /lib/generated
 
+# Firebase related
+google-services.json
