@@ -14,6 +14,7 @@ import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +24,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   final binding = WidgetsFlutterBinding.ensureInitialized();
-  Bloc.observer = SimpleBlocObserver();
+
+  if (kDebugMode) {
+    Bloc.observer = SimpleBlocObserver();
+  }
 
   if (!Platform.isWindows) {
     await Firebase.initializeApp();
