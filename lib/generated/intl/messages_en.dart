@@ -44,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "comment_role____": MessageLookupByLibrary.simpleMessage(""),
         "confirm_delete_account": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to delete this account?"),
+        "confirm_delete_course": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to delete this course?"),
         "confirm_leave_course":
             MessageLookupByLibrary.simpleMessage("Confirm leave course?"),
         "confirm_new_password":
@@ -82,6 +84,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Delete account"),
         "delete_account_success":
             MessageLookupByLibrary.simpleMessage("Delete account success"),
+        "delete_course": MessageLookupByLibrary.simpleMessage("Delete course"),
+        "delete_course_success":
+            MessageLookupByLibrary.simpleMessage("Delete course success"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),

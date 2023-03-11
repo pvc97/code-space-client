@@ -155,8 +155,6 @@ class AccountCubit extends Cubit<AccountState> {
         deleteStatus: StateStatus.success,
         accounts: accounts,
       ));
-
-      // refreshAccounts();
     } on AppException catch (e) {
       emit(state.copyWith(
         deleteStatus: StateStatus.error,

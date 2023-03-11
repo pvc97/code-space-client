@@ -112,4 +112,16 @@ class CourseService {
         .map((e) => RankingModel.fromJson(e))
         .toList();
   }
+
+  /// Manager delete course
+  Future<bool> deleteCourse({required String courseId}) async {
+    final response =
+        await apiProvider.delete('${UrlConstants.courses}/$courseId');
+
+    if (response?.statusCode == StatusCodeConstants.code200) {
+      return true;
+    }
+
+    return false;
+  }
 }

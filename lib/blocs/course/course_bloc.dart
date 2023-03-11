@@ -24,6 +24,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
     );
     on<LoadMoreCourseEvent>(_onLoadMoreCourse);
     on<RefreshCoursesEvent>(_onRefreshCourses);
+    on<DeleteCourseEvent>(_onDeleteCourse);
   }
 
   void _onGetCourseList(
@@ -121,5 +122,30 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
       initialPage: NetworkConstants.defaultPage,
       onlyMyCourses: event.onlyMyCourses,
     ));
+  }
+
+  void _onDeleteCourse(
+    DeleteCourseEvent event,
+    Emitter<CourseState> emit,
+  ) async {
+    emit(state.copyWith(deleteStatus: StateStatus.loading));
+
+    try {
+      await courseRepository.deleteCourse(courseId: event.courseId);
+
+      final courses = state.courses
+          .where((course) => course.id != event.courseId)
+          .toList(growable: false);
+
+      emit(state.copyWith(
+        deleteStatus: StateStatus.success,
+        courses: courses,
+      ));
+    } on AppException catch (e) {
+      emit(state.copyWith(
+        deleteStatus: StateStatus.error,
+        error: e,
+      ));
+    }
   }
 }

@@ -2,11 +2,11 @@ import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/blocs/course/course_bloc.dart';
 import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
-import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
 import 'package:code_space_client/presentation/common_widgets/empty_widget.dart';
+import 'package:code_space_client/presentation/course_list/widgets/course_item_widget.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 
 class CourseListView extends StatefulWidget {
@@ -70,8 +71,25 @@ class _CourseListViewState extends State<CourseListView> {
     final user = context.select((UserCubit cubit) => cubit.state.user);
     return MultiBlocListener(
       listeners: [
-        const BlocListener<CourseBloc, CourseState>(
+        BlocListener<CourseBloc, CourseState>(
+          listenWhen: (previous, current) =>
+              previous.stateStatus != current.stateStatus,
           listener: stateStatusListener,
+        ),
+        BlocListener<CourseBloc, CourseState>(
+          listenWhen: (previous, current) {
+            return previous.deleteStatus != current.deleteStatus;
+          },
+          listener: (context, state) {
+            stateStatusListener(
+              context,
+              state,
+              stateStatus: state.deleteStatus,
+              onSuccess: () {
+                EasyLoading.showSuccess(S.of(context).delete_course_success);
+              },
+            );
+          },
         ),
         BlocListener<CourseBloc, CourseState>(
           listenWhen: (previous, current) => previous.query != current.query,
@@ -186,29 +204,9 @@ class _CourseListViewState extends State<CourseListView> {
                                 queryParams: widget.me ? {'me': 'true'} : {},
                               );
                             },
-                            child: Card(
-                              child: ListTile(
-                                contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: Sizes.s24,
-                                  vertical: Sizes.s12,
-                                ),
-                                title: Text(
-                                  course.name,
-                                  style: AppTextStyle.defaultFont.copyWith(
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  '${course.code}\n${course.teacher.name}',
-                                  style: AppTextStyle.defaultFont,
-                                ),
-                                trailing: (user?.roleType == RoleType.manager)
-                                    ? IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(Icons.more_vert),
-                                      )
-                                    : null,
-                              ),
+                            child: CourseItemWidget(
+                              course: course,
+                              user: user,
                             ),
                           );
                         },

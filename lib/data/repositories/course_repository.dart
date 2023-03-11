@@ -120,4 +120,15 @@ class CourseRepository {
       throw ExceptionParser.parse(e);
     }
   }
+
+  Future<bool> deleteCourse({
+    required String courseId,
+  }) async {
+    try {
+      final response = await courseService.deleteCourse(courseId: courseId);
+      return response;
+    } catch (e) {
+      throw ExceptionParser.parse(e);
+    }
+  }
 }
