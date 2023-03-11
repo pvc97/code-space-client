@@ -95,214 +95,212 @@ class _CourseDetailViewState extends State<CourseDetailView> {
           },
         ),
       ],
-      child: GestureDetector(
-        onTap: FocusScope.of(context).unfocus,
-        child: BaseScaffold(
-          unfocusOnTap: true,
-          appBar: AdaptiveAppBar(
-            context: context,
-            centerTitle: false,
-            title: Container(
-              margin: const EdgeInsets.only(right: Sizes.s4),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(borderSide: BorderSide.none),
-                  enabledBorder:
-                      const OutlineInputBorder(borderSide: BorderSide.none),
-                  prefixIcon: const Icon(Icons.search),
-                  hintText: S.of(context).search_problem,
-                  fillColor: Colors.white,
-                  filled: true,
-                  // Make textfield height smaller
-                  isDense: true,
-                  contentPadding: const EdgeInsets.all(Sizes.s8),
-                ),
-                controller: _searchController,
-                onChanged: (value) {
-                  _searchProblem(value);
-                },
+      child: BaseScaffold(
+        unfocusOnTap: true,
+        appBar: AdaptiveAppBar(
+          context: context,
+          centerTitle: false,
+          title: Container(
+            margin: const EdgeInsets.only(right: Sizes.s4),
+            child: TextField(
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(borderSide: BorderSide.none),
+                enabledBorder:
+                    const OutlineInputBorder(borderSide: BorderSide.none),
+                prefixIcon: const Icon(Icons.search),
+                hintText: S.of(context).search_problem,
+                fillColor: Colors.white,
+                filled: true,
+                // Make textfield height smaller
+                isDense: true,
+                contentPadding: const EdgeInsets.all(Sizes.s8),
               ),
+              controller: _searchController,
+              onChanged: (value) {
+                _searchProblem(value);
+              },
             ),
-            actions: [
+          ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.military_tech),
+              onPressed: () {
+                context.goNamed(
+                  AppRoute.ranking.name,
+                  params: {
+                    'courseId': widget.courseId,
+                  },
+                  queryParams: widget.me ? {'me': 'true'} : {},
+                );
+              },
+            ),
+            if (user?.roleType == RoleType.teacher)
               IconButton(
-                icon: const Icon(Icons.military_tech),
+                icon: const Icon(Icons.add),
                 onPressed: () {
                   context.goNamed(
-                    AppRoute.ranking.name,
-                    params: {
-                      'courseId': widget.courseId,
-                    },
+                    AppRoute.createProblem.name,
+                    params: {'courseId': widget.courseId},
                     queryParams: widget.me ? {'me': 'true'} : {},
                   );
                 },
               ),
-              if (user?.roleType == RoleType.teacher)
-                IconButton(
-                  icon: const Icon(Icons.add),
-                  onPressed: () {
-                    context.goNamed(
-                      AppRoute.createProblem.name,
-                      params: {'courseId': widget.courseId},
-                      queryParams: widget.me ? {'me': 'true'} : {},
-                    );
-                  },
-                ),
-            ],
-          ),
-          body: BlocSelector<CourseDetailBloc, CourseDetailState, bool>(
-            selector: (state) => state.joinedCourse,
-            builder: (context, joinedCourse) {
-              if (!joinedCourse) {
-                return BlocSelector<CourseDetailBloc, CourseDetailState,
-                    CourseModel?>(
-                  selector: (state) => state.course,
-                  builder: (context, course) {
-                    if (course == null) {
-                      return const SizedBox.shrink();
-                    }
+          ],
+        ),
+        body: BlocSelector<CourseDetailBloc, CourseDetailState, bool>(
+          selector: (state) => state.joinedCourse,
+          builder: (context, joinedCourse) {
+            if (!joinedCourse) {
+              return BlocSelector<CourseDetailBloc, CourseDetailState,
+                  CourseModel?>(
+                selector: (state) => state.course,
+                builder: (context, course) {
+                  if (course == null) {
+                    return const SizedBox.shrink();
+                  }
 
-                    return Column(
-                      children: [
-                        CourseDetailBanner(
-                          user: user,
-                          course: course,
-                          joinedCourse: joinedCourse,
-                        ),
-                        user?.roleType == RoleType.student
-                            ? AppElevatedButton(
-                                text: S.of(context).join_now,
-                                onPressed: () {
-                                  showJoinCourseDialog(
-                                      context, widget.courseId);
-                                },
-                              )
-                            : user?.roleType == RoleType.teacher
-                                ? Center(
+                  return Column(
+                    children: [
+                      CourseDetailBanner(
+                        user: user,
+                        course: course,
+                        joinedCourse: joinedCourse,
+                      ),
+                      user?.roleType == RoleType.student
+                          ? AppElevatedButton(
+                              text: S.of(context).join_now,
+                              onPressed: () {
+                                showJoinCourseDialog(context, widget.courseId);
+                              },
+                            )
+                          : user?.roleType == RoleType.teacher
+                              ? Expanded(
+                                  child: Center(
                                     child: EmptyWidget(
                                       message: S
                                           .of(context)
                                           .you_are_not_the_teacher_of_this_course,
                                     ),
-                                  )
-                                : const SizedBox.shrink(),
-                      ],
-                    );
-                  },
-                );
-              }
-
-              return RefreshIndicator(
-                onRefresh: () async {
-                  _refreshProblems();
+                                  ),
+                                )
+                              : const SizedBox.shrink(),
+                    ],
+                  );
                 },
-                child: CustomScrollView(
-                  controller: _scrollController,
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: BlocSelector<CourseDetailBloc, CourseDetailState,
-                          CourseModel?>(
-                        selector: (state) => state.course,
-                        builder: (context, course) {
-                          if (course != null) {
-                            return CourseDetailBanner(
-                              user: user,
-                              course: course,
-                              joinedCourse: joinedCourse,
-                            );
-                          }
+              );
+            }
 
-                          return const SizedBox.shrink();
-                        },
-                      ),
-                    ),
-                    BlocBuilder<CourseDetailBloc, CourseDetailState>(
-                      buildWhen: (previous, current) =>
-                          previous.problems != current.problems,
-                      builder: (context, state) {
-                        final problems = state.problems;
+            return RefreshIndicator(
+              onRefresh: () async {
+                _refreshProblems();
+              },
+              child: CustomScrollView(
+                controller: _scrollController,
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: BlocSelector<CourseDetailBloc, CourseDetailState,
+                        CourseModel?>(
+                      selector: (state) => state.course,
+                      builder: (context, course) {
+                        if (course != null) {
+                          return CourseDetailBanner(
+                            user: user,
+                            course: course,
+                            joinedCourse: joinedCourse,
+                          );
+                        }
 
-                        return SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            childCount: problems.length + 1,
-                            (BuildContext context, int index) {
-                              if (problems.isEmpty) {
-                                if (!state.joinedCourse ||
-                                    state.stateStatus == StateStatus.initial) {
-                                  return const SizedBox.shrink();
-                                }
-
-                                return Center(
-                                  child: EmptyWidget(
-                                      message: S.of(context).no_problems_found),
-                                );
-                              }
-
-                              if (index == problems.length) {
-                                // Check stateStatus to avoid infinite loop call loadMore
-                                if (state.isLoadMoreDone ||
-                                    state.stateStatus != StateStatus.success) {
-                                  return const SizedBox.shrink();
-                                }
-
-                                // Loadmore when last item is rendered
-                                _loadMore();
-
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              }
-
-                              final problem = problems[index];
-                              return GestureDetector(
-                                onTap: () {
-                                  context.goNamed(
-                                    AppRoute.problem.name,
-                                    params: {
-                                      'courseId': widget.courseId,
-                                      'problemId': problem.id,
-                                    },
-                                    queryParams:
-                                        widget.me ? {'me': 'true'} : {},
-                                  );
-                                },
-                                child: Card(
-                                  margin: const EdgeInsets.only(
-                                    left: Sizes.s24,
-                                    right: Sizes.s24,
-                                    bottom: Sizes.s8,
-                                  ),
-                                  child: ListTile(
-                                    contentPadding:
-                                        const EdgeInsets.all(Sizes.s24),
-                                    title: Text(problem.name),
-                                    trailing: (user?.roleType ==
-                                            RoleType.teacher)
-                                        ? IconButton(
-                                            onPressed: () {
-                                              //TODO: Show menu
-                                            },
-                                            icon: const Icon(Icons.more_vert),
-                                          )
-                                        : (user?.roleType == RoleType.student &&
-                                                problem.completed)
-                                            ? const Icon(
-                                                Bootstrap.check2_circle,
-                                                color: AppColor.primaryColor,
-                                              )
-                                            : null,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        );
+                        return const SizedBox.shrink();
                       },
                     ),
-                  ],
-                ),
-              );
-            },
-          ),
+                  ),
+                  BlocBuilder<CourseDetailBloc, CourseDetailState>(
+                    buildWhen: (previous, current) =>
+                        previous.problems != current.problems,
+                    builder: (context, state) {
+                      final problems = state.problems;
+
+                      if (problems.isEmpty) {
+                        if (!state.joinedCourse ||
+                            state.stateStatus == StateStatus.initial) {
+                          return const SliverToBoxAdapter();
+                        }
+
+                        return SliverFillRemaining(
+                          child: Center(
+                            child: EmptyWidget(
+                                message: S.of(context).no_problems_found),
+                          ),
+                        );
+                      }
+
+                      return SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          childCount: problems.length + 1,
+                          (BuildContext context, int index) {
+                            if (index == problems.length) {
+                              // Check stateStatus to avoid infinite loop call loadMore
+                              if (state.isLoadMoreDone ||
+                                  state.stateStatus != StateStatus.success) {
+                                return const SizedBox.shrink();
+                              }
+
+                              // Loadmore when last item is rendered
+                              _loadMore();
+
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+
+                            final problem = problems[index];
+                            return GestureDetector(
+                              onTap: () {
+                                context.goNamed(
+                                  AppRoute.problem.name,
+                                  params: {
+                                    'courseId': widget.courseId,
+                                    'problemId': problem.id,
+                                  },
+                                  queryParams: widget.me ? {'me': 'true'} : {},
+                                );
+                              },
+                              child: Card(
+                                margin: const EdgeInsets.only(
+                                  left: Sizes.s24,
+                                  right: Sizes.s24,
+                                  bottom: Sizes.s8,
+                                ),
+                                child: ListTile(
+                                  contentPadding:
+                                      const EdgeInsets.all(Sizes.s24),
+                                  title: Text(problem.name),
+                                  trailing: (user?.roleType == RoleType.teacher)
+                                      ? IconButton(
+                                          onPressed: () {
+                                            //TODO: Show menu
+                                          },
+                                          icon: const Icon(Icons.more_vert),
+                                        )
+                                      : (user?.roleType == RoleType.student &&
+                                              problem.completed)
+                                          ? const Icon(
+                                              Bootstrap.check2_circle,
+                                              color: AppColor.primaryColor,
+                                            )
+                                          : null,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
