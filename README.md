@@ -13,6 +13,7 @@ Initialize Intl: CRTL + SHIFT + P -> Flutter Intl: Initialize
 Add new locale: CRTL + SHIFT + P -> Flutter Intl: Add locale
 
 - Flutter Intl extension only works if system have flutter installed globally. So don't forget to add C:\Users\<user>\fvm\default\bin to system path.
+- Use intl extension version 1.9.0 instead of 1.9.1 because 1.9.1 generate messages_all.dart file with SynchronousFuture instead of Future.value and it cause error login screen always show in 1 second when start app.
 
 ## Fix fvm command is not working
 
