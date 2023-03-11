@@ -112,5 +112,7 @@
   "no_accounts_have_been_created_yet": "Chưa có tài khoản nào được tạo",
   "no_ranking_yet": "Chưa có xếp hạng",
   "update_account": "Cập nhật tài khoản",
-  "update_account_successfully": "Cập nhật tài khoản thành công"
+  "update_account_successfully": "Cập nhật tài khoản thành công",
+  "delete_course": "Xóa lớp học",
+  "confirm_delete_course": "Bạn có chắc chắn muốn xóa lớp học này?"
 }

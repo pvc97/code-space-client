@@ -1189,6 +1189,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete course`
+  String get delete_course {
+    return Intl.message(
+      'Delete course',
+      name: 'delete_course',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this course?`
+  String get confirm_delete_course {
+    return Intl.message(
+      'Are you sure you want to delete this course?',
+      name: 'confirm_delete_course',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
