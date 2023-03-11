@@ -1,6 +1,5 @@
 import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
-import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/generated/l10n.dart';
@@ -89,23 +88,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
           listener: stateStatusListener,
         ),
         BlocListener<UserCubit, UserState>(
+          listenWhen: (previous, current) =>
+              previous.updateProfileState != current.updateProfileState,
+          listener: (context, state) {
+            stateStatusListener(
+              context,
+              state,
+              stateStatus: state.updateProfileState,
+              onSuccess: () {
+                EasyLoading.showSuccess(
+                  S.of(context).profile_updated,
+                  dismissOnTap: true,
+                );
+              },
+            );
+          },
+        ),
+        BlocListener<UserCubit, UserState>(
           listenWhen: (previous, current) => previous.user != current.user,
           listener: (context, state) {
             // https://dart.dev/guides/language/effective-dart/usage#consider-assigning-a-nullable-field-to-a-local-variable-to-enable-type-promotion
-
             final user = state.user;
-            if (user != null && state.stateStatus == StateStatus.success) {
-              _fullNameController.text = user.name;
-              _emailController.text = user.email;
+            if (user != null) {
+              if (_fullNameController.text != user.name) {
+                _fullNameController.text = user.name;
+              }
 
-              EasyLoading.showSuccess(
-                S.of(context).profile_updated,
-                dismissOnTap: true,
-              );
-            } else {
-              // Handle case user clear user data
-              EasyLoading.showInfo(S.of(context).session_expired);
-              context.read<AuthCubit>().logout();
+              if (_emailController.text != user.email) {
+                _emailController.text = user.email;
+              }
             }
           },
         ),
