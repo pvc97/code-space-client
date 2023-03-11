@@ -148,6 +148,7 @@ class _CourseListViewState extends State<CourseListView> {
               },
               child: ListView.builder(
                 controller: _scrollController,
+                physics: const AlwaysScrollableScrollPhysics(),
                 padding: const EdgeInsets.symmetric(
                   vertical: Sizes.s12,
                   horizontal: Sizes.s20,
