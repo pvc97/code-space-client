@@ -93,7 +93,6 @@ class UserRepository {
     required String email,
   }) async {
     try {
-      await Future.delayed(const Duration(seconds: 3));
       final user = await userService.updateProfile(
         userId: userId,
         fullName: fullName,

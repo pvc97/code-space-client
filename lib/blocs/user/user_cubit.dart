@@ -47,7 +47,7 @@ class UserCubit extends Cubit<UserState> {
     required String email,
   }) async {
     try {
-      emit(state.copyWith(stateStatus: StateStatus.loading));
+      emit(state.copyWith(updateProfileState: StateStatus.loading));
       final user = await userRepository.updateProfile(
         userId: userId,
         fullName: fullName,
@@ -55,13 +55,13 @@ class UserCubit extends Cubit<UserState> {
       );
       emit(state.copyWith(
         user: user,
-        stateStatus: StateStatus.success,
+        updateProfileState: StateStatus.success,
       ));
     } on AppException catch (e) {
       emit(
         state.copyWith(
           error: e,
-          stateStatus: StateStatus.error,
+          updateProfileState: StateStatus.error,
         ),
       );
     }
