@@ -1,5 +1,6 @@
 import 'package:code_space_client/constants/app_color.dart';
 import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
+import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/presentation/common_widgets/empty_widget.dart';
 import 'package:code_space_client/presentation/course_detail/widgets/course_detail_banner.dart';
 import 'package:flutter/material.dart';
@@ -194,8 +195,15 @@ class _CourseDetailViewState extends State<CourseDetailView> {
               onRefresh: () async {
                 _refreshProblems();
               },
+              // To make refresh indicator work without listview take all space
+              // just set physics to AlwaysScrollableScrollPhysics
+              // and if I want this physics with BoundaryScrollPhysics
+              // I can set global physics in main
+              // or wrap AlwaysScrollableScrollPhysics inside BouncingScrollPhysics
+              // like: BouncingScrollPhysics( parent: AlwaysScrollableScrollPhysics(),)
               child: CustomScrollView(
                 controller: _scrollController,
+                physics: const AlwaysScrollableScrollPhysics(),
                 slivers: [
                   SliverToBoxAdapter(
                     child: BlocSelector<CourseDetailBloc, CourseDetailState,
@@ -210,7 +218,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                           );
                         }
 
-                        return const SizedBox.shrink();
+                        return Box.shrink;
                       },
                     ),
                   ),
@@ -242,7 +250,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                               // Check stateStatus to avoid infinite loop call loadMore
                               if (state.isLoadMoreDone ||
                                   state.stateStatus != StateStatus.success) {
-                                return const SizedBox.shrink();
+                                return Box.shrink;
                               }
 
                               // Loadmore when last item is rendered

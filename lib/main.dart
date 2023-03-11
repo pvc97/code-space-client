@@ -97,6 +97,7 @@ class _MyAppState extends State<MyApp> {
               PointerDeviceKind.touch,
               PointerDeviceKind.mouse,
               PointerDeviceKind.trackpad,
+              PointerDeviceKind.unknown,
             },
             physics: const BouncingScrollPhysics(),
           ),

@@ -9,6 +9,8 @@ class Box extends SizedBox {
     super.child,
   });
 
+  static const shrink = SizedBox.shrink();
+
   static const w4 = Box(width: Sizes.s4);
   static const w8 = Box(width: Sizes.s8);
   static const w12 = Box(width: Sizes.s12);
@@ -19,6 +21,7 @@ class Box extends SizedBox {
   static const w48 = Box(width: Sizes.s48);
   static const w64 = Box(width: Sizes.s64);
 
+  static const h1 = Box(height: Sizes.s1);
   static const h4 = Box(height: Sizes.s4);
   static const h8 = Box(height: Sizes.s8);
   static const h12 = Box(height: Sizes.s12);

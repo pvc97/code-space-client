@@ -7,6 +7,7 @@ import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/presentation/account/widgets/account_item_widget.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
+import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/presentation/common_widgets/empty_widget.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
@@ -128,74 +129,85 @@ class AccountViewState extends State<AccountView> {
               ),
           ],
         ),
-        body: BlocBuilder<AccountCubit, AccountState>(
-          buildWhen: (previous, current) =>
-              previous.accounts != current.accounts,
-          builder: (context, state) {
-            final accounts = state.accounts;
+        body: RefreshIndicator(
+          onRefresh: () async {
+            _refreshAccounts();
+          },
+          child: CustomScrollView(
+            controller: _scrollController,
+            physics: const AlwaysScrollableScrollPhysics(),
+            slivers: [
+              BlocBuilder<AccountCubit, AccountState>(
+                buildWhen: (previous, current) =>
+                    previous.accounts != current.accounts,
+                builder: (context, state) {
+                  final accounts = state.accounts;
 
-            if (state.stateStatus == StateStatus.initial) {
-              return const SizedBox.shrink();
-            }
+                  if (state.stateStatus == StateStatus.initial) {
+                    return const SliverToBoxAdapter();
+                  }
 
-            if (accounts.isEmpty) {
-              String message;
-              if (state.query.trim().isEmpty) {
-                message = S.of(context).no_accounts_have_been_created_yet;
-              } else {
-                message = S.of(context).account_not_found;
-              }
-
-              return Center(
-                child: EmptyWidget(message: message),
-              );
-            }
-
-            return RefreshIndicator(
-              onRefresh: () async {
-                _refreshAccounts();
-              },
-              child: ListView.builder(
-                controller: _scrollController,
-                padding: const EdgeInsets.symmetric(
-                  vertical: Sizes.s12,
-                  horizontal: Sizes.s20,
-                ),
-                itemCount: accounts.length + 1,
-                itemBuilder: (context, index) {
-                  if (index == accounts.length) {
-                    // Check stateStatus to avoid infinite loop call loadMore
-                    if (state.isLoadMoreDone ||
-                        state.stateStatus != StateStatus.success) {
-                      return const SizedBox.shrink();
+                  if (accounts.isEmpty) {
+                    String message;
+                    if (state.query.trim().isEmpty) {
+                      message = S.of(context).no_accounts_have_been_created_yet;
+                    } else {
+                      message = S.of(context).account_not_found;
                     }
 
-                    // Loadmore when last item is rendered
-                    _loadMore();
-
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return SliverFillRemaining(
+                      child: Center(
+                        child: EmptyWidget(message: message),
+                      ),
                     );
                   }
 
-                  final account = accounts[index];
-                  return GestureDetector(
-                    onTap: () {
-                      // context.goNamed(
-                      //   AppRoute.courseDetail.name,
-                      //   params: {'courseId': course.id},
-                      //   queryParams: widget.me ? {'me': 'true'} : {},
-                      // );
-                    },
-                    child: AccountItemWidget(
-                      account: account,
-                      key: ValueKey(account.userId),
+                  return SliverPadding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: Sizes.s12,
+                      horizontal: Sizes.s20,
+                    ),
+                    sliver: SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        childCount: accounts.length + 1,
+                        (context, index) {
+                          if (index == accounts.length) {
+                            // Check stateStatus to avoid infinite loop call loadMore
+                            if (state.isLoadMoreDone ||
+                                state.stateStatus != StateStatus.success) {
+                              return Box.shrink;
+                            }
+
+                            // Loadmore when last item is rendered
+                            _loadMore();
+
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+
+                          final account = accounts[index];
+                          return GestureDetector(
+                            onTap: () {
+                              // context.goNamed(
+                              //   AppRoute.courseDetail.name,
+                              //   params: {'courseId': course.id},
+                              //   queryParams: widget.me ? {'me': 'true'} : {},
+                              // );
+                            },
+                            child: AccountItemWidget(
+                              account: account,
+                              key: ValueKey(account.userId),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   );
                 },
               ),
-            );
-          },
+            ],
+          ),
         ),
       ),
     );
