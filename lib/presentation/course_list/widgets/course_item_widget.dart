@@ -1,3 +1,4 @@
+import 'package:code_space_client/blocs/course/course_bloc.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/generated/l10n.dart';
@@ -8,6 +9,7 @@ import 'package:code_space_client/presentation/common_widgets/app_popup_menu_but
 import 'package:code_space_client/presentation/common_widgets/show_confirm_dialog.dart';
 import 'package:code_space_client/utils/extensions/user_model_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CourseItemWidget extends StatelessWidget {
   final CourseModel course;
@@ -18,6 +20,11 @@ class CourseItemWidget extends StatelessWidget {
     required this.course,
     this.user,
   });
+
+  void _deleteCourse(BuildContext ctx) {
+    final courseBloc = ctx.read<CourseBloc>();
+    courseBloc.add(DeleteCourseEvent(courseId: course.id));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +72,7 @@ class CourseItemWidget extends StatelessWidget {
                         title: S.of(context).delete_course,
                         content: S.of(context).confirm_delete_course,
                         onConfirm: () {
-                          // _deleteAccount(context);
+                          _deleteCourse(context);
                         },
                       );
                       break;

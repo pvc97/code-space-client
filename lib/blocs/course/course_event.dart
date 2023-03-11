@@ -54,3 +54,12 @@ class LoadMoreCourseEvent extends CourseEvent {
   @override
   List<Object> get props => [onlyMyCourses];
 }
+
+class DeleteCourseEvent extends CourseEvent {
+  final String courseId;
+
+  const DeleteCourseEvent({required this.courseId});
+
+  @override
+  List<Object> get props => [courseId];
+}
