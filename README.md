@@ -12,13 +12,8 @@ Extension for VS Code: https://marketplace.visualstudio.com/items?itemName=local
 Initialize Intl: CRTL + SHIFT + P -> Flutter Intl: Initialize
 Add new locale: CRTL + SHIFT + P -> Flutter Intl: Add locale
 
-- Currently this extension is not working, so I have to add intl_utils package and use it to generate the files with command:
-
-```
-fvm flutter pub run intl_utils:generate
-```
-
-- After running the command, messsages_all.dart will be updated cause delay after restart app. So don't forget to restore this file.
+- Flutter Intl extension only works if system have flutter installed globally. So don't forget to add C:\Users\<user>\fvm\default\bin to system path.
+- Use intl extension version 1.18.2 instead of newest version because in newest version it generate messages_all.dart file with SynchronousFuture instead of Future.value and it cause error login screen always show in 1 second when start app.
 
 ## Fix fvm command is not working
 
@@ -29,7 +24,15 @@ fvm flutter pub run intl_utils:generate
 fvm use <flutter_version>
 ```
 
+## Update flutter version with fvm
+
+- Delete .fvm and .dart_tool folder inside project
+- Run command fvm use <flutter_version>
+
+```
+
 ## syncfusion_flutter_pdfviewer
 
 When deploying to web, follow the instructions at "Web integration" section:
 https://pub.dev/packages/syncfusion_flutter_pdfviewer
+```
