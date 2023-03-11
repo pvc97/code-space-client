@@ -18,6 +18,8 @@ Add new locale: CRTL + SHIFT + P -> Flutter Intl: Add locale
 fvm flutter pub run intl_utils:generate
 ```
 
+- After running the command, messsages_all.dart will be updated cause delay after restart app. So don't forget to restore this file.
+
 ## Fix fvm command is not working
 
 - Delete fvm folder inside project
