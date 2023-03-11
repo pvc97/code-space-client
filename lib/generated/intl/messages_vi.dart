@@ -83,6 +83,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete_account_success":
             MessageLookupByLibrary.simpleMessage("Xóa tài khoản thành công"),
         "delete_course": MessageLookupByLibrary.simpleMessage("Xóa lớp học"),
+        "delete_course_success":
+            MessageLookupByLibrary.simpleMessage("Xóa lớp học thành công"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Bạn chưa có tài khoản?"),
         "edit": MessageLookupByLibrary.simpleMessage("Sửa"),

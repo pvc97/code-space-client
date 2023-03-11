@@ -114,5 +114,6 @@
   "update_account": "Update account",
   "update_account_successfully": "Update account successfully",
   "delete_course": "Delete course",
-  "confirm_delete_course": "Are you sure you want to delete this course?"
+  "confirm_delete_course": "Are you sure you want to delete this course?",
+  "delete_course_success": "Delete course success"
 }

@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 
 class CourseListView extends StatefulWidget {
@@ -70,8 +71,25 @@ class _CourseListViewState extends State<CourseListView> {
     final user = context.select((UserCubit cubit) => cubit.state.user);
     return MultiBlocListener(
       listeners: [
-        const BlocListener<CourseBloc, CourseState>(
+        BlocListener<CourseBloc, CourseState>(
+          listenWhen: (previous, current) =>
+              previous.stateStatus != current.stateStatus,
           listener: stateStatusListener,
+        ),
+        BlocListener<CourseBloc, CourseState>(
+          listenWhen: (previous, current) {
+            return previous.deleteStatus != current.deleteStatus;
+          },
+          listener: (context, state) {
+            stateStatusListener(
+              context,
+              state,
+              stateStatus: state.deleteStatus,
+              onSuccess: () {
+                EasyLoading.showSuccess(S.of(context).delete_course_success);
+              },
+            );
+          },
         ),
         BlocListener<CourseBloc, CourseState>(
           listenWhen: (previous, current) => previous.query != current.query,

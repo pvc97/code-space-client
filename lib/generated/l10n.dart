@@ -1209,6 +1209,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete course success`
+  String get delete_course_success {
+    return Intl.message(
+      'Delete course success',
+      name: 'delete_course_success',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
