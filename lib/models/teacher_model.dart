@@ -1,16 +1,17 @@
 import 'package:code_space_client/models/dropdown_item.dart';
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'teacher_model.g.dart';
 
 @JsonSerializable()
-class TeacherModel implements BaseDropdownItem {
+class TeacherModel extends Equatable implements BaseDropdownItem {
   @override
   final String id;
   final String name;
   final String email;
 
-  TeacherModel({
+  const TeacherModel({
     required this.id,
     required this.name,
     required this.email,
@@ -26,4 +27,7 @@ class TeacherModel implements BaseDropdownItem {
 
   @override
   String get title => name;
+
+  @override
+  List<Object?> get props => [id, name, email];
 }
