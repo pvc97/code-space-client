@@ -118,96 +118,108 @@ class _CourseListViewState extends State<CourseListView> {
               ),
           ],
         ),
-        body: BlocBuilder<CourseBloc, CourseState>(
-          buildWhen: (previous, current) => previous.courses != current.courses,
-          builder: (context, state) {
-            final courses = state.courses;
+        body: RefreshIndicator(
+          onRefresh: () async {
+            _refreshCourses();
+          },
+          child: CustomScrollView(
+            controller: _scrollController,
+            physics: const AlwaysScrollableScrollPhysics(),
+            slivers: [
+              BlocBuilder<CourseBloc, CourseState>(
+                buildWhen: (previous, current) =>
+                    previous.courses != current.courses,
+                builder: (context, state) {
+                  final courses = state.courses;
 
-            if (state.stateStatus == StateStatus.initial) {
-              return const SizedBox.shrink();
-            }
+                  if (state.stateStatus == StateStatus.initial) {
+                    return const SliverToBoxAdapter();
+                  }
 
-            if (courses.isEmpty) {
-              String message;
-              if (state.query.trim().isEmpty) {
-                message = widget.me
-                    ? S.of(context).you_don_t_have_any_course
-                    : S.of(context).no_courses_have_been_created_yet;
-              } else {
-                message = S.of(context).course_not_found;
-              }
-
-              return Center(
-                child: EmptyWidget(message: message),
-              );
-            }
-
-            return RefreshIndicator(
-              onRefresh: () async {
-                _refreshCourses();
-              },
-              child: ListView.builder(
-                controller: _scrollController,
-                physics: const AlwaysScrollableScrollPhysics(),
-                padding: const EdgeInsets.symmetric(
-                  vertical: Sizes.s12,
-                  horizontal: Sizes.s20,
-                ),
-                itemCount: courses.length + 1,
-                itemBuilder: (context, index) {
-                  if (index == courses.length) {
-                    // Check stateStatus to avoid infinite loop call loadMore
-                    if (state.isLoadMoreDone ||
-                        state.stateStatus != StateStatus.success) {
-                      return const SizedBox.shrink();
+                  if (courses.isEmpty) {
+                    String message;
+                    if (state.query.trim().isEmpty) {
+                      message = widget.me
+                          ? S.of(context).you_don_t_have_any_course
+                          : S.of(context).no_courses_have_been_created_yet;
+                    } else {
+                      message = S.of(context).course_not_found;
                     }
 
-                    // Loadmore when last item is rendered
-                    _loadMore();
-
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Center(
+                        child: EmptyWidget(message: message),
+                      ),
                     );
                   }
 
-                  final course = courses[index];
-                  return GestureDetector(
-                    onTap: () {
-                      context.goNamed(
-                        AppRoute.courseDetail.name,
-                        params: {'courseId': course.id},
-                        queryParams: widget.me ? {'me': 'true'} : {},
-                      );
-                    },
-                    child: Card(
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: Sizes.s24,
-                          vertical: Sizes.s12,
-                        ),
-                        title: Text(
-                          course.name,
-                          style: AppTextStyle.defaultFont.copyWith(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        subtitle: Text(
-                          '${course.code}\n${course.teacher.name}',
-                          style: AppTextStyle.defaultFont,
-                        ),
-                        trailing: (user?.roleType == RoleType.manager)
-                            ? IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.more_vert),
-                              )
-                            : null,
+                  return SliverPadding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: Sizes.s12,
+                      horizontal: Sizes.s20,
+                    ),
+                    sliver: SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        childCount: courses.length + 1,
+                        (context, index) {
+                          if (index == courses.length) {
+                            // Check stateStatus to avoid infinite loop call loadMore
+                            if (state.isLoadMoreDone ||
+                                state.stateStatus != StateStatus.success) {
+                              return const SizedBox.shrink();
+                            }
+
+                            // Loadmore when last item is rendered
+                            _loadMore();
+
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+
+                          final course = courses[index];
+                          return GestureDetector(
+                            onTap: () {
+                              context.goNamed(
+                                AppRoute.courseDetail.name,
+                                params: {'courseId': course.id},
+                                queryParams: widget.me ? {'me': 'true'} : {},
+                              );
+                            },
+                            child: Card(
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: Sizes.s24,
+                                  vertical: Sizes.s12,
+                                ),
+                                title: Text(
+                                  course.name,
+                                  style: AppTextStyle.defaultFont.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  '${course.code}\n${course.teacher.name}',
+                                  style: AppTextStyle.defaultFont,
+                                ),
+                                trailing: (user?.roleType == RoleType.manager)
+                                    ? IconButton(
+                                        onPressed: () {},
+                                        icon: const Icon(Icons.more_vert),
+                                      )
+                                    : null,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   );
                 },
               ),
-            );
-          },
+            ],
+          ),
         ),
       ),
     );

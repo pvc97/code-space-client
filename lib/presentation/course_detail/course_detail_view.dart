@@ -234,7 +234,8 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                           return const SliverToBoxAdapter();
                         }
 
-                        return SliverToBoxAdapter(
+                        return SliverFillRemaining(
+                          hasScrollBody: false,
                           child: Center(
                             child: EmptyWidget(
                                 message: S.of(context).no_problems_found),
@@ -250,7 +251,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                               // Check stateStatus to avoid infinite loop call loadMore
                               if (state.isLoadMoreDone ||
                                   state.stateStatus != StateStatus.success) {
-                                return const Center();
+                                return Box.shrink;
                               }
 
                               // Loadmore when last item is rendered
