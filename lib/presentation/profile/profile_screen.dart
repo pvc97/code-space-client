@@ -105,11 +105,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
           },
         ),
         BlocListener<UserCubit, UserState>(
-          listenWhen: (previous, current) => previous.user != current.user,
+          listenWhen: (previous, current) =>
+              (previous.stateStatus != current.stateStatus &&
+                  current.stateStatus != StateStatus.loading) ||
+              (previous.updateProfileState != current.updateProfileState &&
+                  current.updateProfileState != StateStatus.loading),
           listener: (context, state) {
             // https://dart.dev/guides/language/effective-dart/usage#consider-assigning-a-nullable-field-to-a-local-variable-to-enable-type-promotion
             final user = state.user;
             if (user != null) {
+              // If success, update textfield value
+              // If fail, reset textfield value to user's current value
               if (_fullNameController.text != user.name) {
                 _fullNameController.text = user.name;
               }
