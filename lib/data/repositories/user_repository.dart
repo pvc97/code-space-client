@@ -98,6 +98,7 @@ class UserRepository {
         fullName: fullName,
         email: email,
       );
+
       return user;
     } catch (e) {
       throw ExceptionParser.parse(e);
