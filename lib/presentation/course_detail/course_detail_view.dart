@@ -235,7 +235,6 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                         }
 
                         return SliverFillRemaining(
-                          hasScrollBody: false,
                           child: Center(
                             child: EmptyWidget(
                                 message: S.of(context).no_problems_found),

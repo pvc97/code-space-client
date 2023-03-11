@@ -147,7 +147,6 @@ class _CourseListViewState extends State<CourseListView> {
                     }
 
                     return SliverFillRemaining(
-                      hasScrollBody: false,
                       child: Center(
                         child: EmptyWidget(message: message),
                       ),
