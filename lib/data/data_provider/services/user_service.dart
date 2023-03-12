@@ -65,6 +65,7 @@ class UserService {
     required String query,
     required int page,
     required int limit,
+    bool onlyLast = false,
   }) async {
     final response = await apiProvider.get(
       UrlConstants.users,
@@ -73,7 +74,8 @@ class UserService {
         'q': query,
         'limit': limit,
         'all': false,
-        // if all == true => don't use pagination, otherwise use pagination
+        // if all == true => don't use pagination, otherwise use pagination,
+        'onlyLast': onlyLast,
       },
     );
     final users = response?.data['data'] as List;
