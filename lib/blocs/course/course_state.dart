@@ -7,6 +7,7 @@ class CourseState extends BaseState {
   final bool isLoadMoreDone;
   final String query;
   final StateStatus deleteStatus;
+  final bool onlyMyCourses;
 
   const CourseState({
     required this.courses,
@@ -14,6 +15,7 @@ class CourseState extends BaseState {
     required this.isLoadingMore,
     required this.isLoadMoreDone,
     required this.query,
+    required this.onlyMyCourses,
     required this.deleteStatus,
     required super.stateStatus,
     super.error,
@@ -25,6 +27,7 @@ class CourseState extends BaseState {
       page: NetworkConstants.defaultPage,
       stateStatus: StateStatus.initial,
       deleteStatus: StateStatus.initial,
+      onlyMyCourses: false,
       isLoadingMore: false,
       isLoadMoreDone: false,
       query: NetworkConstants.defaultQuery,
@@ -37,6 +40,7 @@ class CourseState extends BaseState {
     bool? isLoadingMore,
     bool? isLoadMoreDone,
     String? query,
+    bool? onlyMyCourses,
     StateStatus? deleteStatus,
     StateStatus? stateStatus,
     AppException? error,
@@ -48,6 +52,7 @@ class CourseState extends BaseState {
       isLoadMoreDone: isLoadMoreDone ?? this.isLoadMoreDone,
       deleteStatus: deleteStatus ?? this.deleteStatus,
       query: query ?? this.query,
+      onlyMyCourses: onlyMyCourses ?? this.onlyMyCourses,
       stateStatus: stateStatus ?? this.stateStatus,
       error: error ?? this.error,
     );
@@ -56,14 +61,15 @@ class CourseState extends BaseState {
   @override
   List<Object?> get props {
     return [
-      courses,
       page,
+      query,
+      error,
+      courses,
+      stateStatus,
+      deleteStatus,
+      onlyMyCourses,
       isLoadingMore,
       isLoadMoreDone,
-      query,
-      deleteStatus,
-      stateStatus,
-      error,
     ];
   }
 }

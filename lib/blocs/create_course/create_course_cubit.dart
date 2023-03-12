@@ -1,3 +1,5 @@
+import 'package:code_space_client/blocs/course/course_bloc.dart';
+import 'package:code_space_client/utils/event_bus/app_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:code_space_client/blocs/base/base_state.dart';
@@ -57,6 +59,7 @@ class CreateCourseCubit extends Cubit<CreateCourseState> {
         stateStatus: StateStatus.success,
         courseId: courseId,
       ));
+      eventBus.fire(CreateCourseSuccessEvent());
     } on AppException catch (e) {
       emit(
         state.copyWith(
