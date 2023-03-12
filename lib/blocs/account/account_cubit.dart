@@ -20,7 +20,7 @@ class AccountCubit extends Cubit<AccountState> {
 
   final UserRepository userRepository;
 
-  StreamSubscription? _eventSubscription;
+  final _subscriptions = <StreamSubscription>[];
 
   AccountCubit({
     required this.userRepository,
@@ -31,15 +31,25 @@ class AccountCubit extends Cubit<AccountState> {
   @override
   Future<void> close() {
     logger.d('AccountCubit closed');
-    _eventSubscription?.cancel();
+    // Cancel all subscriptions
+    for (var subscription in _subscriptions) {
+      subscription.cancel();
+    }
+    _subscriptions.clear();
     return super.close();
   }
 
   void _registerToEventBus() {
-    _eventSubscription =
-        eventBus.on<CreateAccountSuccessEvent>().listen((event) {
-      refreshAccounts();
-    });
+    _subscriptions.add(
+      eventBus.on<CreateAccountSuccessEvent>().listen((event) {
+        refreshAccounts();
+      }),
+    );
+    _subscriptions.add(
+      eventBus.on<UpdateAccountSuccessEvent>().listen((event) {
+        _onUpdateAccountSuccess(event.user);
+      }),
+    );
   }
 
   void getAccounts({
@@ -186,5 +196,16 @@ class AccountCubit extends Cubit<AccountState> {
         error: e,
       ));
     }
+  }
+
+  void _onUpdateAccountSuccess(UserModel newUser) {
+    final accounts = state.accounts.map((account) {
+      if (account.userId == newUser.userId) {
+        return newUser;
+      }
+      return account;
+    }).toList();
+
+    emit(state.copyWith(accounts: accounts));
   }
 }

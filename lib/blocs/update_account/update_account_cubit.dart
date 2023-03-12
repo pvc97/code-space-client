@@ -1,3 +1,4 @@
+import 'package:code_space_client/utils/event_bus/app_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:code_space_client/blocs/base/base_state.dart';
@@ -48,6 +49,7 @@ class UpdateAccountCubit extends Cubit<UpdateAccountState> {
         user: user,
         updateStatus: StateStatus.success,
       ));
+      eventBus.fire(UpdateAccountSuccessEvent(user: user));
     } on AppException catch (e) {
       emit(
         state.copyWith(
