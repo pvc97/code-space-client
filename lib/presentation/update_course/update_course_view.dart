@@ -124,7 +124,9 @@ class _UpdateCourseViewState extends State<UpdateCourseView> {
               stateStatus: state.updateStatus,
               onSuccess: () {
                 EasyLoading.showSuccess(
-                    S.of(context).update_course_successfully);
+                  S.of(context).update_course_successfully,
+                  dismissOnTap: true,
+                );
               },
             );
           },

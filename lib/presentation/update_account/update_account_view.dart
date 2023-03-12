@@ -105,7 +105,9 @@ class _UpdateAccountViewState extends State<UpdateAccountView> {
               stateStatus: state.updateStatus,
               onSuccess: () {
                 EasyLoading.showSuccess(
-                    S.of(context).update_account_successfully);
+                  S.of(context).update_account_successfully,
+                  dismissOnTap: true,
+                );
               },
             );
           },
@@ -122,9 +124,10 @@ class _UpdateAccountViewState extends State<UpdateAccountView> {
             key: _formKey,
             autovalidateMode: _autovalidateMode,
             child: SingleChildScrollView(
+              physics: const ClampingScrollPhysics(),
               padding: const EdgeInsets.all(Sizes.s20),
               child: Box(
-                width: Sizes.s300,
+                width: Sizes.s600,
                 child: Column(
                   children: [
                     Box.h24,
