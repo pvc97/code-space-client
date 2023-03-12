@@ -115,5 +115,7 @@
   "update_account_successfully": "Cập nhật tài khoản thành công",
   "delete_course": "Xóa lớp học",
   "confirm_delete_course": "Bạn có chắc chắn muốn xóa lớp học này?",
-  "delete_course_success": "Xóa lớp học thành công"
+  "delete_course_success": "Xóa lớp học thành công",
+  "update_course": "Cập nhật lớp học",
+  "update_course_successfully": "Cập nhật lớp học thành công"
 }

@@ -47,4 +47,9 @@ class UpdateCourseState extends BaseState {
       error: error ?? this.error,
     );
   }
+
+  bool get isLoading =>
+      stateStatus == StateStatus.loading ||
+      updateStatus == StateStatus.loading ||
+      getTeachersStatus == StateStatus.loading;
 }

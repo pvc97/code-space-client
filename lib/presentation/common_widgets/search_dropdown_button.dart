@@ -1,9 +1,9 @@
-import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:diacritic/diacritic.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
 import 'package:code_space_client/constants/app_sizes.dart';
+import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/models/dropdown_item.dart';
 
 class SearchDropdownButton<T extends BaseDropdownItem> extends StatefulWidget {
@@ -12,6 +12,7 @@ class SearchDropdownButton<T extends BaseDropdownItem> extends StatefulWidget {
   final String searchHint;
   final TextEditingController textEditingController;
   final ValueChanged<T?>? onChanged;
+  final T? initialValue;
 
   const SearchDropdownButton({
     Key? key,
@@ -20,6 +21,7 @@ class SearchDropdownButton<T extends BaseDropdownItem> extends StatefulWidget {
     required this.searchHint,
     required this.textEditingController,
     this.onChanged,
+    this.initialValue,
   }) : super(key: key);
 
   @override
@@ -73,7 +75,7 @@ class _SearchDropdownButtonState<T extends BaseDropdownItem>
                   ),
                 ))
             .toList(),
-        value: _selectedValue,
+        value: _selectedValue ?? (widget.initialValue as T?),
         onChanged: (value) {
           setState(() {
             _selectedValue = value;
