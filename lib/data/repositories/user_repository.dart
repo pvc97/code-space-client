@@ -38,14 +38,12 @@ class UserRepository {
     required String query,
     required int page,
     required int limit,
-    bool onlyLast = false,
   }) async {
     try {
       final users = await userService.getUsers(
         query: query,
         page: page,
         limit: limit,
-        onlyLast: onlyLast,
       );
       return users;
     } catch (e) {

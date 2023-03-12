@@ -153,19 +153,28 @@ class AccountCubit extends Cubit<AccountState> {
       // After deleting an account, I try to load more
       // Ex: List of accounts: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
       // Current page is page 1: [1, 2, 3, 4, 5]
-      // After deleting user 2, the page will be [1, 3, 4, 5]
+      // After deleting user 2, the page data will be [1, 3, 4, 5]
       // Now load more with page 2 => result from api: [7, 8, 9, 10, 11]
       // Where is 6? :v
       // Because now 6 is in page 1 (each page has 5 accounts)
-      // So I've modified the in the api to able get last item of current page after deleting
+      // I get page 1 again and check if the last account is NOT the same
+      // as the last account in the old list account of page 1 then add it to the old list
 
-      final newLastAccount = await userRepository.getUsers(
+      // Get list account of current page
+      final accountsOfCurrentPage = await userRepository.getUsers(
         page: state.page,
         query: state.query,
         limit: NetworkConstants.defaultLimit,
-        onlyLast: true,
       );
-      accounts.addAll(newLastAccount);
+
+      // If the last account of current page (page with new data) is NOT the same
+      // as the last account in the old list account then add it to the old list
+      if (accountsOfCurrentPage.isNotEmpty && accounts.isNotEmpty) {
+        final lastAccount = accountsOfCurrentPage.last;
+        if (accounts.last.userId != lastAccount.userId) {
+          accounts.add(lastAccount);
+        }
+      }
 
       emit(state.copyWith(
         deleteStatus: StateStatus.success,
