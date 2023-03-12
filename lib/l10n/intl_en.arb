@@ -117,5 +117,8 @@
   "confirm_delete_course": "Are you sure you want to delete this course?",
   "delete_course_success": "Delete course success",
   "update_course": "Update course",
-  "update_course_successfully": "Update course successfully"
+  "update_course_successfully": "Update course successfully",
+  "delete_problem": "Delete problem",
+  "confirm_delete_problem": "Are you sure you want to delete this problem?",
+  "delete_problem_success": "Delete problem success"
 }

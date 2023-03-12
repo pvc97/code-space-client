@@ -45,6 +45,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Bạn có chắc chắn muốn xóa tài khoản này?"),
         "confirm_delete_course": MessageLookupByLibrary.simpleMessage(
             "Bạn có chắc chắn muốn xóa lớp học này?"),
+        "confirm_delete_problem": MessageLookupByLibrary.simpleMessage(
+            "Bạn có chắc chắn muốn xóa bài tập này?"),
         "confirm_leave_course":
             MessageLookupByLibrary.simpleMessage("Xác nhận rời lớp học?"),
         "confirm_new_password":
@@ -85,6 +87,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete_course": MessageLookupByLibrary.simpleMessage("Xóa lớp học"),
         "delete_course_success":
             MessageLookupByLibrary.simpleMessage("Xóa lớp học thành công"),
+        "delete_problem": MessageLookupByLibrary.simpleMessage("Xóa bài tập"),
+        "delete_problem_success":
+            MessageLookupByLibrary.simpleMessage("Xóa bài tập thành công"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Bạn chưa có tài khoản?"),
         "edit": MessageLookupByLibrary.simpleMessage("Sửa"),

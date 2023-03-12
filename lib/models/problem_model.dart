@@ -1,14 +1,15 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'problem_model.g.dart';
 
 @JsonSerializable()
-class ProblemModel {
+class ProblemModel extends Equatable {
   final String id;
   final String name;
   final bool completed;
 
-  ProblemModel({
+  const ProblemModel({
     required this.id,
     required this.name,
     required this.completed,
@@ -18,4 +19,7 @@ class ProblemModel {
       _$ProblemModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProblemModelToJson(this);
+
+  @override
+  List<Object?> get props => [id, name, completed];
 }

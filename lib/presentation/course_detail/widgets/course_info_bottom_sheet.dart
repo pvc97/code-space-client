@@ -3,10 +3,10 @@ import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/course_model.dart';
-import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/models/user_model.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/presentation/course_detail/widgets/leave_course_dialog.dart';
+import 'package:code_space_client/utils/extensions/user_model_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -74,8 +74,7 @@ void showCourseInfoBottomSheet({
                       ),
                     ],
                   ),
-                  if (user?.roleType != RoleType.student &&
-                      course.accessCode != null) ...[
+                  if (!user.isStudent && course.accessCode != null) ...[
                     Box.h4,
                     Row(
                       mainAxisSize: MainAxisSize.min,
@@ -100,7 +99,7 @@ void showCourseInfoBottomSheet({
                 ],
               ),
             ),
-            if (joinedCourse && user?.roleType == RoleType.student)
+            if (joinedCourse && user.isStudent)
               ElevatedButton(
                 onPressed: () async {
                   showLeaveCourseDialog(

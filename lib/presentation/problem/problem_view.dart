@@ -1,11 +1,11 @@
 import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_constants.dart';
 import 'package:code_space_client/models/problem_detail_model.dart';
-import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
 import 'package:code_space_client/presentation/problem/widgets/code_tab.dart';
 import 'package:code_space_client/presentation/problem/widgets/pdf_tab.dart';
 import 'package:code_space_client/utils/extensions/language_ext.dart';
+import 'package:code_space_client/utils/extensions/user_model_ext.dart';
 import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -140,7 +140,7 @@ class _ProblemViewState extends State<ProblemView> {
         ),
         body: LayoutBuilder(
           builder: (context, constraints) {
-            bool isManager = user?.roleType == RoleType.manager;
+            bool isManager = user.isManager;
             if (constraints.maxWidth <= AppConstants.maxMobileWidth ||
                 isManager) {
               return PageView(
@@ -178,7 +178,7 @@ class _ProblemViewState extends State<ProblemView> {
           },
         ),
         // Only show this button when current the tab is code or width > AppConstants.maxMobileWidth
-        floatingActionButton: (user?.roleType == RoleType.manager)
+        floatingActionButton: (user.isManager)
             ? null
             : BlocSelector<ProblemCubit, ProblemState, ProblemTab>(
                 selector: (ProblemState state) => state.problemTab,

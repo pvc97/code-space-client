@@ -42,4 +42,14 @@ class ProblemRepository {
       throw ExceptionParser.parse(e);
     }
   }
+
+  /// Teacher delete problem
+  Future<bool> deleteProblem({required String problemId}) async {
+    try {
+      final success = await problemService.deleteProblem(problemId: problemId);
+      return success;
+    } catch (e) {
+      throw ExceptionParser.parse(e);
+    }
+  }
 }

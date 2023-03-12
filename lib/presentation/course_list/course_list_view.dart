@@ -3,11 +3,11 @@ import 'package:code_space_client/blocs/course/course_bloc.dart';
 import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
-import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
 import 'package:code_space_client/presentation/common_widgets/empty_widget.dart';
 import 'package:code_space_client/presentation/course_list/widgets/course_item_widget.dart';
 import 'package:code_space_client/router/app_router.dart';
+import 'package:code_space_client/utils/extensions/user_model_ext.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
@@ -102,8 +102,7 @@ class _CourseListViewState extends State<CourseListView> {
           showHomeButton: false,
           title: Container(
             margin: EdgeInsets.only(
-                left: Sizes.s20,
-                right: (user?.roleType == RoleType.manager) ? 0 : Sizes.s20),
+                left: Sizes.s20, right: user.isManager ? 0 : Sizes.s20),
             child: TextField(
               decoration: InputDecoration(
                 // border: InputBorder.none,
@@ -124,7 +123,7 @@ class _CourseListViewState extends State<CourseListView> {
             ),
           ),
           actions: [
-            if (user?.roleType == RoleType.manager)
+            if (user.isManager)
               IconButton(
                 onPressed: () {
                   context.goNamed(AppRoute.createCourse.name);
