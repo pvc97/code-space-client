@@ -91,3 +91,14 @@ class CourseDetailLeaveCourseEvent extends CourseDetailEvent {
   @override
   List<Object> get props => [courseId];
 }
+
+class CourseDetailDeleteProblemEvent extends CourseDetailEvent {
+  final String problemId;
+
+  const CourseDetailDeleteProblemEvent({
+    required this.problemId,
+  });
+
+  @override
+  List<Object> get props => [problemId];
+}

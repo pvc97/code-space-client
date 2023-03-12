@@ -3,8 +3,10 @@ import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/presentation/common_widgets/empty_widget.dart';
 import 'package:code_space_client/presentation/course_detail/widgets/course_detail_banner.dart';
 import 'package:code_space_client/presentation/course_detail/widgets/problem_item_widget.dart';
+import 'package:code_space_client/utils/extensions/user_model_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/blocs/course_detail/course_detail_bloc.dart';
@@ -85,13 +87,27 @@ class _CourseDetailViewState extends State<CourseDetailView> {
     final user = context.select((UserCubit cubit) => cubit.state.user);
     return MultiBlocListener(
       listeners: [
-        const BlocListener<CourseDetailBloc, CourseDetailState>(
+        BlocListener<CourseDetailBloc, CourseDetailState>(
+          listenWhen: (previous, current) =>
+              previous.stateStatus != current.stateStatus,
           listener: stateStatusListener,
         ),
         BlocListener<CourseDetailBloc, CourseDetailState>(
           listenWhen: (previous, current) => previous.query != current.query,
           listener: (context, state) {
             _resetScrollPosition();
+          },
+        ),
+        BlocListener<CourseDetailBloc, CourseDetailState>(
+          listenWhen: (previous, current) =>
+              previous.deleteStatus != current.deleteStatus,
+          listener: (context, state) {
+            stateStatusListener(context, state, onSuccess: () {
+              EasyLoading.showSuccess(
+                S.of(context).delete_problem_success,
+                dismissOnTap: true,
+              );
+            });
           },
         ),
       ],
@@ -166,14 +182,14 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                         course: course,
                         joinedCourse: joinedCourse,
                       ),
-                      user?.roleType == RoleType.student
+                      user.isStudent
                           ? AppElevatedButton(
                               text: S.of(context).join_now,
                               onPressed: () {
                                 showJoinCourseDialog(context, widget.courseId);
                               },
                             )
-                          : user?.roleType == RoleType.teacher
+                          : user.isTeacher
                               ? Expanded(
                                   child: Center(
                                     child: EmptyWidget(
@@ -275,7 +291,13 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                               child: ProblemItemWidget(
                                 user: user,
                                 problem: problem,
-                                onDelete: () {},
+                                onDelete: () {
+                                  context
+                                      .read<CourseDetailBloc>()
+                                      .add(CourseDetailDeleteProblemEvent(
+                                        problemId: problem.id,
+                                      ));
+                                },
                               ),
                             );
                           },

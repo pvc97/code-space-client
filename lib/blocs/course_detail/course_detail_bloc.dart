@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:code_space_client/constants/app_constants.dart';
 import 'package:code_space_client/constants/status_code_constants.dart';
+import 'package:code_space_client/data/repositories/problem_repository.dart';
 import 'package:code_space_client/models/course_model.dart';
 import 'package:code_space_client/utils/bloc_transformer.dart';
 import 'package:code_space_client/utils/event_bus/app_event.dart';
@@ -21,11 +22,14 @@ part 'course_detail_state.dart';
 // https://github.com/felangel/bloc/issues/1462
 class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
   final CourseRepository courseRepository;
+  final ProblemRepository problemRepository;
 
   final _subscriptions = <StreamSubscription>[];
 
-  CourseDetailBloc({required this.courseRepository})
-      : super(CourseDetailState.initial()) {
+  CourseDetailBloc({
+    required this.courseRepository,
+    required this.problemRepository,
+  }) : super(CourseDetailState.initial()) {
     on<CourseDetailGetInitProblemsEvent>(_onGetInitProblems);
     on<CourseDetailSearchProblemsEvent>(
       _onSearchProblems,
@@ -38,6 +42,7 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
     on<CourseDetailGetCourseEvent>(_onGetCourse);
     on<CourseDetailJoinCourseEvent>(_onJoinCourse);
     on<CourseDetailLeaveCourseEvent>(_onLeaveCourse);
+    on<CourseDetailDeleteProblemEvent>(_onDeleteCourse);
 
     _registerToEventBus();
   }
@@ -270,6 +275,58 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
       emit(
         state.copyWith(
           stateStatus: StateStatus.error,
+          error: e,
+        ),
+      );
+    }
+  }
+
+  void _onDeleteCourse(
+    CourseDetailDeleteProblemEvent event,
+    Emitter<CourseDetailState> emit,
+  ) async {
+    emit(state.copyWith(
+      deleteStatus: StateStatus.loading,
+    ));
+
+    try {
+      await problemRepository.deleteProblem(
+        problemId: event.problemId,
+      );
+
+      final problems = state.problems
+          .where((problem) => problem.id != event.problemId)
+          .toList();
+
+      if (state.course != null) {
+        // Correct last item of the problems list
+        final problemsOfCurrentPage = await courseRepository.getProblems(
+          courseId: state.course!.id,
+          page: state.page,
+          query: state.query,
+          limit: NetworkConstants.defaultLimit,
+        );
+
+        // If the last problem of current page (page with new data) is NOT the same
+        // as the last problem in the old list problem then add it to the old list
+        if (problemsOfCurrentPage.isNotEmpty && problems.isNotEmpty) {
+          final lastProblem = problemsOfCurrentPage.last;
+          if (problems.last.id != lastProblem.id) {
+            problems.add(lastProblem);
+          }
+        }
+      }
+
+      emit(
+        state.copyWith(
+          problems: problems,
+          deleteStatus: StateStatus.success,
+        ),
+      );
+    } on AppException catch (e) {
+      emit(
+        state.copyWith(
+          deleteStatus: StateStatus.error,
           error: e,
         ),
       );

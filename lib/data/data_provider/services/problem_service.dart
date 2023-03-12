@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:code_space_client/constants/status_code_constants.dart';
 import 'package:code_space_client/constants/url_constants.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/models/problem_detail_model.dart';
@@ -41,5 +42,17 @@ class ProblemService {
       params: formData,
     );
     return response?.data['data']['id'];
+  }
+
+  /// Teacher delete problem
+  Future<bool> deleteProblem({required String problemId}) async {
+    final response =
+        await apiProvider.delete('${UrlConstants.problems}/$problemId');
+
+    if (response?.statusCode == StatusCodeConstants.code200) {
+      return true;
+    }
+
+    return false;
   }
 }

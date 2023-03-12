@@ -91,6 +91,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Delete course success"),
         "delete_problem":
             MessageLookupByLibrary.simpleMessage("Delete problem"),
+        "delete_problem_success":
+            MessageLookupByLibrary.simpleMessage("Delete problem success"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),

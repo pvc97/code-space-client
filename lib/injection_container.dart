@@ -162,7 +162,11 @@ abstract class Di {
     );
 
     sl.registerFactory<CourseDetailBloc>(
-        () => CourseDetailBloc(courseRepository: sl()));
+      () => CourseDetailBloc(
+        courseRepository: sl(),
+        problemRepository: sl(),
+      ),
+    );
 
     sl.registerFactory<CourseBloc>(() => CourseBloc(courseRepository: sl()));
 

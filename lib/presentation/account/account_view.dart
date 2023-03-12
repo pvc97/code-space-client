@@ -74,7 +74,10 @@ class AccountViewState extends State<AccountView> {
               state,
               stateStatus: state.deleteStatus,
               onSuccess: () {
-                EasyLoading.showSuccess(S.of(context).delete_account_success);
+                EasyLoading.showSuccess(
+                  S.of(context).delete_account_success,
+                  dismissOnTap: true,
+                );
               },
             );
           },
@@ -187,23 +190,14 @@ class AccountViewState extends State<AccountView> {
                           }
 
                           final account = accounts[index];
-                          return GestureDetector(
-                            onTap: () {
-                              // context.goNamed(
-                              //   AppRoute.courseDetail.name,
-                              //   params: {'courseId': course.id},
-                              //   queryParams: widget.me ? {'me': 'true'} : {},
-                              // );
+                          return AccountItemWidget(
+                            account: account,
+                            key: ValueKey(account.userId),
+                            onDelete: () {
+                              context
+                                  .read<AccountCubit>()
+                                  .deleteAccount(userId: account.userId);
                             },
-                            child: AccountItemWidget(
-                              account: account,
-                              key: ValueKey(account.userId),
-                              onDelete: () {
-                                context
-                                    .read<AccountCubit>()
-                                    .deleteAccount(userId: account.userId);
-                              },
-                            ),
                           );
                         },
                       ),

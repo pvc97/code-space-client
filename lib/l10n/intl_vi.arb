@@ -119,5 +119,6 @@
   "update_course": "Cập nhật lớp học",
   "update_course_successfully": "Cập nhật lớp học thành công",
   "delete_problem": "Xóa bài tập",
-  "confirm_delete_problem": "Bạn có chắc chắn muốn xóa bài tập này?"
+  "confirm_delete_problem": "Bạn có chắc chắn muốn xóa bài tập này?",
+  "delete_problem_success": "Xóa bài tập thành công"
 }

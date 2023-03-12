@@ -8,6 +8,7 @@ class CourseDetailState extends BaseState {
   final bool isLoadMoreDone;
   final String query;
   final bool joinedCourse;
+  final StateStatus deleteStatus;
 
   const CourseDetailState({
     this.course,
@@ -17,6 +18,7 @@ class CourseDetailState extends BaseState {
     required this.isLoadingMore,
     required this.isLoadMoreDone,
     required this.query,
+    required this.deleteStatus,
     required super.stateStatus,
     super.error,
   });
@@ -28,6 +30,7 @@ class CourseDetailState extends BaseState {
       joinedCourse: true,
       page: NetworkConstants.defaultPage,
       stateStatus: StateStatus.initial,
+      deleteStatus: StateStatus.initial,
       isLoadingMore: false,
       isLoadMoreDone: false,
       query: NetworkConstants.defaultQuery,
@@ -44,6 +47,7 @@ class CourseDetailState extends BaseState {
       isLoadingMore,
       isLoadMoreDone,
       joinedCourse,
+      deleteStatus,
       stateStatus,
       error,
     ];
@@ -56,6 +60,7 @@ class CourseDetailState extends BaseState {
     bool? isLoadingMore,
     bool? isLoadMoreDone,
     String? query,
+    StateStatus? deleteStatus,
     StateStatus? stateStatus,
     AppException? error,
     bool? joinedCourse,
@@ -66,6 +71,7 @@ class CourseDetailState extends BaseState {
       page: page ?? this.page,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
       isLoadMoreDone: isLoadMoreDone ?? this.isLoadMoreDone,
+      deleteStatus: deleteStatus ?? this.deleteStatus,
       stateStatus: stateStatus ?? this.stateStatus,
       error: error ?? this.error,
       query: query ?? this.query,
