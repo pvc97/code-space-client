@@ -198,6 +198,11 @@ class AccountViewState extends State<AccountView> {
                             child: AccountItemWidget(
                               account: account,
                               key: ValueKey(account.userId),
+                              onDelete: () {
+                                context
+                                    .read<AccountCubit>()
+                                    .deleteAccount(userId: account.userId);
+                              },
                             ),
                           );
                         },

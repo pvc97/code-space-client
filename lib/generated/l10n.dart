@@ -1239,6 +1239,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete problem`
+  String get delete_problem {
+    return Intl.message(
+      'Delete problem',
+      name: 'delete_problem',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this problem?`
+  String get confirm_delete_problem {
+    return Intl.message(
+      'Are you sure you want to delete this problem?',
+      name: 'confirm_delete_problem',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

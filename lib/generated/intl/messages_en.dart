@@ -46,6 +46,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure you want to delete this account?"),
         "confirm_delete_course": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to delete this course?"),
+        "confirm_delete_problem": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to delete this problem?"),
         "confirm_leave_course":
             MessageLookupByLibrary.simpleMessage("Confirm leave course?"),
         "confirm_new_password":
@@ -87,6 +89,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete_course": MessageLookupByLibrary.simpleMessage("Delete course"),
         "delete_course_success":
             MessageLookupByLibrary.simpleMessage("Delete course success"),
+        "delete_problem":
+            MessageLookupByLibrary.simpleMessage("Delete problem"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),

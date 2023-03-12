@@ -1,8 +1,8 @@
-import 'package:code_space_client/constants/app_color.dart';
 import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/presentation/common_widgets/empty_widget.dart';
 import 'package:code_space_client/presentation/course_detail/widgets/course_detail_banner.dart';
+import 'package:code_space_client/presentation/course_detail/widgets/problem_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -18,7 +18,6 @@ import 'package:code_space_client/presentation/common_widgets/app_elevated_butto
 import 'package:code_space_client/presentation/course_detail/widgets/join_course_dialog.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
-import 'package:icons_plus/icons_plus.dart';
 
 class CourseDetailView extends StatefulWidget {
   final bool me;
@@ -273,31 +272,10 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                                   queryParams: widget.me ? {'me': 'true'} : {},
                                 );
                               },
-                              child: Card(
-                                margin: const EdgeInsets.only(
-                                  left: Sizes.s24,
-                                  right: Sizes.s24,
-                                  bottom: Sizes.s8,
-                                ),
-                                child: ListTile(
-                                  contentPadding:
-                                      const EdgeInsets.all(Sizes.s24),
-                                  title: Text(problem.name),
-                                  trailing: (user?.roleType == RoleType.teacher)
-                                      ? IconButton(
-                                          onPressed: () {
-                                            //TODO: Show menu
-                                          },
-                                          icon: const Icon(Icons.more_vert),
-                                        )
-                                      : (user?.roleType == RoleType.student &&
-                                              problem.completed)
-                                          ? const Icon(
-                                              Bootstrap.check2_circle,
-                                              color: AppColor.primaryColor,
-                                            )
-                                          : null,
-                                ),
+                              child: ProblemItemWidget(
+                                user: user,
+                                problem: problem,
+                                onDelete: () {},
                               ),
                             );
                           },
