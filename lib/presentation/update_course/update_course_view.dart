@@ -145,7 +145,7 @@ class _UpdateCourseViewState extends State<UpdateCourseView> {
             child: SingleChildScrollView(
               physics: const ClampingScrollPhysics(),
               padding: const EdgeInsets.all(Sizes.s20),
-              child: SizedBox(
+              child: Box(
                 width: Sizes.s600,
                 child: Column(
                   children: [
