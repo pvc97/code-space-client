@@ -1,6 +1,8 @@
+import 'package:code_space_client/blocs/course/course_bloc.dart';
 import 'package:code_space_client/data/repositories/user_repository.dart';
 import 'package:code_space_client/models/course_model.dart';
 import 'package:code_space_client/models/teacher_model.dart';
+import 'package:code_space_client/utils/event_bus/app_event.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:code_space_client/blocs/base/base_state.dart';
@@ -74,6 +76,8 @@ class UpdateCourseCubit extends Cubit<UpdateCourseState> {
         course: course,
         updateStatus: StateStatus.success,
       ));
+
+      eventBus.fire(UpdateCourseSuccessEvent(course: course));
     } on AppException catch (e) {
       emit(
         state.copyWith(

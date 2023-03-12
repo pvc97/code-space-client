@@ -9,3 +9,6 @@ class CreateProblemSuccessEvent {
 }
 
 class CreateAccountSuccessEvent {}
+
+// UpdateCourseSuccessEvent: I use event class from course_bloc
+// If using cubit instead of bloc, I will create UpdateCourseSuccessEvent right here
