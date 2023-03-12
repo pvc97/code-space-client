@@ -22,7 +22,7 @@ part 'course_detail_state.dart';
 class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
   final CourseRepository courseRepository;
 
-  StreamSubscription? _eventSubscription;
+  final _subscriptions = <StreamSubscription>[];
 
   CourseDetailBloc({required this.courseRepository})
       : super(CourseDetailState.initial()) {
@@ -43,10 +43,11 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
   }
 
   void _registerToEventBus() {
-    _eventSubscription =
-        eventBus.on<CreateProblemSuccessEvent>().listen((event) {
-      add(CourseDetailRefreshProblemsEvent(courseId: event.courseId));
-    });
+    _subscriptions.add(
+      eventBus.on<CreateProblemSuccessEvent>().listen((event) {
+        add(CourseDetailRefreshProblemsEvent(courseId: event.courseId));
+      }),
+    );
   }
 
   // NOTE: In bloc listener, I think check lastEvent is not good
@@ -72,7 +73,10 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
   @override
   Future<void> close() {
     logger.d('CourseDetailBloc closed');
-    _eventSubscription?.cancel();
+    for (var subscription in _subscriptions) {
+      subscription.cancel();
+    }
+    _subscriptions.clear();
     return super.close();
   }
 

@@ -8,6 +8,7 @@ import 'package:code_space_client/models/app_exception.dart';
 import 'package:code_space_client/models/course_model.dart';
 import 'package:code_space_client/utils/bloc_transformer.dart';
 import 'package:code_space_client/utils/event_bus/app_event.dart';
+import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,7 +18,7 @@ part 'course_state.dart';
 class CourseBloc extends Bloc<CourseEvent, CourseState> {
   final CourseRepository courseRepository;
 
-  StreamSubscription? _updateCourseSuccessSubscription;
+  final _subscriptions = <StreamSubscription>[];
 
   CourseBloc({required this.courseRepository}) : super(CourseState.initial()) {
     on<GetCourseListEvent>(_onGetCourseList);
@@ -37,15 +38,21 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
 
   @override
   Future<void> close() {
-    _updateCourseSuccessSubscription?.cancel();
+    logger.d('CourseBloc closed');
+    // Cancel all subscriptions
+    for (var subscription in _subscriptions) {
+      subscription.cancel();
+    }
+    _subscriptions.clear();
     return super.close();
   }
 
   void _registerToEventBus() {
-    _updateCourseSuccessSubscription =
-        eventBus.on<UpdateCourseSuccessEvent>().listen((event) {
-      add(UpdateCourseSuccessEvent(course: event.course));
-    });
+    _subscriptions.add(
+      eventBus.on<UpdateCourseSuccessEvent>().listen((event) {
+        add(UpdateCourseSuccessEvent(course: event.course));
+      }),
+    );
   }
 
   void _onGetCourseList(
