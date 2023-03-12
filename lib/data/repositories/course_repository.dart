@@ -130,4 +130,26 @@ class CourseRepository {
       throw ExceptionParser.parse(e);
     }
   }
+
+  Future<CourseModel> updateCourse({
+    required String courseId,
+    required String name,
+    required String code,
+    required String accessCode,
+    required String teacherId,
+  }) async {
+    try {
+      final course = await courseService.updateCourse(
+        courseId: courseId,
+        name: name,
+        code: code,
+        accessCode: accessCode,
+        teacherId: teacherId,
+      );
+
+      return course;
+    } catch (e) {
+      throw ExceptionParser.parse(e);
+    }
+  }
 }

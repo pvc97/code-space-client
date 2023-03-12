@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/constants/app_constants.dart';
 import 'package:code_space_client/constants/network_constants.dart';
@@ -5,6 +7,7 @@ import 'package:code_space_client/data/repositories/course_repository.dart';
 import 'package:code_space_client/models/app_exception.dart';
 import 'package:code_space_client/models/course_model.dart';
 import 'package:code_space_client/utils/bloc_transformer.dart';
+import 'package:code_space_client/utils/event_bus/app_event.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,6 +16,8 @@ part 'course_state.dart';
 
 class CourseBloc extends Bloc<CourseEvent, CourseState> {
   final CourseRepository courseRepository;
+
+  StreamSubscription? _updateCourseSuccessSubscription;
 
   CourseBloc({required this.courseRepository}) : super(CourseState.initial()) {
     on<GetCourseListEvent>(_onGetCourseList);
@@ -25,6 +30,22 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
     on<LoadMoreCourseEvent>(_onLoadMoreCourse);
     on<RefreshCoursesEvent>(_onRefreshCourses);
     on<DeleteCourseEvent>(_onDeleteCourse);
+    on<UpdateCourseSuccessEvent>(_onUpdateCourseSuccess);
+
+    _registerToEventBus();
+  }
+
+  @override
+  Future<void> close() {
+    _updateCourseSuccessSubscription?.cancel();
+    return super.close();
+  }
+
+  void _registerToEventBus() {
+    _updateCourseSuccessSubscription =
+        eventBus.on<UpdateCourseSuccessEvent>().listen((event) {
+      add(UpdateCourseSuccessEvent(course: event.course));
+    });
   }
 
   void _onGetCourseList(
@@ -163,5 +184,20 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
         error: e,
       ));
     }
+  }
+
+  void _onUpdateCourseSuccess(
+    UpdateCourseSuccessEvent event,
+    Emitter<CourseState> emit,
+  ) {
+    final courses = state.courses.map((c) {
+      if (c.id == event.course.id) {
+        return event.course;
+      }
+
+      return c;
+    }).toList();
+
+    emit(state.copyWith(courses: courses));
   }
 }

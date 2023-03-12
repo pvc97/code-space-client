@@ -67,3 +67,14 @@ class DeleteCourseEvent extends CourseEvent {
   @override
   List<Object> get props => [courseId];
 }
+
+class UpdateCourseSuccessEvent extends CourseEvent {
+  final CourseModel course;
+
+  const UpdateCourseSuccessEvent({
+    required this.course,
+  });
+
+  @override
+  List<Object> get props => [course];
+}

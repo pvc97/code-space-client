@@ -1219,6 +1219,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Update course`
+  String get update_course {
+    return Intl.message(
+      'Update course',
+      name: 'update_course',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update course successfully`
+  String get update_course_successfully {
+    return Intl.message(
+      'Update course successfully',
+      name: 'update_course_successfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

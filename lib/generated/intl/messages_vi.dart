@@ -197,6 +197,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Cập nhật tài khoản"),
         "update_account_successfully": MessageLookupByLibrary.simpleMessage(
             "Cập nhật tài khoản thành công"),
+        "update_course":
+            MessageLookupByLibrary.simpleMessage("Cập nhật lớp học"),
+        "update_course_successfully":
+            MessageLookupByLibrary.simpleMessage("Cập nhật lớp học thành công"),
         "user_list":
             MessageLookupByLibrary.simpleMessage("Danh sách tài khoản"),
         "username": MessageLookupByLibrary.simpleMessage("Tài khoản"),

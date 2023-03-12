@@ -1,3 +1,4 @@
+import 'package:code_space_client/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,6 +12,7 @@ import 'package:code_space_client/models/user_model.dart';
 import 'package:code_space_client/presentation/common_widgets/app_popup_menu_button.dart';
 import 'package:code_space_client/presentation/common_widgets/show_confirm_dialog.dart';
 import 'package:code_space_client/utils/extensions/user_model_ext.dart';
+import 'package:go_router/go_router.dart';
 
 class CourseItemWidget extends StatelessWidget {
   final CourseModel course;
@@ -70,8 +72,11 @@ class CourseItemWidget extends StatelessWidget {
                 onSelected: (value) {
                   switch (value) {
                     case CourseAction.edit:
+                      context.goNamed(
+                        AppRoute.updateCourse.name,
+                        params: {'courseId': course.id},
+                      );
                       break;
-
                     case CourseAction.delete:
                       showConfirmDialog(
                         ctx: context,
