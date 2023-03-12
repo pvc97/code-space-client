@@ -40,15 +40,11 @@ class _CourseListViewState extends State<CourseListView> {
   }
 
   void _searchCourse(String query) {
-    context
-        .read<CourseBloc>()
-        .add(SearchCourseEvent(query: query, onlyMyCourses: widget.me));
+    context.read<CourseBloc>().add(SearchCourseEvent(query: query));
   }
 
   void _loadMore() {
-    context
-        .read<CourseBloc>()
-        .add(LoadMoreCourseEvent(onlyMyCourses: widget.me));
+    context.read<CourseBloc>().add(LoadMoreCourseEvent());
   }
 
   void _resetScrollPosition() {
@@ -61,9 +57,7 @@ class _CourseListViewState extends State<CourseListView> {
   }
 
   void _refreshCourses() {
-    context
-        .read<CourseBloc>()
-        .add(RefreshCoursesEvent(onlyMyCourses: widget.me));
+    context.read<CourseBloc>().add(RefreshCoursesEvent());
   }
 
   @override
@@ -86,7 +80,10 @@ class _CourseListViewState extends State<CourseListView> {
               state,
               stateStatus: state.deleteStatus,
               onSuccess: () {
-                EasyLoading.showSuccess(S.of(context).delete_course_success);
+                EasyLoading.showSuccess(
+                  S.of(context).delete_course_success,
+                  dismissOnTap: true,
+                );
               },
             );
           },
@@ -205,9 +202,15 @@ class _CourseListViewState extends State<CourseListView> {
                               );
                             },
                             child: CourseItemWidget(
-                              onlyMyCourses: widget.me,
-                              course: course,
                               user: user,
+                              course: course,
+                              onDelete: () {
+                                context
+                                    .read<CourseBloc>()
+                                    .add(DeleteCourseEvent(
+                                      courseId: course.id,
+                                    ));
+                              },
                             ),
                           );
                         },

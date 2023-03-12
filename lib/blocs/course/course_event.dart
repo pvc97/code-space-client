@@ -24,44 +24,24 @@ class GetCourseListEvent extends CourseEvent {
 
 class SearchCourseEvent extends CourseEvent {
   final String query;
-  final bool onlyMyCourses;
 
   const SearchCourseEvent({
     required this.query,
-    required this.onlyMyCourses,
   });
 
   @override
-  List<Object> get props => [query, onlyMyCourses];
+  List<Object> get props => [query];
 }
 
-class RefreshCoursesEvent extends CourseEvent {
-  final bool onlyMyCourses;
+class RefreshCoursesEvent extends CourseEvent {}
 
-  const RefreshCoursesEvent({
-    required this.onlyMyCourses,
-  });
-
-  @override
-  List<Object> get props => [onlyMyCourses];
-}
-
-class LoadMoreCourseEvent extends CourseEvent {
-  final bool onlyMyCourses;
-
-  const LoadMoreCourseEvent({required this.onlyMyCourses});
-
-  @override
-  List<Object> get props => [onlyMyCourses];
-}
+class LoadMoreCourseEvent extends CourseEvent {}
 
 class DeleteCourseEvent extends CourseEvent {
   final String courseId;
-  final bool onlyMyCourses;
 
   const DeleteCourseEvent({
     required this.courseId,
-    required this.onlyMyCourses,
   });
 
   @override
@@ -78,3 +58,5 @@ class UpdateCourseSuccessEvent extends CourseEvent {
   @override
   List<Object> get props => [course];
 }
+
+class CreateCourseSuccessEvent extends CourseEvent {}

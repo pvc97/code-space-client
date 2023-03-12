@@ -53,6 +53,11 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
         add(UpdateCourseSuccessEvent(course: event.course));
       }),
     );
+    _subscriptions.add(
+      eventBus.on<CreateCourseSuccessEvent>().listen((event) {
+        add(RefreshCoursesEvent());
+      }),
+    );
   }
 
   void _onGetCourseList(
@@ -70,6 +75,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
     emit(state.copyWith(
       isLoadingMore: true,
       stateStatus: StateStatus.loading,
+      onlyMyCourses: event.onlyMyCourses,
     ));
 
     try {
@@ -105,7 +111,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
     add(GetCourseListEvent(
       initialQuery: event.query.trim(),
       initialPage: NetworkConstants.defaultPage,
-      onlyMyCourses: event.onlyMyCourses,
+      onlyMyCourses: state.onlyMyCourses,
     ));
   }
 
@@ -122,7 +128,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
         page: state.page + 1,
         query: state.query,
         limit: NetworkConstants.defaultLimit,
-        me: event.onlyMyCourses,
+        me: state.onlyMyCourses,
       );
 
       emit(state.copyWith(
@@ -148,7 +154,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
     add(GetCourseListEvent(
       initialQuery: state.query,
       initialPage: NetworkConstants.defaultPage,
-      onlyMyCourses: event.onlyMyCourses,
+      onlyMyCourses: state.onlyMyCourses,
     ));
   }
 
@@ -169,7 +175,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
         page: state.page,
         query: state.query,
         limit: NetworkConstants.defaultLimit,
-        me: event.onlyMyCourses,
+        me: state.onlyMyCourses,
       );
 
       // If the last course of current page (page with new data) is NOT the same
