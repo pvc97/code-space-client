@@ -1,4 +1,6 @@
+import 'package:code_space_client/data/repositories/user_repository.dart';
 import 'package:code_space_client/models/course_model.dart';
+import 'package:code_space_client/models/teacher_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:code_space_client/blocs/base/base_state.dart';
@@ -9,9 +11,11 @@ part 'update_course_state.dart';
 
 class UpdateCourseCubit extends Cubit<UpdateCourseState> {
   final CourseRepository courseRepository;
+  final UserRepository userRepository;
 
   UpdateCourseCubit({
     required this.courseRepository,
+    required this.userRepository,
   }) : super(UpdateCourseState.initial());
 
   void getCourse({required String courseId}) async {
@@ -27,6 +31,24 @@ class UpdateCourseCubit extends Cubit<UpdateCourseState> {
         state.copyWith(
           stateStatus: StateStatus.error,
           error: e,
+        ),
+      );
+    }
+  }
+
+  void getTeachers() async {
+    try {
+      emit(state.copyWith(stateStatus: StateStatus.loading));
+      final teachers = await userRepository.getTeachers();
+      emit(state.copyWith(
+        teachers: teachers,
+        stateStatus: StateStatus.success,
+      ));
+    } on AppException catch (e) {
+      emit(
+        state.copyWith(
+          error: e,
+          stateStatus: StateStatus.error,
         ),
       );
     }
