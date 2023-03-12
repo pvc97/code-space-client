@@ -124,4 +124,23 @@ class CourseService {
 
     return false;
   }
+
+  Future<CourseModel> updateCourse({
+    required String courseId,
+    required String name,
+    required String code,
+    required String accessCode,
+    required String teacherId,
+  }) async {
+    final response = await apiProvider.put(
+      '${UrlConstants.courses}/$courseId',
+      params: {
+        'name': name,
+        'code': code,
+        'accessCode': accessCode,
+        'teacherId': teacherId,
+      },
+    );
+    return CourseModel.fromJson(response?.data['data']);
+  }
 }
