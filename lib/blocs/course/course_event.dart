@@ -57,8 +57,12 @@ class LoadMoreCourseEvent extends CourseEvent {
 
 class DeleteCourseEvent extends CourseEvent {
   final String courseId;
+  final bool onlyMyCourses;
 
-  const DeleteCourseEvent({required this.courseId});
+  const DeleteCourseEvent({
+    required this.courseId,
+    required this.onlyMyCourses,
+  });
 
   @override
   List<Object> get props => [courseId];

@@ -205,6 +205,7 @@ class _CourseListViewState extends State<CourseListView> {
                               );
                             },
                             child: CourseItemWidget(
+                              onlyMyCourses: widget.me,
                               course: course,
                               user: user,
                             ),

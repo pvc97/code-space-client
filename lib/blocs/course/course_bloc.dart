@@ -133,9 +133,25 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
     try {
       await courseRepository.deleteCourse(courseId: event.courseId);
 
-      final courses = state.courses
-          .where((course) => course.id != event.courseId)
-          .toList(growable: false);
+      final courses =
+          state.courses.where((course) => course.id != event.courseId).toList();
+
+      // Correct last item of the course list
+      final coursesOfCurrentPage = await courseRepository.getCourses(
+        page: state.page,
+        query: state.query,
+        limit: NetworkConstants.defaultLimit,
+        me: event.onlyMyCourses,
+      );
+
+      // If the last course of current page (page with new data) is NOT the same
+      // as the last course in the old list course then add it to the old list
+      if (coursesOfCurrentPage.isNotEmpty && courses.isNotEmpty) {
+        final lastCourse = coursesOfCurrentPage.last;
+        if (courses.last.id != lastCourse.id) {
+          courses.add(lastCourse);
+        }
+      }
 
       emit(state.copyWith(
         deleteStatus: StateStatus.success,
