@@ -63,12 +63,13 @@ class _UpdateCourseViewState extends State<UpdateCourseView> {
       return;
     }
 
-    // context.read<CreateCourseCubit>().createCourse(
-    //       name: _courseName!.trim(),
-    //       code: _courseCode!.trim(),
-    //       accessCode: _accessCode!.trim(),
-    //       teacherId: _selectedTeacher!.id,
-    //     );
+    context.read<UpdateCourseCubit>().updateCourse(
+          courseId: widget.courseId,
+          name: _courseName!.trim(),
+          code: _courseCode!.trim(),
+          accessCode: _accessCode!.trim(),
+          teacherId: _selectedTeacher!.id,
+        );
   }
 
   @override
@@ -106,6 +107,10 @@ class _UpdateCourseViewState extends State<UpdateCourseView> {
             if (newAccessCode != null &&
                 newAccessCode != _accessCodeController.text) {
               _accessCodeController.text = newAccessCode;
+            }
+
+            if (state.course!.teacher != _selectedTeacher) {
+              _selectedTeacher = state.course!.teacher;
             }
           },
         ),
