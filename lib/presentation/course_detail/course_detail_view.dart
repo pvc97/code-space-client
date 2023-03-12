@@ -14,7 +14,6 @@ import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/course_model.dart';
-import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
 import 'package:code_space_client/presentation/course_detail/widgets/join_course_dialog.dart';
@@ -150,7 +149,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                 );
               },
             ),
-            if (user?.roleType == RoleType.teacher)
+            if (user.isTeacher)
               IconButton(
                 icon: const Icon(Icons.add),
                 onPressed: () {

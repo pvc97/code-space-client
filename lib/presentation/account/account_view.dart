@@ -3,13 +3,13 @@ import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
-import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/presentation/account/widgets/account_item_widget.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/presentation/common_widgets/empty_widget.dart';
 import 'package:code_space_client/router/app_router.dart';
+import 'package:code_space_client/utils/extensions/user_model_ext.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -123,7 +123,7 @@ class AccountViewState extends State<AccountView> {
             ),
           ),
           actions: [
-            if (user?.roleType == RoleType.manager)
+            if (user.isManager)
               IconButton(
                 onPressed: () {
                   context.goNamed(AppRoute.createAccount.name);

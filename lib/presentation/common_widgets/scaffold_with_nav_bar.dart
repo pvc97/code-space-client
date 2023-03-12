@@ -6,6 +6,7 @@ import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/role_type.dart';
 import 'package:code_space_client/router/app_router.dart';
+import 'package:code_space_client/utils/extensions/user_model_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -78,7 +79,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
                         ),
                         label: Text(S.of(context).courses),
                       ),
-                      (user?.roleType != RoleType.manager)
+                      (!user.isManager)
                           ? NavigationRailDestination(
                               icon: const Icon(
                                 Bootstrap.bookmark_heart,
@@ -137,7 +138,7 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
                     ),
                     label: S.of(context).courses,
                   ),
-                  (user?.roleType != RoleType.manager)
+                  (!user.isManager)
                       ? NavigationDestination(
                           icon: const Icon(
                             Bootstrap.bookmark_heart,
