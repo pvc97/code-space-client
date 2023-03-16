@@ -1,4 +1,7 @@
+// ignore_for_file: library_prefixes
+
 import 'package:code_space_client/blocs/user/user_cubit.dart';
+import 'package:code_space_client/configs/env_config_manager.dart';
 import 'package:code_space_client/constants/app_constants.dart';
 import 'package:code_space_client/models/problem_detail_model.dart';
 import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
@@ -6,6 +9,7 @@ import 'package:code_space_client/presentation/problem/widgets/code_tab.dart';
 import 'package:code_space_client/presentation/problem/widgets/pdf_tab.dart';
 import 'package:code_space_client/utils/extensions/language_ext.dart';
 import 'package:code_space_client/utils/extensions/user_model_ext.dart';
+import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +19,8 @@ import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.d
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:multi_split_view/multi_split_view.dart';
+
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class ProblemView extends StatefulWidget {
   final String problemId;
@@ -43,6 +49,8 @@ class _ProblemViewState extends State<ProblemView> {
     )
   ];
 
+  late IO.Socket _socket;
+
   @override
   void initState() {
     super.initState();
@@ -54,11 +62,32 @@ class _ProblemViewState extends State<ProblemView> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<ProblemCubit>().getProblemDetail(widget.problemId);
     });
+
+    _initSocket();
+  }
+
+  void _initSocket() {
+    _socket = IO.io(
+      EnvConfigManager.instance.baseUrl,
+      IO.OptionBuilder()
+          .setTransports(['websocket']) // for Flutter or Dart VM
+          .enableForceNew() // Have to enable this option to force creating a new connection after disconnect in dispose
+          .build(),
+    );
+
+    _socket.onConnect((_) {
+      logger.d('Socket connected');
+    });
+
+    _socket.onDisconnect((_) => logger.d('Socket disconnected'));
+
+    _socket.on('result', (data) => logger.d(data));
   }
 
   @override
   void dispose() {
     _codeController.dispose();
+    _socket.disconnect();
     super.dispose();
   }
 
@@ -92,15 +121,17 @@ class _ProblemViewState extends State<ProblemView> {
               previous.submissionId != current.submissionId &&
               current.submissionId != null,
           listener: (context, state) {
-            context.goNamed(
-              AppRoute.problemResult.name,
-              params: {
-                'courseId': widget.courseId,
-                'problemId': widget.problemId,
-                'submitId': state.submissionId!,
-              },
-              queryParams: widget.me ? {'me': 'true'} : {},
-            );
+            // context.goNamed(
+            //   AppRoute.problemResult.name,
+            //   params: {
+            //     'courseId': widget.courseId,
+            //     'problemId': widget.problemId,
+            //     'submitId': state.submissionId!,
+            //   },
+            //   queryParams: widget.me ? {'me': 'true'} : {},
+            // );
+
+            _socket.emit('submissionId', state.submissionId!);
           },
         ),
       ],
