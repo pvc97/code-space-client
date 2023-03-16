@@ -7,6 +7,8 @@ import 'package:code_space_client/models/problem_detail_model.dart';
 import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
 import 'package:code_space_client/presentation/problem/widgets/code_tab.dart';
 import 'package:code_space_client/presentation/problem/widgets/pdf_tab.dart';
+import 'package:code_space_client/presentation/problem/widgets/result_dialog/result_dialog.dart';
+import 'package:code_space_client/presentation/problem/widgets/result_dialog/result_dialog_cubit.dart';
 import 'package:code_space_client/utils/extensions/language_ext.dart';
 import 'package:code_space_client/utils/extensions/user_model_ext.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
@@ -81,7 +83,9 @@ class _ProblemViewState extends State<ProblemView> {
 
     _socket.onDisconnect((_) => logger.d('Socket disconnected'));
 
-    _socket.on('result', (data) => logger.d(data));
+    _socket.on('result', (data) {
+      context.read<ResultDialogCubit>().addResult(data);
+    });
   }
 
   @override
@@ -113,6 +117,10 @@ class _ProblemViewState extends State<ProblemView> {
           listener: (context, state) {
             final problemDetail = state.problemDetail;
             _codeController.language ??= problemDetail!.language.highlight;
+
+            context
+                .read<ResultDialogCubit>()
+                .setTotalTestCases(problemDetail!.numberOfTestCases);
           },
         ),
         // Listen to submission id to navigate to result page
@@ -121,15 +129,20 @@ class _ProblemViewState extends State<ProblemView> {
               previous.submissionId != current.submissionId &&
               current.submissionId != null,
           listener: (context, state) {
-            // context.goNamed(
-            //   AppRoute.problemResult.name,
-            //   params: {
-            //     'courseId': widget.courseId,
-            //     'problemId': widget.problemId,
-            //     'submitId': state.submissionId!,
-            //   },
-            //   queryParams: widget.me ? {'me': 'true'} : {},
-            // );
+            context.read<ResultDialogCubit>().clearResults();
+            showResultDialog(
+                ctx: context,
+                onDetailPressed: () {
+                  context.goNamed(
+                    AppRoute.problemResult.name,
+                    params: {
+                      'courseId': widget.courseId,
+                      'problemId': widget.problemId,
+                      'submitId': state.submissionId!,
+                    },
+                    queryParams: widget.me ? {'me': 'true'} : {},
+                  );
+                });
 
             _socket.emit('submissionId', state.submissionId!);
           },

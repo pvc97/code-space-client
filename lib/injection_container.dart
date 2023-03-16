@@ -32,6 +32,7 @@ import 'package:code_space_client/data/repositories/problem_repository.dart';
 import 'package:code_space_client/data/repositories/submission_repository.dart';
 import 'package:code_space_client/data/repositories/user_repository.dart';
 import 'package:code_space_client/models/languages.dart';
+import 'package:code_space_client/presentation/problem/widgets/result_dialog/result_dialog_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
@@ -217,5 +218,7 @@ abstract class Di {
         userRepository: sl(),
       ),
     );
+
+    sl.registerFactory<ResultDialogCubit>(() => ResultDialogCubit());
   }
 }

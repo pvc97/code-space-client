@@ -14,6 +14,7 @@ class ProblemDetailModel {
   final DateTime createdAt;
   final DateTime updatedAt;
   final LanguageModel language;
+  final int numberOfTestCases;
 
   ProblemDetailModel({
     required this.id,
@@ -24,6 +25,7 @@ class ProblemDetailModel {
     required this.createdAt,
     required this.updatedAt,
     required this.language,
+    required this.numberOfTestCases,
   });
 
   factory ProblemDetailModel.fromJson(Map<String, dynamic> json) =>
