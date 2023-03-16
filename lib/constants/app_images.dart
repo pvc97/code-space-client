@@ -12,4 +12,8 @@ class AppImages {
   static const String top1 = 'assets/images/top1.json';
   static const String top2 = 'assets/images/top2.json';
   static const String top3 = 'assets/images/top3.json';
+
+  static const String correct = 'assets/images/correct.json';
+  static const String wrong = 'assets/images/wrong.json';
+  static const String correctAll = 'assets/images/correct_all.json';
 }
