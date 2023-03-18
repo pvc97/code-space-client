@@ -167,7 +167,7 @@ class _RankingViewState extends State<RankingView> {
                             ),
                           ),
                           Text(
-                            '${item.totalPoint} ${S.of(context).points}',
+                            '${item.totalPoints} ${S.of(context).points}',
                             style: AppTextStyle.textStyle16,
                           ),
                           Box.w8,

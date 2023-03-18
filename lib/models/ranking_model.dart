@@ -6,11 +6,11 @@ part 'ranking_model.g.dart';
 class RankingModel {
   @JsonKey(name: 'name')
   final String studentName;
-  final int totalPoint;
+  final int totalPoints;
 
   RankingModel({
     required this.studentName,
-    required this.totalPoint,
+    required this.totalPoints,
   });
 
   factory RankingModel.fromJson(Map<String, dynamic> json) =>
