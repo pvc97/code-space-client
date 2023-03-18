@@ -8,20 +8,14 @@ part 'submission_model.g.dart';
 class SubmissionModel {
   final String id;
   final String sourceCode;
-  final int totalPoint;
-  final String createdBy;
-  final DateTime createdAt;
+  final int totalPoints;
   final List<SubmissionResultModel> results;
-  final int totalTestCase;
 
   SubmissionModel(
     this.id,
     this.sourceCode,
-    this.totalPoint,
-    this.createdBy,
-    this.createdAt,
+    this.totalPoints,
     this.results,
-    this.totalTestCase,
   );
 
   factory SubmissionModel.fromJson(Map<String, dynamic> json) =>
