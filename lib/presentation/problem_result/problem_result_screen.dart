@@ -50,7 +50,7 @@ class _ProblemResultScreenState extends State<ProblemResultScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${S.of(context).total_point}: ${submission.totalPoint}',
+                          '${S.of(context).total_point}: ${submission.totalPoints}',
                           style: const TextStyle(
                             fontSize: Sizes.s32,
                           ),
