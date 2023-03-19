@@ -29,7 +29,7 @@ void main() async {
     Bloc.observer = SimpleBlocObserver();
   }
 
-  if (!Platform.isWindows) {
+  if (!kIsWeb && !Platform.isWindows) {
     await Firebase.initializeApp();
     FirebaseMessaging.instance.getToken().then((token) {
       logger.d('FCM Token: $token');
