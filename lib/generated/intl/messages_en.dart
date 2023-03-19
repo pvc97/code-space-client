@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "account_not_found":
             MessageLookupByLibrary.simpleMessage("Account not found"),
         "accounts": MessageLookupByLibrary.simpleMessage("Accounts"),
+        "actual_output": MessageLookupByLibrary.simpleMessage("Actual output:"),
         "add_test_case": MessageLookupByLibrary.simpleMessage("Add new"),
         "an_error_occurred":
             MessageLookupByLibrary.simpleMessage("An error occurred"),

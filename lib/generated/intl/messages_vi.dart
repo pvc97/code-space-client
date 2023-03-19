@@ -30,6 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "account_not_found":
             MessageLookupByLibrary.simpleMessage("Không tìm thấy tài khoản"),
         "accounts": MessageLookupByLibrary.simpleMessage("Tài khoản"),
+        "actual_output":
+            MessageLookupByLibrary.simpleMessage("Kết quả thực tế:"),
         "add_test_case": MessageLookupByLibrary.simpleMessage("Thêm mới"),
         "an_error_occurred":
             MessageLookupByLibrary.simpleMessage("Có lỗi xảy ra"),

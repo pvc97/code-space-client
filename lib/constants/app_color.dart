@@ -21,6 +21,8 @@ class AppColor {
 
   static const white = Colors.white;
   static const black = Colors.black;
+  static const blue = Colors.blue;
+  static const grey = Colors.grey;
 
   static const popupDeleteColor = Colors.red;
   static const popupChangePasswordColor = Colors.blue;
