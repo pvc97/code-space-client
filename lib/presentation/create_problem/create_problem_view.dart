@@ -154,274 +154,278 @@ class _CreateProblemViewState extends State<CreateProblemView> {
           context: context,
           title: Text(S.of(context).create_new_problem),
         ),
-        body: Align(
-          alignment: Alignment.topCenter,
-          child: Form(
-            key: _formKey,
-            autovalidateMode: _autovalidateMode,
-            // Don't wrap TextFormField inside ListView because validation will not work
-            // if TextFormField isn't visible
-            // https://github.com/flutter/flutter/issues/56159
+        body: Form(
+          key: _formKey,
+          autovalidateMode: _autovalidateMode,
+          // Don't wrap TextFormField inside ListView because validation will not work
+          // if TextFormField isn't visible
+          // https://github.com/flutter/flutter/issues/56159
+          child: Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(Sizes.s20),
-              child: Column(
-                // shrinkWrap: true,
-                children: [
-                  BlocSelector<CreateProblemCubit, CreateProblemState,
-                      Iterable<LanguageModel>>(
-                    selector: (state) => state.languages,
-                    builder: (context, teachers) {
-                      return SearchDropdownButton(
-                        items: teachers,
-                        hint: S.of(context).select_languages,
-                        searchHint: S.of(context).enter_name_of_language,
-                        textEditingController: _searchLanguageController,
-                        onChanged: (BaseDropdownItem? value) {
-                          _selectedLanguage = value;
-                        },
-                      );
-                    },
-                  ),
-                  Box.h16,
-                  TextFormField(
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: S.of(context).problem_name,
+              child: Box(
+                width: Sizes.s400,
+                child: Column(
+                  children: [
+                    BlocSelector<CreateProblemCubit, CreateProblemState,
+                        Iterable<LanguageModel>>(
+                      selector: (state) => state.languages,
+                      builder: (context, teachers) {
+                        return SearchDropdownButton(
+                          items: teachers,
+                          hint: S.of(context).select_languages,
+                          searchHint: S.of(context).enter_name_of_language,
+                          textEditingController: _searchLanguageController,
+                          onChanged: (BaseDropdownItem? value) {
+                            _selectedLanguage = value;
+                          },
+                        );
+                      },
                     ),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return S.of(context).problem_name_cannot_be_empty;
-                      }
-                      return null;
-                    },
-                    onSaved: (String? value) {
-                      _problemName = value;
-                    },
-                  ),
-                  Box.h16,
-                  TextFormField(
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: S.of(context).point_per_test_case,
-                    ),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return S.of(context).invalid_point_per_test_case;
-                      }
-
-                      final point = int.tryParse(value);
-                      if (point == null || point <= 0) {
-                        return S.of(context).invalid_point_per_test_case;
-                      }
-
-                      return null;
-                    },
-                    onSaved: (String? value) {
-                      if (value == null) return;
-                      _pointPerTestCase = int.parse(value);
-                    },
-                  ),
-                  Box.h16,
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: Sizes.s20,
-                      vertical: Sizes.s12,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Theme.of(context).primaryColor,
+                    Box.h16,
+                    TextFormField(
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: S.of(context).problem_name,
                       ),
-                      borderRadius: BorderRadius.circular(Sizes.s8),
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return S.of(context).problem_name_cannot_be_empty;
+                        }
+                        return null;
+                      },
+                      onSaved: (String? value) {
+                        _problemName = value;
+                      },
                     ),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                S.of(context).list_of_test_cases,
-                                style: AppTextStyle.textStyle18.copyWith(
-                                  fontWeight: FontWeight.w500,
+                    Box.h16,
+                    TextFormField(
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        labelText: S.of(context).point_per_test_case,
+                      ),
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return S.of(context).invalid_point_per_test_case;
+                        }
+
+                        final point = int.tryParse(value);
+                        if (point == null || point <= 0) {
+                          return S.of(context).invalid_point_per_test_case;
+                        }
+
+                        return null;
+                      },
+                      onSaved: (String? value) {
+                        if (value == null) return;
+                        _pointPerTestCase = int.parse(value);
+                      },
+                    ),
+                    Box.h16,
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: Sizes.s20,
+                        vertical: Sizes.s12,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        borderRadius: BorderRadius.circular(Sizes.s8),
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  S.of(context).list_of_test_cases,
+                                  style: AppTextStyle.textStyle18.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                showTestCaseDialog(
-                                  ctx: context,
-                                  action: const AddTestCaseAction(),
-                                  stdinController: _stdinController,
-                                  expectedOutputController:
-                                      _expectedOutputController,
-                                );
-                              },
-                              child: Text(S.of(context).add_test_case),
-                            ),
-                          ],
-                        ),
-                        BlocSelector<CreateProblemCubit, CreateProblemState,
-                            Iterable<TestCaseModel>>(
-                          selector: (state) => state.testCases,
-                          builder: (context, testCases) {
-                            if (testCases.isEmpty) {
-                              return const SizedBox.shrink();
-                            }
-                            return const Divider();
-                          },
-                        ),
-                        BlocSelector<CreateProblemCubit, CreateProblemState,
-                            Iterable<TestCaseModel>>(
-                          selector: (state) => state.testCases,
-                          builder: (context, testCases) {
-                            return ListView.separated(
-                              shrinkWrap: true,
-                              itemCount: testCases.length,
-                              physics: const NeverScrollableScrollPhysics(),
-                              separatorBuilder: (context, index) =>
-                                  const Divider(),
-                              itemBuilder: (context, index) {
-                                final testCase = testCases.elementAt(index);
-                                return Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisSize: MainAxisSize.min,
+                              ElevatedButton(
+                                onPressed: () {
+                                  showTestCaseDialog(
+                                    ctx: context,
+                                    action: const AddTestCaseAction(),
+                                    stdinController: _stdinController,
+                                    expectedOutputController:
+                                        _expectedOutputController,
+                                  );
+                                },
+                                child: Text(S.of(context).add_test_case),
+                              ),
+                            ],
+                          ),
+                          BlocSelector<CreateProblemCubit, CreateProblemState,
+                              Iterable<TestCaseModel>>(
+                            selector: (state) => state.testCases,
+                            builder: (context, testCases) {
+                              if (testCases.isEmpty) {
+                                return const SizedBox.shrink();
+                              }
+                              return const Divider();
+                            },
+                          ),
+                          BlocSelector<CreateProblemCubit, CreateProblemState,
+                              Iterable<TestCaseModel>>(
+                            selector: (state) => state.testCases,
+                            builder: (context, testCases) {
+                              return ListView.separated(
+                                shrinkWrap: true,
+                                itemCount: testCases.length,
+                                physics: const NeverScrollableScrollPhysics(),
+                                separatorBuilder: (context, index) =>
+                                    const Divider(),
+                                itemBuilder: (context, index) {
+                                  final testCase = testCases.elementAt(index);
+                                  return Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              S.of(context).stdin,
+                                              style: AppTextStyle.defaultFont,
+                                            ),
+                                            SelectableText(
+                                              testCase.stdin,
+                                              style: AppTextStyle.defaultFont,
+                                            ),
+                                            Box.h4,
+                                            Text(
+                                              S.of(context).expected_output,
+                                              style: AppTextStyle.defaultFont,
+                                            ),
+                                            SelectableText(
+                                              testCase.expectedOutput,
+                                              style: AppTextStyle.defaultFont,
+                                              // maxLines: 2,
+                                            ),
+                                            Box.h4,
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  S.of(context).show_when_wrong,
+                                                  style:
+                                                      AppTextStyle.defaultFont,
+                                                ),
+                                                Box.w4,
+                                                testCase.show
+                                                    ? const Icon(
+                                                        Icons.check_box,
+                                                        color: Colors.blue,
+                                                      )
+                                                    : const Icon(
+                                                        Icons.close,
+                                                        color: Colors.red,
+                                                      ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Column(
                                         children: [
-                                          Text(
-                                            S.of(context).stdin,
-                                            style: AppTextStyle.defaultFont,
+                                          IconButton(
+                                            onPressed: () {
+                                              showTestCaseDialog(
+                                                ctx: context,
+                                                action: EditTestCaseAction(
+                                                  index: index,
+                                                  testCase: testCase,
+                                                ),
+                                                stdinController:
+                                                    _stdinController,
+                                                expectedOutputController:
+                                                    _expectedOutputController,
+                                              );
+                                            },
+                                            icon: Icon(
+                                              Icons.edit,
+                                              color: Colors.blue.shade300,
+                                            ),
                                           ),
-                                          SelectableText(
-                                            testCase.stdin,
-                                            style: AppTextStyle.defaultFont,
-                                          ),
-                                          Box.h4,
-                                          Text(
-                                            S.of(context).expected_output,
-                                            style: AppTextStyle.defaultFont,
-                                          ),
-                                          SelectableText(
-                                            testCase.expectedOutput,
-                                            style: AppTextStyle.defaultFont,
-                                            // maxLines: 2,
-                                          ),
-                                          Box.h4,
-                                          Row(
-                                            children: [
-                                              Text(
-                                                S.of(context).show_when_wrong,
-                                                style: AppTextStyle.defaultFont,
-                                              ),
-                                              Box.w4,
-                                              testCase.show
-                                                  ? const Icon(
-                                                      Icons.check_box,
-                                                      color: Colors.blue,
-                                                    )
-                                                  : const Icon(
-                                                      Icons.close,
-                                                      color: Colors.red,
-                                                    ),
-                                            ],
+                                          IconButton(
+                                            onPressed: () {
+                                              context
+                                                  .read<CreateProblemCubit>()
+                                                  .removeTestCase(index);
+                                            },
+                                            icon: const Icon(
+                                              Icons.delete,
+                                              color: Colors.red,
+                                            ),
                                           ),
                                         ],
-                                      ),
-                                    ),
-                                    Column(
-                                      children: [
-                                        IconButton(
-                                          onPressed: () {
-                                            showTestCaseDialog(
-                                              ctx: context,
-                                              action: EditTestCaseAction(
-                                                index: index,
-                                                testCase: testCase,
-                                              ),
-                                              stdinController: _stdinController,
-                                              expectedOutputController:
-                                                  _expectedOutputController,
-                                            );
-                                          },
-                                          icon: Icon(
-                                            Icons.edit,
-                                            color: Colors.blue.shade300,
-                                          ),
-                                        ),
-                                        IconButton(
-                                          onPressed: () {
-                                            context
-                                                .read<CreateProblemCubit>()
-                                                .removeTestCase(index);
-                                          },
-                                          icon: const Icon(
-                                            Icons.delete,
-                                            color: Colors.red,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                );
-                              },
+                                      )
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    Box.h16,
+                    Row(
+                      children: [
+                        BlocSelector<CreateProblemCubit, CreateProblemState,
+                            bool>(
+                          selector: (state) => state.selectingPdf,
+                          builder: (context, selecting) {
+                            return ElevatedButton(
+                              onPressed: selecting ? null : _selectPdf,
+                              child: Text(S.of(context).select_problem_file),
+                            );
+                          },
+                        ),
+                        Box.w20,
+                        BlocSelector<CreateProblemCubit, CreateProblemState,
+                            MultipartFile?>(
+                          selector: (state) => state.pdfFile,
+                          builder: (context, pdfFile) {
+                            return Expanded(
+                              child: Text(
+                                pdfFile?.filename ?? '...',
+                                maxLines: 2,
+                              ),
                             );
                           },
                         ),
                       ],
                     ),
-                  ),
-                  Box.h16,
-                  Row(
-                    children: [
-                      BlocSelector<CreateProblemCubit, CreateProblemState,
-                          bool>(
-                        selector: (state) => state.selectingPdf,
-                        builder: (context, selecting) {
-                          return ElevatedButton(
-                            onPressed: selecting ? null : _selectPdf,
-                            child: Text(S.of(context).select_problem_file),
-                          );
-                        },
-                      ),
-                      Box.w20,
-                      BlocSelector<CreateProblemCubit, CreateProblemState,
-                          MultipartFile?>(
-                        selector: (state) => state.pdfFile,
-                        builder: (context, pdfFile) {
-                          return Expanded(
-                            child: Text(
-                              pdfFile?.filename ?? '...',
-                              maxLines: 2,
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  Box.h16,
-                  BlocBuilder<CreateProblemCubit, CreateProblemState>(
-                    builder: (context, state) {
-                      final testCases = state.testCases;
-                      final pdfPath = state.pdfFile;
+                    Box.h16,
+                    BlocBuilder<CreateProblemCubit, CreateProblemState>(
+                      builder: (context, state) {
+                        final testCases = state.testCases;
+                        final pdfPath = state.pdfFile;
 
-                      return FractionallySizedBox(
-                        widthFactor: 0.7,
-                        child: AppElevatedButton(
-                          onPressed: (testCases.isNotEmpty && pdfPath != null)
-                              ? _submit
-                              : null,
-                          text: S.of(context).create,
-                        ),
-                      );
-                    },
-                  )
-                ],
+                        return FractionallySizedBox(
+                          widthFactor: 0.7,
+                          child: AppElevatedButton(
+                            onPressed: (testCases.isNotEmpty && pdfPath != null)
+                                ? _submit
+                                : null,
+                            text: S.of(context).create,
+                          ),
+                        );
+                      },
+                    )
+                  ],
+                ),
               ),
             ),
           ),

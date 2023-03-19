@@ -53,7 +53,8 @@ void showTestCaseDialog({
             TextField(
               controller: stdinController,
               keyboardType: TextInputType.multiline,
-              maxLines: null,
+              minLines: 1,
+              maxLines: 4,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 labelText: S.of(context).stdin,
@@ -63,7 +64,8 @@ void showTestCaseDialog({
             TextField(
               controller: expectedOutputController,
               keyboardType: TextInputType.multiline,
-              maxLines: null,
+              minLines: 1,
+              maxLines: 4,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 labelText: S.of(context).expected_output,
