@@ -288,33 +288,51 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(S.of(context).stdin),
-                                        SelectableText(testCase.stdin),
-                                        Box.h4,
-                                        Text(S.of(context).expected_output),
-                                        SelectableText(testCase.expectedOutput),
-                                        Box.h4,
-                                        Row(
-                                          children: [
-                                            Text(S.of(context).show_when_wrong),
-                                            Box.w4,
-                                            testCase.show
-                                                ? const Icon(
-                                                    Icons.check_box,
-                                                    color: Colors.blue,
-                                                  )
-                                                : const Icon(
-                                                    Icons.close,
-                                                    color: Colors.red,
-                                                  ),
-                                          ],
-                                        ),
-                                      ],
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            S.of(context).stdin,
+                                            style: AppTextStyle.defaultFont,
+                                          ),
+                                          SelectableText(
+                                            testCase.stdin,
+                                            style: AppTextStyle.defaultFont,
+                                          ),
+                                          Box.h4,
+                                          Text(
+                                            S.of(context).expected_output,
+                                            style: AppTextStyle.defaultFont,
+                                          ),
+                                          SelectableText(
+                                            testCase.expectedOutput,
+                                            style: AppTextStyle.defaultFont,
+                                            // maxLines: 2,
+                                          ),
+                                          Box.h4,
+                                          Row(
+                                            children: [
+                                              Text(
+                                                S.of(context).show_when_wrong,
+                                                style: AppTextStyle.defaultFont,
+                                              ),
+                                              Box.w4,
+                                              testCase.show
+                                                  ? const Icon(
+                                                      Icons.check_box,
+                                                      color: Colors.blue,
+                                                    )
+                                                  : const Icon(
+                                                      Icons.close,
+                                                      color: Colors.red,
+                                                    ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     Column(
                                       children: [
