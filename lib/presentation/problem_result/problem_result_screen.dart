@@ -1,3 +1,4 @@
+import 'package:code_space_client/constants/app_color.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/blocs/problem_result/problem_result_cubit.dart';
@@ -37,66 +38,131 @@ class _ProblemResultScreenState extends State<ProblemResultScreen> {
               context: context,
               title: Text(S.of(context).problem_result),
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(Sizes.s20),
-              child: BlocBuilder<ProblemResultCubit, ProblemResultState>(
-                builder: (context, state) {
-                  if (state.stateStatus == StateStatus.error) {
-                    return Center(
-                      child: Text(state.error?.message ?? ''),
-                    );
-                  } else if (state.stateStatus == StateStatus.success) {
-                    final submission = state.submission!;
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
+            body: BlocBuilder<ProblemResultCubit, ProblemResultState>(
+              builder: (context, state) {
+                if (state.stateStatus == StateStatus.error) {
+                  return Center(
+                    child: Text(state.error?.message ?? ''),
+                  );
+                } else if (state.stateStatus == StateStatus.success) {
+                  final submission = state.submission!;
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: Sizes.s20,
+                          left: Sizes.s20,
+                          right: Sizes.s20,
+                        ),
+                        child: Text(
                           '${S.of(context).total_point}: ${submission.totalPoints}',
-                          style: const TextStyle(
+                          style: AppTextStyle.defaultFont.copyWith(
                             fontSize: Sizes.s32,
                           ),
                         ),
-                        Box.h8,
-                        Expanded(
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: submission.results.length,
-                            itemBuilder: (context, index) {
-                              final result = submission.results[index];
-                              return Card(
-                                child: ListTile(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: Sizes.s24,
-                                    vertical: Sizes.s12,
-                                  ),
-                                  title: Text(
-                                    'Expected Output: ${result.expectedOutput}',
-                                    style: AppTextStyle.defaultFont,
-                                  ),
-                                  subtitle: Text(
-                                    'Input: ${result.stdin}\nOutput: ${result.output}',
-                                    style: AppTextStyle.defaultFont,
-                                  ),
-                                  trailing: Icon(
-                                    result.correct
-                                        ? Icons.check_circle
-                                        : Icons.cancel,
-                                    color: result.correct
-                                        ? Colors.green
-                                        : Colors.red,
-                                  ),
-                                ),
-                              );
-                            },
+                      ),
+                      Box.h8,
+                      Expanded(
+                        child: ListView.builder(
+                          padding: const EdgeInsets.only(
+                            left: Sizes.s20,
+                            right: Sizes.s20,
+                            bottom: Sizes.s20,
                           ),
+                          itemCount: submission.results.length,
+                          itemBuilder: (context, index) {
+                            final result = submission.results[index];
+                            return Card(
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: Sizes.s24,
+                                  vertical: Sizes.s12,
+                                ),
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      S.of(context).stdin,
+                                      style: AppTextStyle.textStyle18.copyWith(
+                                        color: AppColor.primaryColor,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SelectableText(
+                                      result.stdin,
+                                      style: AppTextStyle.defaultFont.copyWith(
+                                        overflow: TextOverflow.visible,
+                                      ),
+                                    ),
+                                    const Divider(color: AppColor.primaryColor),
+                                  ],
+                                ),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          S.of(context).expected_output,
+                                          style:
+                                              AppTextStyle.textStyle18.copyWith(
+                                            color: AppColor.primaryColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SelectableText(
+                                          result.expectedOutput,
+                                          style:
+                                              AppTextStyle.defaultFont.copyWith(
+                                            overflow: TextOverflow.visible,
+                                          ),
+                                        ),
+                                        const Divider(
+                                            color: AppColor.primaryColor),
+                                        Text(
+                                          S.of(context).actual_output,
+                                          style:
+                                              AppTextStyle.textStyle18.copyWith(
+                                            color: AppColor.primaryColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SelectableText(
+                                          result.output,
+                                          style:
+                                              AppTextStyle.defaultFont.copyWith(
+                                            overflow: TextOverflow.visible,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                trailing: Icon(
+                                  result.correct
+                                      ? Icons.check_circle
+                                      : Icons.cancel,
+                                  color: result.correct
+                                      ? Colors.green
+                                      : Colors.red,
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      ],
-                    );
-                  }
+                      ),
+                    ],
+                  );
+                }
 
-                  return const SizedBox.shrink();
-                },
-              ),
+                return const SizedBox.shrink();
+              },
             ),
           ),
         );

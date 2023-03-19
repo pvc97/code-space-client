@@ -20,5 +20,6 @@ class Sizes {
   static const s120 = 120.0;
   static const s200 = 200.0;
   static const s300 = 300.0;
+  static const s400 = 400.0;
   static const s600 = 600.0;
 }

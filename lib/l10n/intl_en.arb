@@ -121,5 +121,6 @@
   "delete_problem": "Delete problem",
   "confirm_delete_problem": "Are you sure you want to delete this problem?",
   "delete_problem_success": "Delete problem success",
-  "detail": "Detail"
+  "detail": "Detail",
+  "actual_output": "Actual output:"
 }

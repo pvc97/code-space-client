@@ -1279,6 +1279,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Actual output:`
+  String get actual_output {
+    return Intl.message(
+      'Actual output:',
+      name: 'actual_output',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
