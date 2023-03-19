@@ -29,6 +29,10 @@ void showResultDialog({
           children: [
             BlocBuilder<ResultDialogCubit, ResultDialogState>(
               bloc: resultCubit,
+              buildWhen: (previous, current) {
+                return previous.correctAll != current.correctAll ||
+                    previous.results.length != current.results.length;
+              },
               builder: (context, state) {
                 if (state.results.isEmpty) {
                   return const SizedBox(

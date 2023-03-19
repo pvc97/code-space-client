@@ -102,3 +102,14 @@ class CourseDetailDeleteProblemEvent extends CourseDetailEvent {
   @override
   List<Object> get props => [problemId];
 }
+
+class ProblemSolvedEvent extends CourseDetailEvent {
+  final String problemId;
+
+  const ProblemSolvedEvent({
+    required this.problemId,
+  });
+
+  @override
+  List<Object> get props => [problemId];
+}

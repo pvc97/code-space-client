@@ -22,4 +22,16 @@ class ProblemModel extends Equatable {
 
   @override
   List<Object?> get props => [id, name, completed];
+
+  ProblemModel copyWith({
+    String? id,
+    String? name,
+    bool? completed,
+  }) {
+    return ProblemModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      completed: completed ?? this.completed,
+    );
+  }
 }

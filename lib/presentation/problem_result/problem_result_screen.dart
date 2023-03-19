@@ -1,6 +1,7 @@
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/blocs/problem_result/problem_result_cubit.dart';
+import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
@@ -64,11 +65,18 @@ class _ProblemResultScreenState extends State<ProblemResultScreen> {
                               final result = submission.results[index];
                               return Card(
                                 child: ListTile(
-                                  leading: Text('Input: ${result.stdin} '),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: Sizes.s24,
+                                    vertical: Sizes.s12,
+                                  ),
                                   title: Text(
-                                      'Expected Output: ${result.expectedOutput}'),
-                                  subtitle:
-                                      Text('Actual Output: ${result.output}'),
+                                    'Expected Output: ${result.expectedOutput}',
+                                    style: AppTextStyle.defaultFont,
+                                  ),
+                                  subtitle: Text(
+                                    'Input: ${result.stdin}\nOutput: ${result.output}',
+                                    style: AppTextStyle.defaultFont,
+                                  ),
                                   trailing: Icon(
                                     result.correct
                                         ? Icons.check_circle

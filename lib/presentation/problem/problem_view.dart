@@ -118,9 +118,10 @@ class _ProblemViewState extends State<ProblemView> {
             final problemDetail = state.problemDetail;
             _codeController.language ??= problemDetail!.language.highlight;
 
-            context
-                .read<ResultDialogCubit>()
-                .setTotalTestCases(problemDetail!.numberOfTestCases);
+            context.read<ResultDialogCubit>().setInitialData(
+                  problemId: problemDetail!.id,
+                  totalTestCases: problemDetail.numberOfTestCases,
+                );
           },
         ),
         // Listen to submission id to navigate to result page
