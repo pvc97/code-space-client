@@ -4,11 +4,62 @@ import 'package:code_space_client/models/problem_model.dart';
 import 'package:code_space_client/models/ranking_model.dart';
 import 'package:code_space_client/utils/exception_parser.dart';
 
-class CourseRepository {
+abstract class CourseRepository {
+  Future<List<ProblemModel>> getProblems({
+    required String courseId,
+    required String query,
+    required int page,
+    required int limit,
+  });
+
+  Future<List<CourseModel>> getCourses({
+    required String query,
+    required int page,
+    required int limit,
+    required bool me,
+  });
+
+  Future<CourseModel> getCourse({required String courseId});
+
+  Future<bool> joinCourse({
+    required String courseId,
+    required String accessCode,
+  });
+
+  Future<bool> leaveCourse({
+    required String courseId,
+  });
+
+  Future<String> createCourse({
+    required String name,
+    required String code,
+    required String accessCode,
+    required String teacherId,
+  });
+
+  Future<List<RankingModel>> getRankings({
+    required String courseId,
+    required int page,
+    required int limit,
+  });
+
+  Future<bool> deleteCourse({required String courseId});
+
+  Future<CourseModel> updateCourse({
+    required String courseId,
+    required String name,
+    required String code,
+    required String accessCode,
+    required String teacherId,
+  });
+}
+
+class CourseRepositoryImpl implements CourseRepository {
   final CourseService courseService;
 
-  CourseRepository({required this.courseService});
+  CourseRepositoryImpl({required this.courseService});
 
+  @override
   Future<List<ProblemModel>> getProblems({
     required String courseId,
     required String query,
@@ -29,6 +80,7 @@ class CourseRepository {
     }
   }
 
+  @override
   Future<List<CourseModel>> getCourses({
     required String query,
     required int page,
@@ -49,6 +101,7 @@ class CourseRepository {
     }
   }
 
+  @override
   Future<CourseModel> getCourse({required String courseId}) async {
     try {
       final course = await courseService.getCourse(courseId: courseId);
@@ -59,6 +112,7 @@ class CourseRepository {
     }
   }
 
+  @override
   Future<bool> joinCourse({
     required String courseId,
     required String accessCode,
@@ -72,6 +126,7 @@ class CourseRepository {
     }
   }
 
+  @override
   Future<bool> leaveCourse({
     required String courseId,
   }) async {
@@ -83,6 +138,7 @@ class CourseRepository {
     }
   }
 
+  @override
   Future<String> createCourse({
     required String name,
     required String code,
@@ -102,6 +158,7 @@ class CourseRepository {
     }
   }
 
+  @override
   Future<List<RankingModel>> getRankings({
     required String courseId,
     required int page,
@@ -120,6 +177,7 @@ class CourseRepository {
     }
   }
 
+  @override
   Future<bool> deleteCourse({
     required String courseId,
   }) async {
@@ -131,6 +189,7 @@ class CourseRepository {
     }
   }
 
+  @override
   Future<CourseModel> updateCourse({
     required String courseId,
     required String name,

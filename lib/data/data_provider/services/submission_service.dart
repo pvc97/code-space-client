@@ -2,11 +2,21 @@ import 'package:code_space_client/constants/url_constants.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/models/submission_model.dart';
 
-class SubmissionService {
+abstract class SubmissionService {
+  Future<String> submitCode({
+    required String sourceCode,
+    required String problemId,
+  });
+
+  Future<SubmissionModel> getSubmission(String submissionId);
+}
+
+class SubmissionServiceImpl implements SubmissionService {
   final ApiProvider apiProvider;
 
-  SubmissionService({required this.apiProvider});
+  SubmissionServiceImpl({required this.apiProvider});
 
+  @override
   Future<String> submitCode({
     required String sourceCode,
     required String problemId,
@@ -23,6 +33,7 @@ class SubmissionService {
     return response?.data['data']['id'];
   }
 
+  @override
   Future<SubmissionModel> getSubmission(String submissionId) async {
     final response = await apiProvider.get(
       '${UrlConstants.submissions}/$submissionId',

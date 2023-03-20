@@ -6,11 +6,27 @@ import 'package:code_space_client/models/problem_detail_model.dart';
 import 'package:code_space_client/models/test_case_model.dart';
 import 'package:dio/dio.dart';
 
-class ProblemService {
+abstract class ProblemService {
+  Future<ProblemDetailModel> getProblemDetail(String problemId);
+
+  Future<String> createProblem({
+    required String name,
+    required int pointPerTestCase,
+    required String courseId,
+    required int languageId,
+    required Iterable<TestCaseModel> testCases,
+    required MultipartFile file,
+  });
+
+  Future<bool> deleteProblem({required String problemId});
+}
+
+class ProblemServiceImpl implements ProblemService {
   final ApiProvider apiProvider;
 
-  ProblemService({required this.apiProvider});
+  ProblemServiceImpl({required this.apiProvider});
 
+  @override
   Future<ProblemDetailModel> getProblemDetail(String problemId) async {
     final response = await apiProvider.get(
       '${UrlConstants.problems}/$problemId',
@@ -18,6 +34,7 @@ class ProblemService {
     return ProblemDetailModel.fromJson(response?.data['data']);
   }
 
+  @override
   Future<String> createProblem({
     required String name,
     required int pointPerTestCase,
@@ -45,6 +62,7 @@ class ProblemService {
   }
 
   /// Teacher delete problem
+  @override
   Future<bool> deleteProblem({required String problemId}) async {
     final response =
         await apiProvider.delete('${UrlConstants.problems}/$problemId');

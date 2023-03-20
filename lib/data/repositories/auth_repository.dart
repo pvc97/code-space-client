@@ -3,11 +3,30 @@ import 'package:code_space_client/models/user_model.dart';
 import 'package:code_space_client/data/data_provider/services/auth_service.dart';
 import 'package:code_space_client/utils/exception_parser.dart';
 
-class AuthRepository {
+abstract class AuthRepository {
+  Future<UserModel> login({
+    required String userName,
+    required String password,
+  });
+  Future<void> logout();
+  Future<void> saveUser(UserModel user);
+  Future<UserModel?> getSavedUser();
+  Future<TokenModel?> getSavedToken();
+  Future<bool> isLoggedIn();
+  Future<bool> registerStudent({
+    required String username,
+    required String fullName,
+    required String email,
+    required String password,
+  });
+}
+
+class AuthRepositoryImpl implements AuthRepository {
   final AuthService authService;
 
-  AuthRepository({required this.authService});
+  AuthRepositoryImpl({required this.authService});
 
+  @override
   Future<UserModel> login({
     required String userName,
     required String password,
@@ -21,16 +40,22 @@ class AuthRepository {
     }
   }
 
+  @override
   Future<void> logout() => authService.logout();
 
+  @override
   Future<void> saveUser(UserModel user) => authService.saveUser(user);
 
+  @override
   Future<UserModel?> getSavedUser() => authService.getLocalUser();
 
+  @override
   Future<TokenModel?> getSavedToken() => authService.getLocalToken();
 
+  @override
   Future<bool> isLoggedIn() => authService.isLoggedIn();
 
+  @override
   Future<bool> registerStudent({
     required String username,
     required String fullName,

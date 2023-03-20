@@ -5,11 +5,62 @@ import 'package:code_space_client/models/course_model.dart';
 import 'package:code_space_client/models/problem_model.dart';
 import 'package:code_space_client/models/ranking_model.dart';
 
-class CourseService {
+abstract class CourseService {
+  Future<List<ProblemModel>> getProblems({
+    required String courseId,
+    required String query,
+    required int page,
+    required int limit,
+  });
+
+  Future<List<CourseModel>> getCourses({
+    required String query,
+    required int page,
+    required int limit,
+    required bool me,
+  });
+
+  Future<CourseModel> getCourse({required String courseId});
+
+  Future<bool> joinCourse({
+    required String courseId,
+    required String accessCode,
+  });
+
+  Future<bool> leaveCourse({
+    required String courseId,
+  });
+
+  Future<String> createCourse({
+    required String name,
+    required String code,
+    required String accessCode,
+    required String teacherId,
+  });
+
+  Future<List<RankingModel>> getRankings({
+    required String courseId,
+    required int page,
+    required int limit,
+  });
+
+  Future<bool> deleteCourse({required String courseId});
+
+  Future<CourseModel> updateCourse({
+    required String courseId,
+    required String name,
+    required String code,
+    required String accessCode,
+    required String teacherId,
+  });
+}
+
+class CourseServiceImpl implements CourseService {
   final ApiProvider apiProvider;
 
-  CourseService({required this.apiProvider});
+  CourseServiceImpl({required this.apiProvider});
 
+  @override
   Future<List<ProblemModel>> getProblems({
     required String courseId,
     required String query,
@@ -29,6 +80,7 @@ class CourseService {
         .toList();
   }
 
+  @override
   Future<List<CourseModel>> getCourses({
     required String query,
     required int page,
@@ -49,6 +101,7 @@ class CourseService {
         .toList();
   }
 
+  @override
   Future<CourseModel> getCourse({required String courseId}) async {
     final response = await apiProvider.get(
       '${UrlConstants.courses}/$courseId',
@@ -56,6 +109,7 @@ class CourseService {
     return CourseModel.fromJson(response?.data['data']);
   }
 
+  @override
   Future<bool> joinCourse({
     required String courseId,
     required String accessCode,
@@ -69,6 +123,7 @@ class CourseService {
     return response?.statusCode == 201;
   }
 
+  @override
   Future<bool> leaveCourse({
     required String courseId,
   }) async {
@@ -78,6 +133,7 @@ class CourseService {
     return response?.statusCode == StatusCodeConstants.code204;
   }
 
+  @override
   Future<String> createCourse({
     required String name,
     required String code,
@@ -96,6 +152,7 @@ class CourseService {
     return response?.data['data']['id'];
   }
 
+  @override
   Future<List<RankingModel>> getRankings({
     required String courseId,
     required int page,
@@ -114,6 +171,7 @@ class CourseService {
   }
 
   /// Manager delete course
+  @override
   Future<bool> deleteCourse({required String courseId}) async {
     final response =
         await apiProvider.delete('${UrlConstants.courses}/$courseId');
@@ -125,6 +183,7 @@ class CourseService {
     return false;
   }
 
+  @override
   Future<CourseModel> updateCourse({
     required String courseId,
     required String name,

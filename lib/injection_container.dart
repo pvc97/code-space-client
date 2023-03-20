@@ -19,7 +19,7 @@ import 'package:code_space_client/data/data_provider/local/local_storage_manager
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/data/data_provider/network/intercepters/auth_intercepter.dart';
 import 'package:code_space_client/data/data_provider/services/course_service.dart';
-import 'package:code_space_client/data/data_provider/services/language_service.dart';
+import 'package:code_space_client/data/data_provider/services/problem_language_service.dart';
 import 'package:code_space_client/data/data_provider/services/locale_service.dart';
 import 'package:code_space_client/data/data_provider/services/problem_service.dart';
 import 'package:code_space_client/data/data_provider/services/submission_service.dart';
@@ -27,7 +27,8 @@ import 'package:code_space_client/data/repositories/auth_repository.dart';
 import 'package:code_space_client/data/data_provider/services/auth_service.dart';
 import 'package:code_space_client/data/data_provider/services/user_service.dart';
 import 'package:code_space_client/data/repositories/course_repository.dart';
-import 'package:code_space_client/data/repositories/language_repository.dart';
+import 'package:code_space_client/data/repositories/problem_language_repository.dart';
+import 'package:code_space_client/data/repositories/locale_repository.dart';
 import 'package:code_space_client/data/repositories/problem_repository.dart';
 import 'package:code_space_client/data/repositories/submission_repository.dart';
 import 'package:code_space_client/data/repositories/user_repository.dart';
@@ -84,27 +85,27 @@ abstract class Di {
     );
 
     sl.registerLazySingleton<AuthService>(
-      () => AuthService(
+      () => AuthServiceImpl(
         apiProvider: sl(),
         localStorage: sl(),
       ),
     );
 
     sl.registerLazySingleton<AuthRepository>(
-      () => AuthRepository(authService: sl()),
+      () => AuthRepositoryImpl(authService: sl()),
     );
 
     sl.registerLazySingleton<AuthCubit>(() => AuthCubit(authRepository: sl()));
 
     sl.registerLazySingleton<UserService>(
-      () => UserService(
+      () => UserServiceImpl(
         apiProvider: sl(),
         localStorage: sl(),
       ),
     );
 
     sl.registerLazySingleton<UserRepository>(
-      () => UserRepository(userService: sl()),
+      () => UserRepositoryImpl(userService: sl()),
     );
 
     sl.registerLazySingleton<UserCubit>(
@@ -112,23 +113,23 @@ abstract class Di {
     );
 
     sl.registerLazySingleton<SubmissionService>(
-      () => SubmissionService(
+      () => SubmissionServiceImpl(
         apiProvider: sl(),
       ),
     );
 
     sl.registerLazySingleton<SubmissionRepository>(
-      () => SubmissionRepository(submissionService: sl()),
+      () => SubmissionRepositoryImpl(submissionService: sl()),
     );
 
     sl.registerLazySingleton<ProblemService>(
-      () => ProblemService(
+      () => ProblemServiceImpl(
         apiProvider: sl(),
       ),
     );
 
     sl.registerLazySingleton<ProblemRepository>(
-      () => ProblemRepository(problemService: sl()),
+      () => ProblemRepositoryImpl(problemService: sl()),
     );
 
     sl.registerFactory<ProblemCubit>(
@@ -143,23 +144,27 @@ abstract class Di {
     );
 
     sl.registerLazySingleton<LocaleService>(
-      () => LocaleService(localStorage: sl(), apiProvider: sl()),
+      () => LocaleServiceImpl(localStorage: sl(), apiProvider: sl()),
     );
 
-    final languageCode = await sl<LocaleService>().getLocaleCode();
+    sl.registerLazySingleton<LocaleRepository>(
+      () => LocaleRepositoryImpl(localeService: sl()),
+    );
+
+    final languageCode = await sl<LocaleRepository>().getLocaleCode();
     sl.registerLazySingleton<LocaleCubit>(
       () => LocaleCubit(
-        localeService: sl(),
+        localeRepository: sl(),
         initLanguage: languageCode.toLanguage,
       ),
     );
 
     sl.registerLazySingleton<CourseService>(
-      () => CourseService(apiProvider: sl()),
+      () => CourseServiceImpl(apiProvider: sl()),
     );
 
     sl.registerLazySingleton<CourseRepository>(
-      () => CourseRepository(courseService: sl()),
+      () => CourseRepositoryImpl(courseService: sl()),
     );
 
     sl.registerFactory<CourseDetailBloc>(
@@ -174,16 +179,20 @@ abstract class Di {
     sl.registerFactory<CreateCourseCubit>(
         () => CreateCourseCubit(userRepository: sl(), courseRepository: sl()));
 
-    sl.registerLazySingleton<LanguageService>(
-      () => LanguageService(apiProvider: sl()),
+    sl.registerLazySingleton<ProblemLanguageService>(
+      () => ProblemLanguageServiceImpl(apiProvider: sl()),
     );
 
-    sl.registerLazySingleton<LanguageRepository>(
-      () => LanguageRepository(languageService: sl()),
+    sl.registerLazySingleton<ProblemLanguageRepository>(
+      () => ProblemLanguageRepositoryImpl(problemLanguageService: sl()),
     );
 
-    sl.registerFactory<CreateProblemCubit>(() =>
-        CreateProblemCubit(languageRepository: sl(), problemRepository: sl()));
+    sl.registerFactory<CreateProblemCubit>(
+      () => CreateProblemCubit(
+        problemRepository: sl(),
+        problemLanguageRepository: sl(),
+      ),
+    );
 
     sl.registerFactory<RankingCubit>(
         () => RankingCubit(courseRepository: sl()));

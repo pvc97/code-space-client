@@ -2,13 +2,18 @@ import 'package:code_space_client/constants/url_constants.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/models/language_model.dart';
 
-class LanguageService {
+abstract class ProblemLanguageService {
+  Future<List<LanguageModel>> getLanguages();
+}
+
+class ProblemLanguageServiceImpl implements ProblemLanguageService {
   final ApiProvider apiProvider;
 
-  LanguageService({
+  ProblemLanguageServiceImpl({
     required this.apiProvider,
   });
 
+  @override
   Future<List<LanguageModel>> getLanguages() async {
     final response = await apiProvider.get(
       UrlConstants.languages,

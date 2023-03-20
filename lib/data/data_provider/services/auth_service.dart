@@ -9,15 +9,40 @@ import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/models/user_model.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
-class AuthService {
+abstract class AuthService {
+  Future<UserModel> login({
+    required String userName,
+    required String password,
+  });
+
+  Future<void> logout();
+
+  Future<void> saveUser(UserModel user);
+
+  Future<UserModel?> getLocalUser();
+
+  Future<TokenModel?> getLocalToken();
+
+  Future<bool> isLoggedIn();
+
+  Future<bool> registerStudent({
+    required String username,
+    required String fullName,
+    required String email,
+    required String password,
+  });
+}
+
+class AuthServiceImpl implements AuthService {
   final ApiProvider apiProvider;
   final LocalStorageManager localStorage;
 
-  AuthService({
+  AuthServiceImpl({
     required this.apiProvider,
     required this.localStorage,
   });
 
+  @override
   Future<UserModel> login({
     required String userName,
     required String password,
@@ -44,14 +69,17 @@ class AuthService {
     return user;
   }
 
+  @override
   Future<void> logout() =>
       localStorage.deleteAll(exceptKeys: SPrefKey.exceptKeys);
 
+  @override
   Future<void> saveUser(UserModel user) async {
     await localStorage.write<String>(
         SPrefKey.userModel, jsonEncode(user.toJson()));
   }
 
+  @override
   Future<UserModel?> getLocalUser() async {
     final userJson = await localStorage.read<String>(SPrefKey.userModel);
     if (userJson != null) {
@@ -60,6 +88,7 @@ class AuthService {
     return null;
   }
 
+  @override
   Future<TokenModel?> getLocalToken() async {
     final tokenJson = await localStorage.read<String>(SPrefKey.tokenModel);
     if (tokenJson != null) {
@@ -68,6 +97,7 @@ class AuthService {
     return null;
   }
 
+  @override
   Future<bool> isLoggedIn() async {
     final listData = await Future.wait([
       getLocalUser(),
@@ -80,6 +110,7 @@ class AuthService {
     return savedUser != null && savedToken != null;
   }
 
+  @override
   Future<bool> registerStudent({
     required String username,
     required String fullName,
