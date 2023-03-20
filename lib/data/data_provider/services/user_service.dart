@@ -8,18 +8,58 @@ import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/models/teacher_model.dart';
 import 'package:code_space_client/models/user_model.dart';
 
-class UserService {
+abstract class UserService {
+  Future<UserModel> fetchUserInfo({required String userId});
+  Future<UserModel?> getMe();
+  Future<void> saveUser(UserModel user);
+  Future<UserModel?> getLocalUser();
+  Future<List<TeacherModel>> getTeachers();
+  Future<List<UserModel>> getUsers({
+    required String query,
+    required int page,
+    required int limit,
+  });
+  Future<String> createUser({
+    required String username,
+    required String fullName,
+    required String email,
+    required String password,
+    required String role,
+  });
+  Future<bool> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  });
+  Future<UserModel> updateProfile({
+    required String userId,
+    required String fullName,
+    required String email,
+  });
+  Future<bool> resetPassword({
+    required String userId,
+    required String newPassword,
+  });
+  Future<bool> deleteUser({required String userId});
+  Future<UserModel> updateUser({
+    required String userId,
+    required String fullName,
+    required String email,
+  });
+}
+
+class UserServiceImpl implements UserService {
   final ApiProvider apiProvider;
   final LocalStorageManager localStorage;
 
   UserModel? me;
 
-  UserService({
+  UserServiceImpl({
     required this.apiProvider,
     required this.localStorage,
   });
 
   /// Fetch user info with id from server
+  @override
   Future<UserModel> fetchUserInfo({required String userId}) async {
     final response = await apiProvider.get('${UrlConstants.users}/$userId');
     return UserModel.fromJson(response?.data['data']);
@@ -28,6 +68,7 @@ class UserService {
   /// Get user cached user info
   /// If user is null, get user info from local storage
   /// Use cached user to improve performance :)
+  @override
   Future<UserModel?> getMe() async {
     if (me != null) {
       return me;
@@ -36,11 +77,13 @@ class UserService {
     return getLocalUser();
   }
 
+  @override
   Future<void> saveUser(UserModel user) async {
     await localStorage.write<String>(
         SPrefKey.userModel, jsonEncode(user.toJson()));
   }
 
+  @override
   Future<UserModel?> getLocalUser() async {
     final userJson = await localStorage.read<String>(SPrefKey.userModel);
     if (userJson != null) {
@@ -49,6 +92,7 @@ class UserService {
     return null;
   }
 
+  @override
   Future<List<TeacherModel>> getTeachers() async {
     final response = await apiProvider.get(
       UrlConstants.users,
@@ -61,6 +105,7 @@ class UserService {
     return teachers.map((e) => TeacherModel.fromJson(e)).toList();
   }
 
+  @override
   Future<List<UserModel>> getUsers({
     required String query,
     required int page,
@@ -80,6 +125,7 @@ class UserService {
     return users.map((e) => UserModel.fromJson(e)).toList();
   }
 
+  @override
   Future<String> createUser({
     required String username,
     required String fullName,
@@ -100,6 +146,7 @@ class UserService {
     return response?.data['data']['id'];
   }
 
+  @override
   Future<bool> changePassword({
     required String oldPassword,
     required String newPassword,
@@ -119,6 +166,7 @@ class UserService {
     return false;
   }
 
+  @override
   Future<UserModel> updateProfile({
     required String userId,
     required String fullName,
@@ -141,6 +189,7 @@ class UserService {
   }
 
   /// Manager reset password
+  @override
   Future<bool> resetPassword({
     required String userId,
     required String newPassword,
@@ -161,6 +210,7 @@ class UserService {
   }
 
   /// Manager delete user
+  @override
   Future<bool> deleteUser({required String userId}) async {
     final response = await apiProvider.delete('${UrlConstants.users}/$userId');
 
@@ -172,6 +222,7 @@ class UserService {
   }
 
   // Manager update user
+  @override
   Future<UserModel> updateUser({
     required String userId,
     required String fullName,
