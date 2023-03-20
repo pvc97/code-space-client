@@ -84,14 +84,14 @@ abstract class Di {
     );
 
     sl.registerLazySingleton<AuthService>(
-      () => AuthService(
+      () => AuthServiceImpl(
         apiProvider: sl(),
         localStorage: sl(),
       ),
     );
 
     sl.registerLazySingleton<AuthRepository>(
-      () => AuthRepository(authService: sl()),
+      () => AuthRepositoryImpl(authService: sl()),
     );
 
     sl.registerLazySingleton<AuthCubit>(() => AuthCubit(authRepository: sl()));
