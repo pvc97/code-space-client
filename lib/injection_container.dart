@@ -113,13 +113,13 @@ abstract class Di {
     );
 
     sl.registerLazySingleton<SubmissionService>(
-      () => SubmissionService(
+      () => SubmissionServiceImpl(
         apiProvider: sl(),
       ),
     );
 
     sl.registerLazySingleton<SubmissionRepository>(
-      () => SubmissionRepository(submissionService: sl()),
+      () => SubmissionRepositoryImpl(submissionService: sl()),
     );
 
     sl.registerLazySingleton<ProblemService>(
