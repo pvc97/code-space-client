@@ -175,11 +175,11 @@ abstract class Di {
         () => CreateCourseCubit(userRepository: sl(), courseRepository: sl()));
 
     sl.registerLazySingleton<LanguageService>(
-      () => LanguageService(apiProvider: sl()),
+      () => LanguageServiceImpl(apiProvider: sl()),
     );
 
     sl.registerLazySingleton<LanguageRepository>(
-      () => LanguageRepository(languageService: sl()),
+      () => LanguageRepositoryImpl(languageService: sl()),
     );
 
     sl.registerFactory<CreateProblemCubit>(() =>

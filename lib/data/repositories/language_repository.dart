@@ -2,13 +2,18 @@ import 'package:code_space_client/data/data_provider/services/language_service.d
 import 'package:code_space_client/models/language_model.dart';
 import 'package:code_space_client/utils/exception_parser.dart';
 
-class LanguageRepository {
+abstract class LanguageRepository {
+  Future<List<LanguageModel>> getLanguages();
+}
+
+class LanguageRepositoryImpl implements LanguageRepository {
   final LanguageService languageService;
 
-  LanguageRepository({
+  LanguageRepositoryImpl({
     required this.languageService,
   });
 
+  @override
   Future<List<LanguageModel>> getLanguages() async {
     try {
       final languages = await languageService.getLanguages();
