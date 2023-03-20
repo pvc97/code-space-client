@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:code_space_client/blocs/base/base_state.dart';
-import 'package:code_space_client/data/repositories/language_repository.dart';
+import 'package:code_space_client/data/repositories/problem_language_repository.dart';
 import 'package:code_space_client/data/repositories/problem_repository.dart';
 import 'package:code_space_client/models/app_exception.dart';
 import 'package:code_space_client/models/language_model.dart';
@@ -13,17 +13,17 @@ part 'create_problem_state.dart';
 
 class CreateProblemCubit extends Cubit<CreateProblemState> {
   final ProblemRepository problemRepository;
-  final LanguageRepository languageRepository;
+  final ProblemLanguageRepository problemLanguageRepository;
 
   CreateProblemCubit({
     required this.problemRepository,
-    required this.languageRepository,
+    required this.problemLanguageRepository,
   }) : super(CreateProblemState.initial());
 
   void getLanguages() async {
     try {
       emit(state.copyWith(stateStatus: StateStatus.loading));
-      final languages = await languageRepository.getLanguages();
+      final languages = await problemLanguageRepository.getLanguages();
       emit(state.copyWith(
         languages: languages,
         stateStatus: StateStatus.success,

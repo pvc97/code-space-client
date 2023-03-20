@@ -2,14 +2,14 @@ import 'package:code_space_client/constants/url_constants.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/models/language_model.dart';
 
-abstract class LanguageService {
+abstract class ProblemLanguageService {
   Future<List<LanguageModel>> getLanguages();
 }
 
-class LanguageServiceImpl implements LanguageService {
+class ProblemLanguageServiceImpl implements ProblemLanguageService {
   final ApiProvider apiProvider;
 
-  LanguageServiceImpl({
+  ProblemLanguageServiceImpl({
     required this.apiProvider,
   });
 
