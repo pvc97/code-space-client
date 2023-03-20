@@ -3,20 +3,27 @@ import 'package:code_space_client/data/data_provider/local/local_storage_manager
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/models/languages.dart';
 
-class LocaleService {
+abstract class LocaleService {
+  Future<bool> saveLocaleCode(String code);
+  Future<String> getLocaleCode();
+}
+
+class LocaleServiceImpl implements LocaleService {
   final LocalStorageManager localStorage;
   final ApiProvider apiProvider;
 
-  LocaleService({
+  LocaleServiceImpl({
     required this.localStorage,
     required this.apiProvider,
   });
 
+  @override
   Future<bool> saveLocaleCode(String code) {
     apiProvider.setLocale(code);
     return localStorage.write<String>(SPrefKey.localeCode, code);
   }
 
+  @override
   Future<String> getLocaleCode() async {
     final String code =
         (await localStorage.read<String>(SPrefKey.localeCode)) ??

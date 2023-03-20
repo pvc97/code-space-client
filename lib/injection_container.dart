@@ -28,6 +28,7 @@ import 'package:code_space_client/data/data_provider/services/auth_service.dart'
 import 'package:code_space_client/data/data_provider/services/user_service.dart';
 import 'package:code_space_client/data/repositories/course_repository.dart';
 import 'package:code_space_client/data/repositories/language_repository.dart';
+import 'package:code_space_client/data/repositories/locale_repository.dart';
 import 'package:code_space_client/data/repositories/problem_repository.dart';
 import 'package:code_space_client/data/repositories/submission_repository.dart';
 import 'package:code_space_client/data/repositories/user_repository.dart';
@@ -143,13 +144,17 @@ abstract class Di {
     );
 
     sl.registerLazySingleton<LocaleService>(
-      () => LocaleService(localStorage: sl(), apiProvider: sl()),
+      () => LocaleServiceImpl(localStorage: sl(), apiProvider: sl()),
     );
 
-    final languageCode = await sl<LocaleService>().getLocaleCode();
+    sl.registerLazySingleton<LocaleRepository>(
+      () => LocaleRepositoryImpl(localeService: sl()),
+    );
+
+    final languageCode = await sl<LocaleRepository>().getLocaleCode();
     sl.registerLazySingleton<LocaleCubit>(
       () => LocaleCubit(
-        localeService: sl(),
+        localeRepository: sl(),
         initLanguage: languageCode.toLanguage,
       ),
     );
