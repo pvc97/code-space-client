@@ -155,11 +155,11 @@ abstract class Di {
     );
 
     sl.registerLazySingleton<CourseService>(
-      () => CourseService(apiProvider: sl()),
+      () => CourseServiceImpl(apiProvider: sl()),
     );
 
     sl.registerLazySingleton<CourseRepository>(
-      () => CourseRepository(courseService: sl()),
+      () => CourseRepositoryImpl(courseService: sl()),
     );
 
     sl.registerFactory<CourseDetailBloc>(
