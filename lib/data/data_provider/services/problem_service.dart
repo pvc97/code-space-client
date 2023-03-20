@@ -3,6 +3,7 @@ import 'package:code_space_client/constants/status_code_constants.dart';
 import 'package:code_space_client/constants/url_constants.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/models/problem_detail_model.dart';
+import 'package:code_space_client/models/problem_model.dart';
 import 'package:code_space_client/models/test_case_model.dart';
 import 'package:dio/dio.dart';
 
@@ -19,6 +20,18 @@ abstract class ProblemService {
   });
 
   Future<bool> deleteProblem({required String problemId});
+
+  Future<ProblemModel> updateProblem({
+    required String problemId,
+    required String courseId,
+    required String? name,
+    required int? pointPerTestCase,
+    required int? languageId,
+    required Iterable<TestCaseModel>? testCases,
+    required MultipartFile? file,
+    bool pdfDeleteSubmission = false,
+    // When update pdf file, I can choose delete all submission or not
+  });
 }
 
 class ProblemServiceImpl implements ProblemService {
@@ -72,5 +85,50 @@ class ProblemServiceImpl implements ProblemService {
     }
 
     return false;
+  }
+
+  @override
+  Future<ProblemModel> updateProblem({
+    required String problemId,
+    required String courseId,
+    required String? name,
+    required int? pointPerTestCase,
+    required int? languageId,
+    required Iterable<TestCaseModel>? testCases,
+    required MultipartFile? file,
+    bool pdfDeleteSubmission = false,
+  }) async {
+    final body = <String, dynamic>{
+      'courseId': courseId,
+    };
+
+    if (name != null) {
+      body['name'] = name;
+    }
+
+    if (pointPerTestCase != null) {
+      body['pointPerTestCase'] = pointPerTestCase;
+    }
+
+    if (languageId != null) {
+      body['languageId'] = languageId;
+    }
+
+    if (testCases != null) {
+      body['testCases'] = jsonEncode(testCases.map((e) => e.toJson()).toList());
+    }
+
+    if (file != null) {
+      body['pdfFile'] = file;
+      body['pdfDeleteSubmission'] = pdfDeleteSubmission;
+    }
+
+    final formData = FormData.fromMap(body);
+
+    final response = await apiProvider.put(
+      '${UrlConstants.problems}/$problemId',
+      params: formData,
+    );
+    return ProblemModel.fromJson(response?.data['data']);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:code_space_client/data/data_provider/services/problem_service.dart';
 import 'package:code_space_client/models/problem_detail_model.dart';
+import 'package:code_space_client/models/problem_model.dart';
 import 'package:code_space_client/models/test_case_model.dart';
 import 'package:code_space_client/utils/exception_parser.dart';
 import 'package:dio/dio.dart';
@@ -17,6 +18,18 @@ abstract class ProblemRepository {
   });
 
   Future<bool> deleteProblem({required String problemId});
+
+  Future<ProblemModel> updateProblem({
+    required String problemId,
+    required String courseId,
+    required String? name,
+    required int? pointPerTestCase,
+    required int? languageId,
+    required Iterable<TestCaseModel>? testCases,
+    required MultipartFile? file,
+    bool pdfDeleteSubmission = false,
+    // When update pdf file, I can choose delete all submission or not
+  });
 }
 
 class ProblemRepositoryImpl implements ProblemRepository {
@@ -66,6 +79,33 @@ class ProblemRepositoryImpl implements ProblemRepository {
     try {
       final success = await problemService.deleteProblem(problemId: problemId);
       return success;
+    } catch (e) {
+      throw ExceptionParser.parse(e);
+    }
+  }
+
+  @override
+  Future<ProblemModel> updateProblem({
+    required String problemId,
+    required String courseId,
+    required String? name,
+    required int? pointPerTestCase,
+    required int? languageId,
+    required Iterable<TestCaseModel>? testCases,
+    required MultipartFile? file,
+    bool pdfDeleteSubmission = false,
+  }) async {
+    try {
+      final problem = await problemService.updateProblem(
+        problemId: problemId,
+        courseId: courseId,
+        name: name,
+        pointPerTestCase: pointPerTestCase,
+        languageId: languageId,
+        testCases: testCases,
+        file: file,
+      );
+      return problem;
     } catch (e) {
       throw ExceptionParser.parse(e);
     }
