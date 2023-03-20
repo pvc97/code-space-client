@@ -4,11 +4,27 @@ import 'package:code_space_client/models/test_case_model.dart';
 import 'package:code_space_client/utils/exception_parser.dart';
 import 'package:dio/dio.dart';
 
-class ProblemRepository {
+abstract class ProblemRepository {
+  Future<ProblemDetailModel> getProblemDetail(String problemId);
+
+  Future<String> createProblem({
+    required String name,
+    required int pointPerTestCase,
+    required String courseId,
+    required int languageId,
+    required Iterable<TestCaseModel> testCases,
+    required MultipartFile file,
+  });
+
+  Future<bool> deleteProblem({required String problemId});
+}
+
+class ProblemRepositoryImpl implements ProblemRepository {
   final ProblemService problemService;
 
-  ProblemRepository({required this.problemService});
+  ProblemRepositoryImpl({required this.problemService});
 
+  @override
   Future<ProblemDetailModel> getProblemDetail(String problemId) async {
     try {
       final problemDetail = await problemService.getProblemDetail(problemId);
@@ -19,6 +35,7 @@ class ProblemRepository {
     }
   }
 
+  @override
   Future<String> createProblem({
     required String name,
     required int pointPerTestCase,
@@ -44,6 +61,7 @@ class ProblemRepository {
   }
 
   /// Teacher delete problem
+  @override
   Future<bool> deleteProblem({required String problemId}) async {
     try {
       final success = await problemService.deleteProblem(problemId: problemId);

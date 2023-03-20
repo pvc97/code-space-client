@@ -123,13 +123,13 @@ abstract class Di {
     );
 
     sl.registerLazySingleton<ProblemService>(
-      () => ProblemService(
+      () => ProblemServiceImpl(
         apiProvider: sl(),
       ),
     );
 
     sl.registerLazySingleton<ProblemRepository>(
-      () => ProblemRepository(problemService: sl()),
+      () => ProblemRepositoryImpl(problemService: sl()),
     );
 
     sl.registerFactory<ProblemCubit>(
