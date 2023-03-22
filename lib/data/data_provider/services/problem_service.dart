@@ -24,11 +24,11 @@ abstract class ProblemService {
   Future<ProblemModel> updateProblem({
     required String problemId,
     required String courseId,
-    required String? name,
-    required int? pointPerTestCase,
-    required int? languageId,
-    required Iterable<TestCaseModel>? testCases,
-    required MultipartFile? file,
+    String? name,
+    int? pointPerTestCase,
+    int? languageId,
+    Iterable<TestCaseModel>? testCases,
+    MultipartFile? file,
     bool pdfDeleteSubmission = false,
     // When update pdf file, I can choose delete all submission or not
   });
@@ -91,11 +91,11 @@ class ProblemServiceImpl implements ProblemService {
   Future<ProblemModel> updateProblem({
     required String problemId,
     required String courseId,
-    required String? name,
-    required int? pointPerTestCase,
-    required int? languageId,
-    required Iterable<TestCaseModel>? testCases,
-    required MultipartFile? file,
+    String? name,
+    int? pointPerTestCase,
+    int? languageId,
+    Iterable<TestCaseModel>? testCases,
+    MultipartFile? file,
     bool pdfDeleteSubmission = false,
   }) async {
     final body = <String, dynamic>{
