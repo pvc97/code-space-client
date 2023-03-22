@@ -290,6 +290,7 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                               child: ProblemItemWidget(
                                 user: user,
                                 problem: problem,
+                                courseId: widget.courseId,
                                 onDelete: () {
                                   context
                                       .read<CourseDetailBloc>()

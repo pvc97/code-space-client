@@ -18,6 +18,7 @@ import 'package:code_space_client/presentation/reset_password/reset_password_scr
 import 'package:code_space_client/presentation/setting/setting_screen.dart';
 import 'package:code_space_client/presentation/update_account/update_account_screen.dart';
 import 'package:code_space_client/presentation/update_course/update_course_screen.dart';
+import 'package:code_space_client/presentation/update_problem/update_problem_screen.dart';
 import 'package:code_space_client/router/adaptive_transition_page.dart';
 import 'package:code_space_client/router/go_router_refresh_stream.dart';
 import 'package:code_space_client/presentation/auth/login_screen.dart';
@@ -44,6 +45,7 @@ enum AppRoute {
   changePassword,
   updateAccount,
   updateCourse,
+  updateProblem,
 }
 
 // NOTE: All screen wrap by ShellRoute don't need to use bottom navigation bar
@@ -155,6 +157,19 @@ final GoRouter router = GoRouter(
                     );
                   },
                   routes: [
+                    GoRoute(
+                      path: 'update',
+                      name: AppRoute.updateProblem.name,
+                      parentNavigatorKey: _rootNavigatorKey,
+                      pageBuilder: (context, state) {
+                        return AdaptiveTransitionPage.create(
+                          state.pageKey,
+                          child: UpdateProblemScreen(
+                            problemId: state.params['problemId'] ?? '',
+                          ),
+                        );
+                      },
+                    ),
                     GoRoute(
                       path: 'submit/:submitId',
                       name: AppRoute.problemResult.name,

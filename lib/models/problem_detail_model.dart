@@ -1,4 +1,5 @@
 import 'package:code_space_client/models/language_model.dart';
+import 'package:code_space_client/models/test_case_model.dart';
 
 import 'package:json_annotation/json_annotation.dart';
 
@@ -15,8 +16,10 @@ class ProblemDetailModel {
   final DateTime updatedAt;
   final LanguageModel language;
   final int numberOfTestCases;
+  final List<TestCaseModel>? testCases;
 
   ProblemDetailModel({
+    this.testCases,
     required this.id,
     required this.name,
     required this.pdfPath,
