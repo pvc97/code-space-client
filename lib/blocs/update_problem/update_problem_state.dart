@@ -96,6 +96,8 @@ class UpdateProblemState extends BaseState {
   }
 
   bool get isLoading =>
+      stateStatus == StateStatus.initial ||
+      getLanguagesStatus == StateStatus.initial ||
       stateStatus == StateStatus.loading ||
       updateStatus == StateStatus.loading ||
       getLanguagesStatus == StateStatus.loading;

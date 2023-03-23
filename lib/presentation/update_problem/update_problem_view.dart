@@ -380,6 +380,9 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
                   ),
                   Box.h16,
                   BlocBuilder<UpdateProblemCubit, UpdateProblemState>(
+                    buildWhen: (previous, current) {
+                      return previous.isLoading != current.isLoading;
+                    },
                     builder: (context, state) {
                       return FractionallySizedBox(
                         widthFactor: 0.7,
