@@ -290,13 +290,23 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                               child: ProblemItemWidget(
                                 user: user,
                                 problem: problem,
-                                courseId: widget.courseId,
                                 onDelete: () {
-                                  context
-                                      .read<CourseDetailBloc>()
-                                      .add(CourseDetailDeleteProblemEvent(
-                                        problemId: problem.id,
-                                      ));
+                                  context.read<CourseDetailBloc>().add(
+                                        CourseDetailDeleteProblemEvent(
+                                          problemId: problem.id,
+                                        ),
+                                      );
+                                },
+                                onUpdate: () {
+                                  context.goNamed(
+                                    AppRoute.updateProblem.name,
+                                    params: {
+                                      'problemId': problem.id,
+                                      'courseId': widget.courseId,
+                                    },
+                                    queryParams:
+                                        widget.me ? {'me': 'true'} : {},
+                                  );
                                 },
                               ),
                             );

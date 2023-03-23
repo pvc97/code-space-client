@@ -143,6 +143,19 @@ final GoRouter router = GoRouter(
                   },
                 ),
                 GoRoute(
+                  path: 'update/:problemId',
+                  name: AppRoute.updateProblem.name,
+                  parentNavigatorKey: _rootNavigatorKey,
+                  pageBuilder: (context, state) {
+                    return AdaptiveTransitionPage.create(
+                      state.pageKey,
+                      child: UpdateProblemScreen(
+                        problemId: state.params['problemId'] ?? '',
+                      ),
+                    );
+                  },
+                ),
+                GoRoute(
                   path: 'problem/:problemId',
                   name: AppRoute.problem.name,
                   parentNavigatorKey: _rootNavigatorKey,
@@ -157,19 +170,6 @@ final GoRouter router = GoRouter(
                     );
                   },
                   routes: [
-                    GoRoute(
-                      path: 'update',
-                      name: AppRoute.updateProblem.name,
-                      parentNavigatorKey: _rootNavigatorKey,
-                      pageBuilder: (context, state) {
-                        return AdaptiveTransitionPage.create(
-                          state.pageKey,
-                          child: UpdateProblemScreen(
-                            problemId: state.params['problemId'] ?? '',
-                          ),
-                        );
-                      },
-                    ),
                     GoRoute(
                       path: 'submit/:submitId',
                       name: AppRoute.problemResult.name,
