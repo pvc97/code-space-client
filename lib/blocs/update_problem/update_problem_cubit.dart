@@ -26,6 +26,7 @@ class UpdateProblemCubit extends Cubit<UpdateProblemState> {
       final problem = await problemRepository.getProblemDetail(problemId);
       emit(state.copyWith(
         problemDetail: problem,
+        currentTestCases: problem.testCases ?? {},
         stateStatus: StateStatus.success,
       ));
     } on AppException catch (e) {

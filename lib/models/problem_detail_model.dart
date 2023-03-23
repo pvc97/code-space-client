@@ -16,7 +16,7 @@ class ProblemDetailModel {
   final DateTime updatedAt;
   final LanguageModel language;
   final int numberOfTestCases;
-  final List<TestCaseModel>? testCases;
+  final Set<TestCaseModel>? testCases;
 
   ProblemDetailModel({
     this.testCases,

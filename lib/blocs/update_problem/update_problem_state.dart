@@ -13,7 +13,10 @@ class UpdateProblemState extends BaseState {
   final String? newName;
   final int? newPointPerTestCase;
   final String? newLanguageId;
-  final Iterable<TestCaseModel>? newTestCases;
+  final Set<TestCaseModel> currentTestCases;
+  // currentTestCases contains all test cases from server and new test cases from user
+  // user can add new test cases and delete test cases
+
   final MultipartFile? newPdfFile;
 
   // State status
@@ -30,10 +33,10 @@ class UpdateProblemState extends BaseState {
     required this.selectingPdf,
     required this.updateStatus,
     required this.getLanguagesStatus,
+    required this.currentTestCases,
     this.newName,
     this.newPointPerTestCase,
     this.newLanguageId,
-    this.newTestCases,
     this.newPdfFile,
     required super.stateStatus,
     super.error,
@@ -42,6 +45,7 @@ class UpdateProblemState extends BaseState {
   factory UpdateProblemState.initial() {
     return const UpdateProblemState(
       languages: [],
+      currentTestCases: {},
       selectingPdf: false,
       updateStatus: StateStatus.initial,
       getLanguagesStatus: StateStatus.initial,
@@ -61,7 +65,7 @@ class UpdateProblemState extends BaseState {
         getLanguagesStatus,
         newPointPerTestCase,
         newLanguageId,
-        newTestCases,
+        currentTestCases,
         newPdfFile,
       ];
 
@@ -74,7 +78,7 @@ class UpdateProblemState extends BaseState {
     String? newName,
     int? newPointPerTestCase,
     String? newLanguageId,
-    Iterable<TestCaseModel>? newTestCases,
+    Set<TestCaseModel>? currentTestCases,
     MultipartFile? newPdfFile,
     StateStatus? updateStatus,
     StateStatus? getLanguagesStatus,
@@ -88,7 +92,7 @@ class UpdateProblemState extends BaseState {
       newName: newName ?? this.newName,
       newPointPerTestCase: newPointPerTestCase ?? this.newPointPerTestCase,
       newLanguageId: newLanguageId ?? this.newLanguageId,
-      newTestCases: newTestCases ?? this.newTestCases,
+      currentTestCases: currentTestCases ?? this.currentTestCases,
       newPdfFile: newPdfFile ?? this.newPdfFile,
       updateStatus: updateStatus ?? this.updateStatus,
       getLanguagesStatus: getLanguagesStatus ?? this.getLanguagesStatus,

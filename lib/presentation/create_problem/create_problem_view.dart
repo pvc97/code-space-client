@@ -170,9 +170,9 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                     BlocSelector<CreateProblemCubit, CreateProblemState,
                         Iterable<LanguageModel>>(
                       selector: (state) => state.languages,
-                      builder: (context, teachers) {
+                      builder: (context, languages) {
                         return SearchDropdownButton(
-                          items: teachers,
+                          items: languages,
                           hint: S.of(context).select_languages,
                           searchHint: S.of(context).enter_name_of_language,
                           textEditingController: _searchLanguageController,
