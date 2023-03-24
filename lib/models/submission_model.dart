@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:code_space_client/models/submission_result_model.dart';
@@ -5,13 +6,13 @@ import 'package:code_space_client/models/submission_result_model.dart';
 part 'submission_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class SubmissionModel {
+class SubmissionModel extends Equatable {
   final String id;
   final String sourceCode;
   final int totalPoints;
   final List<SubmissionResultModel> results;
 
-  SubmissionModel(
+  const SubmissionModel(
     this.id,
     this.sourceCode,
     this.totalPoints,
@@ -22,4 +23,7 @@ class SubmissionModel {
       _$SubmissionModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$SubmissionModelToJson(this);
+
+  @override
+  List<Object> get props => [id, sourceCode, totalPoints, results];
 }
