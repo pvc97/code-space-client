@@ -75,4 +75,15 @@ class UpdateProblemCubit extends Cubit<UpdateProblemState> {
     newTestCases.removeAt(index);
     emit(state.copyWith(currentTestCases: newTestCases.toSet()));
   }
+
+  void setSelectingPdf(bool selecting) {
+    emit(state.copyWith(selectingPdf: selecting));
+  }
+
+  void updatePdfPath(MultipartFile? file) {
+    emit(state.copyWith(
+      newPdfFile: file,
+      selectingPdf: false,
+    ));
+  }
 }

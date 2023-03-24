@@ -80,7 +80,7 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
 
   void _selectPdf() async {
     if (mounted) {
-      // context.read<CreateProblemCubit>().setSelectingPdf(true);
+      context.read<UpdateProblemCubit>().setSelectingPdf(true);
     }
 
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -103,11 +103,11 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
 
       // If screen is not mounted, do not update state
       if (mounted) {
-        // context.read<CreateProblemCubit>().updatePdfPath(file);
+        context.read<UpdateProblemCubit>().updatePdfPath(file);
       }
     } else {
       if (mounted) {
-        // context.read<CreateProblemCubit>().setSelectingPdf(false);
+        context.read<UpdateProblemCubit>().setSelectingPdf(false);
       }
     }
   }
