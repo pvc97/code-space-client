@@ -141,7 +141,7 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
         unfocusOnTap: true,
         appBar: AdaptiveAppBar(
           context: context,
-          title: Text(S.of(context).create_new_problem),
+          title: Text(S.of(context).update_problem),
         ),
         body: Form(
           key: _formKey,
@@ -435,7 +435,7 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
                           widthFactor: 0.7,
                           child: AppElevatedButton(
                             onPressed: state.isLoading ? null : _submit,
-                            text: S.of(context).create,
+                            text: S.of(context).update,
                           ),
                         );
                       },

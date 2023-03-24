@@ -209,6 +209,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "update_course": MessageLookupByLibrary.simpleMessage("Update course"),
         "update_course_successfully":
             MessageLookupByLibrary.simpleMessage("Update course successfully"),
+        "update_problem":
+            MessageLookupByLibrary.simpleMessage("Update problem"),
         "user_list": MessageLookupByLibrary.simpleMessage("User list"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),
         "username_cannot_be_empty":

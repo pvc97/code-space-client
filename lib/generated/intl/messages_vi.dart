@@ -209,6 +209,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Cập nhật lớp học"),
         "update_course_successfully":
             MessageLookupByLibrary.simpleMessage("Cập nhật lớp học thành công"),
+        "update_problem":
+            MessageLookupByLibrary.simpleMessage("Cập nhật bài tập"),
         "user_list":
             MessageLookupByLibrary.simpleMessage("Danh sách tài khoản"),
         "username": MessageLookupByLibrary.simpleMessage("Tài khoản"),

@@ -1289,6 +1289,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Update problem`
+  String get update_problem {
+    return Intl.message(
+      'Update problem',
+      name: 'update_problem',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
