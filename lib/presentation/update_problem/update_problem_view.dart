@@ -48,8 +48,8 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final cubit = context.read<UpdateProblemCubit>();
-      cubit.getLanguages();
       cubit.getProblem(widget.problemId);
+      cubit.getLanguages();
     });
   }
 
@@ -164,10 +164,8 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
                       },
                       builder: (context, state) {
                         final languages = state.languages;
-
-                        // TODO: Fix initial value
                         return SearchDropdownButton(
-                          // initialValue: state.problemDetail?.language,
+                          initialValue: state.problemDetail?.language,
                           items: languages,
                           hint: S.of(context).select_languages,
                           searchHint: S.of(context).enter_name_of_language,
