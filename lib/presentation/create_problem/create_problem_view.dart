@@ -350,6 +350,20 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                                                     _stdinController,
                                                 expectedOutputController:
                                                     _expectedOutputController,
+                                                onAddTestCase: (testCase) {
+                                                  context
+                                                      .read<
+                                                          CreateProblemCubit>()
+                                                      .addTestCase(testCase);
+                                                },
+                                                onEditTestCase:
+                                                    (index, testCase) {
+                                                  context
+                                                      .read<
+                                                          CreateProblemCubit>()
+                                                      .editTestCase(
+                                                          index, testCase);
+                                                },
                                               );
                                             },
                                             icon: Icon(

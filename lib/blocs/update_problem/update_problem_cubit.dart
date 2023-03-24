@@ -56,4 +56,23 @@ class UpdateProblemCubit extends Cubit<UpdateProblemState> {
       );
     }
   }
+
+  void addTestCase(TestCaseModel testCase) {
+    final newTestCases = {testCase, ...state.currentTestCases};
+    emit(state.copyWith(currentTestCases: newTestCases));
+  }
+
+  void editTestCase(int index, TestCaseModel testCase) {
+    final newTestCases = state.currentTestCases.toList();
+
+    newTestCases[index] = testCase;
+
+    emit(state.copyWith(currentTestCases: newTestCases.toSet()));
+  }
+
+  void removeTestCase(int index) {
+    final newTestCases = state.currentTestCases.toList();
+    newTestCases.removeAt(index);
+    emit(state.copyWith(currentTestCases: newTestCases.toSet()));
+  }
 }

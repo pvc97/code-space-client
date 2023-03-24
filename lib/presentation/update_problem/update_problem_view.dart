@@ -251,6 +251,16 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
                                     stdinController: _stdinController,
                                     expectedOutputController:
                                         _expectedOutputController,
+                                    onAddTestCase: (testCase) {
+                                      context
+                                          .read<UpdateProblemCubit>()
+                                          .addTestCase(testCase);
+                                    },
+                                    onEditTestCase: ((index, testCase) {
+                                      context
+                                          .read<UpdateProblemCubit>()
+                                          .editTestCase(index, testCase);
+                                    }),
                                   );
                                 },
                                 child: Text(S.of(context).add_test_case),
@@ -258,10 +268,10 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
                             ],
                           ),
                           BlocSelector<UpdateProblemCubit, UpdateProblemState,
-                              Iterable<TestCaseModel>?>(
-                            selector: (state) => state.problemDetail?.testCases,
+                              Iterable<TestCaseModel>>(
+                            selector: (state) => state.currentTestCases,
                             builder: (context, testCases) {
-                              if (testCases == null || testCases.isEmpty) {
+                              if (testCases.isEmpty) {
                                 return Box.shrink;
                               }
                               return const Divider();
@@ -360,9 +370,9 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
                                           ),
                                           IconButton(
                                             onPressed: () {
-                                              // context
-                                              //     .read<CreateProblemCubit>()
-                                              //     .removeTestCase(index);
+                                              context
+                                                  .read<UpdateProblemCubit>()
+                                                  .removeTestCase(index);
                                             },
                                             icon: const Icon(
                                               Icons.delete,

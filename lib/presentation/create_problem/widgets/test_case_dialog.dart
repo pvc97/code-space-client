@@ -1,9 +1,7 @@
-import 'package:code_space_client/blocs/create_problem/create_problem_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/test_case_model.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 abstract class TestCaseAction {
@@ -28,9 +26,9 @@ void showTestCaseDialog({
   required TestCaseAction action,
   required TextEditingController stdinController,
   required TextEditingController expectedOutputController,
+  Function(TestCaseModel testCase)? onAddTestCase,
+  Function(int index, TestCaseModel testCase)? onEditTestCase,
 }) {
-  final CreateProblemCubit cubit = ctx.read<CreateProblemCubit>();
-
   bool showTestCase = false;
 
   if (action is EditTestCaseAction) {
@@ -110,7 +108,7 @@ void showTestCaseDialog({
               }
 
               if (action is AddTestCaseAction) {
-                cubit.addTestCase(
+                onAddTestCase?.call(
                   TestCaseModel(
                     stdin: stdin,
                     expectedOutput: expectedOutput,
@@ -118,7 +116,7 @@ void showTestCaseDialog({
                   ),
                 );
               } else if (action is EditTestCaseAction) {
-                cubit.editTestCase(
+                onEditTestCase?.call(
                   action.index,
                   TestCaseModel(
                     stdin: stdin,
