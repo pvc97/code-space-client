@@ -134,6 +134,7 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
             final problem = state.problemDetail!;
             _problemNameController.text = problem.name;
             _probemPointController.text = problem.pointPerTestCase.toString();
+            _selectedLanguage = problem.language;
           },
         ),
       ],
@@ -165,7 +166,7 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
                       builder: (context, state) {
                         final languages = state.languages;
                         return SearchDropdownButton(
-                          initialValue: state.problemDetail?.language,
+                          initialValue: _selectedLanguage,
                           items: languages,
                           hint: S.of(context).select_languages,
                           searchHint: S.of(context).enter_name_of_language,
@@ -247,20 +248,16 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
                                 onPressed: () {
                                   showTestCaseDialog(
                                     ctx: context,
-                                    action: const AddTestCaseAction(),
+                                    action: AddTestCaseAction(
+                                      onAddTestCase: (testCase) {
+                                        context
+                                            .read<UpdateProblemCubit>()
+                                            .addTestCase(testCase);
+                                      },
+                                    ),
                                     stdinController: _stdinController,
                                     expectedOutputController:
                                         _expectedOutputController,
-                                    onAddTestCase: (testCase) {
-                                      context
-                                          .read<UpdateProblemCubit>()
-                                          .addTestCase(testCase);
-                                    },
-                                    onEditTestCase: ((index, testCase) {
-                                      context
-                                          .read<UpdateProblemCubit>()
-                                          .editTestCase(index, testCase);
-                                    }),
                                   );
                                 },
                                 child: Text(S.of(context).add_test_case),
@@ -356,6 +353,14 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
                                                 action: EditTestCaseAction(
                                                   index: index,
                                                   testCase: testCase,
+                                                  onEditTestCase:
+                                                      (index, testCase) {
+                                                    context
+                                                        .read<
+                                                            UpdateProblemCubit>()
+                                                        .editTestCase(
+                                                            index, testCase);
+                                                  },
                                                 ),
                                                 stdinController:
                                                     _stdinController,
@@ -427,14 +432,14 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
                     ),
                     Box.h16,
                     BlocBuilder<UpdateProblemCubit, UpdateProblemState>(
-                      buildWhen: (previous, current) {
-                        return previous.isLoading != current.isLoading;
-                      },
                       builder: (context, state) {
                         return FractionallySizedBox(
                           widthFactor: 0.7,
                           child: AppElevatedButton(
-                            onPressed: state.isLoading ? null : _submit,
+                            onPressed: (state.isLoading ||
+                                    state.currentTestCases.isEmpty)
+                                ? null
+                                : _submit,
                             text: S.of(context).update,
                           ),
                         );

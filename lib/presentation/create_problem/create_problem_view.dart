@@ -251,7 +251,12 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                                 onPressed: () {
                                   showTestCaseDialog(
                                     ctx: context,
-                                    action: const AddTestCaseAction(),
+                                    action: AddTestCaseAction(
+                                        onAddTestCase: (testCase) {
+                                      context
+                                          .read<CreateProblemCubit>()
+                                          .addTestCase(testCase);
+                                    }),
                                     stdinController: _stdinController,
                                     expectedOutputController:
                                         _expectedOutputController,
@@ -345,25 +350,19 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                                                 action: EditTestCaseAction(
                                                   index: index,
                                                   testCase: testCase,
+                                                  onEditTestCase:
+                                                      (index, testCase) {
+                                                    context
+                                                        .read<
+                                                            CreateProblemCubit>()
+                                                        .editTestCase(
+                                                            index, testCase);
+                                                  },
                                                 ),
                                                 stdinController:
                                                     _stdinController,
                                                 expectedOutputController:
                                                     _expectedOutputController,
-                                                onAddTestCase: (testCase) {
-                                                  context
-                                                      .read<
-                                                          CreateProblemCubit>()
-                                                      .addTestCase(testCase);
-                                                },
-                                                onEditTestCase:
-                                                    (index, testCase) {
-                                                  context
-                                                      .read<
-                                                          CreateProblemCubit>()
-                                                      .editTestCase(
-                                                          index, testCase);
-                                                },
                                               );
                                             },
                                             icon: Icon(
@@ -430,9 +429,9 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                         return FractionallySizedBox(
                           widthFactor: 0.7,
                           child: AppElevatedButton(
-                            onPressed: (testCases.isNotEmpty && pdfPath != null)
-                                ? _submit
-                                : null,
+                            onPressed: (testCases.isEmpty || pdfPath == null)
+                                ? null
+                                : _submit,
                             text: S.of(context).create,
                           ),
                         );
