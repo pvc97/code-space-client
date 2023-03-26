@@ -1,3 +1,5 @@
+import 'package:code_space_client/generated/l10n.dart';
+import 'package:code_space_client/router/app_router.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -85,5 +87,31 @@ class UpdateProblemCubit extends Cubit<UpdateProblemState> {
       newPdfFile: file,
       selectingPdf: false,
     ));
+  }
+
+  void updateProblem() async {
+    try {
+      emit(state.copyWith(updateStatus: StateStatus.loading));
+      // // final languages = await problemLanguageRepository.getLanguages();
+
+      // // final testCases = {
+      // //   ...state.currentTestCases,
+      // //   ...?state.problemDetail?.testCases
+      // // };
+
+      // // if (testCases.length == state.currentTestCases.length)
+
+      // emit(state.copyWith(
+      //   updateStatus: StateStatus.success,
+      // ));
+      throw AppException(message: S.of(AppRouter.context).accounts);
+    } on AppException catch (e) {
+      emit(
+        state.copyWith(
+          error: e,
+          updateStatus: StateStatus.error,
+        ),
+      );
+    }
   }
 }

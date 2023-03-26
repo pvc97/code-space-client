@@ -128,9 +128,9 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
           debugShowCheckedModeBanner: false,
-          routeInformationParser: router.routeInformationParser,
-          routerDelegate: router.routerDelegate,
-          routeInformationProvider: router.routeInformationProvider,
+          routeInformationParser: AppRouter.router.routeInformationParser,
+          routerDelegate: AppRouter.router.routerDelegate,
+          routeInformationProvider: AppRouter.router.routeInformationProvider,
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,

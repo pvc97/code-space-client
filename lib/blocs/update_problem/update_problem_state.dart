@@ -24,7 +24,7 @@ class UpdateProblemState extends BaseState {
   final StateStatus getLanguagesStatus;
 
   // final StateStatus getProblemDetailStatus;
-  // I don't use getProblemDetailStatus because I use base state status from parent class
+  // I don't use getProblemDetailStatus because I use base "stateStatus" from parent class
   // for get problem detail status
 
   const UpdateProblemState({

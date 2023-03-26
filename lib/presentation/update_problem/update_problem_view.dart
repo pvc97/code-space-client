@@ -1,3 +1,4 @@
+import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -76,6 +77,8 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
     //       courseId: widget.courseId,
     //       languageId: int.parse(_selectedLanguage!.id),
     //     );
+
+    context.read<UpdateProblemCubit>().updateProblem();
   }
 
   void _selectPdf() async {
@@ -126,6 +129,22 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
+        BlocListener<UpdateProblemCubit, UpdateProblemState>(
+          listenWhen: (previous, current) =>
+              previous.updateStatus != current.updateStatus,
+          listener: (context, state) {
+            stateStatusListener(
+              context,
+              state,
+              stateStatus: state.updateStatus,
+            );
+          },
+        ),
+        BlocListener<UpdateProblemCubit, UpdateProblemState>(
+          listenWhen: (previous, current) =>
+              previous.stateStatus != current.stateStatus,
+          listener: stateStatusListener,
+        ),
         BlocListener<UpdateProblemCubit, UpdateProblemState>(
           listenWhen: (previous, current) =>
               previous.problemDetail != current.problemDetail &&
