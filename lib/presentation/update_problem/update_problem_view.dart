@@ -1,3 +1,4 @@
+import 'package:code_space_client/presentation/common_widgets/show_update_problem_dialog.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
@@ -71,14 +72,20 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
       return;
     }
 
-    // context.read<CreateProblemCubit>().createProblem(
+    // context.read<UpdateProblemCubit>().updateProblem(
     //       name: _problemName!.trim(),
     //       pointPerTestCase: _pointPerTestCase!,
     //       courseId: widget.courseId,
     //       languageId: int.parse(_selectedLanguage!.id),
     //     );
-
-    context.read<UpdateProblemCubit>().updateProblem();
+    showUpdateProblemDialog(
+      ctx: context,
+      title: S.of(context).update_problem,
+      content: S.of(context).update_problem,
+      newLanguageId: int.parse(_selectedLanguage!.id),
+      newName: _problemName,
+      newPointPerTestCase: _pointPerTestCase,
+    );
   }
 
   void _selectPdf() async {
@@ -137,6 +144,12 @@ class _UpdateProblemViewState extends State<UpdateProblemView> {
               context,
               state,
               stateStatus: state.updateStatus,
+              onSuccess: () {
+                EasyLoading.showSuccess(
+                  S.of(context).update_problem_successfully,
+                  dismissOnTap: true,
+                );
+              },
             );
           },
         ),

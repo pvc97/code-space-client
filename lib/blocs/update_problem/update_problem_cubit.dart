@@ -1,5 +1,3 @@
-import 'package:code_space_client/generated/l10n.dart';
-import 'package:code_space_client/router/app_router.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -89,22 +87,33 @@ class UpdateProblemCubit extends Cubit<UpdateProblemState> {
     ));
   }
 
-  void updateProblem() async {
+  void updateProblem({
+    required String problemId,
+    required String courseId,
+    String? newName,
+    int? newLanguageId,
+    MultipartFile? newFile,
+    int? newPointPerTestCase,
+    bool pdfDeleteSubmission = false,
+    Iterable<TestCaseModel>? newTestCases,
+  }) async {
     try {
       emit(state.copyWith(updateStatus: StateStatus.loading));
-      // // final languages = await problemLanguageRepository.getLanguages();
 
-      // // final testCases = {
-      // //   ...state.currentTestCases,
-      // //   ...?state.problemDetail?.testCases
-      // // };
+      await problemRepository.updateProblem(
+        problemId: problemId,
+        courseId: courseId,
+        name: newName,
+        file: newFile,
+        languageId: newLanguageId,
+        pointPerTestCase: newPointPerTestCase,
+        pdfDeleteSubmission: pdfDeleteSubmission,
+        testCases: newTestCases,
+      );
 
-      // // if (testCases.length == state.currentTestCases.length)
+      // TODO: Use event bus to update previous page
 
-      // emit(state.copyWith(
-      //   updateStatus: StateStatus.success,
-      // ));
-      throw AppException(message: S.of(AppRouter.context).accounts);
+      emit(state.copyWith(updateStatus: StateStatus.success));
     } on AppException catch (e) {
       emit(
         state.copyWith(

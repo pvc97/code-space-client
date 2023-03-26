@@ -123,5 +123,11 @@
   "delete_problem_success": "Xóa bài tập thành công",
   "detail": "Chi tiết",
   "actual_output": "Kết quả thực tế:",
-  "update_problem": "Cập nhật bài tập"
+  "update_problem": "Cập nhật bài tập",
+  "language_has_changed": "• Ngôn ngữ đã thay đổi.",
+  "test_cases_have_changed": "• Danh sách test case đã thay đổi.",
+  "pdf_file_has_changed": "• File đề bài đã thay đổi.",
+  "do_you_delete_all_submission": "Bạn có muốn xóa tất cả các bài làm?",
+  "all_submission_will_be_deleted": "Tất cả các bài làm sẽ bị xóa!",
+  "update_problem_successfully": "Cập nhật bài tập thành công"
 }

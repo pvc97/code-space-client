@@ -3,7 +3,6 @@ import 'package:code_space_client/constants/status_code_constants.dart';
 import 'package:code_space_client/constants/url_constants.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/models/problem_detail_model.dart';
-import 'package:code_space_client/models/problem_model.dart';
 import 'package:code_space_client/models/test_case_model.dart';
 import 'package:dio/dio.dart';
 
@@ -21,7 +20,7 @@ abstract class ProblemService {
 
   Future<bool> deleteProblem({required String problemId});
 
-  Future<ProblemModel> updateProblem({
+  Future<ProblemDetailModel> updateProblem({
     required String problemId,
     required String courseId,
     String? name,
@@ -88,7 +87,7 @@ class ProblemServiceImpl implements ProblemService {
   }
 
   @override
-  Future<ProblemModel> updateProblem({
+  Future<ProblemDetailModel> updateProblem({
     required String problemId,
     required String courseId,
     String? name,
@@ -119,8 +118,8 @@ class ProblemServiceImpl implements ProblemService {
     }
 
     if (file != null) {
-      body['pdfFile'] = file;
       body['pdfDeleteSubmission'] = pdfDeleteSubmission;
+      body['pdfFile'] = file;
     }
 
     final formData = FormData.fromMap(body);
@@ -129,6 +128,6 @@ class ProblemServiceImpl implements ProblemService {
       '${UrlConstants.problems}/$problemId',
       params: formData,
     );
-    return ProblemModel.fromJson(response?.data['data']);
+    return ProblemDetailModel.fromJson(response?.data['data']);
   }
 }

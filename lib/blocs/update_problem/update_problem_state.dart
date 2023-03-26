@@ -10,9 +10,6 @@ class UpdateProblemState extends BaseState {
   final bool selectingPdf;
 
   // New values to update
-  final String? newName;
-  final int? newPointPerTestCase;
-  final String? newLanguageId;
   final Set<TestCaseModel> currentTestCases;
   // currentTestCases contains all test cases from server and new test cases from user
   // user can add new test cases and delete test cases
@@ -34,9 +31,6 @@ class UpdateProblemState extends BaseState {
     required this.updateStatus,
     required this.getLanguagesStatus,
     required this.currentTestCases,
-    this.newName,
-    this.newPointPerTestCase,
-    this.newLanguageId,
     this.newPdfFile,
     required super.stateStatus,
     super.error,
@@ -60,11 +54,8 @@ class UpdateProblemState extends BaseState {
         error,
         languages,
         selectingPdf,
-        newName,
         updateStatus,
         getLanguagesStatus,
-        newPointPerTestCase,
-        newLanguageId,
         currentTestCases,
         newPdfFile,
       ];
@@ -77,7 +68,7 @@ class UpdateProblemState extends BaseState {
     bool? selectingPdf,
     String? newName,
     int? newPointPerTestCase,
-    String? newLanguageId,
+    int? newLanguageId,
     Set<TestCaseModel>? currentTestCases,
     MultipartFile? newPdfFile,
     StateStatus? updateStatus,
@@ -89,9 +80,6 @@ class UpdateProblemState extends BaseState {
       error: error ?? this.error,
       languages: languages ?? this.languages,
       selectingPdf: selectingPdf ?? this.selectingPdf,
-      newName: newName ?? this.newName,
-      newPointPerTestCase: newPointPerTestCase ?? this.newPointPerTestCase,
-      newLanguageId: newLanguageId ?? this.newLanguageId,
       currentTestCases: currentTestCases ?? this.currentTestCases,
       newPdfFile: newPdfFile ?? this.newPdfFile,
       updateStatus: updateStatus ?? this.updateStatus,

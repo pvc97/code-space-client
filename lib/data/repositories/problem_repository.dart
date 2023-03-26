@@ -1,6 +1,5 @@
 import 'package:code_space_client/data/data_provider/services/problem_service.dart';
 import 'package:code_space_client/models/problem_detail_model.dart';
-import 'package:code_space_client/models/problem_model.dart';
 import 'package:code_space_client/models/test_case_model.dart';
 import 'package:code_space_client/utils/exception_parser.dart';
 import 'package:dio/dio.dart';
@@ -19,7 +18,7 @@ abstract class ProblemRepository {
 
   Future<bool> deleteProblem({required String problemId});
 
-  Future<ProblemModel> updateProblem({
+  Future<ProblemDetailModel> updateProblem({
     required String problemId,
     required String courseId,
     String? name,
@@ -85,7 +84,7 @@ class ProblemRepositoryImpl implements ProblemRepository {
   }
 
   @override
-  Future<ProblemModel> updateProblem({
+  Future<ProblemDetailModel> updateProblem({
     required String problemId,
     required String courseId,
     String? name,
