@@ -1289,6 +1289,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Update problem`
+  String get update_problem {
+    return Intl.message(
+      'Update problem',
+      name: 'update_problem',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Language has changed.`
+  String get language_has_changed {
+    return Intl.message(
+      '• Language has changed.',
+      name: 'language_has_changed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• Test cases have changed.`
+  String get test_cases_have_changed {
+    return Intl.message(
+      '• Test cases have changed.',
+      name: 'test_cases_have_changed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `• PDF file has changed.`
+  String get pdf_file_has_changed {
+    return Intl.message(
+      '• PDF file has changed.',
+      name: 'pdf_file_has_changed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you delete all submission?`
+  String get do_you_delete_all_submission {
+    return Intl.message(
+      'Do you delete all submission?',
+      name: 'do_you_delete_all_submission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All submission will be deleted!`
+  String get all_submission_will_be_deleted {
+    return Intl.message(
+      'All submission will be deleted!',
+      name: 'all_submission_will_be_deleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update problem successfully`
+  String get update_problem_successfully {
+    return Intl.message(
+      'Update problem successfully',
+      name: 'update_problem_successfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

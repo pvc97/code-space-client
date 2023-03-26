@@ -2,6 +2,7 @@ import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/injection_container.dart';
 import 'package:code_space_client/models/app_exception.dart';
+import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/logger/logger.dart';
 import 'package:dio/dio.dart';
 
@@ -19,8 +20,8 @@ class ExceptionParser {
         return UnAuthorizedException(error.response?.data['error']);
       }
 
-      final errorMessage =
-          error.response?.data['error'] ?? S.current.an_error_occurred;
+      final errorMessage = error.response?.data['error'] ??
+          S.of(AppRouter.context).an_error_occurred;
 
       return AppException(
           code: error.response?.statusCode ?? 0, message: errorMessage);

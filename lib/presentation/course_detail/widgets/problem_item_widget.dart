@@ -1,27 +1,28 @@
+import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:code_space_client/constants/app_color.dart';
+import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/enums/problem_action.dart';
+import 'package:code_space_client/models/problem_model.dart';
+import 'package:code_space_client/models/user_model.dart';
 import 'package:code_space_client/presentation/common_widgets/app_popup_menu_button.dart';
 import 'package:code_space_client/presentation/common_widgets/show_confirm_dialog.dart';
 import 'package:code_space_client/utils/extensions/user_model_ext.dart';
-import 'package:flutter/material.dart';
-
-import 'package:code_space_client/constants/app_sizes.dart';
-import 'package:code_space_client/models/problem_model.dart';
-import 'package:code_space_client/models/user_model.dart';
-import 'package:icons_plus/icons_plus.dart';
 
 class ProblemItemWidget extends StatelessWidget {
   final ProblemModel problem;
   final UserModel? user;
   final VoidCallback onDelete;
+  final VoidCallback onUpdate;
 
   const ProblemItemWidget({
     Key? key,
     required this.problem,
     this.user,
     required this.onDelete,
+    required this.onUpdate,
   }) : super(key: key);
 
   @override
@@ -55,12 +56,8 @@ class ProblemItemWidget extends StatelessWidget {
                 onSelected: (value) {
                   switch (value) {
                     case ProblemAction.edit:
-                      // context.goNamed(
-                      //   AppRoute.updateAccount.name,
-                      //   params: {'userId': account.userId},
-                      // );
+                      onUpdate();
                       break;
-
                     case ProblemAction.delete:
                       showConfirmDialog(
                         ctx: context,

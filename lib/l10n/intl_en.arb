@@ -122,5 +122,13 @@
   "confirm_delete_problem": "Are you sure you want to delete this problem?",
   "delete_problem_success": "Delete problem success",
   "detail": "Detail",
-  "actual_output": "Actual output:"
+  "actual_output": "Actual output:",
+  "update_problem": "Update problem",
+  "language": "Language",
+  "language_has_changed": "• Language has changed.",
+  "test_cases_have_changed": "• Test cases have changed.",
+  "pdf_file_has_changed": "• PDF file has changed.",
+  "do_you_delete_all_submission": "Do you delete all submission?",
+  "all_submission_will_be_deleted": "All submission will be deleted!",
+  "update_problem_successfully": "Update problem successfully"
 }

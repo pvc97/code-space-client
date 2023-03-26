@@ -32,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "accounts": MessageLookupByLibrary.simpleMessage("Accounts"),
         "actual_output": MessageLookupByLibrary.simpleMessage("Actual output:"),
         "add_test_case": MessageLookupByLibrary.simpleMessage("Add new"),
+        "all_submission_will_be_deleted": MessageLookupByLibrary.simpleMessage(
+            "All submission will be deleted!"),
         "an_error_occurred":
             MessageLookupByLibrary.simpleMessage("An error occurred"),
         "cancel": MessageLookupByLibrary.simpleMessage("CANCEL"),
@@ -95,6 +97,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete_problem_success":
             MessageLookupByLibrary.simpleMessage("Delete problem success"),
         "detail": MessageLookupByLibrary.simpleMessage("Detail"),
+        "do_you_delete_all_submission": MessageLookupByLibrary.simpleMessage(
+            "Do you delete all submission?"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
@@ -119,6 +123,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalid_point_per_test_case":
             MessageLookupByLibrary.simpleMessage("Invalid point per test case"),
         "join_now": MessageLookupByLibrary.simpleMessage("Join now"),
+        "language": MessageLookupByLibrary.simpleMessage("Language"),
+        "language_has_changed":
+            MessageLookupByLibrary.simpleMessage("• Language has changed."),
         "leave_course": MessageLookupByLibrary.simpleMessage("Leave course"),
         "list_of_test_cases":
             MessageLookupByLibrary.simpleMessage("List of test cases:"),
@@ -147,6 +154,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Password cannot be empty"),
         "password_do_not_match":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
+        "pdf_file_has_changed":
+            MessageLookupByLibrary.simpleMessage("• PDF file has changed."),
         "please_fill_all_fields":
             MessageLookupByLibrary.simpleMessage("Please fill all fields"),
         "please_select_language":
@@ -200,6 +209,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "stdin": MessageLookupByLibrary.simpleMessage("Stdin:"),
         "teacher": MessageLookupByLibrary.simpleMessage("Teacher"),
         "test_case": MessageLookupByLibrary.simpleMessage("Test case"),
+        "test_cases_have_changed":
+            MessageLookupByLibrary.simpleMessage("• Test cases have changed."),
         "total_point": MessageLookupByLibrary.simpleMessage("Total point"),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
         "update_account":
@@ -209,6 +220,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "update_course": MessageLookupByLibrary.simpleMessage("Update course"),
         "update_course_successfully":
             MessageLookupByLibrary.simpleMessage("Update course successfully"),
+        "update_problem":
+            MessageLookupByLibrary.simpleMessage("Update problem"),
+        "update_problem_successfully":
+            MessageLookupByLibrary.simpleMessage("Update problem successfully"),
         "user_list": MessageLookupByLibrary.simpleMessage("User list"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),
         "username_cannot_be_empty":

@@ -17,6 +17,18 @@ abstract class ProblemRepository {
   });
 
   Future<bool> deleteProblem({required String problemId});
+
+  Future<ProblemDetailModel> updateProblem({
+    required String problemId,
+    required String courseId,
+    required bool pdfDeleteSubmission,
+    String? name,
+    int? pointPerTestCase,
+    int? languageId,
+    Iterable<TestCaseModel>? testCases,
+    MultipartFile? file,
+    // When update pdf file, I can choose delete all submission or not
+  });
 }
 
 class ProblemRepositoryImpl implements ProblemRepository {
@@ -66,6 +78,34 @@ class ProblemRepositoryImpl implements ProblemRepository {
     try {
       final success = await problemService.deleteProblem(problemId: problemId);
       return success;
+    } catch (e) {
+      throw ExceptionParser.parse(e);
+    }
+  }
+
+  @override
+  Future<ProblemDetailModel> updateProblem({
+    required String problemId,
+    required String courseId,
+    required bool pdfDeleteSubmission,
+    String? name,
+    int? pointPerTestCase,
+    int? languageId,
+    Iterable<TestCaseModel>? testCases,
+    MultipartFile? file,
+  }) async {
+    try {
+      final problem = await problemService.updateProblem(
+        problemId: problemId,
+        courseId: courseId,
+        name: name,
+        pointPerTestCase: pointPerTestCase,
+        languageId: languageId,
+        testCases: testCases,
+        file: file,
+        pdfDeleteSubmission: pdfDeleteSubmission,
+      );
+      return problem;
     } catch (e) {
       throw ExceptionParser.parse(e);
     }

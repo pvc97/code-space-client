@@ -1,25 +1,31 @@
-import 'package:code_space_client/blocs/create_problem/create_problem_cubit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/test_case_model.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 abstract class TestCaseAction {
   const TestCaseAction();
 }
 
 class AddTestCaseAction extends TestCaseAction {
-  const AddTestCaseAction();
+  const AddTestCaseAction({
+    required this.onAddTestCase,
+  });
+
+  final Function(TestCaseModel testCase) onAddTestCase;
 }
 
 class EditTestCaseAction extends TestCaseAction {
   final int index;
   final TestCaseModel testCase;
+  final Function(int index, TestCaseModel testCase) onEditTestCase;
+
   const EditTestCaseAction({
     required this.index,
     required this.testCase,
+    required this.onEditTestCase,
   });
 }
 
@@ -29,8 +35,6 @@ void showTestCaseDialog({
   required TextEditingController stdinController,
   required TextEditingController expectedOutputController,
 }) {
-  final CreateProblemCubit cubit = ctx.read<CreateProblemCubit>();
-
   bool showTestCase = false;
 
   if (action is EditTestCaseAction) {
@@ -110,7 +114,7 @@ void showTestCaseDialog({
               }
 
               if (action is AddTestCaseAction) {
-                cubit.addTestCase(
+                action.onAddTestCase(
                   TestCaseModel(
                     stdin: stdin,
                     expectedOutput: expectedOutput,
@@ -118,7 +122,7 @@ void showTestCaseDialog({
                   ),
                 );
               } else if (action is EditTestCaseAction) {
-                cubit.editTestCase(
+                action.onEditTestCase(
                   action.index,
                   TestCaseModel(
                     stdin: stdin,

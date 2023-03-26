@@ -41,14 +41,16 @@ class _SettingScreenState extends State<SettingScreen> {
               onPressed: () {
                 context
                     .read<LocaleCubit>()
-                    .changeLanguage(Languages.vietnamese);
+                    .changeLanguage(AppLanguages.vietnamese);
               },
               child: Text(S.of(context).vietnamese),
             ),
             Box.h12,
             ElevatedButton(
               onPressed: () {
-                context.read<LocaleCubit>().changeLanguage(Languages.english);
+                context
+                    .read<LocaleCubit>()
+                    .changeLanguage(AppLanguages.english);
               },
               child: Text(S.of(context).english),
             ),

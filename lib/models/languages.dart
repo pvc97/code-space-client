@@ -1,28 +1,28 @@
-enum Languages {
+enum AppLanguages {
   vietnamese,
   english,
 }
 
-extension LanguagesExtension on Languages {
+extension AppLanguagesExtension on AppLanguages {
   String get code {
     switch (this) {
-      case Languages.vietnamese:
+      case AppLanguages.vietnamese:
         return 'vi';
-      case Languages.english:
+      case AppLanguages.english:
         return 'en';
     }
   }
 }
 
-extension LanguagesCodeExtension on String {
-  Languages get toLanguage {
+extension AppLanguagesCodeExtension on String {
+  AppLanguages get toLanguage {
     switch (this) {
       case 'vi':
-        return Languages.vietnamese;
+        return AppLanguages.vietnamese;
       case 'en':
-        return Languages.english;
+        return AppLanguages.english;
       default:
-        return Languages.vietnamese;
+        return AppLanguages.vietnamese;
     }
   }
 }

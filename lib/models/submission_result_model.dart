@@ -1,15 +1,16 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'submission_result_model.g.dart';
 
 @JsonSerializable()
-class SubmissionResultModel {
+class SubmissionResultModel extends Equatable {
   final String stdin;
   final String output;
   final String expectedOutput;
   final bool correct;
 
-  SubmissionResultModel(
+  const SubmissionResultModel(
     this.stdin,
     this.output,
     this.expectedOutput,
@@ -20,4 +21,7 @@ class SubmissionResultModel {
       _$SubmissionResultModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$SubmissionResultModelToJson(this);
+
+  @override
+  List<Object> get props => [stdin, output, expectedOutput, correct];
 }

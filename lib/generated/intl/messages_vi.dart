@@ -33,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "actual_output":
             MessageLookupByLibrary.simpleMessage("Kết quả thực tế:"),
         "add_test_case": MessageLookupByLibrary.simpleMessage("Thêm mới"),
+        "all_submission_will_be_deleted": MessageLookupByLibrary.simpleMessage(
+            "Tất cả các bài làm sẽ bị xóa!"),
         "an_error_occurred":
             MessageLookupByLibrary.simpleMessage("Có lỗi xảy ra"),
         "cancel": MessageLookupByLibrary.simpleMessage("Hủy"),
@@ -93,6 +95,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete_problem_success":
             MessageLookupByLibrary.simpleMessage("Xóa bài tập thành công"),
         "detail": MessageLookupByLibrary.simpleMessage("Chi tiết"),
+        "do_you_delete_all_submission": MessageLookupByLibrary.simpleMessage(
+            "Bạn có muốn xóa tất cả các bài làm?"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Bạn chưa có tài khoản?"),
         "edit": MessageLookupByLibrary.simpleMessage("Sửa"),
@@ -117,6 +121,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalid_point_per_test_case": MessageLookupByLibrary.simpleMessage(
             "Điểm cho mỗi test case không hợp lệ"),
         "join_now": MessageLookupByLibrary.simpleMessage("Tham gia ngay"),
+        "language_has_changed":
+            MessageLookupByLibrary.simpleMessage("• Ngôn ngữ đã thay đổi."),
         "leave_course": MessageLookupByLibrary.simpleMessage("Rời lớp học"),
         "list_of_test_cases":
             MessageLookupByLibrary.simpleMessage("Danh sách các test case:"),
@@ -146,6 +152,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Mật khẩu không được để trống"),
         "password_do_not_match":
             MessageLookupByLibrary.simpleMessage("Mật khẩu không khớp"),
+        "pdf_file_has_changed":
+            MessageLookupByLibrary.simpleMessage("• File đề bài đã thay đổi."),
         "please_fill_all_fields": MessageLookupByLibrary.simpleMessage(
             "Vui lòng điền đầy đủ thông tin"),
         "please_select_language":
@@ -199,6 +207,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "stdin": MessageLookupByLibrary.simpleMessage("Dữ liệu đầu vào:"),
         "teacher": MessageLookupByLibrary.simpleMessage("Giảng viên"),
         "test_case": MessageLookupByLibrary.simpleMessage("Test case"),
+        "test_cases_have_changed": MessageLookupByLibrary.simpleMessage(
+            "• Danh sách test case đã thay đổi."),
         "total_point": MessageLookupByLibrary.simpleMessage("Tổng điểm"),
         "update": MessageLookupByLibrary.simpleMessage("Cập nhật"),
         "update_account":
@@ -209,6 +219,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Cập nhật lớp học"),
         "update_course_successfully":
             MessageLookupByLibrary.simpleMessage("Cập nhật lớp học thành công"),
+        "update_problem":
+            MessageLookupByLibrary.simpleMessage("Cập nhật bài tập"),
+        "update_problem_successfully":
+            MessageLookupByLibrary.simpleMessage("Cập nhật bài tập thành công"),
         "user_list":
             MessageLookupByLibrary.simpleMessage("Danh sách tài khoản"),
         "username": MessageLookupByLibrary.simpleMessage("Tài khoản"),

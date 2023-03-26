@@ -1,14 +1,15 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'ranking_model.g.dart';
 
 @JsonSerializable()
-class RankingModel {
+class RankingModel extends Equatable {
   @JsonKey(name: 'name')
   final String studentName;
   final int totalPoints;
 
-  RankingModel({
+  const RankingModel({
     required this.studentName,
     required this.totalPoints,
   });
@@ -17,4 +18,7 @@ class RankingModel {
       _$RankingModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$RankingModelToJson(this);
+
+  @override
+  List<Object> get props => [studentName, totalPoints];
 }

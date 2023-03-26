@@ -1,5 +1,5 @@
-import 'package:code_space_client/constants/app_text_style.dart';
-import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
+import 'package:code_space_client/presentation/common_widgets/show_update_problem_dialog.dart';
+import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -7,41 +7,39 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:go_router/go_router.dart';
-import 'package:code_space_client/blocs/create_problem/create_problem_cubit.dart';
+import 'package:code_space_client/blocs/update_problem/update_problem_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
+import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/dropdown_item.dart';
-import 'package:code_space_client/models/language_model.dart';
 import 'package:code_space_client/models/test_case_model.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
+import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/presentation/common_widgets/search_dropdown_button.dart';
 import 'package:code_space_client/presentation/create_problem/widgets/test_case_dialog.dart';
-import 'package:code_space_client/router/app_router.dart';
-import 'package:code_space_client/utils/state_status_listener.dart';
 
-class CreateProblemView extends StatefulWidget {
-  final bool me;
-  final String courseId;
+class UpdateProblemView extends StatefulWidget {
+  final String problemId;
 
-  const CreateProblemView({
+  const UpdateProblemView({
     Key? key,
-    required this.me,
-    required this.courseId,
+    required this.problemId,
   }) : super(key: key);
 
   @override
-  State<CreateProblemView> createState() => _CreateProblemViewState();
+  State<UpdateProblemView> createState() => _UpdateProblemViewState();
 }
 
-class _CreateProblemViewState extends State<CreateProblemView> {
+class _UpdateProblemViewState extends State<UpdateProblemView> {
   final _formKey = GlobalKey<FormState>();
   var _autovalidateMode = AutovalidateMode.disabled;
   final _searchLanguageController = TextEditingController();
   final _stdinController = TextEditingController();
   final _expectedOutputController = TextEditingController();
+  final _problemNameController = TextEditingController();
+  final _probemPointController = TextEditingController();
   String? _problemName;
   int? _pointPerTestCase;
   // TODO: Add time limit
@@ -51,7 +49,9 @@ class _CreateProblemViewState extends State<CreateProblemView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<CreateProblemCubit>().getLanguages();
+      final cubit = context.read<UpdateProblemCubit>();
+      cubit.getProblem(widget.problemId);
+      cubit.getLanguages();
     });
   }
 
@@ -72,17 +72,25 @@ class _CreateProblemViewState extends State<CreateProblemView> {
       return;
     }
 
-    context.read<CreateProblemCubit>().createProblem(
-          name: _problemName!.trim(),
-          pointPerTestCase: _pointPerTestCase!,
-          courseId: widget.courseId,
-          languageId: int.parse(_selectedLanguage!.id),
-        );
+    // context.read<UpdateProblemCubit>().updateProblem(
+    //       name: _problemName!.trim(),
+    //       pointPerTestCase: _pointPerTestCase!,
+    //       courseId: widget.courseId,
+    //       languageId: int.parse(_selectedLanguage!.id),
+    //     );
+    showUpdateProblemDialog(
+      ctx: context,
+      title: S.of(context).update_problem,
+      content: S.of(context).update_problem,
+      newLanguageId: int.parse(_selectedLanguage!.id),
+      newName: _problemName,
+      newPointPerTestCase: _pointPerTestCase,
+    );
   }
 
   void _selectPdf() async {
     if (mounted) {
-      context.read<CreateProblemCubit>().setSelectingPdf(true);
+      context.read<UpdateProblemCubit>().setSelectingPdf(true);
     }
 
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -105,20 +113,22 @@ class _CreateProblemViewState extends State<CreateProblemView> {
 
       // If screen is not mounted, do not update state
       if (mounted) {
-        context.read<CreateProblemCubit>().updatePdfPath(file);
+        context.read<UpdateProblemCubit>().updatePdfPath(file);
       }
     } else {
       if (mounted) {
-        context.read<CreateProblemCubit>().setSelectingPdf(false);
+        context.read<UpdateProblemCubit>().setSelectingPdf(false);
       }
     }
   }
 
   @override
   void dispose() {
+    _probemPointController.dispose();
     _searchLanguageController.dispose();
     _stdinController.dispose();
     _expectedOutputController.dispose();
+    _problemNameController.dispose();
     super.dispose();
   }
 
@@ -126,25 +136,37 @@ class _CreateProblemViewState extends State<CreateProblemView> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        const BlocListener<CreateProblemCubit, CreateProblemState>(
+        BlocListener<UpdateProblemCubit, UpdateProblemState>(
+          listenWhen: (previous, current) =>
+              previous.updateStatus != current.updateStatus,
+          listener: (context, state) {
+            stateStatusListener(
+              context,
+              state,
+              stateStatus: state.updateStatus,
+              onSuccess: () {
+                EasyLoading.showSuccess(
+                  S.of(context).update_problem_successfully,
+                  dismissOnTap: true,
+                );
+              },
+            );
+          },
+        ),
+        BlocListener<UpdateProblemCubit, UpdateProblemState>(
+          listenWhen: (previous, current) =>
+              previous.stateStatus != current.stateStatus,
           listener: stateStatusListener,
         ),
-        BlocListener<CreateProblemCubit, CreateProblemState>(
+        BlocListener<UpdateProblemCubit, UpdateProblemState>(
           listenWhen: (previous, current) =>
-              previous.problemId != current.problemId,
+              previous.problemDetail != current.problemDetail &&
+              current.problemDetail != null,
           listener: (context, state) {
-            final problemId = state.problemId;
-            if (problemId != null) {
-              // When problem is created and navigate to problem detail page
-              context.goNamed(
-                AppRoute.problem.name,
-                params: {
-                  'courseId': widget.courseId,
-                  'problemId': problemId,
-                },
-                queryParams: widget.me ? {'me': 'true'} : {},
-              );
-            }
+            final problem = state.problemDetail!;
+            _problemNameController.text = problem.name;
+            _probemPointController.text = problem.pointPerTestCase.toString();
+            _selectedLanguage = problem.language;
           },
         ),
       ],
@@ -152,7 +174,7 @@ class _CreateProblemViewState extends State<CreateProblemView> {
         unfocusOnTap: true,
         appBar: AdaptiveAppBar(
           context: context,
-          title: Text(S.of(context).create_new_problem),
+          title: Text(S.of(context).update_problem),
         ),
         body: Form(
           key: _formKey,
@@ -167,11 +189,16 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                 width: Sizes.s400,
                 child: Column(
                   children: [
-                    BlocSelector<CreateProblemCubit, CreateProblemState,
-                        Iterable<LanguageModel>>(
-                      selector: (state) => state.languages,
-                      builder: (context, languages) {
+                    BlocBuilder<UpdateProblemCubit, UpdateProblemState>(
+                      buildWhen: (previous, current) {
+                        return previous.languages != current.languages ||
+                            (previous.problemDetail != current.problemDetail &&
+                                current.problemDetail != null);
+                      },
+                      builder: (context, state) {
+                        final languages = state.languages;
                         return SearchDropdownButton(
+                          initialValue: _selectedLanguage,
                           items: languages,
                           hint: S.of(context).select_languages,
                           searchHint: S.of(context).enter_name_of_language,
@@ -184,6 +211,7 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                     ),
                     Box.h16,
                     TextFormField(
+                      controller: _problemNameController,
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         labelText: S.of(context).problem_name,
@@ -200,6 +228,7 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                     ),
                     Box.h16,
                     TextFormField(
+                      controller: _probemPointController,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
@@ -252,11 +281,12 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                                   showTestCaseDialog(
                                     ctx: context,
                                     action: AddTestCaseAction(
-                                        onAddTestCase: (testCase) {
-                                      context
-                                          .read<CreateProblemCubit>()
-                                          .addTestCase(testCase);
-                                    }),
+                                      onAddTestCase: (testCase) {
+                                        context
+                                            .read<UpdateProblemCubit>()
+                                            .addTestCase(testCase);
+                                      },
+                                    ),
                                     stdinController: _stdinController,
                                     expectedOutputController:
                                         _expectedOutputController,
@@ -266,28 +296,33 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                               ),
                             ],
                           ),
-                          BlocSelector<CreateProblemCubit, CreateProblemState,
+                          BlocSelector<UpdateProblemCubit, UpdateProblemState,
                               Iterable<TestCaseModel>>(
-                            selector: (state) => state.testCases,
+                            selector: (state) => state.currentTestCases,
                             builder: (context, testCases) {
                               if (testCases.isEmpty) {
-                                return const SizedBox.shrink();
+                                return Box.shrink;
                               }
                               return const Divider();
                             },
                           ),
-                          BlocSelector<CreateProblemCubit, CreateProblemState,
+                          BlocSelector<UpdateProblemCubit, UpdateProblemState,
                               Iterable<TestCaseModel>>(
-                            selector: (state) => state.testCases,
-                            builder: (context, testCases) {
+                            selector: (state) => state.currentTestCases,
+                            builder: (context, currentTestCases) {
+                              if (currentTestCases.isEmpty) {
+                                return Box.shrink;
+                              }
+
                               return ListView.separated(
                                 shrinkWrap: true,
-                                itemCount: testCases.length,
+                                itemCount: currentTestCases.length,
                                 physics: const NeverScrollableScrollPhysics(),
                                 separatorBuilder: (context, index) =>
                                     const Divider(),
                                 itemBuilder: (context, index) {
-                                  final testCase = testCases.elementAt(index);
+                                  final testCase =
+                                      currentTestCases.elementAt(index);
                                   return Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -354,7 +389,7 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                                                       (index, testCase) {
                                                     context
                                                         .read<
-                                                            CreateProblemCubit>()
+                                                            UpdateProblemCubit>()
                                                         .editTestCase(
                                                             index, testCase);
                                                   },
@@ -373,7 +408,7 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                                           IconButton(
                                             onPressed: () {
                                               context
-                                                  .read<CreateProblemCubit>()
+                                                  .read<UpdateProblemCubit>()
                                                   .removeTestCase(index);
                                             },
                                             icon: const Icon(
@@ -395,7 +430,7 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                     Box.h16,
                     Row(
                       children: [
-                        BlocSelector<CreateProblemCubit, CreateProblemState,
+                        BlocSelector<UpdateProblemCubit, UpdateProblemState,
                             bool>(
                           selector: (state) => state.selectingPdf,
                           builder: (context, selecting) {
@@ -406,13 +441,20 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                           },
                         ),
                         Box.w20,
-                        BlocSelector<CreateProblemCubit, CreateProblemState,
-                            MultipartFile?>(
-                          selector: (state) => state.pdfFile,
-                          builder: (context, pdfFile) {
+                        BlocBuilder<UpdateProblemCubit, UpdateProblemState>(
+                          builder: (context, state) {
+                            // if new pdf file name is null, use pdf path from problem
+                            String? fileName =
+                                state.problemDetail?.pdfPath.split('/').last;
+                            // TODO: Replace last because it can cause error if pdfPath doesn't contain '/'
+
+                            if (state.newPdfFile?.filename != null) {
+                              fileName = state.newPdfFile!.filename;
+                            }
+
                             return Expanded(
                               child: Text(
-                                pdfFile?.filename ?? '...',
+                                fileName ?? '...',
                                 maxLines: 2,
                               ),
                             );
@@ -421,18 +463,16 @@ class _CreateProblemViewState extends State<CreateProblemView> {
                       ],
                     ),
                     Box.h16,
-                    BlocBuilder<CreateProblemCubit, CreateProblemState>(
+                    BlocBuilder<UpdateProblemCubit, UpdateProblemState>(
                       builder: (context, state) {
-                        final testCases = state.testCases;
-                        final pdfPath = state.pdfFile;
-
                         return FractionallySizedBox(
                           widthFactor: 0.7,
                           child: AppElevatedButton(
-                            onPressed: (testCases.isEmpty || pdfPath == null)
+                            onPressed: (state.isLoading ||
+                                    state.currentTestCases.isEmpty)
                                 ? null
                                 : _submit,
-                            text: S.of(context).create,
+                            text: S.of(context).update,
                           ),
                         );
                       },

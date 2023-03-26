@@ -1,14 +1,16 @@
-import 'package:code_space_client/models/dropdown_item.dart';
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'package:code_space_client/models/dropdown_item.dart';
 
 part 'language_model.g.dart';
 
 @JsonSerializable()
-class LanguageModel implements BaseDropdownItem {
+class LanguageModel extends Equatable implements BaseDropdownItem {
   @JsonKey(name: 'id')
   final int languageId;
   final String name;
-  LanguageModel({
+  const LanguageModel({
     required this.languageId,
     required this.name,
   });
@@ -26,4 +28,7 @@ class LanguageModel implements BaseDropdownItem {
 
   @override
   String? get subtitle => null;
+
+  @override
+  List<Object> get props => [languageId, name];
 }

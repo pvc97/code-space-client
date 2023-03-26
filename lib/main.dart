@@ -22,6 +22,15 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 // import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+//   _    _                                                        _   _
+//  | |  | |                                                      | | (_)
+//  | |__| |   __ _   _ __    _ __    _   _      ___    ___     __| |  _   _ __     __ _
+//  |  __  |  / _` | | '_ \  | '_ \  | | | |    / __|  / _ \   / _` | | | | '_ \   / _` |
+//  | |  | | | (_| | | |_) | | |_) | | |_| |   | (__  | (_) | | (_| | | | | | | | | (_| |
+//  |_|  |_|  \__,_| | .__/  | .__/   \__, |    \___|  \___/   \__,_| |_| |_| |_|  \__, |
+//                   | |     | |       __/ |                                        __/ |
+//                   |_|     |_|      |___/                                        |___/
+
 void main() async {
   final binding = WidgetsFlutterBinding.ensureInitialized();
 
@@ -119,9 +128,9 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
           debugShowCheckedModeBanner: false,
-          routeInformationParser: router.routeInformationParser,
-          routerDelegate: router.routerDelegate,
-          routeInformationProvider: router.routeInformationProvider,
+          routeInformationParser: AppRouter.router.routeInformationParser,
+          routerDelegate: AppRouter.router.routerDelegate,
+          routeInformationProvider: AppRouter.router.routeInformationProvider,
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,

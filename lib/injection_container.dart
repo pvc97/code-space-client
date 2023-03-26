@@ -13,6 +13,7 @@ import 'package:code_space_client/blocs/ranking/ranking_cubit.dart';
 import 'package:code_space_client/blocs/reset_password/reset_password_cubit.dart';
 import 'package:code_space_client/blocs/update_account/update_account_cubit.dart';
 import 'package:code_space_client/blocs/update_course/update_course_cubit.dart';
+import 'package:code_space_client/blocs/update_problem/update_problem_cubit.dart';
 import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager.dart';
 import 'package:code_space_client/data/data_provider/local/local_storage_manager_impl.dart';
@@ -229,5 +230,12 @@ abstract class Di {
     );
 
     sl.registerFactory<ResultDialogCubit>(() => ResultDialogCubit());
+
+    sl.registerFactory<UpdateProblemCubit>(
+      () => UpdateProblemCubit(
+        problemRepository: sl(),
+        problemLanguageRepository: sl(),
+      ),
+    );
   }
 }

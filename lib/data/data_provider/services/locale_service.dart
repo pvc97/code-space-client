@@ -27,7 +27,7 @@ class LocaleServiceImpl implements LocaleService {
   Future<String> getLocaleCode() async {
     final String code =
         (await localStorage.read<String>(SPrefKey.localeCode)) ??
-            Languages.vietnamese.code;
+            AppLanguages.vietnamese.code;
     apiProvider.setLocale(code);
     return code;
   }

@@ -10,11 +10,11 @@ class LocaleCubit extends Cubit<LocaleState> {
   final LocaleRepository localeRepository;
 
   LocaleCubit({
-    Languages? initLanguage,
+    AppLanguages? initLanguage,
     required this.localeRepository,
   }) : super(LocaleState.initial(initLanguage: initLanguage));
 
-  void changeLanguage(Languages language) async {
+  void changeLanguage(AppLanguages language) async {
     await localeRepository.saveLocaleCode(language.code);
     emit(
       state.copyWith(

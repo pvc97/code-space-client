@@ -19,6 +19,18 @@ abstract class ProblemService {
   });
 
   Future<bool> deleteProblem({required String problemId});
+
+  Future<ProblemDetailModel> updateProblem({
+    required String problemId,
+    required String courseId,
+    required bool pdfDeleteSubmission,
+    String? name,
+    int? pointPerTestCase,
+    int? languageId,
+    Iterable<TestCaseModel>? testCases,
+    MultipartFile? file,
+    // When update pdf file, I can choose delete all submission or not
+  });
 }
 
 class ProblemServiceImpl implements ProblemService {
@@ -72,5 +84,50 @@ class ProblemServiceImpl implements ProblemService {
     }
 
     return false;
+  }
+
+  @override
+  Future<ProblemDetailModel> updateProblem({
+    required String problemId,
+    required String courseId,
+    required bool pdfDeleteSubmission,
+    String? name,
+    int? pointPerTestCase,
+    int? languageId,
+    Iterable<TestCaseModel>? testCases,
+    MultipartFile? file,
+  }) async {
+    final body = <String, dynamic>{
+      'courseId': courseId,
+    };
+
+    if (name != null) {
+      body['name'] = name;
+    }
+
+    if (pointPerTestCase != null) {
+      body['pointPerTestCase'] = pointPerTestCase;
+    }
+
+    if (languageId != null) {
+      body['languageId'] = languageId;
+    }
+
+    if (testCases != null) {
+      body['testCases'] = jsonEncode(testCases.map((e) => e.toJson()).toList());
+    }
+
+    if (file != null) {
+      body['pdfDeleteSubmission'] = pdfDeleteSubmission;
+      body['pdfFile'] = file;
+    }
+
+    final formData = FormData.fromMap(body);
+
+    final response = await apiProvider.put(
+      '${UrlConstants.problems}/$problemId',
+      params: formData,
+    );
+    return ProblemDetailModel.fromJson(response?.data['data']);
   }
 }

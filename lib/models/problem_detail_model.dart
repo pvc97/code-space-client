@@ -1,11 +1,13 @@
-import 'package:code_space_client/models/language_model.dart';
-
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'package:code_space_client/models/language_model.dart';
+import 'package:code_space_client/models/test_case_model.dart';
 
 part 'problem_detail_model.g.dart';
 
 @JsonSerializable()
-class ProblemDetailModel {
+class ProblemDetailModel extends Equatable {
   final String id;
   final String name;
   final String pdfPath;
@@ -15,8 +17,10 @@ class ProblemDetailModel {
   final DateTime updatedAt;
   final LanguageModel language;
   final int numberOfTestCases;
+  final Set<TestCaseModel>? testCases;
 
-  ProblemDetailModel({
+  const ProblemDetailModel({
+    this.testCases,
     required this.id,
     required this.name,
     required this.pdfPath,
@@ -32,4 +36,20 @@ class ProblemDetailModel {
       _$ProblemDetailModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProblemDetailModelToJson(this);
+
+  @override
+  List<Object?> get props {
+    return [
+      id,
+      name,
+      pdfPath,
+      pointPerTestCase,
+      courseId,
+      createdAt,
+      updatedAt,
+      language,
+      numberOfTestCases,
+      testCases,
+    ];
+  }
 }
