@@ -70,7 +70,7 @@ void showUpdateProblemDialog({
           ),
         if (languageChanged || testCasesChanged)
           Align(
-            alignment: Alignment.centerRight,
+            alignment: Alignment.center,
             child: Text(
               S.of(ctx).all_submission_will_be_deleted,
               style: AppTextStyle.textStyle16.copyWith(
