@@ -21,12 +21,12 @@ abstract class ProblemRepository {
   Future<ProblemDetailModel> updateProblem({
     required String problemId,
     required String courseId,
+    required bool pdfDeleteSubmission,
     String? name,
     int? pointPerTestCase,
     int? languageId,
     Iterable<TestCaseModel>? testCases,
     MultipartFile? file,
-    bool pdfDeleteSubmission = false,
     // When update pdf file, I can choose delete all submission or not
   });
 }
@@ -87,12 +87,12 @@ class ProblemRepositoryImpl implements ProblemRepository {
   Future<ProblemDetailModel> updateProblem({
     required String problemId,
     required String courseId,
+    required bool pdfDeleteSubmission,
     String? name,
     int? pointPerTestCase,
     int? languageId,
     Iterable<TestCaseModel>? testCases,
     MultipartFile? file,
-    bool pdfDeleteSubmission = false,
   }) async {
     try {
       final problem = await problemService.updateProblem(
@@ -103,6 +103,7 @@ class ProblemRepositoryImpl implements ProblemRepository {
         languageId: languageId,
         testCases: testCases,
         file: file,
+        pdfDeleteSubmission: pdfDeleteSubmission,
       );
       return problem;
     } catch (e) {
