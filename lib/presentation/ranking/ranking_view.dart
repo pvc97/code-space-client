@@ -30,20 +30,12 @@ class RankingView extends StatefulWidget {
 }
 
 class _RankingViewState extends State<RankingView> {
-  final ScrollController _scrollController = ScrollController();
-
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<RankingCubit>().getRankings(courseId: widget.courseId);
     });
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
   }
 
   void _loadMore() {

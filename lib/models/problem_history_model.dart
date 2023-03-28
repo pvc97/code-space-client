@@ -32,6 +32,9 @@ class ProblemHistoryModel extends Equatable {
         pointPerTestCase,
       ];
 
+  bool get completed => numberOfTestCases == correctTestCases;
+  int get totalPoints => numberOfTestCases * pointPerTestCase;
+
   factory ProblemHistoryModel.fromJson(Map<String, dynamic> json) =>
       _$ProblemHistoryModelFromJson(json);
 

@@ -148,6 +148,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No problems found"),
         "no_ranking_yet":
             MessageLookupByLibrary.simpleMessage("No ranking yet"),
+        "no_submission_history_yet":
+            MessageLookupByLibrary.simpleMessage("No submission history yet"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_cannot_be_empty":

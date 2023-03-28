@@ -8,6 +8,7 @@ import 'package:code_space_client/blocs/create_problem/create_problem_cubit.dart
 import 'package:code_space_client/blocs/change_password/change_password_cubit.dart';
 import 'package:code_space_client/blocs/locale/locale_cubit.dart';
 import 'package:code_space_client/blocs/problem/problem_cubit.dart';
+import 'package:code_space_client/blocs/problem_history/problem_history_cubit.dart';
 import 'package:code_space_client/blocs/problem_result/problem_result_cubit.dart';
 import 'package:code_space_client/blocs/ranking/ranking_cubit.dart';
 import 'package:code_space_client/blocs/reset_password/reset_password_cubit.dart';
@@ -235,6 +236,12 @@ abstract class Di {
       () => UpdateProblemCubit(
         problemRepository: sl(),
         problemLanguageRepository: sl(),
+      ),
+    );
+
+    sl.registerFactory<ProblemHistoryCubit>(
+      () => ProblemHistoryCubit(
+        problemRepository: sl(),
       ),
     );
   }

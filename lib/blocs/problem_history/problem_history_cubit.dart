@@ -60,7 +60,7 @@ class ProblemHistoryCubit extends Cubit<ProblemHistoryState> {
     }
   }
 
-  void loadMoreRankings({required String problemId}) async {
+  void loadMoreHistories({required String problemId}) async {
     if (state.isLoadingMore || state.isLoadMoreDone) return;
 
     emit(state.copyWith(isLoadingMore: true));
@@ -88,7 +88,7 @@ class ProblemHistoryCubit extends Cubit<ProblemHistoryState> {
     }
   }
 
-  void refreshRankings({required String problemId}) {
+  void refreshHistories({required String problemId}) {
     getProblemHistories(
       problemId: problemId,
       initialPage: NetworkConstants.defaultPage,

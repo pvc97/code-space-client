@@ -1369,6 +1369,16 @@ class S {
       args: [],
     );
   }
+
+  /// `No submission history yet`
+  String get no_submission_history_yet {
+    return Intl.message(
+      'No submission history yet',
+      name: 'no_submission_history_yet',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

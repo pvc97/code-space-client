@@ -130,5 +130,6 @@
   "pdf_file_has_changed": "• PDF file has changed.",
   "do_you_delete_all_submission": "Do you delete all submission?",
   "all_submission_will_be_deleted": "All submission will be deleted!",
-  "update_problem_successfully": "Update problem successfully"
+  "update_problem_successfully": "Update problem successfully",
+  "no_submission_history_yet": "No submission history yet"
 }
