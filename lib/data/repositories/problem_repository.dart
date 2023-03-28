@@ -1,5 +1,6 @@
 import 'package:code_space_client/data/data_provider/services/problem_service.dart';
 import 'package:code_space_client/models/problem_detail_model.dart';
+import 'package:code_space_client/models/problem_history_model.dart';
 import 'package:code_space_client/models/test_case_model.dart';
 import 'package:code_space_client/utils/exception_parser.dart';
 import 'package:dio/dio.dart';
@@ -28,6 +29,12 @@ abstract class ProblemRepository {
     Iterable<TestCaseModel>? testCases,
     MultipartFile? file,
     // When update pdf file, I can choose delete all submission or not
+  });
+
+  Future<List<ProblemHistoryModel>> getProblemHistories({
+    required String problemId,
+    required int page,
+    required int limit,
   });
 }
 
@@ -106,6 +113,25 @@ class ProblemRepositoryImpl implements ProblemRepository {
         pdfDeleteSubmission: pdfDeleteSubmission,
       );
       return problem;
+    } catch (e) {
+      throw ExceptionParser.parse(e);
+    }
+  }
+
+  @override
+  Future<List<ProblemHistoryModel>> getProblemHistories({
+    required String problemId,
+    required int page,
+    required int limit,
+  }) async {
+    try {
+      final problemHistories = await problemService.getProblemHistories(
+        problemId: problemId,
+        page: page,
+        limit: limit,
+      );
+
+      return problemHistories;
     } catch (e) {
       throw ExceptionParser.parse(e);
     }
