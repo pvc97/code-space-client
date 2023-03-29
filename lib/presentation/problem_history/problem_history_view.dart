@@ -1,16 +1,14 @@
 import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/blocs/problem_history/problem_history_cubit.dart';
-import 'package:code_space_client/constants/app_color.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
-import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
 import 'package:code_space_client/presentation/common_widgets/empty_widget.dart';
+import 'package:code_space_client/presentation/problem_history/widgets/history_item_widget.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:icons_plus/icons_plus.dart';
 
 class ProblemHistoryView extends StatefulWidget {
   final String problemId;
@@ -106,26 +104,27 @@ class ProblemHistoryViewState extends State<ProblemHistoryView> {
                   }
 
                   final history = histories[index];
-                  return Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(Sizes.s8),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              history.createdAt.toLocal().toString(),
-                              style: AppTextStyle.textStyle18,
-                            ),
-                          ),
-                          if (history.completed)
-                            const Icon(
-                              Bootstrap.check2_circle,
-                              color: AppColor.primaryColor,
-                            )
-                        ],
-                      ),
-                    ),
-                  );
+                  // return Card(
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(Sizes.s8),
+                  //     child: Row(
+                  //       children: [
+                  //         Expanded(
+                  //           child: Text(
+                  //             history.createdAt.toLocal().toString(),
+                  //             style: AppTextStyle.textStyle18,
+                  //           ),
+                  //         ),
+                  //         if (history.completed)
+                  //           const Icon(
+                  //             Bootstrap.check2_circle,
+                  //             color: AppColor.primaryColor,
+                  //           )
+                  //       ],
+                  //     ),
+                  //   ),
+                  // );
+                  return HistoryItemWidget(history: history);
                 },
               );
             },
