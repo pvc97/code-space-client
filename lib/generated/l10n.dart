@@ -1379,6 +1379,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Correct`
+  String get correct {
+    return Intl.message(
+      'Correct',
+      name: 'correct',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

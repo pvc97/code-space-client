@@ -104,27 +104,12 @@ class ProblemHistoryViewState extends State<ProblemHistoryView> {
                   }
 
                   final history = histories[index];
-                  // return Card(
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.all(Sizes.s8),
-                  //     child: Row(
-                  //       children: [
-                  //         Expanded(
-                  //           child: Text(
-                  //             history.createdAt.toLocal().toString(),
-                  //             style: AppTextStyle.textStyle18,
-                  //           ),
-                  //         ),
-                  //         if (history.completed)
-                  //           const Icon(
-                  //             Bootstrap.check2_circle,
-                  //             color: AppColor.primaryColor,
-                  //           )
-                  //       ],
-                  //     ),
-                  //   ),
-                  // );
-                  return HistoryItemWidget(history: history);
+                  return HistoryItemWidget(
+                    history: history,
+                    courseId: widget.courseId,
+                    problemId: widget.problemId,
+                    me: widget.me,
+                  );
                 },
               );
             },
