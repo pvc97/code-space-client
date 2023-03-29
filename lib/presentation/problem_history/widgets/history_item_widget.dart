@@ -89,7 +89,7 @@ class _HistoryItemWidgetState extends State<HistoryItemWidget>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    widget.history.createdAt.hhmmddMMyyyy,
+                    widget.history.createdAt.toLocal().hhmmddMMyyyy,
                     style: AppTextStyle.textStyle18.copyWith(
                       fontWeight: FontWeight.w500,
                     ),
