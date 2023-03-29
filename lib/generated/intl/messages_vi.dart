@@ -57,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Xác nhận mật khẩu mới"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Xác nhận mật khẩu"),
+        "correct": MessageLookupByLibrary.simpleMessage("Đúng"),
         "course": MessageLookupByLibrary.simpleMessage("Lớp học"),
         "course_code": MessageLookupByLibrary.simpleMessage("Mã lớp học"),
         "course_code_cannot_be_empty": MessageLookupByLibrary.simpleMessage(
@@ -146,6 +147,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Không tìm thấy bài tập"),
         "no_ranking_yet":
             MessageLookupByLibrary.simpleMessage("Chưa có xếp hạng"),
+        "no_submission_history_yet":
+            MessageLookupByLibrary.simpleMessage("Chưa có lịch sử chấm bài"),
         "ok": MessageLookupByLibrary.simpleMessage("Đồng ý"),
         "password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
         "password_cannot_be_empty": MessageLookupByLibrary.simpleMessage(

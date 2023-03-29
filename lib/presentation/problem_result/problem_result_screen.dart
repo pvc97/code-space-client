@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 class ProblemResultScreen extends StatefulWidget {
   final String submitId;
@@ -96,7 +97,9 @@ class _ProblemResultScreenState extends State<ProblemResultScreen> {
                                         overflow: TextOverflow.visible,
                                       ),
                                     ),
-                                    const Divider(color: AppColor.primaryColor),
+                                    Divider(
+                                      color: AppColor.grey.shade300,
+                                    ),
                                   ],
                                 ),
                                 subtitle: Column(
@@ -123,8 +126,9 @@ class _ProblemResultScreenState extends State<ProblemResultScreen> {
                                             overflow: TextOverflow.visible,
                                           ),
                                         ),
-                                        const Divider(
-                                            color: AppColor.primaryColor),
+                                        Divider(
+                                          color: AppColor.grey.shade300,
+                                        ),
                                         Text(
                                           S.of(context).actual_output,
                                           style:
@@ -146,11 +150,11 @@ class _ProblemResultScreenState extends State<ProblemResultScreen> {
                                 ),
                                 trailing: Icon(
                                   result.correct
-                                      ? Icons.check_circle
-                                      : Icons.cancel,
+                                      ? Bootstrap.check2_circle
+                                      : Bootstrap.x_circle,
                                   color: result.correct
-                                      ? Colors.green
-                                      : Colors.red,
+                                      ? AppColor.primaryColor
+                                      : AppColor.red,
                                 ),
                               ),
                             );

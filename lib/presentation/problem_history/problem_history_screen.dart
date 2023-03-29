@@ -1,11 +1,8 @@
-import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
-import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
+import 'package:code_space_client/blocs/problem_history/problem_history_cubit.dart';
+import 'package:code_space_client/injection_container.dart';
+import 'package:code_space_client/presentation/problem_history/problem_history_view.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-import 'package:code_space_client/constants/app_sizes.dart';
-import 'package:code_space_client/generated/l10n.dart';
-import 'package:code_space_client/router/app_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProblemHistoryScreen extends StatelessWidget {
   final String problemId;
@@ -21,35 +18,12 @@ class ProblemHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
-      appBar: AdaptiveAppBar(
-        context: context,
-        title: Text(S.of(context).problem_history),
-      ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(Sizes.s20),
-        itemCount: 20,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              context.goNamed(
-                AppRoute.problemResult.name,
-                params: {
-                  'courseId': courseId,
-                  'problemId': problemId,
-                  'submitId': '123',
-                },
-                queryParams: me ? {'me': 'true'} : {},
-              );
-            },
-            child: Card(
-              child: ListTile(
-                title: const Text('dd/MM/yyyy hh:mm:ss'),
-                trailing: Text('${S.of(context).total_point} 100'),
-              ),
-            ),
-          );
-        },
+    return BlocProvider<ProblemHistoryCubit>(
+      create: (context) => sl(),
+      child: ProblemHistoryView(
+        problemId: problemId,
+        courseId: courseId,
+        me: me,
       ),
     );
   }

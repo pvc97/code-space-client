@@ -3,6 +3,7 @@ import 'package:code_space_client/constants/status_code_constants.dart';
 import 'package:code_space_client/constants/url_constants.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/models/problem_detail_model.dart';
+import 'package:code_space_client/models/problem_history_model.dart';
 import 'package:code_space_client/models/test_case_model.dart';
 import 'package:dio/dio.dart';
 
@@ -30,6 +31,12 @@ abstract class ProblemService {
     Iterable<TestCaseModel>? testCases,
     MultipartFile? file,
     // When update pdf file, I can choose delete all submission or not
+  });
+
+  Future<List<ProblemHistoryModel>> getProblemHistories({
+    required String problemId,
+    required int page,
+    required int limit,
   });
 }
 
@@ -129,5 +136,24 @@ class ProblemServiceImpl implements ProblemService {
       params: formData,
     );
     return ProblemDetailModel.fromJson(response?.data['data']);
+  }
+
+  @override
+  Future<List<ProblemHistoryModel>> getProblemHistories({
+    required String problemId,
+    required int page,
+    required int limit,
+  }) async {
+    final response = await apiProvider.get(
+      '${UrlConstants.problems}/$problemId/history',
+      queryParameters: {
+        'page': page,
+        'limit': limit,
+      },
+    );
+
+    return (response?.data['data'] as List)
+        .map((e) => ProblemHistoryModel.fromJson(e))
+        .toList();
   }
 }

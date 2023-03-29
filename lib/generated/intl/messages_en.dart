@@ -57,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirm new password"),
         "confirm_password":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
+        "correct": MessageLookupByLibrary.simpleMessage("Correct"),
         "course": MessageLookupByLibrary.simpleMessage("Course"),
         "course_code": MessageLookupByLibrary.simpleMessage("Course code"),
         "course_code_cannot_be_empty":
@@ -148,6 +149,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No problems found"),
         "no_ranking_yet":
             MessageLookupByLibrary.simpleMessage("No ranking yet"),
+        "no_submission_history_yet":
+            MessageLookupByLibrary.simpleMessage("No submission history yet"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_cannot_be_empty":
