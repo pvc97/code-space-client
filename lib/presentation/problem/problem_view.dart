@@ -167,21 +167,23 @@ class _ProblemViewState extends State<ProblemView> {
             },
           ),
           centerTitle: true,
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.history),
-              onPressed: () {
-                context.goNamed(
-                  AppRoute.problemHistory.name,
-                  params: {
-                    'courseId': widget.courseId,
-                    'problemId': widget.problemId,
-                  },
-                  queryParams: widget.me ? {'me': 'true'} : {},
-                );
-              },
-            ),
-          ],
+          actions: !user.isManager
+              ? [
+                  IconButton(
+                    icon: const Icon(Icons.history),
+                    onPressed: () {
+                      context.goNamed(
+                        AppRoute.problemHistory.name,
+                        params: {
+                          'courseId': widget.courseId,
+                          'problemId': widget.problemId,
+                        },
+                        queryParams: widget.me ? {'me': 'true'} : {},
+                      );
+                    },
+                  ),
+                ]
+              : null,
         ),
         body: LayoutBuilder(
           builder: (context, constraints) {
