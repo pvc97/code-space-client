@@ -113,3 +113,14 @@ class ProblemSolvedEvent extends CourseDetailEvent {
   @override
   List<Object> get props => [problemId];
 }
+
+class UpdateProblemSuccessEvent extends CourseDetailEvent {
+  final ProblemModel problem;
+
+  const UpdateProblemSuccessEvent({
+    required this.problem,
+  });
+
+  @override
+  List<Object> get props => [problem];
+}

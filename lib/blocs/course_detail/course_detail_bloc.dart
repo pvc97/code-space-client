@@ -44,6 +44,7 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
     on<CourseDetailLeaveCourseEvent>(_onLeaveCourse);
     on<CourseDetailDeleteProblemEvent>(_onDeleteCourse);
     on<ProblemSolvedEvent>(_onProblemSolved);
+    on<UpdateProblemSuccessEvent>(_onUpdateProblemSuccess);
 
     _registerToEventBus();
   }
@@ -57,6 +58,11 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
     _subscriptions.add(
       eventBus.on<ProblemSolvedEvent>().listen((event) {
         add(ProblemSolvedEvent(problemId: event.problemId));
+      }),
+    );
+    _subscriptions.add(
+      eventBus.on<UpdateProblemSuccessEvent>().listen((event) {
+        add(UpdateProblemSuccessEvent(problem: event.problem));
       }),
     );
   }
@@ -346,6 +352,20 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
     final problems = state.problems.map((problem) {
       if (problem.id == event.problemId) {
         return problem.copyWith(completed: true);
+      }
+      return problem;
+    }).toList();
+
+    emit(state.copyWith(problems: problems));
+  }
+
+  void _onUpdateProblemSuccess(
+    UpdateProblemSuccessEvent event,
+    Emitter<CourseDetailState> emit,
+  ) {
+    final problems = state.problems.map((problem) {
+      if (problem.id == event.problem.id) {
+        return event.problem;
       }
       return problem;
     }).toList();
