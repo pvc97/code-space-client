@@ -44,13 +44,14 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
             : Row(
                 children: [
                   NavigationRail(
-                    // TODO: Bug about wrong highlight, see:
                     // https://github.com/flutter/flutter/issues/117126
                     // From this issue, flutter team said it fixed, but it's not
                     elevation: Sizes.s4,
                     backgroundColor: AppColor.primaryColor.shade50,
                     selectedIndex: _calculateSelectedIndex(context),
                     labelType: NavigationRailLabelType.all,
+                    minWidth: Sizes
+                        .s112, // To fix above issue, I have to set minWidth
                     onDestinationSelected: (int idx) =>
                         _onItemTapped(idx, context, user?.roleType),
                     trailing: Expanded(
