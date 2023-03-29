@@ -1,3 +1,5 @@
+import 'package:code_space_client/blocs/course_detail/course_detail_bloc.dart';
+import 'package:code_space_client/utils/event_bus/app_event.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -100,7 +102,7 @@ class UpdateProblemCubit extends Cubit<UpdateProblemState> {
     try {
       emit(state.copyWith(updateStatus: StateStatus.loading));
 
-      await problemRepository.updateProblem(
+      final problem = await problemRepository.updateProblem(
         problemId: problemId,
         courseId: courseId,
         name: newName,
@@ -111,9 +113,9 @@ class UpdateProblemCubit extends Cubit<UpdateProblemState> {
         testCases: newTestCases,
       );
 
-      // TODO: Use event bus to update previous page
-
       emit(state.copyWith(updateStatus: StateStatus.success));
+
+      eventBus.fire(UpdateProblemSuccessEvent(problem: problem));
     } on AppException catch (e) {
       emit(
         state.copyWith(

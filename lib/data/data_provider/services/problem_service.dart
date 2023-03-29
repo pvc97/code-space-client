@@ -4,6 +4,7 @@ import 'package:code_space_client/constants/url_constants.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/models/problem_detail_model.dart';
 import 'package:code_space_client/models/problem_history_model.dart';
+import 'package:code_space_client/models/problem_model.dart';
 import 'package:code_space_client/models/test_case_model.dart';
 import 'package:dio/dio.dart';
 
@@ -21,7 +22,7 @@ abstract class ProblemService {
 
   Future<bool> deleteProblem({required String problemId});
 
-  Future<ProblemDetailModel> updateProblem({
+  Future<ProblemModel> updateProblem({
     required String problemId,
     required String courseId,
     required bool pdfDeleteSubmission,
@@ -94,7 +95,7 @@ class ProblemServiceImpl implements ProblemService {
   }
 
   @override
-  Future<ProblemDetailModel> updateProblem({
+  Future<ProblemModel> updateProblem({
     required String problemId,
     required String courseId,
     required bool pdfDeleteSubmission,
@@ -135,7 +136,7 @@ class ProblemServiceImpl implements ProblemService {
       '${UrlConstants.problems}/$problemId',
       params: formData,
     );
-    return ProblemDetailModel.fromJson(response?.data['data']);
+    return ProblemModel.fromJson(response?.data['data']);
   }
 
   @override
