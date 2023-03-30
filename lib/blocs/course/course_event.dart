@@ -59,4 +59,13 @@ class UpdateCourseSuccessEvent extends CourseEvent {
   List<Object> get props => [course];
 }
 
-class CreateCourseSuccessEvent extends CourseEvent {}
+class CreateCourseSuccessEvent extends CourseEvent {
+  final CourseModel course;
+
+  const CreateCourseSuccessEvent({
+    required this.course,
+  });
+
+  @override
+  List<Object> get props => [course];
+}
