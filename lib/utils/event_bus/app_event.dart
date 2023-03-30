@@ -4,12 +4,6 @@ import 'package:code_space_client/models/user_model.dart';
 
 EventBus eventBus = EventBus();
 
-class CreateProblemSuccessEvent {
-  final String courseId;
-
-  CreateProblemSuccessEvent({required this.courseId});
-}
-
 class CreateAccountSuccessEvent {
   final UserModel user;
 

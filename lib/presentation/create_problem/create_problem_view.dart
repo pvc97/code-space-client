@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:go_router/go_router.dart';
 import 'package:code_space_client/blocs/create_problem/create_problem_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
@@ -19,7 +18,6 @@ import 'package:code_space_client/presentation/common_widgets/app_elevated_butto
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/presentation/common_widgets/search_dropdown_button.dart';
 import 'package:code_space_client/presentation/create_problem/widgets/test_case_dialog.dart';
-import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 
 class CreateProblemView extends StatefulWidget {
@@ -126,25 +124,25 @@ class _CreateProblemViewState extends State<CreateProblemView> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        const BlocListener<CreateProblemCubit, CreateProblemState>(
+        BlocListener<CreateProblemCubit, CreateProblemState>(
+          listenWhen: (previous, current) =>
+              previous.stateStatus != current.stateStatus,
           listener: stateStatusListener,
         ),
         BlocListener<CreateProblemCubit, CreateProblemState>(
           listenWhen: (previous, current) =>
-              previous.problemId != current.problemId,
-          listener: (context, state) {
-            final problemId = state.problemId;
-            if (problemId != null) {
-              // When problem is created and navigate to problem detail page
-              context.goNamed(
-                AppRoute.problem.name,
-                params: {
-                  'courseId': widget.courseId,
-                  'problemId': problemId,
-                },
-                queryParams: widget.me ? {'me': 'true'} : {},
-              );
-            }
+              previous.createProblemStatus != current.createProblemStatus,
+          listener: (ctx, state) {
+            stateStatusListener(
+              ctx,
+              state,
+              onSuccess: () {
+                EasyLoading.showInfo(
+                  S.of(context).problem_created_successfully,
+                  dismissOnTap: true,
+                );
+              },
+            );
           },
         ),
       ],

@@ -63,7 +63,7 @@ class CreateCourseCubit extends Cubit<CreateCourseState> {
       emit(
         state.copyWith(
           error: e,
-          stateStatus: StateStatus.error,
+          createCourseStatus: StateStatus.error,
         ),
       );
     }

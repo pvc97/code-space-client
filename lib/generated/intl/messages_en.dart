@@ -170,6 +170,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "point_per_test_case":
             MessageLookupByLibrary.simpleMessage("Point per test case"),
         "points": MessageLookupByLibrary.simpleMessage("Points"),
+        "problem_created_successfully": MessageLookupByLibrary.simpleMessage(
+            "Problem created successfully"),
         "problem_history":
             MessageLookupByLibrary.simpleMessage("Submission history"),
         "problem_name": MessageLookupByLibrary.simpleMessage("Problem name"),
