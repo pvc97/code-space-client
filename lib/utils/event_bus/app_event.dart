@@ -10,7 +10,13 @@ class CreateProblemSuccessEvent {
   CreateProblemSuccessEvent({required this.courseId});
 }
 
-class CreateAccountSuccessEvent {}
+class CreateAccountSuccessEvent {
+  final UserModel user;
+
+  CreateAccountSuccessEvent({
+    required this.user,
+  });
+}
 
 class UpdateAccountSuccessEvent {
   final UserModel user;

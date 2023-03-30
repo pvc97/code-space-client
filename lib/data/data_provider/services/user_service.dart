@@ -19,7 +19,7 @@ abstract class UserService {
     required int page,
     required int limit,
   });
-  Future<String> createUser({
+  Future<UserModel> createUser({
     required String username,
     required String fullName,
     required String email,
@@ -126,7 +126,7 @@ class UserServiceImpl implements UserService {
   }
 
   @override
-  Future<String> createUser({
+  Future<UserModel> createUser({
     required String username,
     required String fullName,
     required String email,
@@ -143,7 +143,7 @@ class UserServiceImpl implements UserService {
         'roleType': role,
       },
     );
-    return response?.data['data']['id'];
+    return UserModel.fromJson(response?.data['data']);
   }
 
   @override
