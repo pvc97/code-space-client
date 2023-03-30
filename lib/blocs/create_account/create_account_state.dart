@@ -1,10 +1,7 @@
 part of 'create_account_cubit.dart';
 
 class CreateAccountState extends BaseState {
-  final String? userId;
-
   const CreateAccountState({
-    this.userId,
     required super.stateStatus,
     super.error,
   });
@@ -12,7 +9,6 @@ class CreateAccountState extends BaseState {
   factory CreateAccountState.initial() {
     return const CreateAccountState(
       stateStatus: StateStatus.initial,
-      userId: null,
     );
   }
 
@@ -22,12 +18,11 @@ class CreateAccountState extends BaseState {
     AppException? error,
   }) {
     return CreateAccountState(
-      userId: userId ?? this.userId,
       stateStatus: stateStatus ?? this.stateStatus,
       error: error ?? this.error,
     );
   }
 
   @override
-  List<Object?> get props => [userId, stateStatus, error];
+  List<Object?> get props => [stateStatus, error];
 }

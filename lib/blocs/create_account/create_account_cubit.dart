@@ -31,7 +31,7 @@ class CreateAccountCubit extends Cubit<CreateAccountState> {
     try {
       emit(state.copyWith(stateStatus: StateStatus.loading));
 
-      final userId = await userRepository.createUser(
+      final user = await userRepository.createUser(
         username: username,
         fullName: fullName,
         email: email,
@@ -39,13 +39,10 @@ class CreateAccountCubit extends Cubit<CreateAccountState> {
         role: role,
       );
 
-      emit(state.copyWith(
-        stateStatus: StateStatus.success,
-        userId: userId,
-      ));
+      emit(state.copyWith(stateStatus: StateStatus.success));
 
       // When problem is created successfully, fire an event to update the problem list
-      eventBus.fire(CreateAccountSuccessEvent());
+      eventBus.fire(CreateAccountSuccessEvent(user: user));
     } on AppException catch (e) {
       emit(
         state.copyWith(

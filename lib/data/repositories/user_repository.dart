@@ -12,7 +12,7 @@ abstract class UserRepository {
     required int page,
     required int limit,
   });
-  Future<String> createUser({
+  Future<UserModel> createUser({
     required String username,
     required String fullName,
     required String email,
@@ -93,7 +93,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<String> createUser({
+  Future<UserModel> createUser({
     required String username,
     required String fullName,
     required String email,
@@ -101,14 +101,14 @@ class UserRepositoryImpl implements UserRepository {
     required String role,
   }) async {
     try {
-      final userId = await userService.createUser(
+      final user = await userService.createUser(
         username: username,
         fullName: fullName,
         email: email,
         password: password,
         role: role,
       );
-      return userId;
+      return user;
     } catch (e) {
       throw ExceptionParser.parse(e);
     }

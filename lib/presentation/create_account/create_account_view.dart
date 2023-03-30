@@ -17,7 +17,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:go_router/go_router.dart';
 
 class CreateAccountView extends StatefulWidget {
   const CreateAccountView({super.key});
@@ -87,26 +86,31 @@ class _CreateAccountViewState extends State<CreateAccountView> {
     return MultiBlocListener(
       listeners: [
         BlocListener<CreateAccountCubit, CreateAccountState>(
-            listener: (ctx, state) {
-          stateStatusListener(
-            ctx,
-            state,
-            onSuccess: () {
-              EasyLoading.showInfo(S.of(context).account_created_successfully,
-                  dismissOnTap: true);
-            },
-          );
-        }),
-        BlocListener<CreateAccountCubit, CreateAccountState>(
-          listenWhen: (previous, current) => previous.userId != current.userId,
-          listener: (context, state) {
-            final userId = state.userId;
-            if (userId != null && context.canPop()) {
-              // TODO: Navigate to the user profile page
-              context.pop();
-            }
+          listenWhen: (previous, current) =>
+              previous.stateStatus != current.stateStatus,
+          listener: (ctx, state) {
+            stateStatusListener(
+              ctx,
+              state,
+              onSuccess: () {
+                EasyLoading.showInfo(
+                  S.of(context).account_created_successfully,
+                  dismissOnTap: true,
+                );
+              },
+            );
           },
         ),
+        // BlocListener<CreateAccountCubit, CreateAccountState>(
+        //   listenWhen: (previous, current) => previous.userId != current.userId,
+        //   listener: (context, state) {
+        //     final userId = state.userId;
+        //     if (userId != null && context.canPop()) {
+        //       // TODO: Navigate to the user profile page
+        //       context.pop();
+        //     }
+        //   },
+        // ),
       ],
       child: BaseScaffold(
         unfocusOnTap: true,

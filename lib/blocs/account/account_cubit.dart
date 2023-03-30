@@ -42,7 +42,7 @@ class AccountCubit extends Cubit<AccountState> {
   void _registerToEventBus() {
     _subscriptions.add(
       eventBus.on<CreateAccountSuccessEvent>().listen((event) {
-        refreshAccounts();
+        _onUpdateCreateSuccess(event.user);
       }),
     );
     _subscriptions.add(
@@ -205,6 +205,13 @@ class AccountCubit extends Cubit<AccountState> {
       }
       return account;
     }).toList();
+
+    emit(state.copyWith(accounts: accounts));
+  }
+
+  void _onUpdateCreateSuccess(UserModel newUser) {
+    final accounts = state.accounts;
+    accounts.insert(0, newUser);
 
     emit(state.copyWith(accounts: accounts));
   }
