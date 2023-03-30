@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 abstract class ProblemRepository {
   Future<ProblemDetailModel> getProblemDetail(String problemId);
 
-  Future<String> createProblem({
+  Future<ProblemModel> createProblem({
     required String name,
     required int pointPerTestCase,
     required String courseId,
@@ -56,7 +56,7 @@ class ProblemRepositoryImpl implements ProblemRepository {
   }
 
   @override
-  Future<String> createProblem({
+  Future<ProblemModel> createProblem({
     required String name,
     required int pointPerTestCase,
     required String courseId,
@@ -65,7 +65,7 @@ class ProblemRepositoryImpl implements ProblemRepository {
     required MultipartFile file,
   }) async {
     try {
-      final problemId = await problemService.createProblem(
+      final problem = await problemService.createProblem(
         name: name,
         pointPerTestCase: pointPerTestCase,
         courseId: courseId,
@@ -74,7 +74,7 @@ class ProblemRepositoryImpl implements ProblemRepository {
         file: file,
       );
 
-      return problemId;
+      return problem;
     } catch (e) {
       throw ExceptionParser.parse(e);
     }

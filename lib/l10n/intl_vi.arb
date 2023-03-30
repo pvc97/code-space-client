@@ -131,5 +131,6 @@
   "all_submission_will_be_deleted": "Tất cả các bài làm sẽ bị xóa!",
   "update_problem_successfully": "Cập nhật bài tập thành công",
   "no_submission_history_yet": "Chưa có lịch sử chấm bài",
-  "correct": "Đúng"
+  "correct": "Đúng",
+  "problem_created_successfully": "Tạo bài tập thành công"
 }

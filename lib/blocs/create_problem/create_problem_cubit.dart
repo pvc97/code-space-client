@@ -1,3 +1,4 @@
+import 'package:code_space_client/blocs/course_detail/course_detail_bloc.dart';
 import 'package:code_space_client/utils/event_bus/app_event.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,14 +70,14 @@ class CreateProblemCubit extends Cubit<CreateProblemState> {
     required int languageId,
   }) async {
     try {
-      emit(state.copyWith(stateStatus: StateStatus.loading));
+      emit(state.copyWith(createProblemStatus: StateStatus.loading));
 
       final pdfFile = state.pdfFile;
       if (pdfFile == null) {
         return;
       }
 
-      final problemId = await problemRepository.createProblem(
+      final problem = await problemRepository.createProblem(
         name: name,
         pointPerTestCase: pointPerTestCase,
         courseId: courseId,
@@ -85,18 +86,20 @@ class CreateProblemCubit extends Cubit<CreateProblemState> {
         file: pdfFile,
       );
 
-      emit(state.copyWith(
-        problemId: problemId,
-        stateStatus: StateStatus.success,
+      // Can not reuse multi-part file after it is sent to server
+      // So I need to reset the pdf file to null
+      // https://github.com/cfug/dio/issues/482
+      emit(state.copyWithDeleteMultipart(
+        createProblemStatus: StateStatus.success,
       ));
 
       // When problem is created successfully, fire an event to update the problem list
-      eventBus.fire(CreateProblemSuccessEvent(courseId: courseId));
+      eventBus.fire(CreateProblemSuccessEvent(problem: problem));
     } on AppException catch (e) {
       emit(
-        state.copyWith(
+        state.copyWithDeleteMultipart(
           error: e,
-          stateStatus: StateStatus.error,
+          createProblemStatus: StateStatus.error,
         ),
       );
     }

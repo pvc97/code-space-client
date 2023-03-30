@@ -1389,6 +1389,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Problem created successfully`
+  String get problem_created_successfully {
+    return Intl.message(
+      'Problem created successfully',
+      name: 'problem_created_successfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

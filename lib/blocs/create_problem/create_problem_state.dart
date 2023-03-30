@@ -3,15 +3,15 @@ part of 'create_problem_cubit.dart';
 class CreateProblemState extends BaseState {
   final Iterable<LanguageModel> languages;
   final Iterable<TestCaseModel> testCases;
-  final String? problemId;
   final MultipartFile? pdfFile;
   final bool selectingPdf;
+  final StateStatus createProblemStatus;
 
   const CreateProblemState({
     required this.languages,
     required this.testCases,
     required this.selectingPdf,
-    this.problemId,
+    required this.createProblemStatus,
     this.pdfFile,
     required super.stateStatus,
     super.error,
@@ -23,7 +23,7 @@ class CreateProblemState extends BaseState {
       languages: [],
       selectingPdf: false,
       stateStatus: StateStatus.initial,
-      problemId: null,
+      createProblemStatus: StateStatus.initial,
       pdfFile: null,
     );
   }
@@ -33,8 +33,8 @@ class CreateProblemState extends BaseState {
     Iterable<TestCaseModel>? testCases,
     StateStatus? stateStatus,
     bool? selectingPdf,
+    StateStatus? createProblemStatus,
     AppException? error,
-    String? problemId,
     MultipartFile? pdfFile,
   }) {
     return CreateProblemState(
@@ -42,9 +42,25 @@ class CreateProblemState extends BaseState {
       testCases: testCases ?? this.testCases,
       stateStatus: stateStatus ?? this.stateStatus,
       selectingPdf: selectingPdf ?? this.selectingPdf,
+      createProblemStatus: createProblemStatus ?? this.createProblemStatus,
       error: error ?? this.error,
-      problemId: problemId ?? this.problemId,
       pdfFile: pdfFile ?? this.pdfFile,
+    );
+  }
+
+  CreateProblemState copyWithDeleteMultipart({
+    StateStatus? createProblemStatus,
+    AppException? error,
+    MultipartFile? pdfFile,
+  }) {
+    return CreateProblemState(
+      languages: languages,
+      testCases: testCases,
+      stateStatus: stateStatus,
+      selectingPdf: selectingPdf,
+      createProblemStatus: createProblemStatus ?? this.createProblemStatus,
+      error: error ?? this.error,
+      pdfFile: pdfFile,
     );
   }
 
@@ -52,9 +68,9 @@ class CreateProblemState extends BaseState {
   List<Object?> get props => [
         languages,
         testCases,
-        problemId,
         pdfFile,
         selectingPdf,
+        createProblemStatus,
         stateStatus,
         error
       ];

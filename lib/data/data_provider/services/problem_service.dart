@@ -11,7 +11,7 @@ import 'package:dio/dio.dart';
 abstract class ProblemService {
   Future<ProblemDetailModel> getProblemDetail(String problemId);
 
-  Future<String> createProblem({
+  Future<ProblemModel> createProblem({
     required String name,
     required int pointPerTestCase,
     required String courseId,
@@ -55,7 +55,7 @@ class ProblemServiceImpl implements ProblemService {
   }
 
   @override
-  Future<String> createProblem({
+  Future<ProblemModel> createProblem({
     required String name,
     required int pointPerTestCase,
     required String courseId,
@@ -74,11 +74,10 @@ class ProblemServiceImpl implements ProblemService {
       },
     );
 
-    final response = await apiProvider.post(
-      UrlConstants.problems,
-      params: formData,
-    );
-    return response?.data['data']['id'];
+    final response =
+        await apiProvider.post(UrlConstants.problems, params: formData);
+
+    return ProblemModel.fromJson(response?.data['data']);
   }
 
   /// Teacher delete problem
