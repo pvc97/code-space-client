@@ -32,6 +32,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
     on<RefreshCoursesEvent>(_onRefreshCourses);
     on<DeleteCourseEvent>(_onDeleteCourse);
     on<UpdateCourseSuccessEvent>(_onUpdateCourseSuccess);
+    on<CreateCourseSuccessEvent>(_onCreateCourseSuccess);
 
     _registerToEventBus();
   }
@@ -55,7 +56,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
     );
     _subscriptions.add(
       eventBus.on<CreateCourseSuccessEvent>().listen((event) {
-        add(RefreshCoursesEvent());
+        add(CreateCourseSuccessEvent(course: event.course));
       }),
     );
   }
@@ -210,6 +211,16 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
 
       return c;
     }).toList();
+
+    emit(state.copyWith(courses: courses));
+  }
+
+  void _onCreateCourseSuccess(
+    CreateCourseSuccessEvent event,
+    Emitter<CourseState> emit,
+  ) {
+    final courses = state.courses;
+    courses.insert(0, event.course);
 
     emit(state.copyWith(courses: courses));
   }

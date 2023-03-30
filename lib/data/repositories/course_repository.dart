@@ -30,7 +30,7 @@ abstract class CourseRepository {
     required String courseId,
   });
 
-  Future<String> createCourse({
+  Future<CourseModel> createCourse({
     required String name,
     required String code,
     required String accessCode,
@@ -139,20 +139,20 @@ class CourseRepositoryImpl implements CourseRepository {
   }
 
   @override
-  Future<String> createCourse({
+  Future<CourseModel> createCourse({
     required String name,
     required String code,
     required String accessCode,
     required String teacherId,
   }) async {
     try {
-      final response = await courseService.createCourse(
+      final course = await courseService.createCourse(
         name: name,
         code: code,
         accessCode: accessCode,
         teacherId: teacherId,
       );
-      return response;
+      return course;
     } catch (e) {
       throw ExceptionParser.parse(e);
     }

@@ -8,12 +8,10 @@ import 'package:code_space_client/presentation/common_widgets/app_elevated_butto
 import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/presentation/common_widgets/search_dropdown_button.dart';
-import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:go_router/go_router.dart';
 
 class CreateCourseView extends StatefulWidget {
   const CreateCourseView({super.key});
@@ -72,21 +70,25 @@ class CreateCourseViewState extends State<CreateCourseView> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        const BlocListener<CreateCourseCubit, CreateCourseState>(
+        BlocListener<CreateCourseCubit, CreateCourseState>(
+          listenWhen: (previous, current) =>
+              previous.stateStatus != current.stateStatus,
           listener: stateStatusListener,
         ),
         BlocListener<CreateCourseCubit, CreateCourseState>(
           listenWhen: (previous, current) =>
-              previous.courseId != current.courseId,
-          listener: (context, state) {
-            final courseId = state.courseId;
-            if (courseId != null) {
-              context.goNamed(
-                AppRoute.courseDetail.name,
-                params: {'courseId': courseId},
-                queryParams: {'me': 'false'},
-              );
-            }
+              previous.createCourseStatus != current.createCourseStatus,
+          listener: (ctx, state) {
+            stateStatusListener(
+              ctx,
+              state,
+              onSuccess: () {
+                EasyLoading.showInfo(
+                  S.of(context).course_created_successfully,
+                  dismissOnTap: true,
+                );
+              },
+            );
           },
         ),
       ],

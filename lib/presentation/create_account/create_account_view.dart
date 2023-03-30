@@ -101,16 +101,6 @@ class _CreateAccountViewState extends State<CreateAccountView> {
             );
           },
         ),
-        // BlocListener<CreateAccountCubit, CreateAccountState>(
-        //   listenWhen: (previous, current) => previous.userId != current.userId,
-        //   listener: (context, state) {
-        //     final userId = state.userId;
-        //     if (userId != null && context.canPop()) {
-        //       // TODO: Navigate to the user profile page
-        //       context.pop();
-        //     }
-        //   },
-        // ),
       ],
       child: BaseScaffold(
         unfocusOnTap: true,

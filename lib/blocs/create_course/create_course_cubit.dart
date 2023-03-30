@@ -45,10 +45,10 @@ class CreateCourseCubit extends Cubit<CreateCourseState> {
   }) async {
     try {
       emit(state.copyWith(
-        stateStatus: StateStatus.loading,
+        createCourseStatus: StateStatus.loading,
       ));
 
-      final courseId = await courseRepository.createCourse(
+      final course = await courseRepository.createCourse(
         name: name,
         code: code,
         accessCode: accessCode,
@@ -56,10 +56,9 @@ class CreateCourseCubit extends Cubit<CreateCourseState> {
       );
 
       emit(state.copyWith(
-        stateStatus: StateStatus.success,
-        courseId: courseId,
+        createCourseStatus: StateStatus.success,
       ));
-      eventBus.fire(CreateCourseSuccessEvent());
+      eventBus.fire(CreateCourseSuccessEvent(course: course));
     } on AppException catch (e) {
       emit(
         state.copyWith(

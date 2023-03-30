@@ -31,7 +31,7 @@ abstract class CourseService {
     required String courseId,
   });
 
-  Future<String> createCourse({
+  Future<CourseModel> createCourse({
     required String name,
     required String code,
     required String accessCode,
@@ -134,7 +134,7 @@ class CourseServiceImpl implements CourseService {
   }
 
   @override
-  Future<String> createCourse({
+  Future<CourseModel> createCourse({
     required String name,
     required String code,
     required String accessCode,
@@ -149,7 +149,7 @@ class CourseServiceImpl implements CourseService {
         'teacherId': teacherId,
       },
     );
-    return response?.data['data']['id'];
+    return CourseModel.fromJson(response?.data['data']);
   }
 
   @override
