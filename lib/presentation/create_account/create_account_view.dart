@@ -1,14 +1,17 @@
 import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/blocs/create_account/create_account_cubit.dart';
+import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/constants/app_text_style.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/models/role_type.dart';
+import 'package:code_space_client/models/user_model.dart';
 import 'package:code_space_client/presentation/common_widgets/adaptive_app_bar.dart';
 import 'package:code_space_client/presentation/common_widgets/app_elevated_button.dart';
 import 'package:code_space_client/presentation/common_widgets/base_scaffold.dart';
 import 'package:code_space_client/presentation/common_widgets/box.dart';
 import 'package:code_space_client/utils/extensions/string_ext.dart';
+import 'package:code_space_client/utils/extensions/user_model_ext.dart';
 import 'package:code_space_client/utils/state_status_listener.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -56,8 +59,31 @@ class _CreateAccountViewState extends State<CreateAccountView> {
         );
   }
 
+  List<DropdownMenuItem<String>> _getDropdownMenuItem(UserModel? user) {
+    final userIsAdmin = user.isAdmin;
+    final roles = userIsAdmin
+        ? RoleType.values
+        : RoleType.values.where((role) => role != RoleType.manager);
+
+    return roles.map((role) {
+      return DropdownMenuItem<String>(
+        value: role.name,
+        child: Text(
+          role.getName(context),
+          style: AppTextStyle.defaultFont,
+        ),
+      );
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final user = context.select((UserCubit cubit) => cubit.state.user);
+
+    if (!user.isManager) {
+      return Box.shrink;
+    }
+
     return MultiBlocListener(
       listeners: [
         BlocListener<CreateAccountCubit, CreateAccountState>(
@@ -207,15 +233,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                           S.of(context).select_role,
                           style: AppTextStyle.defaultFont,
                         ),
-                        items: RoleType.values.map((role) {
-                          return DropdownMenuItem<String>(
-                            value: role.name,
-                            child: Text(
-                              role.getName(context),
-                              style: AppTextStyle.defaultFont,
-                            ),
-                          );
-                        }).toList(),
+                        items: _getDropdownMenuItem(user),
                         validator: (value) {
                           if (value == null) {
                             return S.of(context).please_select_role;
