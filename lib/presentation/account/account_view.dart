@@ -191,6 +191,7 @@ class AccountViewState extends State<AccountView> {
 
                           final account = accounts[index];
                           return AccountItemWidget(
+                            user: user,
                             account: account,
                             key: ValueKey(account.userId),
                             onDelete: () {
