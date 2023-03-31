@@ -22,7 +22,7 @@ abstract class AppConfigManager {
     // User local host for web and desktop development
     // Check Platform.something cause runtime error on web, so check kIsWeb first
     if (kIsWeb || Platform.isWindows) {
-      environmentType = EnvironmentType.devLocal;
+      environmentType = EnvironmentType.devWindowWeb;
     }
 
     await dotenv.load(fileName: environmentType.dotenvFilePath);
