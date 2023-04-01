@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:code_space_client/constants/app_images.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:code_space_client/configs/env_config_manager.dart';
 import 'package:code_space_client/configs/environment_type.dart';
@@ -18,12 +15,12 @@ abstract class AppConfigManager {
   static Future<void> init(
       {required EnvironmentType environmentType,
       required WidgetsBinding binding}) async {
-    // TODO: Remove this if statement when deploying to web
-    // User local host for web and desktop development
-    // Check Platform.something cause runtime error on web, so check kIsWeb first
-    if (kIsWeb || Platform.isWindows) {
-      environmentType = EnvironmentType.devWindowWeb;
-    }
+    // // TODO: Remove this if statement when deploying to web
+    // // User local host for web and desktop development
+    // // Check Platform.something cause runtime error on web, so check kIsWeb first
+    // if (kIsWeb || Platform.isWindows) {
+    //   environmentType = EnvironmentType.devWindowWeb;
+    // }
 
     await dotenv.load(fileName: environmentType.dotenvFilePath);
 
