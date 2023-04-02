@@ -149,17 +149,25 @@ class _CourseDetailViewState extends State<CourseDetailView> {
                 );
               },
             ),
-            if (user.isTeacher)
-              IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: () {
-                  context.goNamed(
-                    AppRoute.createProblem.name,
-                    params: {'courseId': widget.courseId},
-                    queryParams: widget.me ? {'me': 'true'} : {},
-                  );
-                },
-              ),
+            BlocSelector<CourseDetailBloc, CourseDetailState, CourseModel?>(
+              selector: (state) {
+                return state.course;
+              },
+              builder: (context, course) {
+                return (user.isTeacher && course?.teacher.id == user?.userId)
+                    ? IconButton(
+                        icon: const Icon(Icons.add),
+                        onPressed: () {
+                          context.goNamed(
+                            AppRoute.createProblem.name,
+                            params: {'courseId': widget.courseId},
+                            queryParams: widget.me ? {'me': 'true'} : {},
+                          );
+                        },
+                      )
+                    : Box.shrink;
+              },
+            ),
           ],
         ),
         body: BlocSelector<CourseDetailBloc, CourseDetailState, bool>(
