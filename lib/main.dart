@@ -57,7 +57,7 @@ void main() async {
 
   await Di.init();
   await AppConfigManager.init(
-    environmentType: EnvironmentType.prod,
+    environmentType: EnvironmentType.devWindowWeb,
     binding: binding,
   );
 
