@@ -1,5 +1,6 @@
 // ignore_for_file: library_prefixes
 
+import 'package:code_space_client/blocs/base/base_state.dart';
 import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/configs/env_config_manager.dart';
 import 'package:code_space_client/constants/app_constants.dart';
@@ -232,15 +233,25 @@ class _ProblemViewState extends State<ProblemView> {
                 builder: (context, state) {
                   if (state == ProblemTab.code ||
                       screenWidth > AppConstants.maxMobileWidth) {
-                    return FloatingActionButton(
-                      onPressed: () {
-                        final sourceCode = _codeController.text;
-                        final problemId = widget.problemId;
+                    return BlocBuilder<ProblemCubit, ProblemState>(
+                      buildWhen: (previous, current) =>
+                          previous.stateStatus != current.stateStatus,
+                      builder: (context, state) {
+                        return FloatingActionButton(
+                          onPressed: state.stateStatus == StateStatus.loading
+                              ? null
+                              : () {
+                                  final sourceCode = _codeController.text;
+                                  final problemId = widget.problemId;
 
-                        context.read<ProblemCubit>().submitCode(
-                            sourceCode: sourceCode, problemId: problemId);
+                                  context.read<ProblemCubit>().submitCode(
+                                        sourceCode: sourceCode,
+                                        problemId: problemId,
+                                      );
+                                },
+                          child: const Icon(Icons.play_arrow),
+                        );
                       },
-                      child: const Icon(Icons.play_arrow),
                     );
                   }
 
