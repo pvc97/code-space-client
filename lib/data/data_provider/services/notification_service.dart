@@ -3,8 +3,7 @@ import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 abstract class NotificationService {
-  Future<String?> getFcmToken();
-  Future<bool> putFcmToken(String token);
+  Future<bool> updateFcmToken();
 }
 
 class NotificationServiceImpl implements NotificationService {
@@ -13,13 +12,15 @@ class NotificationServiceImpl implements NotificationService {
   NotificationServiceImpl({required this.apiProvider});
 
   @override
-  Future<String?> getFcmToken() => FirebaseMessaging.instance.getToken();
+  Future<bool> updateFcmToken() async {
+    final fcmToken = await FirebaseMessaging.instance.getToken();
 
-  @override
-  Future<bool> putFcmToken(String token) async {
-    final response = await apiProvider.put(UrlConstants.notifications, params: {
-      'fcmToken': token,
-    });
+    final response = await apiProvider.put(
+      UrlConstants.notifications,
+      params: {
+        'fcmToken': fcmToken,
+      },
+    );
     return response?.statusCode == 204;
   }
 }

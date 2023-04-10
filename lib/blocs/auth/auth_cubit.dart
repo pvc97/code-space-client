@@ -24,16 +24,15 @@ class AuthCubit extends Cubit<AuthState> {
         userName: username,
         password: password,
       );
+
       emit(state.copyWith(
         authStatus: AuthStatus.authenticated,
         stateStatus: StateStatus.success,
       ));
 
+      // Update FCM token after login success
       if (AppConstants.supportNotification) {
-        final fcmToken = await notificationRepository.getFcmToken();
-        if (fcmToken != null) {
-          await notificationRepository.putFcmToken(fcmToken);
-        }
+        await notificationRepository.updateFcmToken();
       }
     } on AppException catch (e) {
       emit(
