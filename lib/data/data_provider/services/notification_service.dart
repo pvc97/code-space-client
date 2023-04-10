@@ -15,6 +15,10 @@ class NotificationServiceImpl implements NotificationService {
   Future<bool> updateFcmToken() async {
     final fcmToken = await FirebaseMessaging.instance.getToken();
 
+    if (fcmToken == null) {
+      return false;
+    }
+
     final response = await apiProvider.put(
       UrlConstants.notifications,
       params: {

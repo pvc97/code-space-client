@@ -10,5 +10,12 @@ class NotificationRepositoryImpl implements NotificationRepository {
   NotificationRepositoryImpl({required this.notificationService});
 
   @override
-  Future<bool> updateFcmToken() => notificationService.updateFcmToken();
+  Future<bool> updateFcmToken() async {
+    try {
+      final success = notificationService.updateFcmToken();
+      return success;
+    } catch (e) {
+      throw false;
+    }
+  }
 }
