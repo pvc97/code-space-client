@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class AppConstants {
   AppConstants._();
 
@@ -6,4 +8,6 @@ class AppConstants {
   static const int searchDebounceDuration = 500; // milliseconds
 
   static const int maxMobileWidth = 600;
+
+  static final supportNotification = Platform.isAndroid;
 }

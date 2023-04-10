@@ -11,4 +11,5 @@ class UrlConstants {
   static const String problems = '/problems';
   static const String courses = '/courses';
   static const String languages = '/languages';
+  static const String notifications = '/notifications';
 }

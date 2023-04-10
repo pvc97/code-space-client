@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:code_space_client/blocs/auth/auth_cubit.dart';
 import 'package:code_space_client/blocs/base/simple_bloc_observer.dart';
 import 'package:code_space_client/configs/app_config_manager.dart';
@@ -7,6 +5,7 @@ import 'package:code_space_client/configs/environment_type.dart';
 import 'package:code_space_client/blocs/locale/locale_cubit.dart';
 import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_color.dart';
+import 'package:code_space_client/constants/app_constants.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/router/app_router.dart';
@@ -38,11 +37,11 @@ void main() async {
     Bloc.observer = SimpleBlocObserver();
   }
 
-  if (!kIsWeb && !Platform.isWindows) {
+  if (AppConstants.supportNotification) {
     await Firebase.initializeApp();
-    FirebaseMessaging.instance.getToken().then((token) {
-      logger.d('FCM Token: $token');
-    });
+    // FirebaseMessaging.instance.getToken().then((token) {
+    //   logger.d('FCM Token: $token');
+    // });
 
     FirebaseMessaging.instance.getInitialMessage().then((message) {
       logger.d('getInitialMessage: ${message?.data}');
@@ -57,7 +56,7 @@ void main() async {
 
   await Di.init();
   await AppConfigManager.init(
-    environmentType: EnvironmentType.devWindowWeb,
+    environmentType: EnvironmentType.dev,
     binding: binding,
   );
 
