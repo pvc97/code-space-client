@@ -5,14 +5,10 @@ import 'package:code_space_client/configs/environment_type.dart';
 import 'package:code_space_client/blocs/locale/locale_cubit.dart';
 import 'package:code_space_client/blocs/user/user_cubit.dart';
 import 'package:code_space_client/constants/app_color.dart';
-import 'package:code_space_client/constants/app_constants.dart';
 import 'package:code_space_client/constants/app_sizes.dart';
 import 'package:code_space_client/generated/l10n.dart';
 import 'package:code_space_client/router/app_router.dart';
 import 'package:code_space_client/injection_container.dart';
-import 'package:code_space_client/utils/logger/logger.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -37,23 +33,6 @@ void main() async {
     Bloc.observer = SimpleBlocObserver();
   }
 
-  if (AppConstants.supportNotification) {
-    await Firebase.initializeApp();
-    // FirebaseMessaging.instance.getToken().then((token) {
-    //   logger.d('FCM Token: $token');
-    // });
-
-    FirebaseMessaging.instance.getInitialMessage().then((message) {
-      logger.d('getInitialMessage: ${message?.data}');
-    });
-
-    FirebaseMessaging.onMessageOpenedApp.listen((message) {
-      logger.d('onMessageOpenedApp: ${message.data}');
-    });
-
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  }
-
   await Di.init();
   await AppConfigManager.init(
     environmentType: EnvironmentType.dev,
@@ -76,13 +55,6 @@ void main() async {
       child: const MyApp(),
     ),
   );
-}
-
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-  logger.d('Handling a background message ${message.data}');
 }
 
 class MyApp extends StatefulWidget {
