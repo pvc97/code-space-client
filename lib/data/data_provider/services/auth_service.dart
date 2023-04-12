@@ -7,6 +7,7 @@ import 'package:code_space_client/data/data_provider/local/local_storage_manager
 import 'package:code_space_client/models/token_model.dart';
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/models/user_model.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 abstract class AuthService {
@@ -70,8 +71,22 @@ class AuthServiceImpl implements AuthService {
   }
 
   @override
-  Future<void> logout() =>
-      localStorage.deleteAll(exceptKeys: SPrefKey.exceptKeys);
+  Future<void> logout() async {
+    final tokenModel = await getLocalToken();
+    final refreshToken = tokenModel?.refreshToken;
+
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+
+    await apiProvider.post(
+      UrlConstants.logout,
+      params: {
+        'refreshToken': refreshToken,
+        'fcmToken': fcmToken,
+      },
+    );
+
+    localStorage.deleteAll(exceptKeys: SPrefKey.exceptKeys);
+  }
 
   @override
   Future<void> saveUser(UserModel user) async {
