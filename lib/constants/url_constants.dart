@@ -3,6 +3,7 @@ class UrlConstants {
   static const String api = '/api/v1';
   static const String refreshToken = '/auth/refresh-token';
   static const String login = '/auth/login';
+  static const String logout = '/auth/logout';
   static const String register = '/auth/register';
   static const String users = '/users';
   static const String changePassword = '$users/change-password';
@@ -11,4 +12,5 @@ class UrlConstants {
   static const String problems = '/problems';
   static const String courses = '/courses';
   static const String languages = '/languages';
+  static const String notifications = '/notifications';
 }

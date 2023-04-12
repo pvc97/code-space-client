@@ -21,6 +21,7 @@ import 'package:code_space_client/data/data_provider/local/local_storage_manager
 import 'package:code_space_client/data/data_provider/network/api_provider.dart';
 import 'package:code_space_client/data/data_provider/network/intercepters/auth_intercepter.dart';
 import 'package:code_space_client/data/data_provider/services/course_service.dart';
+import 'package:code_space_client/data/data_provider/services/notification_service.dart';
 import 'package:code_space_client/data/data_provider/services/problem_language_service.dart';
 import 'package:code_space_client/data/data_provider/services/locale_service.dart';
 import 'package:code_space_client/data/data_provider/services/problem_service.dart';
@@ -29,6 +30,7 @@ import 'package:code_space_client/data/repositories/auth_repository.dart';
 import 'package:code_space_client/data/data_provider/services/auth_service.dart';
 import 'package:code_space_client/data/data_provider/services/user_service.dart';
 import 'package:code_space_client/data/repositories/course_repository.dart';
+import 'package:code_space_client/data/repositories/notification_repository.dart';
 import 'package:code_space_client/data/repositories/problem_language_repository.dart';
 import 'package:code_space_client/data/repositories/locale_repository.dart';
 import 'package:code_space_client/data/repositories/problem_repository.dart';
@@ -86,6 +88,14 @@ abstract class Di {
       },
     );
 
+    sl.registerLazySingleton<NotificationService>(
+      () => NotificationServiceImpl(apiProvider: sl()),
+    );
+
+    sl.registerLazySingleton<NotificationRepository>(
+      () => NotificationRepositoryImpl(notificationService: sl()),
+    );
+
     sl.registerLazySingleton<AuthService>(
       () => AuthServiceImpl(
         apiProvider: sl(),
@@ -97,7 +107,12 @@ abstract class Di {
       () => AuthRepositoryImpl(authService: sl()),
     );
 
-    sl.registerLazySingleton<AuthCubit>(() => AuthCubit(authRepository: sl()));
+    sl.registerLazySingleton<AuthCubit>(
+      () => AuthCubit(
+        authRepository: sl(),
+        notificationRepository: sl(),
+      ),
+    );
 
     sl.registerLazySingleton<UserService>(
       () => UserServiceImpl(
