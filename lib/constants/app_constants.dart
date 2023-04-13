@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+
 class AppConstants {
   AppConstants._();
 
@@ -9,5 +11,5 @@ class AppConstants {
 
   static const int maxMobileWidth = 600;
 
-  static final supportNotification = Platform.isAndroid;
+  static final supportNotification = !kIsWeb && Platform.isAndroid;
 }
