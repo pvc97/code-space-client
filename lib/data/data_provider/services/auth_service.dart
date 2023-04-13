@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:code_space_client/constants/app_constants.dart';
 import 'package:code_space_client/constants/spref_key.dart';
 import 'package:code_space_client/constants/status_code_constants.dart';
 import 'package:code_space_client/constants/url_constants.dart';
@@ -75,9 +76,12 @@ class AuthServiceImpl implements AuthService {
     final tokenModel = await getLocalToken();
     final refreshToken = tokenModel?.refreshToken;
 
-    final fcmToken = await FirebaseMessaging.instance.getToken();
+    final fcmToken = AppConstants.supportNotification
+        ? await FirebaseMessaging.instance.getToken()
+        : null;
 
-    await apiProvider.post(
+    // I don't need await here because I want user can logout right away
+    apiProvider.post(
       UrlConstants.logout,
       params: {
         'refreshToken': refreshToken,
